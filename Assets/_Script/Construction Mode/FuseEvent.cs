@@ -17,15 +17,16 @@ public class FuseEvent : MonoBehaviour {
 	private enum Fade {In, Out};
 	private float fadeTime = 5.0F;
 
-	public string mode;
-	public AudioSource source;
-	public AudioSource musicSource;
-	public AudioClip success;
-	public AudioClip failure;
-	public AudioClip victory;
-	private string fuseStatus;
+    public string mode;
+    public AudioSource source;
+    public AudioSource musicsource;
+    public AudioClip success;
+    public AudioClip failure;
+    public AudioClip music;
+    public AudioClip victorymusic;
+    private string fuseStatus;
 
-	public GameObject[] partButtons;
+    public GameObject[] partButtons;
 	public Button connectButton;
 	public GameObject rotateXButton;
 	public GameObject rotateYButton;
@@ -66,7 +67,9 @@ public class FuseEvent : MonoBehaviour {
 	{
 		// For data collection.
 		startLevelTimer();
-	}
+        musicsource.clip = music;
+        musicsource.Play();
+    }
 
 	void Awake ()
 	{
@@ -1059,13 +1062,13 @@ public class FuseEvent : MonoBehaviour {
 
 				claimItem.gameObject.SetActive(true);
 				congrats.enabled = true;
-                
-				musicSource.Stop();
-				mainCam.transform.position = new Vector3(-90,80,-3.36f);
-				mainCam.transform.rotation = Quaternion.Euler(new Vector3(15,0,0));
-				source.Play ();
-				StartCoroutine (FadeAudio (fadeTime, Fade.Out));
-			}
+
+                musicsource.clip = victorymusic;
+                mainCam.transform.position = new Vector3(-90, 80, -3.36f);
+                mainCam.transform.rotation = Quaternion.Euler(new Vector3(15, 0, 0));
+                musicsource.Play();
+                StartCoroutine(FadeAudio(fadeTime, Fade.Out));
+            }
 
 
 
@@ -1089,27 +1092,31 @@ public class FuseEvent : MonoBehaviour {
 		SimpleData.WriteDataPoint("Fuse_Attempt", selectedObject.transform.parent.name, data_failureType, "", "", data_fuseStatus);
 	}
 
-	IEnumerator errorWrongFace() {
-		fuseStatus="wrongFace";
-		numWrongFacesFails++;
-		errorPanelGroup.alpha = 1;
-		shapesWrong.enabled = true;
-		source.PlayOneShot (failure);
-		yield return new WaitForSeconds(1f);
-		shapesWrong.enabled=false;
-		errorPanelGroup.alpha = 0;
-	}
+    IEnumerator errorWrongFace()
+    {
+        fuseStatus = "wrongFace";
+        numWrongFacesFails++;
+        errorPanelGroup.alpha = 1;
+        shapesWrong.enabled = true;
+        source.clip = failure;
+        source.Play();
+        yield return new WaitForSeconds(1f);
+        shapesWrong.enabled = false;
+        errorPanelGroup.alpha = 0;
+    }
 
-	IEnumerator errorWrongRotation() {
-		fuseStatus="wrongRotation";
-		numWrongRotationFails++;
-		errorPanelGroup.alpha = 1;
-		rotationWrong.enabled = true;
-		source.PlayOneShot (failure);
-		yield return new WaitForSeconds(1f);
-		rotationWrong.enabled=false;
-		errorPanelGroup.alpha = 0;
-	}
+    IEnumerator errorWrongRotation()
+    {
+        fuseStatus = "wrongRotation";
+        numWrongRotationFails++;
+        errorPanelGroup.alpha = 1;
+        rotationWrong.enabled = true;
+        source.clip = failure;
+        source.Play();
+        yield return new WaitForSeconds(1f);
+        rotationWrong.enabled = false;
+        errorPanelGroup.alpha = 0;
+    }
 
 	private void playVictory() {
 		//CHANGE this if statement by adding an else if onto the end of it for your new level.
@@ -1324,7 +1331,7 @@ public class FuseEvent : MonoBehaviour {
 		
 		while (i <= 1.0F) {
 			i += step * Time.deltaTime;
-			source.volume = Mathf.Lerp(start, end, i);
+			musicsource.volume = Mathf.Lerp(start, end, i);
 			yield return new WaitForSeconds(step * Time.deltaTime);
 		}
 	}
@@ -1364,7 +1371,8 @@ public class FuseEvent : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(!tutorialOn && done ()) {
+		if(!tutorialOn && done ())
+        {
 			playVictory ();
 		}
 
