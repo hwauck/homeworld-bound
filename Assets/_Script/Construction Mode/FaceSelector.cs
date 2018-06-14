@@ -11,16 +11,17 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
     private IsFused isFusedComponent;
     public Button fuseButton;
     private const float OFFSET = 15f;
+    private Coroutine currentlyActiveCoroutine;
 
     // Use this for initialization
     void Start () {
         isFusedComponent = this.transform.parent.gameObject.GetComponent<IsFused>();
+        currentlyActiveCoroutine = null;
 
     }
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log("FUSE_TO_NORMAL from " + this.gameObject + " = " + selectPart.getFuseToNormal());
 	}
 
     public void setSelectPartScript(SelectPart selectPart)
@@ -70,8 +71,11 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
 
        // Vector3 targetPosition = properFuseToPos - properOffset + (OFFSET * selectPart.getFuseToNormal());
         Vector3 targetPosition = properFuseToPos + (OFFSET * selectPart.getFuseToNormal());
-        //Debug.Log("fuseToNormal = " + fuseToNormal);
-        StartCoroutine(SweepPosition(this.gameObject.transform.parent.gameObject, targetPosition, 20));
+        Debug.Log("properFuseToPos: " + properFuseToPos + ", OFFSET: " + OFFSET + ", fuseToNormal: " + selectPart.getFuseToNormal());
+        Debug.Log("targetPosition: " + targetPosition);
+
+        //Set currently active coroutine variable so FuseEvent can check it and stop it if it needs to perform a fuse
+        currentlyActiveCoroutine = StartCoroutine(SweepPosition(this.gameObject.transform.parent.gameObject, targetPosition, 20));
     }
 
     IEnumerator SweepPosition(GameObject toSweep, Vector3 targetPos, int frames)
@@ -88,6 +92,12 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
         // Ensure it ends in the right place no matter what.
         yield return null;
         toSweep.transform.position = targetPos;
+        currentlyActiveCoroutine = null;
+    }
+
+    public Coroutine getCurrentlyActiveCoroutine()
+    {
+        return currentlyActiveCoroutine;
     }
 
     public void OnPointerDown(PointerEventData data)
@@ -212,7 +222,8 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
                 Vector3 targetPosition = properFuseToPos + (OFFSET * selectPart.getFuseToNormal());
                 //Vector3 targetPosition = properFuseToPos - properOffset + (OFFSET * selectPart.getFuseToNormal());
 
-                StartCoroutine(SweepPosition(currentlySelectedObject.transform.parent.gameObject, targetPosition, 20));
+                //Set currently active coroutine variable so FuseEvent can check it and stop it if it needs to perform a fuse
+                currentlyActiveCoroutine = StartCoroutine(SweepPosition(currentlySelectedObject.transform.parent.gameObject, targetPosition, 20));
 
             }
         }

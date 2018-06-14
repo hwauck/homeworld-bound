@@ -164,7 +164,8 @@ public class Tutorial1 : MonoBehaviour {
             else if (!selectedFuseTo && ConversationTrigger.GetToken("finishedConst_5"))
             {
                 selectedFuseTo = true;
-
+                //hardcoded normal here since we don't have pointer raycast
+                selectPart.setFuseToNormal(Vector3.right);
                 bb1_b1p2_a1 = GameObject.Find("bb1_b1p2_a1");
                 StartCoroutine(waitThenSelectFuseTo(bb1_b1p2_a1, 1f));
                 StartCoroutine(waitThenAddToken("finishedSelectingbb1_a1", 4f));
