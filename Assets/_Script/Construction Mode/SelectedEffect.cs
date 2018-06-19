@@ -16,13 +16,19 @@ public class SelectedEffect : MonoBehaviour
 	{
 
 		// Also add a hitcaster object to keep our normal updated.
-		hitCaster = new GameObject();
-		hitCaster.transform.position = transform.position;
-		hitCaster.transform.localScale = transform.parent.localScale; //3f * transform.localScale;
+        // if you make this hitCaster a child of the object this SelectedEffect is attached to, raycasts often
+        // won't work. Dunno why.
+		hitCaster = new GameObject(this.gameObject.name + "_hitCaster");
+        LoadUtils.InstantiateParenter(hitCaster);
+        hitCaster.transform.localScale = transform.parent.localScale; //3f * transform.localScale;
+        hitCaster.transform.position = transform.position;
+
 		hitCaster.transform.rotation = transform.rotation;
-		hitCaster.transform.parent = transform.parent;
-		hitCaster.transform.position += (20f * hitInfo.worldNormal);
-	}
+
+        // sometimes changing the constant here makes weird Ghost display problems go away
+        hitCaster.transform.position += (50f * hitInfo.worldNormal); 
+
+    }
 
 	void FixedUpdate()
 	{
@@ -36,7 +42,10 @@ public class SelectedEffect : MonoBehaviour
 
 		// Update the normal with the hitCaster.
 		Physics.Raycast(hitCaster.transform.position, transform.position - hitCaster.transform.position, out hitUpdate);
-		//Debug.DrawRay(hitCaster.transform.position, 10 * (transform.position - hitCaster.transform.position), Color.cyan, 3f);
+        //Debug.Log("hitUpdate normal for " + gameObject + ": " + hitUpdate.normal);
+        //Debug.Log("Object hit: " + hitUpdate.collider.gameObject);
+        //Debug.Log("Ray position: " + hitCaster.transform.position + ", Ray direction and length: " + 10 * (transform.position - hitCaster.transform.position));
+		
 
 	}
 
@@ -49,7 +58,6 @@ public class SelectedEffect : MonoBehaviour
 		instance.transform.position = transform.position;
 		instance.transform.localScale = /*10 */ transform.parent.localScale.x * transform.localScale;
 		instance.transform.rotation = transform.rotation;
-		//instance.transform.parent = transform.parent;
 		LoadUtils.InstantiateParenter(instance);
 		instance.layer = 2;
 
@@ -62,7 +70,10 @@ public class SelectedEffect : MonoBehaviour
 
 		// Add ghost script.
 		SelectedGhost ghost = instance.AddComponent<SelectedGhost>();
-		ghost.setNormal(hitUpdate.normal);
+        //Vector3[] normals = GetComponent<MeshFilter>().mesh.normals;
+        //ghost.setNormal(normals[0]);
+        //ghost.setNormal(hitUpdate.normal);
+        ghost.setNormal(gameObject.GetComponent<FaceSelector>().selectedNormal);
 	}
 
 	void OnDestroy()

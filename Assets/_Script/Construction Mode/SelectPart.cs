@@ -22,7 +22,6 @@ public class SelectPart : MonoBehaviour {
 	private Color prevColorSelectedFuseTo;
 
     public bool tutorialMode;
-	public string mode;
 
 	public Button connectButton;
 	//background music: (4), (11), (34)

@@ -15,6 +15,7 @@ public class SelectedGhost : MonoBehaviour {
     public void setNormal(Vector3 normal)
     {
         this.normal = normal;
+        Debug.Log("Selected Ghost normal: " + normal);
     }
 	
 	void FixedUpdate ()

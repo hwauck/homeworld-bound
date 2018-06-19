@@ -45,15 +45,6 @@ public class CreatePartB1 : MonoBehaviour
         offscreenCreateLoc = new Vector3(-40, -60, 100);
         selectionManager = eventSystem.GetComponent<SelectPart>();
         startObject = GameObject.Find("bb1Start");
-        GameObject bb1B1p1A1 = startObject.transform.Find("bb1_b1p1_a1").gameObject;
-        GameObject bb1B1p2A1 = startObject.transform.Find("bb1_b1p2_a1").gameObject;
-        GameObject bb1B1p2A2 = startObject.transform.Find("bb1_b1p2_a2").gameObject;
-        GameObject bb1B1p3A1 = startObject.transform.Find("bb1_b1p3_a1").gameObject;
-        //to avoid errors when selectedObject starts as startObject
-        bb1B1p1A1.GetComponent<FuseBehavior>().isFused = true;
-        bb1B1p2A1.GetComponent<FuseBehavior>().isFused = true;
-        bb1B1p2A2.GetComponent<FuseBehavior>().isFused = true;
-        bb1B1p3A1.GetComponent<FuseBehavior>().isFused = true;
 
         rotateGizmo = GameObject.FindGameObjectWithTag("RotationGizmo").GetComponent<RotationGizmo>();
 
@@ -83,7 +74,7 @@ public class CreatePartB1 : MonoBehaviour
         Quaternion acceptableRotation2 = Quaternion.Euler(0, 90, 270);
         Quaternion acceptableRotation3 = Quaternion.Euler(90, 180, 0);
         Quaternion acceptableRotation4 = Quaternion.Euler(0, 270, 90);
-        Quaternion[] acceptableRotations = {acceptableRotation1, acceptableRotation2, acceptableRotation3, acceptableRotation4};
+        Quaternion[] acceptableRotations = { acceptableRotation1, acceptableRotation2, acceptableRotation3, acceptableRotation4 };
         fusePositions.Add("bb1_b1p1_a1", acceptableRotations);
 
         FuseAttributes newAttributes = new FuseAttributes(fuseLocations, fuseRotations, fusePositions);
@@ -134,7 +125,7 @@ public class CreatePartB1 : MonoBehaviour
         Quaternion fuseRotation = Quaternion.Euler(new Vector3(0, 0, 0));
         fuseRotations.Add("bb1_b1p3_a1", fuseRotation);
         Quaternion acceptableRotation1 = Quaternion.Euler(270, 0, 0);
-        Quaternion[] acceptableRotations = { acceptableRotation1};
+        Quaternion[] acceptableRotations = { acceptableRotation1 };
 
         fusePositions.Add("bb1_b1p3_a1", acceptableRotations);
 
@@ -143,6 +134,7 @@ public class CreatePartB1 : MonoBehaviour
         return newAttributes;
 
     }
+
 
     //when a new part is created, clear partsCreated
     public void clearPartsCreated()

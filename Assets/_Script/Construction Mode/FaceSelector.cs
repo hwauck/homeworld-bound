@@ -12,6 +12,7 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
     public Button fuseButton;
     private const float OFFSET = 15f;
     private Coroutine currentlyActiveCoroutine;
+    public Vector3 selectedNormal;
 
     // Use this for initialization
     void Start () {
@@ -71,8 +72,8 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
 
        // Vector3 targetPosition = properFuseToPos - properOffset + (OFFSET * selectPart.getFuseToNormal());
         Vector3 targetPosition = properFuseToPos + (OFFSET * selectPart.getFuseToNormal());
-        Debug.Log("properFuseToPos: " + properFuseToPos + ", OFFSET: " + OFFSET + ", fuseToNormal: " + selectPart.getFuseToNormal());
-        Debug.Log("targetPosition: " + targetPosition);
+        //Debug.Log("properFuseToPos: " + properFuseToPos + ", OFFSET: " + OFFSET + ", fuseToNormal: " + selectPart.getFuseToNormal());
+        //Debug.Log("targetPosition: " + targetPosition);
 
         //Set currently active coroutine variable so FuseEvent can check it and stop it if it needs to perform a fuse
         currentlyActiveCoroutine = StartCoroutine(SweepPosition(this.gameObject.transform.parent.gameObject, targetPosition, 20));
@@ -219,8 +220,8 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
                 //Debug.DrawLine(selectedObject.transform.parent.position, selectedObject.transform.parent.position + properOffset, Color.red, 25f, false);
                 //Debug.DrawLine(selectedFuseTo.transform.parent.position, properFuseToPos, Color.red, 25f, false);
 
-                Vector3 targetPosition = properFuseToPos + (OFFSET * selectPart.getFuseToNormal());
-                //Vector3 targetPosition = properFuseToPos - properOffset + (OFFSET * selectPart.getFuseToNormal());
+                //Vector3 targetPosition = properFuseToPos + (OFFSET * selectPart.getFuseToNormal());
+                Vector3 targetPosition = properFuseToPos - properOffset + (OFFSET * selectPart.getFuseToNormal());
 
                 //Set currently active coroutine variable so FuseEvent can check it and stop it if it needs to perform a fuse
                 currentlyActiveCoroutine = StartCoroutine(SweepPosition(currentlySelectedObject.transform.parent.gameObject, targetPosition, 20));

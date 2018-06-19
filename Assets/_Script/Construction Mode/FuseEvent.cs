@@ -54,6 +54,7 @@ public class FuseEvent : MonoBehaviour {
 	public CanvasGroup bottomPanelGroup;
 	public CanvasGroup congratsPanelGroup;
 	public CanvasGroup errorPanelGroup;
+    public GameObject congratsPanel;
 	public Image finishedImage;
 
 	public Camera mainCam;
@@ -101,22 +102,45 @@ public class FuseEvent : MonoBehaviour {
 		if (claimItem != null)
 		{
 			claimItem.onClick.AddListener(() => {
-				if (mode != "tutorial1" && mode != "tutorial2")
+                //TODO: may not need this first IF, if we don't want players to be able to leave Const mode
+				if (mode != "b1" && mode != "b2")
 				{
 					SimpleData.WriteDataPoint("Left_Scene", "Complete_Construction", "", "", "", "");
 					//SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO," + InventoryController.levelName);
 				}
 				switch (mode)
 				{
-					case "tutorial1":
+                    // TODO: Need to think about how to handle it when the player might need an unspecified number of 
+                    // batteries. Procedurally generate battery models/Construction Mode levels so they stay different?
+                    // Or just make a lot of batteries in advance, loop through them again, and hope the player doesn't
+                    // notice?
+                    // Should have a generic "battery" mode for all non-tutorial batteries
+					case "b1":
 						ConversationTrigger.AddToken("done_with_tutorial_1");
-						LoadUtils.LoadScene("tutorial2");
-						LoadUtils.UnloadScene("tutorial1");
+                        BatterySystem.AddPower(2);
+                        BatterySystem.PowerToTokens();
+                        LoadUtils.LoadScene("b2");
+						LoadUtils.UnloadScene("b1");
 						break;
-					case "tutorial2":
-						ConversationTrigger.AddToken("done_with_tutorial_2");
+                    case "b2":
+                        ConversationTrigger.AddToken("done_with_tutorial_2");
+                        BatterySystem.AddPower(2);
+                        BatterySystem.PowerToTokens();
+                        LoadUtils.LoadScene("b3");
+                        LoadUtils.UnloadScene("b2");
+                        break;
+                    case "b3":
+                        BatterySystem.AddPower(2);
+                        BatterySystem.PowerToTokens();
+                        LoadUtils.LoadScene("b2");
+                        LoadUtils.UnloadScene("b1");
+                        break;
+                    case "b4":
+                        BatterySystem.AddPower(2);
+                        BatterySystem.PowerToTokens();
+                        ConversationTrigger.AddToken("done_with_battery_4");
 						LoadUtils.LoadScene("rocketBoots");
-						LoadUtils.UnloadScene("tutorial2");
+						LoadUtils.UnloadScene("b4");
 						break;
 					case "boot":
 						RocketBoots.ActivateBoots();
@@ -280,30 +304,47 @@ public class FuseEvent : MonoBehaviour {
 
 	public void createFuseMapping() {
 		fuseMapping = new Dictionary<string, string>();
-		//(active part, fused part)
-		//CHANGE this if statement by adding a new else if onto the end of it for your new level.
-		// The name of the mode is the name of your level. You need to add key-value pairs to 
-		// fuseMapping where the keys are names of active part ACs and the values are
-		// HashSets containing the names of all fused part ACs that a given active part AC can attach to.
-		// Thus, fuseMapping["blah"] = the set of all fused part ACs that the active part "blah" can
-		// attach to. Most of your HashSets will only contain one string.
-
-		//fuseSets contain already fused attachments
-		//fuseMapping key = not yet fused (AC) attachments
-		if (mode.Equals ("b1")) {
+        //fueMapping.Add(active part, fused part)
+        //CHANGE this if statement by adding a new else if onto the end of it for your new level.
+        // The name of the mode is the name of your level. You need to add key-value pairs to 
+        // fuseMapping where the keys are names of active part ACs and the values are
+        // the names of all fused part ACs that a given active part AC can attach to.
+        // Thus, fuseMapping["blah"] = the fused part AC that the active part "blah" can
+        // attach to. 
+        // NOTE: when there are parts A and B that can be fused to each other instead of starting part,
+        // fuseMapping needs mappings from A -> B AND from B -> A
+        if (mode.Equals ("b1")) {
+            //b1p1 to bb1
 			fuseMapping.Add ("b1p1_bb1_a1", "bb1_b1p1_a1");
+
+            //b1p2 to bb1
 			fuseMapping.Add ("b1p2_bb1_a1", "bb1_b1p2_a1");
             fuseMapping.Add("b1p2_bb1_a2", "bb1_b1p2_a2");
+
+            //b1p3 to bb1
             fuseMapping.Add("b1p3_bb1_a1", "bb1_b1p3_a1");
 
         }
         else if (mode.Equals ("b2")) {
-			fuseMapping.Add ("smallbox_yellow_longbox_attach", "longbox_smallbox_yellow_attach");
-			fuseMapping.Add ("tallbox_longbox_attach", "longbox_tallbox_attach");
-			fuseMapping.Add ("bigbox_longbox_attach", "longbox_bigbox_attach");
-			fuseMapping.Add ("smallbox_blue_bigbox_attach", "bigbox_smallbox_blue_attach");
+            //b2p1 to b2p2
+			fuseMapping.Add ("b2p1_b2p2_a1", "b2p2_b2p1_a1");
+			fuseMapping.Add ("b2p1_b2p2_a2", "b2p2_b2p1_a2");
+            fuseMapping.Add("b2p2_b2p1_a1", "b2p1_b2p2_a1");
+            fuseMapping.Add("b2p2_b2p1_a2", "b2p1_b2p2_a2");
 
-		} else if (mode.Equals ("boot")) {
+            //b2p1 to bb2
+            fuseMapping.Add("b2p1_bb2_a1", "bb2_b2p1_a1");
+            fuseMapping.Add("b2p1_bb2_a2", "bb2_b2p1_a2");
+            fuseMapping.Add("b2p1_bb2_a3", "bb2_b2p1_a3");
+            fuseMapping.Add("b2p1_bb2_a4", "bb2_b2p1_a4");
+            fuseMapping.Add("b2p1_bb2_a5", "bb2_b2p1_a5");
+
+            //b2p2 to bb2
+            fuseMapping.Add("b2p2_bb2_a1", "bb2_b2p2_a1");
+            fuseMapping.Add("b2p2_bb2_a2", "bb2_b2p2_a2");
+            fuseMapping.Add("b2p2_bb2_a3", "bb2_b2p2_a3");
+
+        } else if (mode.Equals ("boot")) {
 	/*		fuseSet1.Add ("heel_widening_attach");
 			fuseMapping.Add ("widening_heel_attach", fuseSet1);
 			HashSet<string> fuseSet2 = new HashSet<string> ();
@@ -1077,7 +1118,8 @@ public class FuseEvent : MonoBehaviour {
 				tutorialOn = false;
 				rotatePanelGroup.alpha = 0;
 				bottomPanelGroup.alpha = 0;
-				congratsPanelGroup.GetComponent<Image>().CrossFadeAlpha(255, 4, false);
+                congratsPanel.SetActive(true);
+				//congratsPanelGroup.GetComponent<Image>().CrossFadeAlpha(255, 4, false);
 				finishedImage.enabled = false;
 				GameObject.Find("Back Button").SetActive(false);
 
@@ -1146,6 +1188,9 @@ public class FuseEvent : MonoBehaviour {
 	private void playVictory() {
 		//CHANGE this if statement by adding an else if onto the end of it for your new level.
 		// The name of the mode is the name of your new level.
+        // TODO: eliminate the GameObject.Find() calls by adding newly created parts to an array one by one
+        // array could be stored in CreatePart and accessed by other scripts
+        // and then all these if statements can go away
 		if(mode.Equals ("b1")) {
 			GameObject bb1 = GameObject.Find ("bb1Start");
 			GameObject b1p1 = GameObject.Find ("b1p1Prefab(Clone)");
@@ -1156,16 +1201,12 @@ public class FuseEvent : MonoBehaviour {
 			b1p2.transform.SetParent(group.transform, true);
             b1p3.transform.SetParent(group.transform, true);
 		} else if(mode.Equals ("b2")) {
-			GameObject longbox = GameObject.Find ("tutorial2_longbox");
-			GameObject smallboxYellow = GameObject.Find ("tutorial2_smallbox_yellowPrefab(Clone)");
-			GameObject tallbox = GameObject.Find ("tutorial2_tallboxPrefab(Clone)");
-			GameObject bigbox = GameObject.Find ("tutorial2_bigboxPrefab(Clone)");
-			GameObject smallboxBlue = GameObject.Find ("tutorial2_smallbox_bluePrefab(Clone)");
-			longbox.transform.SetParent(group.transform, true);
-            smallboxYellow.transform.SetParent(group.transform, true);
-            tallbox.transform.SetParent(group.transform, true);
-            bigbox.transform.SetParent(group.transform, true);
-            smallboxBlue.transform.SetParent(group.transform, true);
+			GameObject bb2 = GameObject.Find ("bb2Start");
+			GameObject b2p1 = GameObject.Find ("b2p1Prefab(Clone)");
+			GameObject b2p2 = GameObject.Find ("b2p2Prefab(Clone)");
+			bb2.transform.SetParent(group.transform, true);
+            b2p1.transform.SetParent(group.transform, true);
+            b2p2.transform.SetParent(group.transform, true);
         } else if (mode.Equals ("boot")) {
 			GameObject heel = GameObject.Find ("startObject");
 			GameObject ballfoot = GameObject.Find ("ballfootPrefab(Clone)");

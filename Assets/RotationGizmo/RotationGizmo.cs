@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
+using UnityEngine.UI;
 
 public class RotationGizmo : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class RotationGizmo : MonoBehaviour
 	public GameObject toRotate;
 	public SelectPart selectPart;
 	public GameObject batteryIndicator;
+    public Button fuseButton;
 
 	public GameObject xGizmo;
 	public GameObject yGizmo;
@@ -139,21 +141,33 @@ public class RotationGizmo : MonoBehaviour
 						xRots++;
 						SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "X");
 						if (Mathf.Approximately(xGizmo.transform.localEulerAngles.y, 180f))
-							StartCoroutine(Rotate(90f, 0f, 0f));
-						else
-							StartCoroutine(Rotate(-90f, 0f, 0f));
-						break;
+                        {
+                            StartCoroutine(Rotate(90f, 0f, 0f));
+                            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("XDown");
+                        }
+                        else
+                        {
+                            StartCoroutine(Rotate(-90f, 0f, 0f));
+                            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("XUp");
+                        }
+                       break;
 
 					case "XDown":
 						if (!CheckBattery())
 							break;
 						xRots++;
 						SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "X");
-						if (Mathf.Approximately(xGizmo.transform.localEulerAngles.y, 180f))
-							StartCoroutine(Rotate(-90f, 0f, 0f));
-						else
-							StartCoroutine(Rotate(90f, 0f, 0f));
-						break;
+                        if (Mathf.Approximately(xGizmo.transform.localEulerAngles.y, 180f))
+                        {
+                            StartCoroutine(Rotate(-90f, 0f, 0f));
+                            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("XUp");
+                        }
+                        else
+                        {
+                            StartCoroutine(Rotate(90f, 0f, 0f));
+                            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("XDown");
+                        }
+                        break;
 
 					case "YLeft":
 						if (!CheckBattery())
@@ -161,7 +175,8 @@ public class RotationGizmo : MonoBehaviour
 						yRots++;
 						SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "Y");
 						StartCoroutine(Rotate(0f, 90f, 0f));
-						break;
+                        toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("YRight");
+                        break;
 
 					case "YRight":
 						if (!CheckBattery())
@@ -169,29 +184,42 @@ public class RotationGizmo : MonoBehaviour
 						yRots++;
 						SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "Y");
 						StartCoroutine(Rotate(0f, -90f, 0f));
-						break;
+                        toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("YLeft");
+                        break;
 
 					case "ZUp":
 						if (!CheckBattery())
 							break;
 						zRots++;
 						SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "Z");
-						if (Mathf.Approximately(zGizmo.transform.localEulerAngles.y, 270f))
-							StartCoroutine(Rotate(0f, 0f, 90f));
-						else
-							StartCoroutine(Rotate(0f, 0f, -90f));
-						break;
+                        if (Mathf.Approximately(zGizmo.transform.localEulerAngles.y, 270f))
+                        {
+                            StartCoroutine(Rotate(0f, 0f, 90f));
+                            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("ZLeft");
+                        }
+                        else
+                        {
+                            StartCoroutine(Rotate(0f, 0f, -90f));
+                            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("ZRight");
+                        }
+                        break;
 
 					case "ZDown":
 						if (!CheckBattery())
 							break;
 						zRots++;
 						SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "Z");
-						if (Mathf.Approximately(zGizmo.transform.localEulerAngles.y, 270f))
-							StartCoroutine(Rotate(0f, 0f, -90f));
-						else
-							StartCoroutine(Rotate(0f, 0f, 90f));
-						break;
+                        if (Mathf.Approximately(zGizmo.transform.localEulerAngles.y, 270f))
+                        {
+                            StartCoroutine(Rotate(0f, 0f, -90f));
+                            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("ZRight");
+                        }
+                        else
+                        {
+                            StartCoroutine(Rotate(0f, 0f, 90f));
+                            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("ZLeft");
+                        }
+                        break;
 
 					default:
 						break;
@@ -203,7 +231,8 @@ public class RotationGizmo : MonoBehaviour
 
     IEnumerator Rotate(float x, float y, float z)
 	{
-
+        // disable fuse button during rotation to let rotation complete before attachment
+        fuseButton.interactable = false;
 
         // Integration for battery power.
         if (!tutorialMode && !rotating) {
@@ -226,7 +255,7 @@ public class RotationGizmo : MonoBehaviour
 			yield return null;  // Wait a frame to see if another active rotation resets this flag to true.
 			if (!rotating)
 				StartCoroutine(CheckRotation());
-		}
+        }
 	}
 
 	IEnumerator CheckRotation()
@@ -287,6 +316,9 @@ public class RotationGizmo : MonoBehaviour
             //Debug.Log("toRotate object: " + toRotate);
             selectPart.getSelectedObject().GetComponent<FaceSelector>().adjustPartAlignment();
         }
+
+        //rotation is done - renable fuse button
+        fuseButton.interactable = true;
 
     }
 

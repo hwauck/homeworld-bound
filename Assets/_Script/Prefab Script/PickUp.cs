@@ -94,10 +94,8 @@ public class PickUp : MonoBehaviour
 					transform.position = new Vector3(-1000f, -1000f, -1000f);
 					LoadUtils.IconParenter(this.gameObject);
 					break;
-
+                
 				case PickupType.Battery:
-					BatterySystem.AddPower(2);
-					BatterySystem.PowerToTokens();
 					ConversationTrigger.AddToken("picked_up_a_battery");
 					RespawnBattery();
 					break;

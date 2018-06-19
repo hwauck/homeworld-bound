@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33452441230449388}
   - component: {fileID: 23670514018276530}
   - component: {fileID: 65131068940765698}
-  - component: {fileID: 114268062311174836}
   m_Layer: 0
   m_Name: b1p2_bb1_a2
   m_TagString: Untagged
@@ -58,7 +57,6 @@ GameObject:
   - component: {fileID: 4019179377692922}
   - component: {fileID: 33088425519749424}
   - component: {fileID: 23204209569549328}
-  - component: {fileID: 114568930265019822}
   - component: {fileID: 64208705861629066}
   m_Layer: 0
   m_Name: b1p2_bb1_a1
@@ -78,6 +76,7 @@ GameObject:
   - component: {fileID: 95665834748776244}
   - component: {fileID: 114892887926245214}
   - component: {fileID: 114683468792880064}
+  - component: {fileID: 114106846376957660}
   m_Layer: 0
   m_Name: b1p2Prefab
   m_TagString: Untagged
@@ -324,32 +323,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114268062311174836
+--- !u!114 &114106846376957660
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1165031338214884}
+  m_GameObject: {fileID: 1730309516747240}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7581c78d8efd17d47bc14a0456f184ce, type: 3}
+  m_Script: {fileID: 11500000, guid: b72abd7302859134984436cf919a3276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unhighTex: {fileID: 2800000, guid: 3b628ed51dbe2c54a9a702de0cccd9ca, type: 3}
-  highTex: {fileID: 2800000, guid: 3b628ed51dbe2c54a9a702de0cccd9ca, type: 3}
---- !u!114 &114568930265019822
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1449807571791484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7581c78d8efd17d47bc14a0456f184ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unhighTex: {fileID: 2800000, guid: 3b628ed51dbe2c54a9a702de0cccd9ca, type: 3}
-  highTex: {fileID: 2800000, guid: 3b628ed51dbe2c54a9a702de0cccd9ca, type: 3}
 --- !u!114 &114683468792880064
 MonoBehaviour:
   m_ObjectHideFlags: 1
