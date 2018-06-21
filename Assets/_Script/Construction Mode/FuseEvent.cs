@@ -7,7 +7,13 @@ using System.IO;
 
 public class FuseEvent : MonoBehaviour {
 
-	private GameObject selectedObject;
+    //tutorial variables
+    public bool tutorialOn;
+    public static bool runningJustConstructionMode = false;
+    private bool firstFuseComplete;
+
+    //keep track of which objects are currently selected for fusing
+    private GameObject selectedObject;
 	private GameObject selectedFuseTo;
 	//dictionary containing valid fuse pairs of planes (Fusing, FuseTo)
 	private Dictionary<string, string> fuseMapping;
@@ -18,25 +24,30 @@ public class FuseEvent : MonoBehaviour {
 	private float fadeTime = 5.0F;
 
     public string mode;
+
+    //Music
     public AudioSource source;
     public AudioSource musicsource;
     public AudioClip success;
     public AudioClip failure;
     public AudioClip music;
     public AudioClip victorymusic;
+
     private string fuseStatus;
 
+    //Buttons
     public GameObject[] partButtons;
 	public Button connectButton;
 	public GameObject rotateXButton;
 	public GameObject rotateYButton;
 	public GameObject rotateZButton;
+    public Button claimItem;    // NEW ADDITION. A button which appears upon completion of an item to claim it in exploration mode.
 
-	public Text congrats;
+    // Non-Button UI elements
+    public Text congrats;
 	public Text shapesWrong;
 	public Text rotationWrong;
 	public Text getPassword;
-	public Button claimItem;    // NEW ADDITION. A button which appears upon completion of an item to claim it in exploration mode.
 	public RotationGizmo rotateGizmo;	// NEW ADDITION. when completing a fusion, disable the rotation gizmo.
 	public GameObject victoryPrefab;
 	public CanvasGroup rotatePanelGroup;
@@ -50,12 +61,8 @@ public class FuseEvent : MonoBehaviour {
 	private int fuseCount;
 	private int NUM_FUSES;
 
-	//tutorial variables
-	public bool tutorialOn;
-	public static bool runningJustConstructionMode = false;
-
-	//data collection
-	private float levelTimer;
+    //data collection
+    private float levelTimer;
 	private string filename;
 	private StreamWriter sr;
 	private int numFuseAttempts;
@@ -186,7 +193,9 @@ public class FuseEvent : MonoBehaviour {
 			Debug.Log("Made it to this point");
 			Debug.Log("Disabling goToNextTutorial button!");
 			claimItem.gameObject.SetActive(false);
-		}
+            firstFuseComplete = false;
+
+        }
 
 		// Infinite energy if running construction mode separately.
 		if (InventoryController.levelName == "")
@@ -1044,12 +1053,24 @@ public class FuseEvent : MonoBehaviour {
 			print ("Successful fuse!");
 			fuseStatus="success";
 			source.PlayOneShot (success);
+
+            //Check if FaceSelector is still adjusting part location. If so, abort adjustment and then just fuse
+            Coroutine currentlyActiveMovement = selectedObject.GetComponent<FaceSelector>().getCurrentlyActiveCoroutine();
+            if (currentlyActiveMovement != null)
+            {
+                StopCoroutine(currentlyActiveMovement);
+            }
 			selectedObject.GetComponent<FuseBehavior>().fuse(selectedFuseTo.name);
 
 	
 
 			fuseCleanUp();
 			fuseCount++;
+            if(mode.Equals("b1") && !firstFuseComplete)
+            {
+                firstFuseComplete = true;
+                ConversationTrigger.AddToken("finishedFirstFuse");
+            }
 			if(done ()) {
 				stopLevelTimer();
 				printLevelData();
@@ -1068,6 +1089,10 @@ public class FuseEvent : MonoBehaviour {
                 mainCam.transform.rotation = Quaternion.Euler(new Vector3(15, 0, 0));
                 musicsource.Play();
                 StartCoroutine(FadeAudio(fadeTime, Fade.Out));
+                if(mode.Equals("b1"))
+                {
+                    ConversationTrigger.AddToken("finishedB1");
+                }
             }
 
 

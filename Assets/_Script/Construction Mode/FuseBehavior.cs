@@ -62,9 +62,12 @@ public class FuseBehavior : MonoBehaviour {
 		GameObject parent = gameObject.transform.parent.gameObject;
 		string newFuseToName = fuseTo;
 
-		parent.transform.position = fuseInfo.getFuseLocation(newFuseToName);
-		parent.transform.rotation = fuseInfo.getFuseRotation(newFuseToName);
-
+        Debug.Log("FuseBehavior now moving object to " + fuseInfo.getFuseLocation(newFuseToName) + "!");
+        parent.transform.position = fuseInfo.getFuseLocation(newFuseToName);
+        Debug.Log("FuseBehavior moved object to fuse location!");
+        Debug.Log("Now setting rotation to fuseRotation!");
+        parent.transform.rotation = fuseInfo.getFuseRotation(newFuseToName);
+        Debug.Log("FuseBehavior successfully set fuseRotation!");
 		//Destroy(gameObject.GetComponent<SelectBehavior>());
 
 		isFused = true;
