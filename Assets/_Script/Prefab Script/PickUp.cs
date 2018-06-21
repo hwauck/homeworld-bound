@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PickUp : MonoBehaviour
 {
+    public AudioSource PartsSounds;
+    public AudioClip WindChimes;
     public AudioSource Pickup;
 	public AudioClip pickupSound;
 	public enum PickupType { Item, Battery, Clue };
@@ -28,7 +30,10 @@ public class PickUp : MonoBehaviour
 
 
 	void Start()
+
 	{
+        PartsSounds.clip = WindChimes;
+        PartsSounds.Play();
 		// check deleteToken.
 		if ((deleteToken != "" && ConversationTrigger.GetToken(deleteToken)) ||
 			(autoDelete && ConversationTrigger.GetToken("autodelete_" + pickupName)))
@@ -53,6 +58,7 @@ public class PickUp : MonoBehaviour
         {
             Pickup.clip = pickupSound;
             Pickup.Play();
+            PartsSounds.Stop();
 			SimpleData.WriteDataPoint("Pickup_Item", "", "", "", "", pickupName);
 			//SimpleData.WriteStringToFile("pickups.txt", Time.time + ",PICKUP," + pickupName);
 			switch (type)

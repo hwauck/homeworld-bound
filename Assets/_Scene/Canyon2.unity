@@ -417,7 +417,7 @@ Transform:
   - {fileID: 467591187}
   - {fileID: 470237076}
   m_Father: {fileID: 851006030}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &37482312
 Prefab:
@@ -518,12 +518,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 44
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -1070,12 +1074,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 24
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -2568,7 +2576,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_RootOrder
-      value: 43
+      value: 41
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_LocalScale.x
@@ -2883,7 +2891,7 @@ Transform:
   m_LocalScale: {x: 1.6666667, y: 1.6666666, z: 1.6666665}
   m_Children: []
   m_Father: {fileID: 851006030}
-  m_RootOrder: 12
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &257153005
 MonoBehaviour:
@@ -3048,7 +3056,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_RootOrder
-      value: 39
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 162204, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_Name
@@ -3936,7 +3944,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_RootOrder
-      value: 35
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_LocalScale.x
@@ -4407,12 +4415,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 26
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -4601,6 +4613,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11480848, guid: fedb2bd5519d9ed4d8a9dbbb21257ff3, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fedb2bd5519d9ed4d8a9dbbb21257ff3, type: 2}
   m_IsPrefabParent: 0
@@ -4725,12 +4741,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 42
+      value: 39
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -5089,6 +5109,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 11453522, guid: 983408bcd471aa24fa08437a7ad3ac30, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 983408bcd471aa24fa08437a7ad3ac30, type: 2}
   m_IsPrefabParent: 0
@@ -5631,7 +5655,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_RootOrder
-      value: 44
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_LocalScale.x
@@ -5937,12 +5961,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 43
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -6043,6 +6071,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 11497218, guid: de93e1cadc8b74e4da0e85bd2092a9e0, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de93e1cadc8b74e4da0e85bd2092a9e0, type: 2}
   m_IsPrefabParent: 0
@@ -6149,12 +6181,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 25
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -6820,7 +6856,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae8384ea6cfa02e4ca1ba946083c2762, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ae8384ea6cfa02e4ca1ba946083c2762, type: 3}
       propertyPath: m_LocalScale.x
@@ -6960,6 +6996,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 11433074, guid: 48c0e4f579541a441970d54c6f4bdfa1, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48c0e4f579541a441970d54c6f4bdfa1, type: 2}
   m_IsPrefabParent: 0
@@ -7054,12 +7094,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 21
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -7164,10 +7208,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 119100, guid: 84e8546f078680a4b964f22317c90956, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 11470596, guid: 84e8546f078680a4b964f22317c90956, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 84e8546f078680a4b964f22317c90956, type: 2}
   m_IsPrefabParent: 0
@@ -7408,7 +7452,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_RootOrder
-      value: 37
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 162204, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_Name
@@ -8269,7 +8313,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_RootOrder
-      value: 38
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 162204, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_Name
@@ -8333,6 +8377,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 11474964, guid: 5f913c4d4bb62a447bb525f57e8ecb44, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5f913c4d4bb62a447bb525f57e8ecb44, type: 2}
   m_IsPrefabParent: 0
@@ -9151,12 +9199,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 46
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -9203,6 +9255,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 17
       objectReference: {fileID: 0}
+    - target: {fileID: 11484074, guid: 9936f6b80c43b914887ad1d2ff033b94, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9936f6b80c43b914887ad1d2ff033b94, type: 2}
   m_IsPrefabParent: 0
@@ -9417,11 +9473,11 @@ Transform:
   - {fileID: 387508400}
   - {fileID: 1008388205}
   - {fileID: 1541097498}
-  - {fileID: 794292397}
   - {fileID: 33494578}
+  - {fileID: 794292397}
+  - {fileID: 257153004}
   - {fileID: 1702347918}
   - {fileID: 1849822607}
-  - {fileID: 257153004}
   - {fileID: 1924699448}
   - {fileID: 787151962}
   - {fileID: 323672362}
@@ -9521,6 +9577,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -9803,7 +9863,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_RootOrder
-      value: 31
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_LocalScale.x
@@ -9977,12 +10037,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 45
+      value: 43
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -10363,6 +10427,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -10631,6 +10699,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -10677,6 +10749,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 11403462, guid: 2765dbd8639451142880c055f202a64d, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2765dbd8639451142880c055f202a64d, type: 2}
   m_IsPrefabParent: 0
@@ -10742,6 +10818,131 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dc2cad53eef75824492f849ae42159a5, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &998396305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 998396307}
+  - component: {fileID: 998396306}
+  m_Layer: 0
+  m_Name: SFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &998396306
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 998396305}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 243155752558251740, guid: 123796036d9a93b42af1f0d236b2e717,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &998396307
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 998396305}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -67.01739, y: -92.66458, z: 216.55923}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1002887621
 Prefab:
   m_ObjectHideFlags: 0
@@ -11239,8 +11440,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 41
+      value: 37
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -11401,7 +11606,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_RootOrder
-      value: 36
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 162204, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_Name
@@ -11927,12 +12132,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 38
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -12987,7 +13196,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_RootOrder
-      value: 45
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_LocalScale.x
@@ -13189,6 +13398,18 @@ Prefab:
       propertyPath: m_AnchoredPosition.y
       value: 1.3999939
       objectReference: {fileID: 0}
+    - target: {fileID: 22445514, guid: 140be3eba7ad269438afafd82ee2bae4, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 65.900024
+      objectReference: {fileID: 0}
+    - target: {fileID: 22430418, guid: 140be3eba7ad269438afafd82ee2bae4, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 240.49939
+      objectReference: {fileID: 0}
+    - target: {fileID: 22440586, guid: 140be3eba7ad269438afafd82ee2bae4, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 239.49963
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 140be3eba7ad269438afafd82ee2bae4, type: 2}
   m_IsPrefabParent: 0
@@ -13349,8 +13570,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 47
+      value: 44
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -13557,12 +13782,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 17
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -13673,7 +13902,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_RootOrder
-      value: 42
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_LocalScale.x
@@ -14780,12 +15009,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 37
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -15158,6 +15391,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 11425608, guid: 4593a71dd6bd2894f9a12744ff173842, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4593a71dd6bd2894f9a12744ff173842, type: 2}
   m_IsPrefabParent: 0
@@ -15770,7 +16007,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_RootOrder
-      value: 40
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 162204, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_Name
@@ -15925,7 +16162,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_RootOrder
-      value: 41
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_LocalScale.x
@@ -16099,12 +16336,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 34
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -16485,12 +16726,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 31
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -16683,6 +16928,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11420204, guid: ff56a7adcd9f00649a3e13ce01ff65f9, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ff56a7adcd9f00649a3e13ce01ff65f9, type: 2}
   m_IsPrefabParent: 0
@@ -17271,6 +17520,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 11487982, guid: 0b8cdf735b367ec4e8d68318afe40818, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0b8cdf735b367ec4e8d68318afe40818, type: 2}
   m_IsPrefabParent: 0
@@ -17375,6 +17628,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (1)
@@ -17539,7 +17796,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 0ddd7dbfe94f1b04d9b1ab53a03676a8, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 0ddd7dbfe94f1b04d9b1ab53a03676a8, type: 3}
       propertyPath: m_LocalScale.x
@@ -17683,12 +17940,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 32
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -17923,6 +18184,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 11434722, guid: 0c074bab64edcba40929404f49b2a890, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c074bab64edcba40929404f49b2a890, type: 2}
   m_IsPrefabParent: 0
@@ -18201,12 +18466,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 15
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -18503,6 +18772,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11472900, guid: f24127071708ca244a4f0a24ef8d7d74, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f24127071708ca244a4f0a24ef8d7d74, type: 2}
   m_IsPrefabParent: 0
@@ -18543,7 +18816,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: acebc8c643d7b384784ecf9f6bb420e7, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: acebc8c643d7b384784ecf9f6bb420e7, type: 3}
       propertyPath: m_LocalScale.x
@@ -18641,7 +18914,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_RootOrder
-      value: 34
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_LocalScale.x
@@ -19159,6 +19432,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 11469590, guid: ec8c36a646dcb604c94162acf19ad81c, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec8c36a646dcb604c94162acf19ad81c, type: 2}
   m_IsPrefabParent: 0
@@ -19534,7 +19811,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_RootOrder
-      value: 33
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_LocalScale.x
@@ -19598,6 +19875,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 11428464, guid: 1dd839fd44f07704794199b2b7f9caa7, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1dd839fd44f07704794199b2b7f9caa7, type: 2}
   m_IsPrefabParent: 0
@@ -20989,7 +21270,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_RootOrder
-      value: 30
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_LocalScale.x
@@ -21551,12 +21832,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 30
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -21601,12 +21886,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 39
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -21705,7 +21994,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_RootOrder
-      value: 32
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 448626, guid: 4a8b8d8023dd0264a85bad34d9396ea4, type: 2}
       propertyPath: m_LocalScale.x
@@ -22117,6 +22406,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 11442192, guid: 254cba7b498626f43bfa022132f31d7b, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 254cba7b498626f43bfa022132f31d7b, type: 2}
   m_IsPrefabParent: 0
@@ -22299,12 +22592,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 16
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -23777,6 +24074,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 11460580, guid: 1bb3f55df92b5f74ba71e30ac98bda1e, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1bb3f55df92b5f74ba71e30ac98bda1e, type: 2}
   m_IsPrefabParent: 0
@@ -23827,10 +24128,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 138088, guid: 203e3682ca283da4fad6c8ee8e200e48, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 11441704, guid: 203e3682ca283da4fad6c8ee8e200e48, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 203e3682ca283da4fad6c8ee8e200e48, type: 2}
   m_IsPrefabParent: 0
@@ -23943,12 +24244,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463488, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_RootOrder
-      value: 40
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 101006, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
       propertyPath: m_Name
       value: Battery (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
+      propertyPath: Pickup
+      value: 
+      objectReference: {fileID: 998396306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 2}
   m_IsPrefabParent: 0
@@ -24350,7 +24655,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 472778, guid: 54df1ff1f28f721439257bd433cdb007, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 54df1ff1f28f721439257bd433cdb007, type: 2}
@@ -24537,6 +24842,19 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8203772, guid: 61dfd5f4edda20642978fd59b5d29e73, type: 2}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 243327035242479790, guid: 123796036d9a93b42af1f0d236b2e717,
+        type: 2}
+    - target: {fileID: 8203772, guid: 61dfd5f4edda20642978fd59b5d29e73, type: 2}
+      propertyPath: BypassEffects
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8203772, guid: 61dfd5f4edda20642978fd59b5d29e73, type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3d2d633742f3a42409e82fc7642a76b4, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 61dfd5f4edda20642978fd59b5d29e73, type: 2}
   m_IsPrefabParent: 0
