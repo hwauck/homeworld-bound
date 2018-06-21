@@ -343,12 +343,12 @@ public class RotationGizmo : MonoBehaviour
 	}
 
 	// Checks battery, returns whether this rotation can happen. If it cannot, shows error.
+    // This method will likely be deprecated now that battery power is controlled by rotation counter and timer
 	bool CheckBattery()
 	{
 		// Check if we're in the standard game mode and have no power.
 		if (BatterySystem.GetPower() == 0 && !tutorialMode && !FuseEvent.runningJustConstructionMode)
 		{
-			StartCoroutine(FlashBattery());
 			return false;
 		}
 		else

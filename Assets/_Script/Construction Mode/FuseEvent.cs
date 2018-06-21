@@ -76,7 +76,10 @@ public class FuseEvent : MonoBehaviour {
 		// For data collection.
 		startLevelTimer();
         musicsource.clip = music;
-        musicsource.Play();
+        if (!tutorialOn)
+        {
+            musicsource.Play();
+        }
     }
 
 	void Awake ()
@@ -236,7 +239,7 @@ public class FuseEvent : MonoBehaviour {
 			// Add a ton of power and hide the battery indicator.
 			// Disabling is generally a bad idea.
 			//BatterySystem.AddPower(999999999);
-			GameObject.Find("BatteryIndicator").transform.localScale = Vector3.zero;
+			//GameObject.Find("BatteryIndicator").transform.localScale = Vector3.zero;
 
 			// Change back button functionality.
 			backButton.onClick.RemoveAllListeners();
@@ -301,6 +304,12 @@ public class FuseEvent : MonoBehaviour {
 	public string getFuseStatus() {
 		return fuseStatus;
 	}
+
+    //allows other scripts, such as Tutorial scripts, to start music manually
+    public void startMusic()
+    {
+        musicsource.Play();
+    }
 
 	public void createFuseMapping() {
 		fuseMapping = new Dictionary<string, string>();
