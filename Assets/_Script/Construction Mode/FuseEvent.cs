@@ -311,7 +311,13 @@ public class FuseEvent : MonoBehaviour {
         musicsource.Play();
     }
 
-	public void createFuseMapping() {
+    //allows other scripts, such as Tutorial scripts, to start music manually
+    public void stopMusic()
+    {
+        musicsource.Stop();
+    }
+
+    public void createFuseMapping() {
 		fuseMapping = new Dictionary<string, string>();
         //fueMapping.Add(active part, fused part)
         //CHANGE this if statement by adding a new else if onto the end of it for your new level.

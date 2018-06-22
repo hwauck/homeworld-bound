@@ -5,12 +5,13 @@ using UnityEngine.Events;
 public class RotationCounter : MonoBehaviour {
 
     public int remainingRotations;
+    private int ROTATIONS;
     public Text remainingRotationsText;
     public UnityEvent powerFailure;
 
 	// Use this for initialization
 	void Start () {
-		
+        ROTATIONS = remainingRotations;
 	}
 
     // called by RotationGizmo every time a rotation is performed
@@ -32,6 +33,11 @@ public class RotationCounter : MonoBehaviour {
             return false;
         }
         return true;
+    }
+
+    public void resetRotations()
+    {
+        remainingRotations = ROTATIONS;
     }
 	
 	// Update is called once per frame

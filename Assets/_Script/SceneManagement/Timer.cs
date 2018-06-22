@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Timer : MonoBehaviour {
     public Text timerLabel;
     public float timeRemaining;
+    private float TIME_REMAINING; // saves the timeRemaining value entered in inspector for when the level is restarted
     private bool outOfTime;
     private int minutes;
     private int seconds;
@@ -16,10 +17,13 @@ public class Timer : MonoBehaviour {
     void Start () {
         outOfTime = false;
         timerStarted = false;
-	}
+        TIME_REMAINING = timeRemaining;
+
+    }
 
     public void startTimer()
     {
+        timeRemaining = TIME_REMAINING;
         timerStarted = true;
     }
 
@@ -49,7 +53,6 @@ public class Timer : MonoBehaviour {
                 powerFailure.Invoke();
                 minutes = 0;
                 seconds = 0;
-                // TODO: tell FuseEvent to restart level?
             }
             else
             {

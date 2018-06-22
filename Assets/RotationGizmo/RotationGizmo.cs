@@ -19,7 +19,9 @@ public class RotationGizmo : MonoBehaviour
 	public int yRots = 0;
 	public int zRots = 0;
 
-	bool rotating = false;
+    public RotationCounter rotationCounter;
+
+    bool rotating = false;
 
 	void Start ()
 	{
@@ -136,10 +138,10 @@ public class RotationGizmo : MonoBehaviour
 				switch(hitInfo.transform.name)
 				{
 					case "XUp":
-						if (!CheckBattery())
-							break;
 						xRots++;
-						SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "X");
+                        rotationCounter.decrementRotations();
+
+                        SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "X");
 						if (Mathf.Approximately(xGizmo.transform.localEulerAngles.y, 180f))
                         {
                             StartCoroutine(Rotate(90f, 0f, 0f));
