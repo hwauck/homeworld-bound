@@ -186,7 +186,7 @@ public class CreatePartB2 : MonoBehaviour
 
             yield return new WaitForSeconds(WAIT_TIME);
         }
-        Debug.Log("finished moving " + part.name + "!");
+        //Debug.Log("finished moving " + part.name + "!");
     }
 
 

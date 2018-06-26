@@ -10,7 +10,7 @@ public class SelectedEffect : MonoBehaviour
 	public RaycastResult hitInfo;      // Set by SelectPart when this script is applied.
     public RaycastHit hitUpdate;
 	GameObject instance;
-	GameObject hitCaster;
+	//GameObject hitCaster;
 
 	void Start()
 	{
@@ -18,15 +18,16 @@ public class SelectedEffect : MonoBehaviour
 		// Also add a hitcaster object to keep our normal updated.
         // if you make this hitCaster a child of the object this SelectedEffect is attached to, raycasts often
         // won't work. Dunno why.
-		hitCaster = new GameObject(this.gameObject.name + "_hitCaster");
-        LoadUtils.InstantiateParenter(hitCaster);
-        hitCaster.transform.localScale = transform.parent.localScale; //3f * transform.localScale;
-        hitCaster.transform.position = transform.position;
+		//hitCaster = new GameObject(this.gameObject.name + "_hitCaster");
+        //LoadUtils.InstantiateParenter(hitCaster);
+        //hitCaster.transform.localScale = transform.parent.localScale; //3f * transform.localScale;
+        //hitCaster.transform.position = transform.position;
 
-		hitCaster.transform.rotation = transform.rotation;
+		//hitCaster.transform.rotation = transform.rotation;
 
         // sometimes changing the constant here makes weird Ghost display problems go away
-        hitCaster.transform.position += (50f * hitInfo.worldNormal); 
+        //hitCaster.transform.position += (50f * hitInfo.worldNormal); 
+
 
     }
 
@@ -41,7 +42,7 @@ public class SelectedEffect : MonoBehaviour
 		}
 
 		// Update the normal with the hitCaster.
-		Physics.Raycast(hitCaster.transform.position, transform.position - hitCaster.transform.position, out hitUpdate);
+		//Physics.Raycast(hitCaster.transform.position, transform.position - hitCaster.transform.position, out hitUpdate);
         //Debug.Log("hitUpdate normal for " + gameObject + ": " + hitUpdate.normal);
         //Debug.Log("Object hit: " + hitUpdate.collider.gameObject);
         //Debug.Log("Ray position: " + hitCaster.transform.position + ", Ray direction and length: " + 10 * (transform.position - hitCaster.transform.position));
