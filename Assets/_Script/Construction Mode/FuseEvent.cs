@@ -1418,7 +1418,7 @@ public class FuseEvent : MonoBehaviour {
 	}
 
 	//remove old arrows from fused part and unselect fused parts
-	private void fuseCleanUp() {
+	public void fuseCleanUp() {
 		// Disable rotation gizmo.
 		rotateGizmo.Disable();
 

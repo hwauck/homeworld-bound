@@ -4,22 +4,23 @@ using UnityEngine.Events;
 
 public class RotationCounter : MonoBehaviour {
 
-    public int remainingRotations;
-    private int ROTATIONS;
+    public int numRotations;
+    private int numRemaining;
     public Text remainingRotationsText;
     public UnityEvent powerFailure;
 
 	// Use this for initialization
 	void Start () {
-        ROTATIONS = remainingRotations;
+        numRemaining = numRotations;
+        remainingRotationsText.text = "" + numRemaining;
 	}
 
     // called by RotationGizmo every time a rotation is performed
     public void decrementRotations()
     {
-        remainingRotations--;
-        remainingRotationsText.text = "" + remainingRotations;
-        if (remainingRotations <= 0)
+        numRemaining--;
+        remainingRotationsText.text = "" + numRemaining;
+        if (numRemaining <= 0)
         {
             powerFailure.Invoke();
         }
@@ -27,7 +28,7 @@ public class RotationCounter : MonoBehaviour {
 
     public bool rotationsRemaining()
     {
-        if (remainingRotations <= 0)
+        if (numRemaining <= 0)
         {
 
             return false;
@@ -37,11 +38,12 @@ public class RotationCounter : MonoBehaviour {
 
     public void resetRotations()
     {
-        remainingRotations = ROTATIONS;
+        numRemaining = numRotations;
+        remainingRotationsText.text = "" + numRemaining;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 }

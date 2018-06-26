@@ -25,8 +25,10 @@ public class LevelResetter : MonoBehaviour {
     public CameraControls cameraControls;
     public RotationGizmo rotationScript;
     public SelectPart selectPart;
+    public FuseEvent fuseEvent;
     public Image fadeOutScreen;
     public Text rechargingText;
+    public Button tryAgainButton;
 
     public CanvasGroup countdownPanel;
     public Text countdownText;
@@ -36,6 +38,12 @@ public class LevelResetter : MonoBehaviour {
     public AudioClip countdownSound;
     public AudioClip finalCountSound;
     public AudioClip rechargingSound;
+
+    private float flickeringTime;
+    private float flickerLength;
+    private GameObject[] parts;
+    private bool[] wasConvex;
+    private MeshCollider[] meshColliders;
 
     // need this to get the "mode" so I can get the correct CreatePart script, bleh
     public GameObject eventSystem;
@@ -51,7 +59,10 @@ public class LevelResetter : MonoBehaviour {
     // Use this for initialization
     void Start () {
         ConversationTrigger.RemoveToken("outOfPower");
-        ConversationTrigger.AddToken("hasPower");
+        ConversationTrigger.RemoveToken("hasPower");
+        ConversationTrigger.RemoveToken("letsRestart");
+        ConversationTrigger.RemoveToken("doneRestarting");
+
     }
 
     public void resetLevel()
@@ -61,43 +72,54 @@ public class LevelResetter : MonoBehaviour {
         errorPanel.alpha = 1;
         audioSource.PlayOneShot(powerFailureSound);
         disablePlayerControls();
-        StartCoroutine(resetConstruction());
+        StartCoroutine(doPowerFailure());
 
     }
 
     // makes the parts in the scene fall apart and downwards
-    private IEnumerator resetConstruction()
+    private IEnumerator doPowerFailure()
     {
         yield return new WaitForSeconds(1f);
 
         Vector3 rbPos;
         Vector3 explosionPosition;
         // all parts from level b2 and later should have the tag "part" on them for this to work correctly
-        GameObject[] parts = GameObject.FindGameObjectsWithTag("part");
+        parts = GameObject.FindGameObjectsWithTag("part");
         for(int i = 0; i < parts.Length; i++)
         {
             // first, set all meshcolliders to convex to avoid bad interaction with Rigidbody
-            MeshCollider[] meshColliders = parts[i].GetComponentsInChildren<MeshCollider>();
-            for(int j = 0; j < meshColliders.Length; j++)
+            meshColliders = parts[i].GetComponentsInChildren<MeshCollider>();
+            wasConvex = new bool[meshColliders.Length];
+
+            for (int j = 0; j < meshColliders.Length; j++)
             {
+                Debug.Log(meshColliders[j].gameObject);
+                if(!meshColliders[j].convex)
+                {
+                    wasConvex[j] = false;
+                } else
+                {
+                    wasConvex[j] = true;
+                }
                 meshColliders[j].convex = true;
             }
             // then, add Rigidbodies to apply a downward explosive force
             parts[i].AddComponent<Rigidbody>();
             parts[i].GetComponent<Rigidbody>().useGravity = false;
             rbPos = parts[i].transform.position;
-            explosionPosition = new Vector3(rbPos.x, rbPos.y + 10f, rbPos.z);
+            explosionPosition = new Vector3(rbPos.x, rbPos.y + 5f, rbPos.z);
             parts[i].GetComponent<Rigidbody>().AddExplosionForce(1000f, explosionPosition, 20f, 0f);
 
         }
 
+        yield return new WaitForSeconds(1f);
+
 
         //flicker screen, then go to black
-        float flickeringTime = 0.5f;
-        float flickerLength;
+        flickeringTime = 0.5f;
         while (flickeringTime > 0)
         {
-            flickerLength = Random.Range(0.01f, 0.1f);
+            flickerLength = Random.Range(0.05f, 0.15f);
             fadeOutScreen.enabled = true;
             yield return new WaitForSeconds(flickerLength);
             fadeOutScreen.enabled = false;
@@ -112,9 +134,6 @@ public class LevelResetter : MonoBehaviour {
 
         //Dresha gives you the failure message
         ConversationTrigger.AddToken("outOfPower");
-        ConversationTrigger.RemoveToken("hasPower");
-
-        rechargingText.enabled = true;
 
         //stop downward movement of parts
         for (int i = 0; i < parts.Length; i++)
@@ -122,9 +141,27 @@ public class LevelResetter : MonoBehaviour {
             Destroy(parts[i].GetComponent<Rigidbody>());
         }
 
+        //need to wait till end of frame for the Destroy actions to go into effect
+        yield return new WaitForSeconds(0.2f);
+
+        for (int i = 0; i < parts.Length; i++)
+        {
+            //change meshcolliders on startingPart back to non-convex if they weren't before
+            meshColliders = parts[i].GetComponentsInChildren<MeshCollider>();
+            for (int j = 0; j < meshColliders.Length; j++)
+            {
+
+                if (meshColliders[j] != null && !wasConvex[j])
+                {
+                    meshColliders[j].convex = false;
+                }
+            }
+        }
         // destroy all parts except starting part
         // CHANGE this to add the new level string each time a new level is added
+        fuseEvent.fuseCleanUp();
         string mode = eventSystem.GetComponent<FuseEvent>().mode;
+
         switch (mode)
         {
             case "b2":
@@ -136,23 +173,41 @@ public class LevelResetter : MonoBehaviour {
             default:
                 break;
         }
+    }
 
+    public void showTryAgainButton()
+    {
+        tryAgainButton.gameObject.SetActive(true);
+    }
+
+    private IEnumerator resetConstruction()
+    {
+        tryAgainButton.gameObject.SetActive(false);
+        rechargingText.enabled = true;
         // simple ... progress animation for recharging text
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
+            rechargingText.text += ".";
+            yield return new WaitForSeconds(0.25f);
+            rechargingText.text += ".";
+            yield return new WaitForSeconds(0.25f);
+            rechargingText.text += ".";
             audioSource.PlayOneShot(rechargingSound);
-            rechargingText.text += ".";
-            yield return new WaitForSeconds(0.25f);
-            rechargingText.text += ".";
-            yield return new WaitForSeconds(0.25f);
-            rechargingText.text += ".";
             yield return new WaitForSeconds(0.5f);
             rechargingText.text = "Recharging emergency power";
         }
         rechargingText.enabled = false;
-        yield return new WaitForSeconds(1f);
 
-        // TODO: add a button to restart level to let the player catch their breath!
+        // put starting part back to where it was
+        startingPart.transform.SetPositionAndRotation(startingPartOffscreenPos, Quaternion.Euler(0, 0, 0));
+
+        // and reset camera
+        cameraControls.gameObject.transform.SetPositionAndRotation(new Vector3(-90, 45, -3.36f), Quaternion.Euler(0, 0, 0));
+
+        // and reset the number of rotations and time remaining
+        rotationsRemainingPanel.GetComponent<RotationCounter>().resetRotations();
+        timeRemainingPanel.GetComponent<Timer>().resetTimer();
+        yield return new WaitForSeconds(1f);
 
         //flicker screen back in
         flickeringTime = 0.5f;
@@ -166,11 +221,6 @@ public class LevelResetter : MonoBehaviour {
         }
         fadeOutScreen.enabled = false;
 
-        // put starting part back to where it was
-        // and reset camera
-        startingPart.transform.position = startingPartOffscreenPos;
-        cameraControls.gameObject.transform.SetPositionAndRotation(new Vector3(-90, 45, -3.36f), Quaternion.Euler(0, 0, 0));
-
         yield return new WaitForSeconds(1f);
 
         StartCoroutine(startingPartZoomUp());
@@ -178,9 +228,12 @@ public class LevelResetter : MonoBehaviour {
         //Dresha talks and part zooms up
         yield return new WaitForSeconds(1f);
         ConversationTrigger.AddToken("letsRestart");
+    }
 
-        // do countdown again and start timer, start level
-
+    //triggered by click of the tryAgainButton
+    public void doResetConstruction()
+    {
+        StartCoroutine(resetConstruction());
     }
 
     public void disablePlayerControls()
@@ -193,11 +246,11 @@ public class LevelResetter : MonoBehaviour {
 
     private IEnumerator startingPartZoomUp()
     {
-        float step = 0.01f; //move 70 units up in 1 second
+        float step = 0.01f; //move all the way up in one second
         while (!startingPart.transform.position.Equals(startingPartFinalPos))
         {
-            startingPart.transform.position = Vector3.MoveTowards(startingPart.transform.position, startingPartOffscreenPos, step);
-            step += 0.01f;
+            startingPart.transform.position = Vector3.Lerp(startingPartOffscreenPos, startingPartFinalPos, step);
+            step *= 1.2f;
             yield return new WaitForSeconds(0.01f);
         }
 
@@ -222,7 +275,6 @@ public class LevelResetter : MonoBehaviour {
 
         eventSystem.GetComponent<FuseEvent>().startMusic();
         timeRemainingPanel.GetComponent<Timer>().startTimer();
-        rotationsRemainingPanel.GetComponent<RotationCounter>().resetRotations();
     }
 
     private void enablePlayerControls()
@@ -236,10 +288,19 @@ public class LevelResetter : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        if (ConversationTrigger.GetToken("finishedConst_restart"))
+        Debug.Log("bb2 MeshCollider is convex? " + GameObject.Find("bb2").GetComponent<MeshCollider>().convex);
+        // when Dresha has finished the restart message, reenable controls and start level again
+        if (ConversationTrigger.GetToken("outOfPower") && ConversationTrigger.GetToken("hasPower"))
+        {
+            ConversationTrigger.RemoveToken("outOfPower");
+            ConversationTrigger.RemoveToken("hasPower");
+            showTryAgainButton();
+        }
+        else if (ConversationTrigger.GetToken("doneRestarting") && ConversationTrigger.GetToken("letsRestart"))
         {
             ConversationTrigger.RemoveToken("letsRestart");
+            ConversationTrigger.RemoveToken("doneRestarting");
             StartCoroutine(doCountdownAndEnableControls());
-        }
+        }  
 	}
 }

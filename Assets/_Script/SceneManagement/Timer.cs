@@ -5,8 +5,8 @@ using UnityEngine.Events;
 
 public class Timer : MonoBehaviour {
     public Text timerLabel;
-    public float timeRemaining;
-    private float TIME_REMAINING; // saves the timeRemaining value entered in inspector for when the level is restarted
+    public float timeGiven;
+    private float timeRemaining; // saves the timeRemaining value entered in inspector for when the level is restarted
     private bool outOfTime;
     private int minutes;
     private int seconds;
@@ -17,19 +17,30 @@ public class Timer : MonoBehaviour {
     void Start () {
         outOfTime = false;
         timerStarted = false;
-        TIME_REMAINING = timeRemaining;
+        timeRemaining = timeGiven;
+        minutes = Mathf.FloorToInt(timeRemaining / 60F);
+        seconds = Mathf.FloorToInt(timeRemaining - minutes * 60);
+        timerLabel.text = string.Format("{0:0}:{1:00}", minutes, seconds);
 
     }
 
     public void startTimer()
     {
-        timeRemaining = TIME_REMAINING;
         timerStarted = true;
     }
 
     public void stopTimer()
     {
         timerStarted = false;
+    }
+
+    public void resetTimer()
+    {
+        timeRemaining = timeGiven;
+        minutes = Mathf.FloorToInt(timeRemaining / 60F);
+        seconds = Mathf.FloorToInt(timeRemaining - minutes * 60);
+        timerLabel.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+
     }
 
     public bool isOutOfTime()

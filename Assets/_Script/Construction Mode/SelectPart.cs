@@ -252,18 +252,22 @@ public class SelectPart : MonoBehaviour {
 	}
 
 	public void resetSelectedObject() {
-		//! CODE FOR REMOVING GHOSTS ON CONNECT.
-		Destroy(selectedObject.GetComponent<SelectedEffect>());
-
+        //! CODE FOR REMOVING GHOSTS ON CONNECT (or when resetting level)
+        if (selectedObject != null)
+        {
+            Destroy(selectedObject.GetComponent<SelectedEffect>());
+        }
 		selectedObject = null;
         prevSelectedObject = null;
 
 	}
 	
 	public void resetSelectedFuseTo() {
-		//! CODE FOR REMOVING GHOSTS ON CONNECT.
-		Destroy(selectedFuseTo.GetComponent<SelectedEffect>());
-
+        //! CODE FOR REMOVING GHOSTS ON CONNECT (or when resetting level)
+        if (selectedFuseTo != null)
+        {
+            Destroy(selectedFuseTo.GetComponent<SelectedEffect>());
+        }
 		selectedFuseTo = null;
         prevSelectedObject = null;
 	}
@@ -452,7 +456,7 @@ public class SelectPart : MonoBehaviour {
             }
 
             sel.hitInfo = hitInfo;
-            Debug.Log("Normals of hitInfo for " + selectedFuseTo + ": " + hitInfo.worldNormal);
+            //Debug.Log("Normals of hitInfo for " + selectedFuseTo + ": " + hitInfo.worldNormal);
         }
     }
 
