@@ -29,11 +29,18 @@ public class PickUp : MonoBehaviour
 	public bool autoDelete = false;
 
 
-	void Start()
+    void Start()
 
-	{
-        PartsSounds.clip = WindChimes;
-        PartsSounds.Play();
+    {
+        if (WindChimes != null && PartsSounds != null)
+        {
+           
+            
+                PartsSounds.clip = WindChimes;
+                PartsSounds.Play();
+            
+
+        }
 		// check deleteToken.
 		if ((deleteToken != "" && ConversationTrigger.GetToken(deleteToken)) ||
 			(autoDelete && ConversationTrigger.GetToken("autodelete_" + pickupName)))
