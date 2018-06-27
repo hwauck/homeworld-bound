@@ -200,6 +200,7 @@ public class CreatePartB1 : MonoBehaviour
             b1p1_bb1_a1.gameObject.AddComponent<FaceSelector>();
             b1p1_bb1_a1.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b1p1_bb1_a1.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
+            b1p1_bb1_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
 
 
             instantiated[0] = newB1p1;
@@ -236,6 +237,7 @@ public class CreatePartB1 : MonoBehaviour
             b1p2_bb1_a1.gameObject.AddComponent<FaceSelector>();
             b1p2_bb1_a1.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b1p2_bb1_a1.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
+            b1p2_bb1_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
 
             b1p2_bb1_a2.gameObject.AddComponent<FuseBehavior>();
             b1p2_bb1_a2.gameObject.GetComponent<FuseBehavior>().setFuseTo(fuseAtts);
@@ -244,6 +246,7 @@ public class CreatePartB1 : MonoBehaviour
             b1p2_bb1_a2.gameObject.AddComponent<FaceSelector>();
             b1p2_bb1_a2.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b1p2_bb1_a2.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
+            b1p2_bb1_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
 
 
             instantiated[1] = newB1p2;
@@ -279,6 +282,7 @@ public class CreatePartB1 : MonoBehaviour
             b1p3_bb1_a1.gameObject.AddComponent<FaceSelector>();
             b1p3_bb1_a1.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b1p3_bb1_a1.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
+            b1p3_bb1_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
 
             instantiated[2] = newB1p3;
             partCreated[2] = true;

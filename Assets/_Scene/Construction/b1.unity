@@ -602,7 +602,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 0
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!114 &188299410
 MonoBehaviour:
@@ -1273,7 +1273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &490869814
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1851,6 +1851,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 188299408}
     m_Modifications:
+    - target: {fileID: 11461554, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 22447662, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1948,6 +1952,26 @@ Prefab:
     - target: {fileID: 11436724, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
       propertyPath: m_Color.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11461554, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11461554, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11461554, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1321869685}
+    - target: {fileID: 11461554, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: goToNextScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 11461554, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
@@ -2824,23 +2848,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22478512, guid: ca95c809c7100f941a716a128503d054, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -212.49994
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22478512, guid: ca95c809c7100f941a716a128503d054, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -24.999939
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 22478512, guid: ca95c809c7100f941a716a128503d054, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 425
+      value: 320
       objectReference: {fileID: 0}
     - target: {fileID: 22478512, guid: ca95c809c7100f941a716a128503d054, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 22478512, guid: ca95c809c7100f941a716a128503d054, type: 2}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 22478512, guid: ca95c809c7100f941a716a128503d054, type: 2}
       propertyPath: m_AnchorMin.y
@@ -2848,7 +2872,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22478512, guid: ca95c809c7100f941a716a128503d054, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 22478512, guid: ca95c809c7100f941a716a128503d054, type: 2}
       propertyPath: m_AnchorMax.y
@@ -2955,6 +2979,14 @@ Prefab:
     - target: {fileID: 11492360, guid: ca95c809c7100f941a716a128503d054, type: 2}
       propertyPath: m_Color.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22418896, guid: ca95c809c7100f941a716a128503d054, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 320
+      objectReference: {fileID: 0}
+    - target: {fileID: 22480470, guid: ca95c809c7100f941a716a128503d054, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 290
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ca95c809c7100f941a716a128503d054, type: 2}
@@ -3086,8 +3118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8daa7e2be9c48d94ea0d4cd4ad5e46a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialMode: 1
-  mode: b1
+  controlsDisabled: 0
   connectButton: {fileID: 1418366674}
 --- !u!114 &1321869684
 MonoBehaviour:
@@ -3111,8 +3142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a62bd1f9e428d64fb664298c3add03b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialOn: 1
-  mode: b1
+  inTutorial: 1
   source: {fileID: 369571929}
   musicsource: {fileID: 1406899348}
   success: {fileID: 8300000, guid: ae9e829741082eb4093adf3c61753e96, type: 3}
@@ -4903,6 +4933,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 6f06cf52ecc47f14d93c2ce9e15c3d24, type: 3}
+      propertyPath: m_TagString
+      value: part
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f06cf52ecc47f14d93c2ce9e15c3d24, type: 3}
   m_IsPrefabParent: 0
@@ -5122,6 +5156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectPart: {fileID: 1321869683}
   fuseButton: {fileID: 1418366674}
+  selectedNormal: {x: 1, y: 0, z: 0}
 --- !u!114 &1730035254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5135,6 +5170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectPart: {fileID: 1321869683}
   fuseButton: {fileID: 1418366674}
+  selectedNormal: {x: 1, y: 0, z: 0}
 --- !u!114 &1730035255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5148,6 +5184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectPart: {fileID: 1321869683}
   fuseButton: {fileID: 1418366674}
+  selectedNormal: {x: 0, y: 0, z: -1}
 --- !u!114 &1730035256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5161,6 +5198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectPart: {fileID: 1321869683}
   fuseButton: {fileID: 1418366674}
+  selectedNormal: {x: -1, y: 0, z: 0}
 --- !u!1 &1730654015
 GameObject:
   m_ObjectHideFlags: 0

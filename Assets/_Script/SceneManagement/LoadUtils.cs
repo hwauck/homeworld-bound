@@ -45,7 +45,7 @@ public class LoadUtils : MonoBehaviour
 			Transform tt = gg.transform;
 			if (tt.parent == null && gg.tag != "SceneBundle" && gg.tag != "SceneManager")
 			{
-				tt.parent = sceneBundle.transform;
+				tt.SetParent(sceneBundle.transform);
 			}
 		}
 

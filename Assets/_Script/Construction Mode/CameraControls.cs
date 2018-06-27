@@ -13,7 +13,7 @@ public class CameraControls : MonoBehaviour
 	const float MIN_CAM_DISTANCE = 80f;
 	const float MAX_CAM_DISTANCE = 160f;
 
-    public bool tutorialMode;
+    public bool controlsDisabled;
     public Vector3 orbitPoint = new Vector3(-70f, 30f, 100f);
 
 	// how fast the camera orbits
@@ -40,7 +40,7 @@ public class CameraControls : MonoBehaviour
 
 	void LateUpdate()
 	{
-        if (!tutorialMode) // only enable player camera controls when tutorial is not running
+        if (!controlsDisabled) // only enable player camera controls when tutorial is not running
         {
             // orbits
             if (Input.GetMouseButton(0))

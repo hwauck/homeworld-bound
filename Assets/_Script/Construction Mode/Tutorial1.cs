@@ -106,10 +106,16 @@ public class Tutorial1 : MonoBehaviour {
         {
             enabledControls = true;
             bottomPanel.blocksRaycasts = true;
-            cameraControls.tutorialMode = false;
-            rotationScript.tutorialMode = false;
-            selectPart.tutorialMode = false;
+            cameraControls.controlsDisabled = false;
+            rotationScript.controlsDisabled = false;
+            selectPart.controlsDisabled = false;
             enableControlsAndAddToken("finishedEnablingControls");
+        } else
+        {
+            bottomPanel.blocksRaycasts = false;
+            cameraControls.controlsDisabled = true;
+            rotationScript.controlsDisabled = true;
+            selectPart.controlsDisabled = true;
         }
     }
 
@@ -279,9 +285,9 @@ public class Tutorial1 : MonoBehaviour {
             {
                 enabledControls = true;
                 bottomPanel.blocksRaycasts = true;
-                cameraControls.tutorialMode = false;
-                rotationScript.tutorialMode = false;
-                selectPart.tutorialMode = false;
+                cameraControls.controlsDisabled = false;
+                rotationScript.controlsDisabled = false;
+                selectPart.controlsDisabled = false;
                 enableControlsAndAddToken("finishedEnablingControls");
             }
             // Once player attaches their first part, Dresha congratulates them

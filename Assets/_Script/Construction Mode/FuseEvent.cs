@@ -8,7 +8,7 @@ using System.IO;
 public class FuseEvent : MonoBehaviour {
 
     //tutorial variables
-    public bool tutorialOn;
+    public bool inTutorial;
     public static bool runningJustConstructionMode = false;
     private bool firstFuseComplete;
 
@@ -22,8 +22,6 @@ public class FuseEvent : MonoBehaviour {
 	//CoRoutine Variables
 	private enum Fade {In, Out};
 	private float fadeTime = 5.0F;
-
-    public string mode;
 
     //Music
     public AudioSource source;
@@ -65,7 +63,7 @@ public class FuseEvent : MonoBehaviour {
     //data collection
     private float levelTimer;
 	private string filename;
-	private StreamWriter sr;
+	//private StreamWriter sr;
 	private int numFuseAttempts;
 	private int numWrongRotationFails;
 	private int numWrongFacesFails;
@@ -76,7 +74,7 @@ public class FuseEvent : MonoBehaviour {
 		// For data collection.
 		startLevelTimer();
         musicsource.clip = music;
-        if (!tutorialOn)
+        if (!inTutorial)
         {
             musicsource.Play();
         }
@@ -101,181 +99,179 @@ public class FuseEvent : MonoBehaviour {
 			LoadUtils.LoadScene(InventoryController.levelName);
 		});
 
-		// New addition for claim item button.
-		if (claimItem != null)
-		{
-			claimItem.onClick.AddListener(() => {
-                //TODO: may not need this first IF, if we don't want players to be able to leave Const mode
-				if (mode != "b1" && mode != "b2")
-				{
-					SimpleData.WriteDataPoint("Left_Scene", "Complete_Construction", "", "", "", "");
-					//SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO," + InventoryController.levelName);
-				}
-				switch (mode)
-				{
-                    // TODO: Need to think about how to handle it when the player might need an unspecified number of 
-                    // batteries. Procedurally generate battery models/Construction Mode levels so they stay different?
-                    // Or just make a lot of batteries in advance, loop through them again, and hope the player doesn't
-                    // notice?
-                    // Should have a generic "battery" mode for all non-tutorial batteries
-					case "b1":
-						ConversationTrigger.AddToken("done_with_tutorial_1");
-                        BatterySystem.AddPower(2);
-                        BatterySystem.PowerToTokens();
-                        LoadUtils.LoadScene("b2");
-						LoadUtils.UnloadScene("b1");
-						break;
-                    case "b2":
-                        ConversationTrigger.AddToken("done_with_tutorial_2");
-                        BatterySystem.AddPower(2);
-                        BatterySystem.PowerToTokens();
-                        LoadUtils.LoadScene("b3");
-                        LoadUtils.UnloadScene("b2");
-                        break;
-                    case "b3":
-                        BatterySystem.AddPower(2);
-                        BatterySystem.PowerToTokens();
-                        LoadUtils.LoadScene("b2");
-                        LoadUtils.UnloadScene("b1");
-                        break;
-                    case "b4":
-                        BatterySystem.AddPower(2);
-                        BatterySystem.PowerToTokens();
-                        ConversationTrigger.AddToken("done_with_battery_4");
-						LoadUtils.LoadScene("rocketBoots");
-						LoadUtils.UnloadScene("b4");
-						break;
-					case "boot":
-						RocketBoots.ActivateBoots();
-						InventoryController.items.Remove("Rocket Boots Body");
-						InventoryController.items.Remove("Rocket Boots Calf");
-						InventoryController.items.Remove("Rocket Boots Sole");
-						InventoryController.items.Remove("Rocket Boots Toe");
-						InventoryController.items.Remove("Rocket Boots Toe Sole");
-						InventoryController.items.Remove("Rocket Boots Trim");
-						InventoryController.items.Remove("Rocket Boots Widening");
-						InventoryController.ConvertInventoryToTokens();
-						//RecipesDB.unlockedRecipes.Remove(RecipesDB.RocketBoots);
-						LoadUtils.LoadScene(InventoryController.levelName);
-						LoadUtils.UnloadScene("rocketBoots");
-						break;
-					case "axe":
-						Sledgehammer.ActivateSledgehammer();
-						InventoryController.items.Remove("Sledgehammer Trapezoid");
-						InventoryController.items.Remove("Sledgehammer Top Point");
-						InventoryController.items.Remove("Sledgehammer Shaft");
-						InventoryController.items.Remove("Sledgehammer Head");
-						InventoryController.items.Remove("Sledgehammer Haft");
-						InventoryController.items.Remove("Sledgehammer Bottom Point");
-						InventoryController.items.Remove("Sledgehammer Bottom Point Right");
-						InventoryController.items.Remove("Sledgehammer Trapezoid");
-						InventoryController.items.Remove("Sledgehammer Top Point Right");
-						InventoryController.items.Remove("Sledgehammer Small Tip");
-						InventoryController.items.Remove("Sledgehammer Small Trap");
-						InventoryController.items.Remove("Sledgehammer Tip");
+  //      // New addition for claim item button.
+  //      if (claimItem != null)
+		//{
+		//	claimItem.onClick.AddListener(() => {
 
-						InventoryController.ConvertInventoryToTokens();
-						LoadUtils.LoadScene(InventoryController.levelName);
-						LoadUtils.UnloadScene("sledgehammer");
-						break;
-					case "key1":
-						ConversationTrigger.AddToken("player_has_key1");
-						InventoryController.items.Remove("Key 1 Dangly T");
-						InventoryController.items.Remove("Key 1 Upright L");
-						InventoryController.items.Remove("Key 1 Upright Rect");
-						InventoryController.items.Remove("Key 1 Upright T");
-						InventoryController.items.Remove("Key 1 Walking Pants");
-						InventoryController.items.Remove("Key 1 Waluigi");
-						InventoryController.ConvertInventoryToTokens();
-						LoadUtils.LoadScene(InventoryController.levelName);
-						LoadUtils.UnloadScene("key1");
-						break;
-					case "ffa":
-						ConversationTrigger.AddToken("player_has_ffa");
-						InventoryController.items.Remove("FFA Blue Tri");
-						InventoryController.items.Remove("FFA Center Box");
-						InventoryController.items.Remove("FFA Center Tri");
-						InventoryController.items.Remove("FFA Handle Bottom");
-						InventoryController.items.Remove("FFA Handle Top");
-						InventoryController.items.Remove("FFA Left Tri");
-						InventoryController.items.Remove("FFA Right Tri");
-						InventoryController.items.Remove("FFA Right Tri Chunk");
-						InventoryController.items.Remove("FFA Ring Large");
-						InventoryController.items.Remove("FFA Ring Long");
-						InventoryController.items.Remove("FFA Ring Small");
-						InventoryController.items.Remove("FFA Scalene");
-						InventoryController.ConvertInventoryToTokens();
-						LoadUtils.LoadScene(InventoryController.levelName);
-						LoadUtils.UnloadScene("ffaHarder");
-						break;
+		//		SimpleData.WriteDataPoint("Left_Scene", "Complete_Construction", "", "", "", "");
+		//		//SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO," + InventoryController.levelName);
+		//		switch (SceneManager.GetActiveScene().name)
+		//		{
+  //                  // TODO: Need to think about how to handle it when the player might need an unspecified number of 
+  //                  // batteries. Procedurally generate battery models/Construction Mode levels so they stay different?
+  //                  // Or just make a lot of batteries in advance, loop through them again, and hope the player doesn't
+  //                  // notice?
+  //                  // Should have a generic "battery" mode for all non-tutorial batteries
+		//			case "b1":
+  //                      BatterySystem.AddPower(2);
+  //                      BatterySystem.PowerToTokens();
+  //                      LoadUtils.LoadScene("b2");
+		//				LoadUtils.UnloadScene("b1");
+		//				break;
+  //                  case "b2":
+  //                      BatterySystem.AddPower(2);
+  //                      BatterySystem.PowerToTokens();
+  //                      LoadUtils.LoadScene("b3");
+  //                      LoadUtils.UnloadScene("b2");
+  //                      break;
+  //                  case "b3":
+  //                      BatterySystem.AddPower(2);
+  //                      BatterySystem.PowerToTokens();
+  //                      LoadUtils.LoadScene("b4");
+  //                      LoadUtils.UnloadScene("b3");
+  //                      break;
+  //                  case "b4":
+  //                      BatterySystem.AddPower(2);
+  //                      BatterySystem.PowerToTokens();
+		//				LoadUtils.LoadScene("rocketBoots");
+		//				LoadUtils.UnloadScene("b4");
+		//				break;
+		//			case "boot":
+		//				RocketBoots.ActivateBoots();
+		//				InventoryController.items.Remove("Rocket Boots Body");
+		//				InventoryController.items.Remove("Rocket Boots Calf");
+		//				InventoryController.items.Remove("Rocket Boots Sole");
+		//				InventoryController.items.Remove("Rocket Boots Toe");
+		//				InventoryController.items.Remove("Rocket Boots Toe Sole");
+		//				InventoryController.items.Remove("Rocket Boots Trim");
+		//				InventoryController.items.Remove("Rocket Boots Widening");
+		//				InventoryController.ConvertInventoryToTokens();
+		//				//RecipesDB.unlockedRecipes.Remove(RecipesDB.RocketBoots);
+		//				LoadUtils.LoadScene(InventoryController.levelName);
+		//				LoadUtils.UnloadScene("rocketBoots");
+		//				break;
+		//			case "axe":
+		//				Sledgehammer.ActivateSledgehammer();
+		//				InventoryController.items.Remove("Sledgehammer Trapezoid");
+		//				InventoryController.items.Remove("Sledgehammer Top Point");
+		//				InventoryController.items.Remove("Sledgehammer Shaft");
+		//				InventoryController.items.Remove("Sledgehammer Head");
+		//				InventoryController.items.Remove("Sledgehammer Haft");
+		//				InventoryController.items.Remove("Sledgehammer Bottom Point");
+		//				InventoryController.items.Remove("Sledgehammer Bottom Point Right");
+		//				InventoryController.items.Remove("Sledgehammer Trapezoid");
+		//				InventoryController.items.Remove("Sledgehammer Top Point Right");
+		//				InventoryController.items.Remove("Sledgehammer Small Tip");
+		//				InventoryController.items.Remove("Sledgehammer Small Trap");
+		//				InventoryController.items.Remove("Sledgehammer Tip");
 
-					default:
-						Debug.Log("Not Yet Implemented: " + mode);
-						break;
-				}
-				// Update the build button based on the now-removed parts.
-				BuildButton.CheckRecipes();
+		//				InventoryController.ConvertInventoryToTokens();
+		//				LoadUtils.LoadScene(InventoryController.levelName);
+		//				LoadUtils.UnloadScene("sledgehammer");
+		//				break;
+		//			case "key1":
+		//				ConversationTrigger.AddToken("player_has_key1");
+		//				InventoryController.items.Remove("Key 1 Dangly T");
+		//				InventoryController.items.Remove("Key 1 Upright L");
+		//				InventoryController.items.Remove("Key 1 Upright Rect");
+		//				InventoryController.items.Remove("Key 1 Upright T");
+		//				InventoryController.items.Remove("Key 1 Walking Pants");
+		//				InventoryController.items.Remove("Key 1 Waluigi");
+		//				InventoryController.ConvertInventoryToTokens();
+		//				LoadUtils.LoadScene(InventoryController.levelName);
+		//				LoadUtils.UnloadScene("key1");
+		//				break;
+		//			case "ffa":
+		//				ConversationTrigger.AddToken("player_has_ffa");
+		//				InventoryController.items.Remove("FFA Blue Tri");
+		//				InventoryController.items.Remove("FFA Center Box");
+		//				InventoryController.items.Remove("FFA Center Tri");
+		//				InventoryController.items.Remove("FFA Handle Bottom");
+		//				InventoryController.items.Remove("FFA Handle Top");
+		//				InventoryController.items.Remove("FFA Left Tri");
+		//				InventoryController.items.Remove("FFA Right Tri");
+		//				InventoryController.items.Remove("FFA Right Tri Chunk");
+		//				InventoryController.items.Remove("FFA Ring Large");
+		//				InventoryController.items.Remove("FFA Ring Long");
+		//				InventoryController.items.Remove("FFA Ring Small");
+		//				InventoryController.items.Remove("FFA Scalene");
+		//				InventoryController.ConvertInventoryToTokens();
+		//				LoadUtils.LoadScene(InventoryController.levelName);
+		//				LoadUtils.UnloadScene("ffaHarder");
+		//				break;
 
-			});
-			Debug.Log("Made it to this point");
-			Debug.Log("Disabling goToNextTutorial button!");
-			claimItem.gameObject.SetActive(false);
-            firstFuseComplete = false;
+		//			default:
+		//				Debug.Log("Not Yet Implemented: " + SceneManager.GetActiveScene().name);
+		//				break;
+		//		}
+		//		// Update the build button based on the now-removed parts.
+		//		BuildButton.CheckRecipes();
 
+		//	});
+		//	Debug.Log("Made it to this point");
+		//	Debug.Log("Disabling Take button!");
+
+       // }
+
+        firstFuseComplete = false;
+
+
+        // Infinite energy if running construction mode separately.
+        if (InventoryController.levelName == "")
+        {
+            // Special stuff happens because we are just running construction mode without exploration mode.
+            runningJustConstructionMode = true;
+            SimpleData.CreateInitialFiles();
+
+            //! Is this a really bad idea?
+            SaveController.filename += "_CONSTRUCTION-ONLY";
+
+            // This works because levelName will be "" when we aren't coming from any specific level.
+
+            // Add a ton of power and hide the battery indicator.
+            // Disabling is generally a bad idea.
+            //BatterySystem.AddPower(999999999);
+            //GameObject.Find("BatteryIndicator").transform.localScale = Vector3.zero;
+
+            // Change back button functionality.
+            backButton.onClick.RemoveAllListeners();
+            backButton.onClick.AddListener(() =>
+            {
+                stopLevelTimer();
+                printLevelDataFail();
+                SimpleData.WriteDataPoint("Left_Scene", "Construction_Only", "", "", "", "");
+                //SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO,SimpleMenu");
+                SceneManager.LoadScene("SimpleMenu");
+            });
+
+
+            // Change Claim Item functionality.
+            //if (claimItem != null)
+            //{
+            //	//claimItem.transform.localScale = Vector3.zero;
+            //	claimItem.onClick.RemoveAllListeners();
+            //	claimItem.onClick.AddListener(() =>
+            //	{
+            //		SimpleData.WriteDataPoint("Left_Scene", "Construction_Only", "", "", "", "");
+            //		//SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO,SimpleMenu");
+            //		//stopLevelTimer();
+            //		//printLevelDataFail();
+            //		SceneManager.LoadScene("SimpleMenu");
+            //	});
+            //}
+        }
+        else
+        {
+            runningJustConstructionMode = false;
         }
 
-		// Infinite energy if running construction mode separately.
-		if (InventoryController.levelName == "")
-		{
-			// Special stuff happens because we are just running construction mode without exploration mode.
-			runningJustConstructionMode = true;
-			SimpleData.CreateInitialFiles();
 
-			//! Is this a really bad idea?
-			SaveController.filename += "_CONSTRUCTION-ONLY";
-
-			// This works because levelName will be "" when we aren't coming from any specific level.
-
-			// Add a ton of power and hide the battery indicator.
-			// Disabling is generally a bad idea.
-			//BatterySystem.AddPower(999999999);
-			//GameObject.Find("BatteryIndicator").transform.localScale = Vector3.zero;
-
-			// Change back button functionality.
-			backButton.onClick.RemoveAllListeners();
-			backButton.onClick.AddListener(() =>
-			{
-				stopLevelTimer();
-				printLevelDataFail();
-				SimpleData.WriteDataPoint("Left_Scene", "Construction_Only", "", "", "", "");
-				//SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO,SimpleMenu");
-				SceneManager.LoadScene("SimpleMenu");
-			});
-
-
-			// Change Claim Item functionality.
-			if (claimItem != null)
-			{
-				//claimItem.transform.localScale = Vector3.zero;
-				claimItem.onClick.RemoveAllListeners();
-				claimItem.onClick.AddListener(() =>
-				{
-					SimpleData.WriteDataPoint("Left_Scene", "Construction_Only", "", "", "", "");
-					//SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO,SimpleMenu");
-					//stopLevelTimer();
-					//printLevelDataFail();
-					SceneManager.LoadScene("SimpleMenu");
-				});
-			}
-		}
-		else runningJustConstructionMode = false;
-
-
-		fuseCount = 0;
+        fuseCount = 0;
 		fuseStatus = "none";
 		createFuseMapping();
 		filename = "ConstructionModeData.txt";
-		sr = File.AppendText(filename);
+		//sr = File.AppendText(filename);
 		levelTimer = Time.time;
 		numFuseAttempts = 0;
 		numWrongFacesFails = 0;
@@ -293,6 +289,123 @@ public class FuseEvent : MonoBehaviour {
 
 
 	}
+
+    public void goToNextScene()
+    {
+
+        SimpleData.WriteDataPoint("Left_Scene", "Complete_Construction", "", "", "", "");
+        //SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO," + InventoryController.levelName);
+        switch (SceneManager.GetActiveScene().name)
+        {
+            // TODO: Need to think about how to handle it when the player might need an unspecified number of 
+            // batteries. Procedurally generate battery models/Construction Mode levels so they stay different?
+            // Or just make a lot of batteries in advance, loop through them again, and hope the player doesn't
+            // notice?
+            // Should have a generic "battery" mode for all non-tutorial batteries
+            case "b1":
+                BatterySystem.AddPower(2);
+                BatterySystem.PowerToTokens();
+                Debug.Log("About to load next scene: b2!");
+                LoadUtils.LoadScene("b2");
+                Debug.Log("Finished loading next scene: b2!");
+                Debug.Log("About to unload previous scene: b1!");
+                LoadUtils.UnloadScene("b1");
+                Debug.Log("Finished unloading previous scene: b1!");
+
+                break;
+            case "b2":
+                BatterySystem.AddPower(2);
+                BatterySystem.PowerToTokens();
+                LoadUtils.LoadScene("b3");
+                LoadUtils.UnloadScene("b2");
+                break;
+            case "b3":
+                BatterySystem.AddPower(2);
+                BatterySystem.PowerToTokens();
+                LoadUtils.LoadScene("b4");
+                LoadUtils.UnloadScene("b3");
+                break;
+            case "b4":
+                BatterySystem.AddPower(2);
+                BatterySystem.PowerToTokens();
+                LoadUtils.LoadScene("rocketBoots");
+                LoadUtils.UnloadScene("b4");
+                break;
+            case "boot":
+                RocketBoots.ActivateBoots();
+                InventoryController.items.Remove("Rocket Boots Body");
+                InventoryController.items.Remove("Rocket Boots Calf");
+                InventoryController.items.Remove("Rocket Boots Sole");
+                InventoryController.items.Remove("Rocket Boots Toe");
+                InventoryController.items.Remove("Rocket Boots Toe Sole");
+                InventoryController.items.Remove("Rocket Boots Trim");
+                InventoryController.items.Remove("Rocket Boots Widening");
+                InventoryController.ConvertInventoryToTokens();
+                //RecipesDB.unlockedRecipes.Remove(RecipesDB.RocketBoots);
+                LoadUtils.LoadScene(InventoryController.levelName);
+                LoadUtils.UnloadScene("rocketBoots");
+                break;
+            case "axe":
+                Sledgehammer.ActivateSledgehammer();
+                InventoryController.items.Remove("Sledgehammer Trapezoid");
+                InventoryController.items.Remove("Sledgehammer Top Point");
+                InventoryController.items.Remove("Sledgehammer Shaft");
+                InventoryController.items.Remove("Sledgehammer Head");
+                InventoryController.items.Remove("Sledgehammer Haft");
+                InventoryController.items.Remove("Sledgehammer Bottom Point");
+                InventoryController.items.Remove("Sledgehammer Bottom Point Right");
+                InventoryController.items.Remove("Sledgehammer Trapezoid");
+                InventoryController.items.Remove("Sledgehammer Top Point Right");
+                InventoryController.items.Remove("Sledgehammer Small Tip");
+                InventoryController.items.Remove("Sledgehammer Small Trap");
+                InventoryController.items.Remove("Sledgehammer Tip");
+
+                InventoryController.ConvertInventoryToTokens();
+                LoadUtils.LoadScene(InventoryController.levelName);
+                LoadUtils.UnloadScene("sledgehammer");
+                break;
+            case "key1":
+                ConversationTrigger.AddToken("player_has_key1");
+                InventoryController.items.Remove("Key 1 Dangly T");
+                InventoryController.items.Remove("Key 1 Upright L");
+                InventoryController.items.Remove("Key 1 Upright Rect");
+                InventoryController.items.Remove("Key 1 Upright T");
+                InventoryController.items.Remove("Key 1 Walking Pants");
+                InventoryController.items.Remove("Key 1 Waluigi");
+                InventoryController.ConvertInventoryToTokens();
+                LoadUtils.LoadScene(InventoryController.levelName);
+                LoadUtils.UnloadScene("key1");
+                break;
+            case "ffa":
+                ConversationTrigger.AddToken("player_has_ffa");
+                InventoryController.items.Remove("FFA Blue Tri");
+                InventoryController.items.Remove("FFA Center Box");
+                InventoryController.items.Remove("FFA Center Tri");
+                InventoryController.items.Remove("FFA Handle Bottom");
+                InventoryController.items.Remove("FFA Handle Top");
+                InventoryController.items.Remove("FFA Left Tri");
+                InventoryController.items.Remove("FFA Right Tri");
+                InventoryController.items.Remove("FFA Right Tri Chunk");
+                InventoryController.items.Remove("FFA Ring Large");
+                InventoryController.items.Remove("FFA Ring Long");
+                InventoryController.items.Remove("FFA Ring Small");
+                InventoryController.items.Remove("FFA Scalene");
+                InventoryController.ConvertInventoryToTokens();
+                LoadUtils.LoadScene(InventoryController.levelName);
+                LoadUtils.UnloadScene("ffaHarder");
+                break;
+
+            default:
+                Debug.Log("Not Yet Implemented: " + SceneManager.GetActiveScene().name);
+                break;
+        }
+
+        if (!runningJustConstructionMode)
+        {
+            // Update the build button based on the now-removed parts.
+            BuildButton.CheckRecipes();
+        }
+    }
 
 	public bool done() {
 		if(fuseCount == NUM_FUSES) {
@@ -328,7 +441,8 @@ public class FuseEvent : MonoBehaviour {
         // attach to. 
         // NOTE: when there are parts A and B that can be fused to each other instead of starting part,
         // fuseMapping needs mappings from A -> B AND from B -> A
-        if (mode.Equals ("b1")) {
+        string currentLevel = SceneManager.GetActiveScene().name;
+        if (currentLevel.Equals ("b1")) {
             //b1p1 to bb1
 			fuseMapping.Add ("b1p1_bb1_a1", "bb1_b1p1_a1");
 
@@ -340,7 +454,7 @@ public class FuseEvent : MonoBehaviour {
             fuseMapping.Add("b1p3_bb1_a1", "bb1_b1p3_a1");
 
         }
-        else if (mode.Equals ("b2")) {
+        else if (currentLevel.Equals ("b2")) {
             //b2p1 to b2p2
 			fuseMapping.Add ("b2p1_b2p2_a1", "b2p2_b2p1_a1");
 			fuseMapping.Add ("b2p1_b2p2_a2", "b2p2_b2p1_a2");
@@ -359,7 +473,7 @@ public class FuseEvent : MonoBehaviour {
             fuseMapping.Add("b2p2_bb2_a2", "bb2_b2p2_a2");
             fuseMapping.Add("b2p2_bb2_a3", "bb2_b2p2_a3");
 
-        } else if (mode.Equals ("boot")) {
+        } else if (currentLevel.Equals ("boot")) {
 	/*		fuseSet1.Add ("heel_widening_attach");
 			fuseMapping.Add ("widening_heel_attach", fuseSet1);
 			HashSet<string> fuseSet2 = new HashSet<string> ();
@@ -378,7 +492,7 @@ public class FuseEvent : MonoBehaviour {
 			fuseSet6.Add ("ballfoot_toe_attach");
 			fuseMapping.Add ("toe_ballfoot_attach", fuseSet6);
     */
-		} else if (mode.Equals ("key1")) {
+		} else if (currentLevel.Equals ("key1")) {
 		/*	HashSet<string> ULDTSet = new HashSet<string>();
 			ULDTSet.Add ("dangly_T_upright_L_attach");
 			fuseMapping.Add ("upright_L_dangly_T_attach", ULDTSet);
@@ -398,7 +512,7 @@ public class FuseEvent : MonoBehaviour {
 			URWPSet.Add ("walking_pants_upright_rect_attach");
 			fuseMapping.Add ("upright_rect_walking_pants_attach", URWPSet);
         */
-		} else if (mode.Equals ("axe")) {
+		} else if (currentLevel.Equals ("axe")) {
 		/*	HashSet<string> fuseToForHaft = new HashSet<string>();
 			fuseToForHaft.Add ("shaft_haft_attach");
 			fuseMapping.Add ("haft_shaft_attach", fuseToForHaft);
@@ -456,7 +570,7 @@ public class FuseEvent : MonoBehaviour {
 			fuseToForTip.Add ("head_tip_attach");
 			fuseMapping.Add ("tip_head_attach", fuseToForTip);
             */
-		} else if(mode.Equals ("hull")) {
+		} else if(currentLevel.Equals ("hull")) {
 		/*	HashSet<string> fuseToForBridgeCoverLeft = new HashSet<string>();
 			HashSet<string> fuseToForBridgeCoverRight = new HashSet<string>();
 			fuseToForBridgeCoverLeft.Add ("bridge_bridge_cover_left_attach");
@@ -498,7 +612,7 @@ public class FuseEvent : MonoBehaviour {
 			fuseMapping.Add ("right_cover_back_attach", fuseToForRightCoverBack);
 			fuseMapping.Add ("right_cover_back_slope_attach", fuseToForRightCoverSlope);
         */
-		} else if (mode.Equals ("ffa")) {
+		} else if (currentLevel.Equals ("ffa")) {
 
 			//ring large part
 		/*	HashSet<string> fuseToForRingLargePartSide = new HashSet<string>();
@@ -622,7 +736,7 @@ public class FuseEvent : MonoBehaviour {
 			fuseMapping.Add ("scalene_left_tri_back_attach", fuseToForScalene1);
 			fuseMapping.Add ("scalene_left_tri_side_attach", fuseToForScalene2);
             */
-		} else if (mode.Equals ("gloves")) {
+		} else if (currentLevel.Equals ("gloves")) {
 			//palm, fingers, thumb, armDec, palmDec
 		/*	
 			//palm
@@ -650,7 +764,7 @@ public class FuseEvent : MonoBehaviour {
 			fuseToForPalmDec.Add ("palm_palm_dec_attach");
 			fuseMapping.Add ("palm_dec_palm_attach", fuseToForPalmDec);
         */
-		} else if (mode.Equals ("key2")) {
+		} else if (currentLevel.Equals ("key2")) {
 			//c, hanging l, middle t, ul corner, zigzag
 		/*	
 			//c
@@ -696,7 +810,7 @@ public class FuseEvent : MonoBehaviour {
 			fuseToForZigzag.Add ("post_zigzag_attach");
 			fuseMapping.Add ("zigzag_post_attach", fuseToForZigzag);
         */
-		} else if (mode.Equals ("catapult")) {
+		} else if (currentLevel.Equals ("catapult")) {
 			//fuse to Platform
 		/*	HashSet<string> fuseToForBackAxleBottom = new HashSet<string>();
 			HashSet<string> fuseToForBackAxleLeft = new HashSet<string>();
@@ -778,7 +892,7 @@ public class FuseEvent : MonoBehaviour {
 			fuseMapping.Add ("right_support_axle_attach", fuseToForRightSupportSide);
 			fuseMapping.Add ("left_support_axle_attach", fuseToForLeftSupportSide);
         */
-		} else if (mode.Equals ("key3")) {
+		} else if (currentLevel.Equals ("key3")) {
 /*
 			HashSet<string> fuseToForLongLBack = new HashSet<string>();
 			HashSet<string> fuseToForLongLSide = new HashSet<string>();
@@ -827,7 +941,7 @@ public class FuseEvent : MonoBehaviour {
 			fuseMapping.Add("diagonal_connector_side_attach",fuseToForDiagonalConnectorSide);
 			fuseMapping.Add("diagonal_connector_top_attach",fuseToForDiagonalConnectorTop);
 			*/
-		}else if (mode.Equals ("vest")) {
+		}else if (currentLevel.Equals ("vest")) {
 		/*	
 			HashSet<string> fuseToForBackStrapRight = new HashSet<string>();
 			HashSet<string> fuseToForBackStrapSide = new HashSet<string>();
@@ -898,7 +1012,7 @@ public class FuseEvent : MonoBehaviour {
 			
 			fuseMapping.Add("vest_diamond_vest_oval_attach",fuseToForVestDiamond3);
 */
-		} else if (mode.Equals ("engine")) {
+		} else if (currentLevel.Equals ("engine")) {
 		/*	HashSet<string> fuseToForEngineFront = new HashSet<string>();
 			fuseToForEngineFront.Add ("engine_base_engine_front_attach");
 
@@ -921,95 +1035,6 @@ public class FuseEvent : MonoBehaviour {
 			fuseMapping.Add("engine_right_engine_base_attach",fuseToForEngineRight);
 */
 		}
-		
-	// 		Old, difficult Rocket Boots level
-	//		else if (mode.Equals ("boot")) {
-	//			fuseSet1.Add ("Sole_Heel_Top_Attach");
-	//			fuseMapping.Add ("Body_Bottom_Attach", fuseSet1);
-	//			HashSet<string> fuseSet2 = new HashSet<string> ();
-	//			fuseSet2.Add ("Sole_Heel_Side_Attach");
-	//			fuseMapping.Add ("Sole_Toe_Side_Attach", fuseSet2);
-	//			HashSet<string> fuseSet3 = new HashSet<string> ();
-	//			fuseSet3.Add ("Toe_Bottom_Attach");
-	//			fuseMapping.Add ("Sole_Toe_Top_Attach", fuseSet3);
-	//			HashSet<string> fuseSet4 = new HashSet<string> ();
-	//			fuseSet4.Add ("Sole_Toe_Top_Attach");
-	//			fuseMapping.Add ("Toe_Bottom_Attach", fuseSet4);
-	//			HashSet<string> fuseSet5 = new HashSet<string> ();
-	//			fuseSet5.Add ("Body_Side_Attach");
-	//			fuseMapping.Add ("Toe_Side_Attach", fuseSet5);
-	//			HashSet<string> fuseSet6 = new HashSet<string> ();
-	//			fuseSet6.Add ("Body_Top_Attach");
-	//			fuseMapping.Add ("Calf_Bottom_Attach", fuseSet6);
-	//			HashSet<string> fuseSet7 = new HashSet<string> ();
-	//			fuseSet7.Add ("Calf_Top_Attach");
-	//			fuseMapping.Add ("Top_Trim_Attach", fuseSet7);
-	//			HashSet<string> fuseSet8 = new HashSet<string> ();
-	//			fuseSet8.Add ("Toe_Side_Attach");
-	//			fuseMapping.Add ("Body_Side_Attach", fuseSet8);
-	//		}
-
-// 		Old, easy Axe level
-//		else if (mode.Equals ("axe")) {
-//			HashSet<string> fuseToForHaft = new HashSet<string>();
-//			fuseToForHaft.Add ("shaft_haft_attach");
-//			fuseMapping.Add ("haft_shaft_attach", fuseToForHaft);
-//
-//			HashSet<string> fuseToForTrapezoid = new HashSet<string>();
-//			fuseToForTrapezoid.Add ("shaft_trapezoid_attach");
-//			fuseMapping.Add ("trapezoid_shaft_attach", fuseToForTrapezoid);
-//
-//			HashSet<string> fuseToForHead = new HashSet<string>();
-//			fuseToForHead.Add ("trapezoid_head_attach");
-//			fuseMapping.Add ("head_trapezoid_attach", fuseToForHead);
-//
-//			HashSet<string> fuseToForBottomPoint = new HashSet<string>();
-//			fuseToForBottomPoint.Add ("head_bottom_point_attach");
-//			fuseMapping.Add ("bottom_point_head_attach", fuseToForBottomPoint);
-//
-//			HashSet<string> fuseToForTopPoint = new HashSet<string>();
-//			fuseToForTopPoint.Add ("head_top_point_attach");
-//			fuseMapping.Add ("top_point_head_attach", fuseToForTopPoint);
-
-//		Old, easier FFA level
-//		//ring, handle, centerTri, leftTri, rightTri
-//
-//		//ring
-//		HashSet<string> fuseToForRingLeft = new HashSet<string>();
-//		HashSet<string> fuseToForRingRight = new HashSet<string>();
-//		HashSet<string> fuseToForRingBack = new HashSet<string>();
-//		HashSet<string> fuseToForRingForward = new HashSet<string>();
-//		fuseToForRingLeft.Add ("center_box_ring_left_attach");
-//		fuseToForRingRight.Add ("center_box_ring_right_attach");
-//		fuseToForRingBack.Add ("center_box_ring_back_attach");
-//		fuseToForRingForward.Add ("center_box_ring_forward_attach");
-//		fuseMapping.Add ("ring_center_box_left_attach", fuseToForRingLeft);
-//		fuseMapping.Add ("ring_center_box_right_attach", fuseToForRingRight);
-//		fuseMapping.Add ("ring_center_box_back_attach", fuseToForRingBack);
-//		fuseMapping.Add ("ring_center_box_forward_attach", fuseToForRingForward);
-//
-//		//handle
-//		HashSet<string> fuseToForHandleTop = new HashSet<string>();
-//		HashSet<string> fuseToForHandleBottom = new HashSet<string>();
-//		fuseToForHandleTop.Add ("center_box_handle_top_attach");
-//		fuseToForHandleBottom.Add ("center_box_handle_bottom_attach");
-//		fuseMapping.Add ("handle_center_box_top_attach", fuseToForHandleTop);
-//		fuseMapping.Add ("handle_center_box_bottom_attach", fuseToForHandleBottom);
-//
-//		//centerTri
-//		HashSet<string> fuseToForCenterTri = new HashSet<string>();
-//		fuseToForCenterTri.Add ("ring_center_tri_attach");
-//		fuseMapping.Add ("center_tri_ring_attach", fuseToForCenterTri);
-//
-//		//leftTri
-//		HashSet<string> fuseToForLeftTri = new HashSet<string>();
-//		fuseToForLeftTri.Add ("ring_left_tri_attach");
-//		fuseMapping.Add ("left_tri_ring_attach", fuseToForLeftTri);
-//
-//		//rightTri
-//		HashSet<string> fuseToForRightTri = new HashSet<string>();
-//		fuseToForRightTri.Add ("ring_right_tri_attach");
-//		fuseMapping.Add ("right_tri_ring_attach", fuseToForRightTri);
 		
 	}
 
@@ -1041,7 +1066,7 @@ public class FuseEvent : MonoBehaviour {
 		//else
 		//	SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,AVG_ROTATIONS_PER_FUSE_ATTEMPT,0");
 		
-		sr.Close();
+		//sr.Close();
 	}
 
 	public void printLevelDataFail() {
@@ -1063,7 +1088,7 @@ public class FuseEvent : MonoBehaviour {
 		//else
 		//	SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,AVG_ROTATIONS_PER_FUSE_ATTEMPT,0");
 
-		sr.Close();
+		//sr.Close();
 	}
 
 	public void disableConnectButton() {
@@ -1122,7 +1147,8 @@ public class FuseEvent : MonoBehaviour {
 
 			fuseCleanUp();
 			fuseCount++;
-            if(mode.Equals("b1") && !firstFuseComplete)
+            string currentLevel = SceneManager.GetActiveScene().name;
+            if(currentLevel.Equals("b1") && !firstFuseComplete)
             {
                 firstFuseComplete = true;
                 ConversationTrigger.AddToken("finishedFirstFuse");
@@ -1130,7 +1156,6 @@ public class FuseEvent : MonoBehaviour {
 			if(done ()) {
 				stopLevelTimer();
 				printLevelData();
-				tutorialOn = false;
 				rotatePanelGroup.alpha = 0;
 				bottomPanelGroup.alpha = 0;
                 congratsPanel.SetActive(true);
@@ -1145,8 +1170,8 @@ public class FuseEvent : MonoBehaviour {
                 mainCam.transform.position = new Vector3(-90, 80, -3.36f);
                 mainCam.transform.rotation = Quaternion.Euler(new Vector3(15, 0, 0));
                 musicsource.Play();
-                StartCoroutine(FadeAudio(fadeTime, Fade.Out));
-                if(mode.Equals("b1"))
+                //StartCoroutine(FadeAudio(fadeTime, Fade.Out));
+                if(currentLevel.Equals("b1"))
                 {
                     ConversationTrigger.AddToken("finishedB1");
                 }
@@ -1200,203 +1225,12 @@ public class FuseEvent : MonoBehaviour {
         errorPanelGroup.alpha = 0;
     }
 
-	private void playVictory() {
-		//CHANGE this if statement by adding an else if onto the end of it for your new level.
-		// The name of the mode is the name of your new level.
-        // TODO: eliminate the GameObject.Find() calls by adding newly created parts to an array one by one
-        // array could be stored in CreatePart and accessed by other scripts
-        // and then all these if statements can go away
-		if(mode.Equals ("b1")) {
-			GameObject bb1 = GameObject.Find ("bb1Start");
-			GameObject b1p1 = GameObject.Find ("b1p1Prefab(Clone)");
-			GameObject b1p2 = GameObject.Find ("b1p2Prefab(Clone)");
-			GameObject b1p3 = GameObject.Find ("b1p3Prefab(Clone)");
-            bb1.transform.SetParent(group.transform, true);
-			b1p1.transform.SetParent(group.transform, true);
-			b1p2.transform.SetParent(group.transform, true);
-            b1p3.transform.SetParent(group.transform, true);
-		} else if(mode.Equals ("b2")) {
-			GameObject bb2 = GameObject.Find ("bb2Start");
-			GameObject b2p1 = GameObject.Find ("b2p1Prefab(Clone)");
-			GameObject b2p2 = GameObject.Find ("b2p2Prefab(Clone)");
-			bb2.transform.SetParent(group.transform, true);
-            b2p1.transform.SetParent(group.transform, true);
-            b2p2.transform.SetParent(group.transform, true);
-        } else if (mode.Equals ("boot")) {
-			GameObject heel = GameObject.Find ("startObject");
-			GameObject ballfoot = GameObject.Find ("ballfootPrefab(Clone)");
-			GameObject calf = GameObject.Find ("calf_harderPrefab(Clone)");
-			GameObject midfoot = GameObject.Find ("midfootPrefab(Clone)");
-			GameObject trim = GameObject.Find ("trimHarderPrefab(Clone)");
-			GameObject toe = GameObject.Find ("toeHarderPrefab(Clone)");
-			GameObject widening = GameObject.Find ("wideningPrefab(Clone)");
-
-			heel.transform.SetParent(group.transform, true);
-            ballfoot.transform.SetParent(group.transform, true);
-            calf.transform.SetParent(group.transform, true);
-            midfoot.transform.SetParent(group.transform, true);
-            trim.transform.SetParent(group.transform, true);
-            toe.transform.SetParent(group.transform, true);
-            widening.transform.SetParent(group.transform, true);
-        } else if (mode.Equals ("key1")) {
-			GameObject danglyT = GameObject.Find ("dangly_T_complete");
-			GameObject uprightL = GameObject.Find ("upright_LPrefab(Clone)");
-			GameObject uprightT = GameObject.Find ("upright_TPrefab(Clone)");
-			GameObject waluigi = GameObject.Find ("waluigiPrefab(Clone)");
-			GameObject walkingPants = GameObject.Find ("walking_pantsPrefab(Clone)");
-			GameObject uprightRect = GameObject.Find ("upright_rectPrefab(Clone)");
-
-			danglyT.transform.SetParent(group.transform, true);
-            uprightL.transform.SetParent(group.transform, true);
-            uprightT.transform.SetParent(group.transform, true);
-            waluigi.transform.SetParent(group.transform, true);
-            walkingPants.transform.SetParent(group.transform, true);
-            uprightRect.transform.SetParent(group.transform, true);
-        } else if (mode.Equals ("axe")) {
-			GameObject shaft = GameObject.Find ("startObject");
-			GameObject head = GameObject.Find ("head_harderPrefab(Clone)");
-			GameObject trapezoid = GameObject.Find ("trapezoid_harderPrefab(Clone)");
-			GameObject topPointLeft = GameObject.Find ("top_point_leftPrefab(Clone)");
-			GameObject topPointRight = GameObject.Find ("top_point_rightPrefab(Clone)");
-			GameObject bottomPointLeft = GameObject.Find ("bottom_point_leftPrefab(Clone)");
-			GameObject bottomPointRight = GameObject.Find ("bottom_point_rightPrefab(Clone)");
-			GameObject haft = GameObject.Find ("haft_harderPrefab(Clone)");
-			GameObject smallTip = GameObject.Find ("small_tipPrefab(Clone)");
-			GameObject smallTrapezoid = GameObject.Find ("small_trapezoidPrefab(Clone)");
-			GameObject spike = GameObject.Find ("spikePrefab(Clone)");
-			GameObject tip = GameObject.Find ("tipPrefab(Clone)");
-
-			shaft.transform.SetParent(group.transform, true);
-            head.transform.SetParent(group.transform, true);
-            trapezoid.transform.SetParent(group.transform, true);
-            topPointLeft.transform.SetParent(group.transform, true);
-            topPointRight.transform.SetParent(group.transform, true);
-            bottomPointLeft.transform.SetParent(group.transform, true);
-            bottomPointRight.transform.SetParent(group.transform, true);
-            haft.transform.SetParent(group.transform, true);
-            smallTip.transform.SetParent(group.transform, true);
-            smallTrapezoid.transform.SetParent(group.transform, true);
-            spike.transform.SetParent(group.transform, true);
-            tip.transform.SetParent(group.transform, true);
-
-        } else if (mode.Equals ("hull")) {
-			GameObject bridgeWhole = GameObject.Find ("bridgeWhole");
-			GameObject bridgeCover = GameObject.Find ("bridge_coverPrefab(Clone)");
-			GameObject backSlope = GameObject.Find ("back_slopePrefab(Clone)");
-			GameObject back = GameObject.Find ("backPrefab(Clone)");
-			GameObject leftCover = GameObject.Find ("left_coverPrefab(Clone)");
-			GameObject rightCover = GameObject.Find ("right_coverPrefab(Clone)");
-
-			bridgeWhole.transform.SetParent(group.transform, true);
-            bridgeCover.transform.SetParent(group.transform, true);
-            backSlope.transform.SetParent(group.transform, true);
-            back.transform.SetParent(group.transform, true);
-            leftCover.transform.SetParent(group.transform, true);
-            rightCover.transform.SetParent(group.transform, true);
-
-        } else if(mode.Equals ("ffa")) {
-			GameObject centerBox = GameObject.Find ("startObject");
-			GameObject ringLargePart = GameObject.Find ("ring_large_partPrefab(Clone)");
-			GameObject ringLongPart = GameObject.Find ("ring_long_partPrefab(Clone)");
-			GameObject ringSmallPart = GameObject.Find ("ring_small_partPrefab(Clone)");
-			GameObject centerTri = GameObject.Find ("center_tri_harderPrefab(Clone)");
-			GameObject handleTop = GameObject.Find ("handle_topPrefab(Clone)");
-			GameObject handleBottom = GameObject.Find ("handle_bottomPrefab(Clone)");
-			GameObject leftTri = GameObject.Find ("left_tri_harderPrefab(Clone)");
-			GameObject rightTri = GameObject.Find ("right_tri_harderPrefab(Clone)");
-			GameObject rightTriChunk = GameObject.Find ("right_tri_chunkPrefab(Clone)");
-			GameObject scalene = GameObject.Find ("scalenePrefab(Clone)");
-			GameObject blueTri = GameObject.Find ("blue_triPrefab(Clone)");
-
-			centerBox.transform.SetParent(group.transform, true);
-            ringLargePart.transform.SetParent(group.transform, true);
-            ringLongPart.transform.SetParent(group.transform, true);
-            ringSmallPart.transform.SetParent(group.transform, true);
-            centerTri.transform.SetParent(group.transform, true);
-            handleTop.transform.SetParent(group.transform, true);
-            handleBottom.transform.SetParent(group.transform, true);
-            leftTri.transform.SetParent(group.transform, true);
-            rightTri.transform.SetParent(group.transform, true);
-            rightTriChunk.transform.SetParent(group.transform, true);
-            scalene.transform.SetParent(group.transform, true);
-            blueTri.transform.SetParent(group.transform, true);
-
-        } else if(mode.Equals ("gloves")) {
-			GameObject armWhole = GameObject.Find ("armWhole");
-			GameObject palm = GameObject.Find ("palmPrefab(Clone)");
-			GameObject fingers = GameObject.Find ("fingersPrefab(Clone)");
-			GameObject thumb = GameObject.Find ("thumbPrefab(Clone)");
-			GameObject armDec = GameObject.Find ("arm_decPrefab(Clone)");
-			GameObject palmDec = GameObject.Find ("palm_decPrefab(Clone)");
-			
-			armWhole.transform.SetParent(group.transform, true);
-            palm.transform.SetParent(group.transform, true);
-            fingers.transform.SetParent(group.transform, true);
-            thumb.transform.SetParent(group.transform, true);
-            armDec.transform.SetParent(group.transform, true);
-            palmDec.transform.SetParent(group.transform, true);
-        } else if(mode.Equals ("key2")) {
-			GameObject postWhole = GameObject.Find ("postWhole");
-			GameObject c = GameObject.Find ("cPrefab(Clone)");
-			GameObject hangingL = GameObject.Find ("hanging_lPrefab(Clone)");
-			GameObject middleT = GameObject.Find ("middle_tPrefab(Clone)");
-			GameObject ulCorner = GameObject.Find ("ul_cornerPrefab(Clone)");
-			GameObject zigzag = GameObject.Find ("zigzagPrefab(Clone)");
-			
-			postWhole.transform.SetParent(group.transform, true);
-            c.transform.SetParent(group.transform, true);
-            hangingL.transform.SetParent(group.transform, true);
-            middleT.transform.SetParent(group.transform, true);
-            ulCorner.transform.SetParent(group.transform, true);
-            zigzag.transform.SetParent(group.transform, true);
-        } else if(mode.Equals ("catapult")) {
-			GameObject platformComplete = GameObject.Find ("platform_complete");
-			GameObject axle = GameObject.Find ("axlePrefab(Clone)");
-			GameObject backAxleComplete = GameObject.Find ("back_axle_completePrefab(Clone)");
-			GameObject backRightWheelComplete = GameObject.Find ("back_right_wheel_completePrefab(Clone)");
-			GameObject frontAxle = GameObject.Find ("front_axle_completePrefab(Clone)");
-			GameObject frontLeftWheel = GameObject.Find ("front_left_wheel_completePrefab(Clone)");
-			GameObject leftSupport = GameObject.Find ("left_support_completePrefab(Clone)");
-			GameObject rightSupport = GameObject.Find ("right_support_completePrefab(Clone)");
-			GameObject throwingArm = GameObject.Find ("throwing_arm_completePrefab(Clone)");
-
-			platformComplete.transform.SetParent(group.transform, true);
-            axle.transform.SetParent(group.transform, true);
-            backAxleComplete.transform.SetParent(group.transform, true);
-            backRightWheelComplete.transform.SetParent(group.transform, true);
-            frontAxle.transform.SetParent(group.transform, true);
-            frontLeftWheel.transform.SetParent(group.transform, true);
-            leftSupport.transform.SetParent(group.transform, true);
-            rightSupport.transform.SetParent(group.transform, true);
-            throwingArm.transform.SetParent(group.transform, true);
-        } else if(mode.Equals ("engine")) {
-			GameObject engineWhole = GameObject.Find ("engine_whole");
-			GameObject engineFront = GameObject.Find ("engine_frontPrefab(Clone)");
-			GameObject engineTop = GameObject.Find ("engine_topPrefab(Clone)");
-			GameObject engineLeft = GameObject.Find ("engine_leftPrefab(Clone)");
-			GameObject engineTopRight = GameObject.Find ("engine_top_rightPrefab(Clone)");
-			GameObject engineRight = GameObject.Find ("engine_rightPrefab(Clone)");
-			
-			engineWhole.transform.SetParent(group.transform, true);
-            engineFront.transform.SetParent(group.transform, true);
-            engineTop.transform.SetParent(group.transform, true);
-            engineLeft.transform.SetParent(group.transform, true);
-            engineTopRight.transform.SetParent(group.transform, true);
-            engineRight.transform.SetParent(group.transform, true);
-        } else if(mode.Equals ("vest")) {
-			GameObject vestBase = GameObject.Find ("vest_base_complete");
-			GameObject backStrap = GameObject.Find ("back_strapPrefab(Clone)");
-			GameObject leftStrap = GameObject.Find ("left_strapPrefab(Clone)");
-			GameObject leftVestOval = GameObject.Find ("left_vest_ovalPrefab(Clone)");
-			GameObject vestDiamond = GameObject.Find ("vest_diamondPrefab(Clone)");
-			GameObject vestOval = GameObject.Find ("vest_ovalPrefab(Clone)");
-			
-			vestBase.transform.SetParent(group.transform, true);
-            backStrap.transform.SetParent(group.transform, true);
-            leftStrap.transform.SetParent(group.transform, true);
-            leftVestOval.transform.SetParent(group.transform, true);
-            vestDiamond.transform.SetParent(group.transform, true);
-            vestOval.transform.SetParent(group.transform, true);
+	private void rotateConstruction() {
+        // Make sure every part in each level is tagged "part"
+        GameObject[] allParts = GameObject.FindGameObjectsWithTag("part");
+        for(int i = 0; i < allParts.Length; i++)
+        {
+           allParts[i].transform.SetParent(group.transform, true);
         }
 
 		group.transform.Rotate (0,50*Time.deltaTime,0);
@@ -1452,9 +1286,9 @@ public class FuseEvent : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(!tutorialOn && done ())
+		if(done ())
         {
-			playVictory ();
+			rotateConstruction ();
 		}
 
 		// Ensure mouse works...

@@ -7,51 +7,83 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 0
     path: Assets/_Scene/Level1.unity
+    guid: 67e1d569d9eb3874bbb4b42ef5edc788
   - enabled: 0
     path: Assets/_Scene/Level2.unity
+    guid: 909af75bdc4a7f1439e7f7b04c9506d4
   - enabled: 0
     path: Assets/_Scene/Construction/passwordScreen.unity
+    guid: d8e28d7ca6c8cec4f96cc59d73504a70
   - enabled: 1
     path: Assets/_Scene/SimpleMenu.unity
+    guid: 44cbba9283d28724caee14e003ed2bd5
   - enabled: 1
     path: Assets/_Scene/Canyon2.unity
+    guid: e5c37e7a886e5b3459627d9dca70d743
   - enabled: 1
     path: Assets/_Scene/RuinedCity.unity
+    guid: f82d017db187ab34587588d69bf1eb45
   - enabled: 1
     path: Assets/_Scene/CityVault.unity
+    guid: bedf764a3ac604246b178088ae793115
   - enabled: 1
     path: Assets/_Scene/Construction/tutorial1.unity
+    guid: 05b765d7c6c812044a105c0d57a9aa75
   - enabled: 1
     path: Assets/_Scene/Construction/tutorial2.unity
+    guid: 53bc5d79c762e2d42beb61acbccfe321
   - enabled: 0
     path: Assets/_Scene/Construction/construction.unity
+    guid: 09ed26770e533574cb3fffac09409dc2
   - enabled: 0
     path: Assets/_Scene/Construction/introConstruction.unity
+    guid: f710df3e723a81c4aae00e257c4c3617
   - enabled: 0
     path: Assets/_Scene/Construction/axe.unity
-  - enabled: 1
+    guid: fe003b3d9f002f4469103ac237f848bd
+  - enabled: 0
     path: Assets/_Scene/Construction/key1.unity
+    guid: 5e4d5391409ad3844b6f6d5508128f39
   - enabled: 0
     path: Assets/_Scene/Construction/ffa.unity
-  - enabled: 1
+    guid: 179e91d2f017bbf4d98ad12dffdf4489
+  - enabled: 0
     path: Assets/_Scene/Construction/spaceshipHull.unity
-  - enabled: 1
+    guid: 0cc34a8a9004e25409aa644ebd9a0755
+  - enabled: 0
     path: Assets/_Scene/Construction/catapult.unity
-  - enabled: 1
+    guid: 9e7dbc56a3a1de545909590de8a125cb
+  - enabled: 0
     path: Assets/_Scene/Construction/key2.unity
-  - enabled: 1
+    guid: 8e8792571d8eef349aed9dfe8ace6361
+  - enabled: 0
     path: Assets/_Scene/Construction/fireProofVest.unity
-  - enabled: 1
+    guid: 44437b8f7cafaab429efcdd96ef60134
+  - enabled: 0
     path: Assets/_Scene/Construction/key3.unity
-  - enabled: 1
+    guid: a68ec064b3540be4ea296a59bde256a8
+  - enabled: 0
     path: Assets/_Scene/Construction/spaceshipEngine.unity
-  - enabled: 1
+    guid: 048d9f735571f644288305e5f616e967
+  - enabled: 0
     path: Assets/_Scene/Construction/forceGloves.unity
-  - enabled: 1
+    guid: 1a6419a0cadbeb046acf96f4cc99080c
+  - enabled: 0
     path: Assets/_Scene/Construction/rocketBoots.unity
-  - enabled: 1
+    guid: 8999d9ca749e3f246a5253637f4fb644
+  - enabled: 0
     path: Assets/_Scene/Construction/sledgehammer.unity
-  - enabled: 1
+    guid: d94dc883a06fbad4f98fec2959c391c4
+  - enabled: 0
     path: Assets/_Scene/Construction/ffaHarder.unity
-  - enabled: 1
+    guid: 65ed7872f9c5a5343a02ea17b93c1c86
+  - enabled: 0
     path: Assets/_Scene/EmptyScene.unity
+    guid: 22559fd89a17cc943821ee3e5422e44c
+  - enabled: 1
+    path: Assets/_Scene/Construction/b1.unity
+    guid: 8c3d7e6f31a2d1449aacc8df56a17c7b
+  - enabled: 1
+    path: Assets/_Scene/Construction/b2.unity
+    guid: 7d8840fe507dfab4da8044cf3f68a987
+  m_configObjects: {}

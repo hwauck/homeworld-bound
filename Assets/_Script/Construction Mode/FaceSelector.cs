@@ -114,7 +114,7 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
     // so it won't fire if UI element is clicked and object is behind it, yay
     public void OnPointerClick(PointerEventData data)
     {
-        if (!selectPart.tutorialMode)
+        if (!selectPart.controlsDisabled)
         {
             //print("OnPointerClick on " + gameObject + "!");
             //	print ("Active part: " + activePart);

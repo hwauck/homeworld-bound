@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class RotationGizmo : MonoBehaviour
 {
-    public bool tutorialMode;
+    public bool limitRotations;
+    public bool controlsDisabled;
     public GameObject mainCamera;
 	public GameObject toRotate;
 	public SelectPart selectPart;
@@ -78,7 +79,7 @@ public class RotationGizmo : MonoBehaviour
 		// Highlight raycasts.
         // TODO: make into IPointerEvent mouseover callback instead
 		RaycastHit mouseOver = new RaycastHit();
-		if (!tutorialMode && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out mouseOver))
+		if (!controlsDisabled && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out mouseOver))
 		{
             //Debug.Log("Raycast Hit! Mouseover " + mouseOver.transform.name);
 			switch (mouseOver.transform.name)
@@ -129,7 +130,7 @@ public class RotationGizmo : MonoBehaviour
 
 		// Raycasts.
         // TODO: turn this into a callback IPointerEvent click rather than in Update() loop
-		if (!tutorialMode && Input.GetMouseButtonDown(0))
+		if (!controlsDisabled && Input.GetMouseButtonDown(0))
 		{
 			RaycastHit hitInfo = new RaycastHit();
 			if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo))
@@ -139,7 +140,10 @@ public class RotationGizmo : MonoBehaviour
 				{
 					case "XUp":
 						xRots++;
-                        rotationCounter.decrementRotations();
+                        if(limitRotations)
+                        {
+                            rotationCounter.decrementRotations();
+                        }
 
                         SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "X");
 						if (Mathf.Approximately(xGizmo.transform.localEulerAngles.y, 180f))
@@ -158,7 +162,10 @@ public class RotationGizmo : MonoBehaviour
 						if (!CheckBattery())
 							break;
 						xRots++;
-                        rotationCounter.decrementRotations();
+                        if (limitRotations)
+                        {
+                            rotationCounter.decrementRotations();
+                        }
 
                         SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "X");
                         if (Mathf.Approximately(xGizmo.transform.localEulerAngles.y, 180f))
@@ -177,7 +184,10 @@ public class RotationGizmo : MonoBehaviour
 						if (!CheckBattery())
 							break;
 						yRots++;
-                        rotationCounter.decrementRotations();
+                        if (limitRotations)
+                        {
+                            rotationCounter.decrementRotations();
+                        }
 
                         SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "Y");
 						StartCoroutine(Rotate(0f, 90f, 0f));
@@ -188,7 +198,10 @@ public class RotationGizmo : MonoBehaviour
 						if (!CheckBattery())
 							break;
 						yRots++;
-                        rotationCounter.decrementRotations();
+                        if (limitRotations)
+                        {
+                            rotationCounter.decrementRotations();
+                        }
 
                         SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "Y");
 						StartCoroutine(Rotate(0f, -90f, 0f));
@@ -199,7 +212,10 @@ public class RotationGizmo : MonoBehaviour
 						if (!CheckBattery())
 							break;
 						zRots++;
-                        rotationCounter.decrementRotations();
+                        if (limitRotations)
+                        {
+                            rotationCounter.decrementRotations();
+                        }
 
                         SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "Z");
                         if (Mathf.Approximately(zGizmo.transform.localEulerAngles.y, 270f))
@@ -218,8 +234,10 @@ public class RotationGizmo : MonoBehaviour
 						if (!CheckBattery())
 							break;
 						zRots++;
-                        rotationCounter.decrementRotations();
-
+                        if (limitRotations)
+                        {
+                            rotationCounter.decrementRotations();
+                        }
                         SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "Z");
                         if (Mathf.Approximately(zGizmo.transform.localEulerAngles.y, 270f))
                         {
@@ -247,7 +265,7 @@ public class RotationGizmo : MonoBehaviour
         fuseButton.interactable = false;
 
         // Integration for battery power.
-        if (!tutorialMode && !rotating) {
+        if (!controlsDisabled && !rotating) {
 			BatterySystem.SubPower(1);
 		}
 
@@ -265,8 +283,10 @@ public class RotationGizmo : MonoBehaviour
 			}
 			rotating = false;
 			yield return null;  // Wait a frame to see if another active rotation resets this flag to true.
-			if (!rotating)
-				StartCoroutine(CheckRotation());
+            if (!rotating)
+            {
+                StartCoroutine(CheckRotation());
+            }
         }
 	}
 
@@ -338,9 +358,38 @@ public class RotationGizmo : MonoBehaviour
 	public void runManualRotation(GameObject objectToRotate, float x, float y, float z) {
 		toRotate = objectToRotate;
 		StartCoroutine(Rotate(x, y, z));
-	}
 
-	public void Disable()
+        // update face normal for SelectedEffect ghosts
+        if (y == 90f)
+        {
+            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("YRight");
+        }
+        else if (y == -90f)
+        {
+            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("Yleft");
+        } else if (z == 90f)
+        {
+            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("ZLeft");
+        } else if (z == -90f)
+        {
+            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("ZRight");
+
+        } else if (x == 90f)
+        {
+            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("XDown");
+        } else if (x == -90f)
+        {
+            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("XUp");
+
+        } else
+        {
+            Debug.Log("ERROR: Invalid rotation direction for manual rotation: (" + x + ", " + y + ", " + z + ")");
+        }
+
+
+    }
+
+    public void Disable()
 	{
 		toRotate = null;
 		transform.position = new Vector3(-1000f, -1000f, -1000f);
@@ -359,7 +408,7 @@ public class RotationGizmo : MonoBehaviour
 	bool CheckBattery()
 	{
 		// Check if we're in the standard game mode and have no power.
-		if (BatterySystem.GetPower() == 0 && !tutorialMode && !FuseEvent.runningJustConstructionMode)
+		if (BatterySystem.GetPower() == 0 && !controlsDisabled && !FuseEvent.runningJustConstructionMode)
 		{
 			return false;
 		}

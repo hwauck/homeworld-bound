@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
+
 
 // This script is used to keep track of when the player has run out of battery power.
 // Once this happens, a warning saying that the system is shutting down due to low power should appear
@@ -67,7 +69,7 @@ public class LevelResetter : MonoBehaviour {
 
     public void resetLevel()
     {
-        eventSystem.GetComponent<FuseEvent>().stopMusic();
+        fuseEvent.stopMusic();
         powerFailureText.enabled = true;
         errorPanel.alpha = 1;
         audioSource.PlayOneShot(powerFailureSound);
@@ -160,9 +162,8 @@ public class LevelResetter : MonoBehaviour {
         // destroy all parts except starting part
         // CHANGE this to add the new level string each time a new level is added
         fuseEvent.fuseCleanUp();
-        string mode = eventSystem.GetComponent<FuseEvent>().mode;
 
-        switch (mode)
+        switch (SceneManager.GetActiveScene().name)
         {
             case "b2":
                 eventSystem.GetComponent<CreatePartB2>().clearPartsCreated();
@@ -239,9 +240,9 @@ public class LevelResetter : MonoBehaviour {
     public void disablePlayerControls()
     {
         bottomPanel.blocksRaycasts = false;
-        cameraControls.tutorialMode = true;
-        rotationScript.tutorialMode = true;
-        selectPart.tutorialMode = true;
+        cameraControls.controlsDisabled = true;
+        rotationScript.controlsDisabled = true;
+        selectPart.controlsDisabled = true;
     }
 
     private IEnumerator startingPartZoomUp()
@@ -273,22 +274,21 @@ public class LevelResetter : MonoBehaviour {
 
         enablePlayerControls();
 
-        eventSystem.GetComponent<FuseEvent>().startMusic();
+        fuseEvent.startMusic();
         timeRemainingPanel.GetComponent<Timer>().startTimer();
     }
 
     private void enablePlayerControls()
     {
         bottomPanel.blocksRaycasts = true;
-        cameraControls.tutorialMode = false;
-        rotationScript.tutorialMode = false;
-        selectPart.tutorialMode = false;
+        cameraControls.controlsDisabled = false;
+        rotationScript.controlsDisabled = false;
+        selectPart.controlsDisabled = false;
     }
 
     // Update is called once per frame
     void Update () {
 
-        Debug.Log("bb2 MeshCollider is convex? " + GameObject.Find("bb2").GetComponent<MeshCollider>().convex);
         // when Dresha has finished the restart message, reenable controls and start level again
         if (ConversationTrigger.GetToken("outOfPower") && ConversationTrigger.GetToken("hasPower"))
         {
