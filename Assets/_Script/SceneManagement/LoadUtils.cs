@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class LoadUtils : MonoBehaviour
 {
@@ -18,7 +19,10 @@ public class LoadUtils : MonoBehaviour
 	// This system makes this slightly more difficult to check, so we'll just keep track of it here.
 	public static string currentSceneName = "";
 
-	void Awake()
+    public static bool isSceneLoaded = false;
+
+
+    void Awake()
 	{
 		selfRef = this;
 	}
@@ -61,6 +65,7 @@ public class LoadUtils : MonoBehaviour
 	// scene ref inside the coroutine, but this is fine.
 	public static void LoadScene(string sceneName)
 	{
+
 		// Ensure scene is already bundled properly.
 		BundleScene(SceneManager.GetActiveScene().name);
 
@@ -102,6 +107,7 @@ public class LoadUtils : MonoBehaviour
 		// Disable all scenes for a frame to prevent unique objects from yelling.
 		// EventSystems, AudioListeners, and the like. EventSystems are the main problem,
 		// since they are prone to disabling themselves. Jerks.
+        // This is why we need to call the first coroutine in Tutorial2 in OnEnable()
 		foreach(KeyValuePair<string, GameObject> ii in loadedScenes)
 		{
 			if (ii.Value != null)
@@ -110,8 +116,11 @@ public class LoadUtils : MonoBehaviour
 		yield return null;
 		// Activate the scene we just loaded
 		loadedScenes[sceneName].SetActive(true);
+        Debug.Log("Set " + sceneName + " as active scene!");
 		currentSceneObject = loadedScenes[sceneName];
 		currentSceneName = sceneName;
+
+        isSceneLoaded = true;
 
 		// Give cursor back.
 		//! This might actually cause problems in the future if we have a scene change which
@@ -122,7 +131,7 @@ public class LoadUtils : MonoBehaviour
 	}
 
 	static IEnumerator Switcher(string sceneName)
-	{
+    { 
 		// Disable all for safety.
 		foreach (KeyValuePair<string, GameObject> ii in loadedScenes)
 		{

@@ -93,7 +93,8 @@ public class Tutorial2 : MonoBehaviour {
     {
         // low power warning flashes on screen
         flashedLowPowerWarning = true;
-        Debug.Log("Starting flashLowPowerCoroutine!");
+        // this Coroutine needs to start here and not in Awake(), Start(), or Update() 
+        // because of execution order when loading this scene after another one.
         StartCoroutine(flashLowPowerAndAddToken());
     }
 

@@ -80,6 +80,8 @@ public class Tutorial1 : MonoBehaviour {
         cameraControls = mainCam.GetComponent<CameraControls>();
         baseStartPosition = new Vector3(-100, 30, 100);
 
+        fuseEvent.setIsFirstLevel(true);
+
         partButtons = new Button[3];
         partButtons[0] = b1p1Button;
         partButtons[1] = b1p2Button;

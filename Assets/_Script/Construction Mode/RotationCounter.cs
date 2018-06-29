@@ -20,6 +20,7 @@ public class RotationCounter : MonoBehaviour {
     {
         numRemaining--;
         remainingRotationsText.text = "" + numRemaining;
+        Debug.Log("Used one rotation! Number of rotations remaining: " + numRemaining);
         if (numRemaining <= 0)
         {
             powerFailure.Invoke();

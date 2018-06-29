@@ -1720,10 +1720,6 @@ CanvasRenderer:
 GameObject:
   m_PrefabParentObject: {fileID: 170014, guid: f3f5dd7ac3fbb4d4d8a5a73bcc56a18a, type: 2}
   m_PrefabInternal: {fileID: 78359145}
---- !u!1 &693498426 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 174822, guid: 91b7db2893ddd154ea72093511958cb3, type: 2}
-  m_PrefabInternal: {fileID: 2128926940}
 --- !u!1 &754462454
 GameObject:
   m_ObjectHideFlags: 0
@@ -3418,7 +3414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8daa7e2be9c48d94ea0d4cd4ad5e46a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialMode: 1
+  controlsDisabled: 0
   connectButton: {fileID: 1418366674}
 --- !u!114 &1321869684
 MonoBehaviour:
@@ -3442,8 +3438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a62bd1f9e428d64fb664298c3add03b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialOn: 1
-  mode: b2
+  inTutorial: 0
   source: {fileID: 369571929}
   musicsource: {fileID: 1406899348}
   success: {fileID: 8300000, guid: ae9e829741082eb4093adf3c61753e96, type: 3}
@@ -3490,7 +3485,6 @@ MonoBehaviour:
   highlighter: {fileID: 1321869688}
   congrats: {fileID: 115846945}
   goToRocketBootsLevel: {fileID: 13824565}
-  eventSystem: {fileID: 1321869678}
   bottomPanel: {fileID: 297973225}
   timeRemainingPanel: {fileID: 268351548}
   rotationsRemainingPanel: {fileID: 1349615592}
@@ -3500,7 +3494,6 @@ MonoBehaviour:
   arrowToTimePanel: {fileID: 1169825445}
   arrowToRotationsPanel: {fileID: 1495188764}
   cameraControls: {fileID: 58732408}
-  rotationGizmo: {fileID: 693498426}
   fuseButton: {fileID: 1418366674}
   controlsButton: {fileID: 766781728}
   audioSource: {fileID: 369571929}
@@ -7403,6 +7396,10 @@ Prefab:
       propertyPath: rotationCounter
       value: 
       objectReference: {fileID: 1349615593}
+    - target: {fileID: 11444632, guid: 91b7db2893ddd154ea72093511958cb3, type: 2}
+      propertyPath: limitRotations
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6563748, guid: 91b7db2893ddd154ea72093511958cb3, type: 2}
     - {fileID: 6569108, guid: 91b7db2893ddd154ea72093511958cb3, type: 2}

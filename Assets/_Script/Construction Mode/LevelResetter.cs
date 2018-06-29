@@ -144,7 +144,7 @@ public class LevelResetter : MonoBehaviour {
         }
 
         //need to wait till end of frame for the Destroy actions to go into effect
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForEndOfFrame();
 
         for (int i = 0; i < parts.Length; i++)
         {
@@ -163,7 +163,8 @@ public class LevelResetter : MonoBehaviour {
         // CHANGE this to add the new level string each time a new level is added
         fuseEvent.fuseCleanUp();
 
-        switch (SceneManager.GetActiveScene().name)
+        Debug.Log("Deleting parts from level " + SceneManager.GetActiveScene().name);
+        switch (LoadUtils.currentSceneName)
         {
             case "b2":
                 eventSystem.GetComponent<CreatePartB2>().clearPartsCreated();

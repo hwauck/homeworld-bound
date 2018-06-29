@@ -6930,6 +6930,10 @@ Prefab:
       propertyPath: fuseButton
       value: 
       objectReference: {fileID: 1418366674}
+    - target: {fileID: 11444632, guid: 91b7db2893ddd154ea72093511958cb3, type: 2}
+      propertyPath: limitRotations
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6563748, guid: 91b7db2893ddd154ea72093511958cb3, type: 2}
     - {fileID: 6569108, guid: 91b7db2893ddd154ea72093511958cb3, type: 2}
