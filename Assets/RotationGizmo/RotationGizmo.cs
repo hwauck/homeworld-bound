@@ -16,9 +16,9 @@ public class RotationGizmo : MonoBehaviour
 	public GameObject xGizmo;
 	public GameObject yGizmo;
 	public GameObject zGizmo;
-	public int xRots = 0;
-	public int yRots = 0;
-	public int zRots = 0;
+	private int xRots = 0;
+    private int yRots = 0;
+    private int zRots = 0;
 
     public RotationCounter rotationCounter;
 
@@ -39,8 +39,27 @@ public class RotationGizmo : MonoBehaviour
 		yRots = 0;
 		zRots = 0;
 	}
-	
-	void Update ()
+
+    public void incXRots()
+    {
+        SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "X");
+        xRots++;
+    }
+
+    public void incYRots()
+    {
+        SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "Y");
+        yRots++;
+    }
+
+    public void incZRots()
+    {
+        SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "Z");
+        zRots++;
+    }
+
+
+    void Update ()
 	{
         // TODO: Get rid of RotateBehavior script and all its instances on part prefabs
 
@@ -75,191 +94,9 @@ public class RotationGizmo : MonoBehaviour
 		if (toRotate != null)
 			transform.position = toRotate.transform.position;
 
-
-		// Highlight raycasts.
-        // TODO: make into IPointerEvent mouseover callback instead
-		RaycastHit mouseOver = new RaycastHit();
-		if (!controlsDisabled && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out mouseOver))
-		{
-            //Debug.Log("Raycast Hit! Mouseover " + mouseOver.transform.name);
-			switch (mouseOver.transform.name)
-			{
-				case "XUp":
-					Highlighter.Highlight(xGizmo);
-					Highlighter.Unhighlight(yGizmo);
-					Highlighter.Unhighlight(zGizmo);
-					break;
-
-				case "XDown":
-					Highlighter.Highlight(xGizmo);
-					Highlighter.Unhighlight(yGizmo);
-					Highlighter.Unhighlight(zGizmo);
-					break;
-
-				case "YLeft":
-					Highlighter.Highlight(yGizmo);
-					Highlighter.Unhighlight(xGizmo);
-					Highlighter.Unhighlight(zGizmo);
-					break;
-
-				case "YRight":
-					Highlighter.Highlight(yGizmo);
-					Highlighter.Unhighlight(xGizmo);
-					Highlighter.Unhighlight(zGizmo);
-					break;
-
-				case "ZUp":
-					Highlighter.Highlight(zGizmo);
-					Highlighter.Unhighlight(yGizmo);
-					Highlighter.Unhighlight(xGizmo);
-					break;
-
-				case "ZDown":
-					Highlighter.Highlight(zGizmo);
-					Highlighter.Unhighlight(yGizmo);
-					Highlighter.Unhighlight(xGizmo);
-					break;
-
-				default:
-					Highlighter.Unhighlight(xGizmo);
-					Highlighter.Unhighlight(yGizmo);
-					Highlighter.Unhighlight(zGizmo);
-					break;
-			}
-		}
-
-		// Raycasts.
-        // TODO: turn this into a callback IPointerEvent click rather than in Update() loop
-		if (!controlsDisabled && Input.GetMouseButtonDown(0))
-		{
-			RaycastHit hitInfo = new RaycastHit();
-			if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo))
-			{
-				//Debug.Log("Raycast hit on " + hitInfo.transform.name);
-				switch(hitInfo.transform.name)
-				{
-					case "XUp":
-						xRots++;
-                        if(limitRotations)
-                        {
-                            rotationCounter.decrementRotations();
-                        }
-
-                        SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "X");
-						if (Mathf.Approximately(xGizmo.transform.localEulerAngles.y, 180f))
-                        {
-                            StartCoroutine(Rotate(90f, 0f, 0f));
-                            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("XDown");
-                        }
-                        else
-                        {
-                            StartCoroutine(Rotate(-90f, 0f, 0f));
-                            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("XUp");
-                        }
-                       break;
-
-					case "XDown":
-						if (!CheckBattery())
-							break;
-						xRots++;
-                        if (limitRotations)
-                        {
-                            rotationCounter.decrementRotations();
-                        }
-
-                        SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "X");
-                        if (Mathf.Approximately(xGizmo.transform.localEulerAngles.y, 180f))
-                        {
-                            StartCoroutine(Rotate(-90f, 0f, 0f));
-                            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("XUp");
-                        }
-                        else
-                        {
-                            StartCoroutine(Rotate(90f, 0f, 0f));
-                            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("XDown");
-                        }
-                        break;
-
-					case "YLeft":
-						if (!CheckBattery())
-							break;
-						yRots++;
-                        if (limitRotations)
-                        {
-                            rotationCounter.decrementRotations();
-                        }
-
-                        SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "Y");
-						StartCoroutine(Rotate(0f, 90f, 0f));
-                        toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("YRight");
-                        break;
-
-					case "YRight":
-						if (!CheckBattery())
-							break;
-						yRots++;
-                        if (limitRotations)
-                        {
-                            rotationCounter.decrementRotations();
-                        }
-
-                        SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "Y");
-						StartCoroutine(Rotate(0f, -90f, 0f));
-                        toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("YLeft");
-                        break;
-
-					case "ZUp":
-						if (!CheckBattery())
-							break;
-						zRots++;
-                        if (limitRotations)
-                        {
-                            rotationCounter.decrementRotations();
-                        }
-
-                        SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "Z");
-                        if (Mathf.Approximately(zGizmo.transform.localEulerAngles.y, 270f))
-                        {
-                            StartCoroutine(Rotate(0f, 0f, 90f));
-                            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("ZLeft");
-                        }
-                        else
-                        {
-                            StartCoroutine(Rotate(0f, 0f, -90f));
-                            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("ZRight");
-                        }
-                        break;
-
-					case "ZDown":
-						if (!CheckBattery())
-							break;
-						zRots++;
-                        if (limitRotations)
-                        {
-                            rotationCounter.decrementRotations();
-                        }
-                        SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "Z");
-                        if (Mathf.Approximately(zGizmo.transform.localEulerAngles.y, 270f))
-                        {
-                            StartCoroutine(Rotate(0f, 0f, -90f));
-                            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("ZRight");
-                        }
-                        else
-                        {
-                            StartCoroutine(Rotate(0f, 0f, 90f));
-                            toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("ZLeft");
-                        }
-                        break;
-
-					default:
-						break;
-				}
-			}
-		}
-
 	}
 
-    IEnumerator Rotate(float x, float y, float z)
+    public IEnumerator Rotate(float x, float y, float z)
 	{
         // disable fuse button during rotation to let rotation complete before attachment
         fuseButton.interactable = false;
@@ -402,6 +239,11 @@ public class RotationGizmo : MonoBehaviour
 		transform.position = toRotate.transform.position;
 		return objectToRotate;
 	}
+
+    public GameObject getObjectToRotate()
+    {
+        return toRotate;
+    }
 
 	// Checks battery, returns whether this rotation can happen. If it cannot, shows error.
     // This method will likely be deprecated now that battery power is controlled by rotation counter and timer
