@@ -76,7 +76,7 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
         //Debug.Log("targetPosition: " + targetPosition);
 
         //Set currently active coroutine variable so FuseEvent can check it and stop it if it needs to perform a fuse
-        currentlyActiveCoroutine = StartCoroutine(SweepPosition(this.gameObject.transform.parent.gameObject, targetPosition, 20));
+        currentlyActiveCoroutine = StartCoroutine(SweepPosition(this.gameObject.transform.parent.gameObject, targetPosition, 10));
     }
 
     IEnumerator SweepPosition(GameObject toSweep, Vector3 targetPos, int frames)
@@ -99,7 +99,6 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
         Collider activePartCollider;
 
         activePartCollider = selectPart.getSelectedObject().transform.parent.GetComponent<BoxCollider>();
-        Debug.Log("Parent of FaceSelector obj: " + this.gameObject.transform.parent.gameObject);
 
         GameObject startingPart = selectPart.startingPart;
         GameObject currentlySelectedFuseTo = selectPart.getSelectedFuseTo();
@@ -108,23 +107,19 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
 
         // enable the bounding box - only enable it temporarily since doing so prevents FaceSelectors from detecting selection
         fusedCollider = startingPart.GetComponent<BoxCollider>();
-        Debug.Log("ENABLING COLLIDERS");
         fusedCollider.enabled = true;
         activePartCollider.enabled = true;
-        Debug.Log("ENABLED COLLIDERS!");
 
         // Keep moving in direction of FuseTo's normal until the active part no longer intersects with the construction
         while (activePartCollider.bounds.Intersects(fusedCollider.bounds))
         {
-            toSweep.transform.Translate(iteration * 10 * fuseToNormal, Space.World);
-            Debug.Log("INTERSECT - ADJUSTING POSITION - fuseToNormal: " + fuseToNormal);
+            toSweep.transform.Translate(iteration * 100 * fuseToNormal, Space.World);
             yield return null;
         }
-        yield return new WaitForSeconds(0.5f);
-        Debug.Log("DISABLING COLLIDERS");
+        // need this here so colliders aren't disabled prematurely
+        yield return null;
         fusedCollider.enabled = false;
         activePartCollider.enabled = false;
-        Debug.Log("DISABLED COLLIDERS");
 
         currentlyActiveCoroutine = null;
     }
@@ -257,7 +252,7 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
                 Vector3 targetPosition = properFuseToPos - properOffset + (OFFSET * selectPart.getFuseToNormal());
 
                 //Set currently active coroutine variable so FuseEvent can check it and stop it if it needs to perform a fuse
-                currentlyActiveCoroutine = StartCoroutine(SweepPosition(currentlySelectedObject.transform.parent.gameObject, targetPosition, 20));
+                currentlyActiveCoroutine = StartCoroutine(SweepPosition(currentlySelectedObject.transform.parent.gameObject, targetPosition, 10));
 
             }
         }
