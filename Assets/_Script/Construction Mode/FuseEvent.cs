@@ -447,13 +447,13 @@ public class FuseEvent : MonoBehaviour {
         while (!LoadUtils.isSceneLoaded)
         {
             Debug.Log("Next Scene loaded? " + LoadUtils.isSceneLoaded);
-            if(isFirstLevel)
+            // Application.isEditor allows me to test individual levels that aren't the starting level in isolation
+            if(isFirstLevel || Application.isEditor)
             {
                 break;
             }
             yield return null;
         }
-
         //reset isSceneLoaded for next level load
         LoadUtils.isSceneLoaded = false;
 
@@ -469,7 +469,7 @@ public class FuseEvent : MonoBehaviour {
         // NOTE: when there are parts A and B that can be fused to each other instead of starting part,
         // fuseMapping needs mappings from A -> B AND from B -> A
         string currentScene;
-        if (isFirstLevel)
+        if (isFirstLevel || Application.isEditor)
         {
             //This might not work once Exploration is the first scene?
             currentScene = SceneManager.GetActiveScene().name;

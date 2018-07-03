@@ -6,11 +6,14 @@ using UnityEngine.UI;
 
 public class CreatePart : MonoBehaviour {
 	
+
 	private GameObject[] instantiated;
 	public GameObject[] parts;
 	private bool[] partCreated;
-	private Vector3 createLoc;
-	public GameObject eventSystem;
+    public Button[] partButtons;
+    private Vector3 createLoc;
+    private Vector3 offscreenCreateLoc;
+    public GameObject eventSystem;
 	private SelectPart selectionManager;
 	public int NUM_PARTS;
 	private GameObject startObject;
@@ -18,11 +21,15 @@ public class CreatePart : MonoBehaviour {
 	public GameObject rotateLeftButton;
 	public GameObject rotateForwardButton;
 	public GameObject rotateAcrossButton;
-
 	public RotationGizmo rotateGizmo;
-	
-	// Use this for initialization
-	void Awake () {
+
+    private const float MOVEMENT_SPEED = 100;
+    private float step;
+    private const float WAIT_TIME = 0.01f;
+
+    // Use this for initialization
+    void Awake () {
+
 		//number of parts to fuse
 		partCreated = new bool[NUM_PARTS];
 		instantiated = new GameObject[NUM_PARTS];
@@ -37,8 +44,6 @@ public class CreatePart : MonoBehaviour {
 		startObject = GameObject.Find ("rocket_boots_start");
 		rotateGizmo = GameObject.FindGameObjectWithTag("RotationGizmo").GetComponent<RotationGizmo>();
 
-		//to avoid errors when selectedObject starts as startObject
-		startObject.GetComponent<IsFused>().isFused = true;
 		ConversationTrigger.AddToken("beginRocketBoots");
 	}
 
@@ -229,7 +234,25 @@ public class CreatePart : MonoBehaviour {
 		}
 	}
 
-	public void enableManipulationButtons(GameObject toRotate) {
+    //when power failure occurs, delete all but starting part.
+    // Called by LevelResetter
+    public void destroyAllCreatedParts()
+    {
+        for (int i = 0; i < partCreated.Length; i++)
+        {
+            partCreated[i] = false;
+        }
+        for (int i = 0; i < instantiated.Length; i++)
+        {
+            if (instantiated[i] != null)
+            {
+                Destroy(instantiated[i]);
+                partButtons[i].interactable = true;
+            }
+        }
+    }
+
+    public void enableManipulationButtons(GameObject toRotate) {
 		rotateLeftButton.transform.GetComponent<Button>().interactable = true;
 		rotateForwardButton.transform.GetComponent<Button>().interactable = true;
 		rotateAcrossButton.transform.GetComponent<Button>().interactable = true;

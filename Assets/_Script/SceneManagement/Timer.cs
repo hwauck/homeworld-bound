@@ -26,11 +26,13 @@ public class Timer : MonoBehaviour {
 
     public void startTimer()
     {
+        Debug.Log("Timer started!");
         timerStarted = true;
     }
 
     public void stopTimer()
     {
+        Debug.Log("Timer stopped!");
         timerStarted = false;
     }
 

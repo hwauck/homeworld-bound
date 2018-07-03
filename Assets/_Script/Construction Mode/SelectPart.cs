@@ -5,6 +5,12 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
 public class SelectPart : MonoBehaviour {
+
+    //right now, only used to give to FaceSelector scripts
+    // to get the startingPart's bounding box BoxCollider
+    // for use in part alignment calculations
+    public GameObject startingPart;
+
 	// face of active part to fuse
 	private GameObject selectedObject;
 	private GameObject prevSelectedObject;

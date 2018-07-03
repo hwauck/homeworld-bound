@@ -74,6 +74,7 @@ public class LevelResetter : MonoBehaviour {
         errorPanel.alpha = 1;
         audioSource.PlayOneShot(powerFailureSound);
         disablePlayerControls();
+        timeRemainingPanel.GetComponent<Timer>().stopTimer();
         StartCoroutine(doPowerFailure());
 
     }
@@ -87,12 +88,13 @@ public class LevelResetter : MonoBehaviour {
         Vector3 explosionPosition;
         // all parts from level b2 and later should have the tag "part" on them for this to work correctly
         parts = GameObject.FindGameObjectsWithTag("part");
-        for(int i = 0; i < parts.Length; i++)
+        Debug.Log("parts length: " + parts.Length);
+        for (int i = 0; i < parts.Length; i++)
         {
             // first, set all meshcolliders to convex to avoid bad interaction with Rigidbody
             meshColliders = parts[i].GetComponentsInChildren<MeshCollider>();
             wasConvex = new bool[meshColliders.Length];
-
+            Debug.Log("parts[" + i + "] - meshColliders length: " + meshColliders.Length + ", wasConvex length: " + wasConvex.Length);
             for (int j = 0; j < meshColliders.Length; j++)
             {
                 Debug.Log(meshColliders[j].gameObject);
@@ -146,17 +148,14 @@ public class LevelResetter : MonoBehaviour {
         //need to wait till end of frame for the Destroy actions to go into effect
         yield return new WaitForEndOfFrame();
 
-        for (int i = 0; i < parts.Length; i++)
+        meshColliders = startingPart.GetComponentsInChildren<MeshCollider>();
+
+        for (int i = 0; i < meshColliders.Length; i++)
         {
             //change meshcolliders on startingPart back to non-convex if they weren't before
-            meshColliders = parts[i].GetComponentsInChildren<MeshCollider>();
-            for (int j = 0; j < meshColliders.Length; j++)
+            if (meshColliders[i].gameObject.GetComponent<Convexity>() == null)
             {
-
-                if (meshColliders[j] != null && !wasConvex[j])
-                {
-                    meshColliders[j].convex = false;
-                }
+                meshColliders[i].convex = false;
             }
         }
         // destroy all parts except starting part
@@ -164,13 +163,13 @@ public class LevelResetter : MonoBehaviour {
         fuseEvent.fuseCleanUp();
 
         Debug.Log("Deleting parts from level " + SceneManager.GetActiveScene().name);
-        switch (LoadUtils.currentSceneName)
+        switch (SceneManager.GetActiveScene().name)
         {
             case "b2":
-                eventSystem.GetComponent<CreatePartB2>().clearPartsCreated();
+                eventSystem.GetComponent<CreatePartB2>().destroyAllCreatedParts();
                 break;
             case "boot":
-                eventSystem.GetComponent<CreatePart>().clearPartsCreated();
+                eventSystem.GetComponent<CreatePartRB>().destroyAllCreatedParts();
                 break;
             default:
                 break;

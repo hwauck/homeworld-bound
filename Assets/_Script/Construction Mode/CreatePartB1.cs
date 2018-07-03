@@ -153,6 +153,24 @@ public class CreatePartB1 : MonoBehaviour
         }
     }
 
+    //when power failure occurs, delete all but starting part.
+    // Called by LevelResetter
+    public void destroyAllCreatedParts()
+    {
+        for (int i = 0; i < partCreated.Length; i++)
+        {
+            partCreated[i] = false;
+        }
+        for (int i = 0; i < instantiated.Length; i++)
+        {
+            if (instantiated[i] != null)
+            {
+                Destroy(instantiated[i]);
+                partButtons[i].interactable = true;
+            }
+        }
+    }
+
     public void enableManipulationButtons(GameObject toRotate)
     {
         rotateYButton.transform.GetComponent<Button>().interactable = true;

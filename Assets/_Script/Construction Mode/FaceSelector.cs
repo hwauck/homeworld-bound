@@ -93,6 +93,39 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
         // Ensure it ends in the right place no matter what.
         yield return null;
         toSweep.transform.position = targetPos;
+
+        // Now, get starting part's bounding box and the active part's bounding box so
+        // we can check if they're intersecting and prevent that
+        Collider activePartCollider;
+
+        activePartCollider = selectPart.getSelectedObject().transform.parent.GetComponent<BoxCollider>();
+        Debug.Log("Parent of FaceSelector obj: " + this.gameObject.transform.parent.gameObject);
+
+        GameObject startingPart = selectPart.startingPart;
+        GameObject currentlySelectedFuseTo = selectPart.getSelectedFuseTo();
+        Vector3 fuseToNormal = currentlySelectedFuseTo.GetComponent<FaceSelector>().selectedNormal;
+        Collider fusedCollider;
+
+        // enable the bounding box - only enable it temporarily since doing so prevents FaceSelectors from detecting selection
+        fusedCollider = startingPart.GetComponent<BoxCollider>();
+        Debug.Log("ENABLING COLLIDERS");
+        fusedCollider.enabled = true;
+        activePartCollider.enabled = true;
+        Debug.Log("ENABLED COLLIDERS!");
+
+        // Keep moving in direction of FuseTo's normal until the active part no longer intersects with the construction
+        while (activePartCollider.bounds.Intersects(fusedCollider.bounds))
+        {
+            toSweep.transform.Translate(iteration * 10 * fuseToNormal, Space.World);
+            Debug.Log("INTERSECT - ADJUSTING POSITION - fuseToNormal: " + fuseToNormal);
+            yield return null;
+        }
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("DISABLING COLLIDERS");
+        fusedCollider.enabled = false;
+        activePartCollider.enabled = false;
+        Debug.Log("DISABLED COLLIDERS");
+
         currentlyActiveCoroutine = null;
     }
 

@@ -5,11 +5,14 @@ using UnityEngine.UI;
 
 public class CreatePartRB : MonoBehaviour {
 
+
 	private GameObject[] instantiated;
 	public GameObject[] parts;
 	private bool[] partCreated;
 	private Vector3 createLoc;
-	public GameObject eventSystem;
+    private Vector3 offscreenCreateLoc;
+    public Button[] partButtons;
+    public GameObject eventSystem;
 	private SelectPart selectionManager;
 	public int NUM_PARTS;
 	private GameObject startObject;
@@ -19,8 +22,13 @@ public class CreatePartRB : MonoBehaviour {
 	public GameObject rotateZButton;
 	public RotationGizmo rotateGizmo;
 
-	// Use this for initialization
-	void Awake () {
+    private const float MOVEMENT_SPEED = 100;
+    private float step;
+    private const float WAIT_TIME = 0.01f;
+
+    // Use this for initialization
+    void Awake () {
+
 		//number of parts to fuse
 		partCreated = new bool[NUM_PARTS];
 		instantiated = new GameObject[NUM_PARTS];
@@ -35,15 +43,9 @@ public class CreatePartRB : MonoBehaviour {
 
 		//CHANGE this string to the name of your starting part
 		startObject = GameObject.Find ("startObject");
+        offscreenCreateLoc = new Vector3(-40, -60, 100);
 
-		//CHANGE these lines so they refer to each black part on your starting part
-		GameObject heelMidfootAttach = GameObject.Find("heel_midfoot_attach");
-		GameObject heelWideningAttach = GameObject.Find("heel_widening_attach");
-		//to avoid errors when selectedObject starts as startObject
-		//CHANGE these lines to match above
-		heelMidfootAttach.GetComponent<FuseBehavior>().isFused = true;
-		heelWideningAttach.GetComponent<FuseBehavior>().isFused = true;
-		rotateGizmo = GameObject.FindGameObjectWithTag("RotationGizmo").GetComponent<RotationGizmo>();
+        rotateGizmo = GameObject.FindGameObjectWithTag("RotationGizmo").GetComponent<RotationGizmo>();
 
 	}
 
@@ -231,7 +233,25 @@ public class CreatePartRB : MonoBehaviour {
 		}
 	}
 
-	public void enableManipulationButtons(GameObject toRotate) {
+    //when power failure occurs, delete all but starting part.
+    // Called by LevelResetter
+    public void destroyAllCreatedParts()
+    {
+        for (int i = 0; i < partCreated.Length; i++)
+        {
+            partCreated[i] = false;
+        }
+        for (int i = 0; i < instantiated.Length; i++)
+        {
+            if (instantiated[i] != null)
+            {
+                Destroy(instantiated[i]);
+                partButtons[i].interactable = true;
+            }
+        }
+    }
+
+    public void enableManipulationButtons(GameObject toRotate) {
 		rotateYButton.transform.GetComponent<Button>().interactable = true;
 		rotateXButton.transform.GetComponent<Button>().interactable = true;
 		rotateZButton.transform.GetComponent<Button>().interactable = true;

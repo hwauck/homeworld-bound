@@ -3118,6 +3118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8daa7e2be9c48d94ea0d4cd4ad5e46a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingPart: {fileID: 1730035233}
   controlsDisabled: 0
   connectButton: {fileID: 1418366674}
 --- !u!114 &1321869684
@@ -5199,6 +5200,18 @@ MonoBehaviour:
   selectPart: {fileID: 1321869683}
   fuseButton: {fileID: 1418366674}
   selectedNormal: {x: -1, y: 0, z: 0}
+--- !u!65 &1730035257
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1730035233}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 2.5, y: 2.5, z: 5}
+  m_Center: {x: 0, y: 0, z: -0.25}
 --- !u!1 &1730654015
 GameObject:
   m_ObjectHideFlags: 0

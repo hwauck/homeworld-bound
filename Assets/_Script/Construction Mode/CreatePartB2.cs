@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-
 public class CreatePartB2 : MonoBehaviour
 {
 
@@ -45,15 +44,6 @@ public class CreatePartB2 : MonoBehaviour
         offscreenCreateLoc = new Vector3(-40, -60, 100);
         selectionManager = eventSystem.GetComponent<SelectPart>();
         startObject = GameObject.Find("bb2Start");
-        //GameObject bb1B1p1A1 = startObject.transform.Find("bb2_b1p1_a1").gameObject;
-        //GameObject bb1B1p2A1 = startObject.transform.Find("bb2_b1p2_a1").gameObject;
-        //GameObject bb1B1p2A2 = startObject.transform.Find("bb2_b1p2_a2").gameObject;
-        //GameObject bb1B1p3A1 = startObject.transform.Find("bb2_b1p3_a1").gameObject;
-        ////to avoid errors when selectedObject starts as startObject
-        //bb1B1p1A1.GetComponent<FuseBehavior>().isFused = true;
-        //bb1B1p2A1.GetComponent<FuseBehavior>().isFused = true;
-        //bb1B1p2A2.GetComponent<FuseBehavior>().isFused = true;
-        //bb1B1p3A1.GetComponent<FuseBehavior>().isFused = true;
 
         rotateGizmo = GameObject.FindGameObjectWithTag("RotationGizmo").GetComponent<RotationGizmo>();
 
@@ -157,6 +147,24 @@ public class CreatePartB2 : MonoBehaviour
         for (int i = 0; i < instantiated.Length; i++)
         {
             if (instantiated[i] != null && !instantiated[i].GetComponent<IsFused>().isFused)
+            {
+                Destroy(instantiated[i]);
+                partButtons[i].interactable = true;
+            }
+        }
+    }
+
+    //when power failure occurs, delete all but starting part.
+    // Called by LevelResetter
+    public void destroyAllCreatedParts()
+    {
+        for (int i = 0; i < partCreated.Length; i++)
+        {
+            partCreated[i] = false;
+        }
+        for (int i = 0; i < instantiated.Length; i++)
+        {
+            if (instantiated[i] != null)
             {
                 Destroy(instantiated[i]);
                 partButtons[i].interactable = true;
