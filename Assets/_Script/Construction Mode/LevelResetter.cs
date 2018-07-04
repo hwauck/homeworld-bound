@@ -56,15 +56,12 @@ public class LevelResetter : MonoBehaviour {
 
     private const float MOVEMENT_SPEED = 100f;
 
-
-
     // Use this for initialization
     void Start () {
         ConversationTrigger.RemoveToken("outOfPower");
         ConversationTrigger.RemoveToken("hasPower");
         ConversationTrigger.RemoveToken("letsRestart");
         ConversationTrigger.RemoveToken("doneRestarting");
-
     }
 
     public void resetLevel()
@@ -162,8 +159,16 @@ public class LevelResetter : MonoBehaviour {
         // CHANGE this to add the new level string each time a new level is added
         fuseEvent.fuseCleanUp();
 
-        Debug.Log("Deleting parts from level " + SceneManager.GetActiveScene().name);
-        switch (SceneManager.GetActiveScene().name)
+        string currentLevel;
+        if(Application.isEditor)
+        {
+            currentLevel = SceneManager.GetActiveScene().name;
+        } else
+        {
+            currentLevel = LoadUtils.currentSceneName;
+        }
+        Debug.Log("Deleting parts from level " + currentLevel);
+        switch (currentLevel)
         {
             case "b2":
                 eventSystem.GetComponent<CreatePartB2>().destroyAllCreatedParts();

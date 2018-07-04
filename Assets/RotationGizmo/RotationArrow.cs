@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class HighlightArrow : MonoBehaviour, IPointerClickHandler
+public class RotationArrow : MonoBehaviour, IPointerClickHandler
 {
 
     public RotationGizmo rotationGizmo;
@@ -35,31 +35,30 @@ public class HighlightArrow : MonoBehaviour, IPointerClickHandler
     // so it won't fire if UI element is clicked and object is behind it, yay
     public void OnPointerClick(PointerEventData data)
     {
-        Debug.Log(this.gameObject + "clicked!");
         if (!rotationGizmo.controlsDisabled)
         {
             switch (this.gameObject.name)
             {
-                case "XUp2":
+                case "XUp":
                     rotationGizmo.incXRots();
                     if (rotationGizmo.limitRotations)
                     {
                         rotationCounter.decrementRotations();
                     }
 
-                    // if (Mathf.Approximately(xGizmo.transform.localEulerAngles.y, 180f))
-                    //{
-                    //     StartCoroutine(Rotate(90f, 0f, 0f));
-                    //    toRotate.GetComponent<OrientationTracker>().adjustFaceDirections("XDown");
-                    // }
-                    // else
-                    //  {
-                    StartCoroutine(rotationGizmo.Rotate(90f, 0f, 0f));
-                    rotationGizmo.getObjectToRotate().GetComponent<OrientationTracker>().adjustFaceDirections("XUp");
-                    // }
+                    if (Mathf.Approximately(this.transform.parent.transform.localEulerAngles.y, 180f))
+                    {
+                         StartCoroutine(rotationGizmo.Rotate(90f, 0f, 0f));
+                        rotationGizmo.getObjectToRotate().GetComponent<OrientationTracker>().adjustFaceDirections("XDown");
+                    }
+                    else
+                    {
+                        StartCoroutine(rotationGizmo.Rotate(-90f, 0f, 0f));
+                        rotationGizmo.getObjectToRotate().GetComponent<OrientationTracker>().adjustFaceDirections("XUp");
+                    }
                     break;
 
-                case "XDown2":
+                case "XDown":
                     //if (!CheckBattery())
                     //    break;
                     rotationGizmo.incXRots();
@@ -68,19 +67,19 @@ public class HighlightArrow : MonoBehaviour, IPointerClickHandler
                         rotationCounter.decrementRotations();
                     }
 
-                    // if (Mathf.Approximately(xGizmo.transform.localEulerAngles.y, 180f))
-                    // {
-                    //    StartCoroutine(rotationGizmo.Rotate(-90f, 0f, 0f));
-                    //    rotationGizmo.getObjectToRotate().GetComponent<OrientationTracker>().adjustFaceDirections("XUp");
-                    // }
-                    //else
-                    // {
-                    StartCoroutine(rotationGizmo.Rotate(-90f, 0f, 0f));
-                    rotationGizmo.getObjectToRotate().GetComponent<OrientationTracker>().adjustFaceDirections("XDown");
-                    // }
+                     if (Mathf.Approximately(this.transform.parent.transform.localEulerAngles.y, 180f))
+                     {
+                        StartCoroutine(rotationGizmo.Rotate(-90f, 0f, 0f));
+                        rotationGizmo.getObjectToRotate().GetComponent<OrientationTracker>().adjustFaceDirections("XUp");
+                     }
+                    else
+                    {
+                        StartCoroutine(rotationGizmo.Rotate(90f, 0f, 0f));
+                        rotationGizmo.getObjectToRotate().GetComponent<OrientationTracker>().adjustFaceDirections("XDown");
+                    }
                     break;
 
-                case "YLeft2":
+                case "YLeft":
                     //   if (!CheckBattery())
                     //      break;
                     rotationGizmo.incYRots();
@@ -93,7 +92,7 @@ public class HighlightArrow : MonoBehaviour, IPointerClickHandler
                     rotationGizmo.getObjectToRotate().GetComponent<OrientationTracker>().adjustFaceDirections("YRight");
                     break;
 
-                case "YRight2":
+                case "YRight":
                     //   if (!CheckBattery())
                     //        break;
                     rotationGizmo.incYRots();
@@ -106,7 +105,7 @@ public class HighlightArrow : MonoBehaviour, IPointerClickHandler
                     rotationGizmo.getObjectToRotate().GetComponent<OrientationTracker>().adjustFaceDirections("YLeft");
                     break;
 
-                case "ZUp2":
+                case "ZUp":
                     //   if (!CheckBattery())
                     //       break;
                     rotationGizmo.incZRots();
@@ -127,7 +126,7 @@ public class HighlightArrow : MonoBehaviour, IPointerClickHandler
                     }
                     break;
 
-                case "ZDown2":
+                case "ZDown":
                     //   if (!CheckBattery())
                     //       break;
                     rotationGizmo.incZRots();
