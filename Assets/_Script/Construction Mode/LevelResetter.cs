@@ -56,12 +56,47 @@ public class LevelResetter : MonoBehaviour {
 
     private const float MOVEMENT_SPEED = 100f;
 
+    private void Awake()
+    {
+        // make sure player controls are always disabled at beginning before countdown begins
+        disablePlayerControls();
+
+        //display Recharging screen while level loads
+        //note: fadeOutPanel Image needs to be enabled in Inspector for it to look right
+        StartCoroutine(rechargingAnimation());
+        StartCoroutine(waitAndThenAddToken(4, "startBeginningConvo"));
+    }
+
     // Use this for initialization
     void Start () {
-        ConversationTrigger.RemoveToken("outOfPower");
-        ConversationTrigger.RemoveToken("hasPower");
-        ConversationTrigger.RemoveToken("letsRestart");
-        ConversationTrigger.RemoveToken("doneRestarting");
+
+    }
+
+    private IEnumerator waitAndThenAddToken(float seconds, string token)
+    {
+        //this, combined with the doneRestarting token from the opening conversation, will start the
+        //level countdown after the opening conversation is complete
+        // if there is no opening conversation, simply add the line
+        // ConversationTrigger.AddToken("doneRestarting")
+        yield return new WaitForSeconds(seconds);
+        ConversationTrigger.AddToken(token);
+    }
+
+    private IEnumerator rechargingAnimation()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            rechargingText.text = "Recharging.  ";
+            yield return new WaitForSeconds(0.25f);
+            rechargingText.text = "Recharging.. ";
+            yield return new WaitForSeconds(0.25f);
+            rechargingText.text = "Recharging...";
+            audioSource.PlayOneShot(rechargingSound);
+            yield return new WaitForSeconds(0.5f);
+            rechargingText.text = "Recharging   ";
+        }
+        rechargingText.enabled = false;
+        fadeOutScreen.enabled = false;
     }
 
     public void resetLevel()
@@ -167,11 +202,14 @@ public class LevelResetter : MonoBehaviour {
         {
             currentLevel = LoadUtils.currentSceneName;
         }
-        Debug.Log("Deleting parts from level " + currentLevel);
+
         switch (currentLevel)
         {
             case "b2":
                 eventSystem.GetComponent<CreatePartB2>().destroyAllCreatedParts();
+                break;
+            case "b3":
+                eventSystem.GetComponent<CreatePartB3>().destroyAllCreatedParts();
                 break;
             case "boot":
                 eventSystem.GetComponent<CreatePartRB>().destroyAllCreatedParts();
@@ -191,18 +229,8 @@ public class LevelResetter : MonoBehaviour {
         tryAgainButton.gameObject.SetActive(false);
         rechargingText.enabled = true;
         // simple ... progress animation for recharging text
-        for (int i = 0; i < 3; i++)
-        {
-            rechargingText.text += ".";
-            yield return new WaitForSeconds(0.25f);
-            rechargingText.text += ".";
-            yield return new WaitForSeconds(0.25f);
-            rechargingText.text += ".";
-            audioSource.PlayOneShot(rechargingSound);
-            yield return new WaitForSeconds(0.5f);
-            rechargingText.text = "Recharging emergency power";
-        }
-        rechargingText.enabled = false;
+        // takes 3 seconds for recharging animation to complete
+        StartCoroutine(rechargingAnimation());
 
         // put starting part back to where it was
         startingPart.transform.SetPositionAndRotation(startingPartOffscreenPos, Quaternion.Euler(0, 0, 0));
@@ -213,7 +241,7 @@ public class LevelResetter : MonoBehaviour {
         // and reset the number of rotations and time remaining
         rotationsRemainingPanel.GetComponent<RotationCounter>().resetRotations();
         timeRemainingPanel.GetComponent<Timer>().resetTimer();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(4f);
 
         //flicker screen back in
         flickeringTime = 0.5f;
@@ -293,19 +321,26 @@ public class LevelResetter : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-
-        // when Dresha has finished the restart message, reenable controls and start level again
+        // finished recharging after power failure, show Try Again? button to restart level
         if (ConversationTrigger.GetToken("outOfPower") && ConversationTrigger.GetToken("hasPower"))
         {
             ConversationTrigger.RemoveToken("outOfPower");
             ConversationTrigger.RemoveToken("hasPower");
             showTryAgainButton();
         }
+        // when Dresha has finished the restart message, reenable controls and start level again with countdown
         else if (ConversationTrigger.GetToken("doneRestarting") && ConversationTrigger.GetToken("letsRestart"))
-        {
+        { 
             ConversationTrigger.RemoveToken("letsRestart");
             ConversationTrigger.RemoveToken("doneRestarting");
             StartCoroutine(doCountdownAndEnableControls());
-        }  
-	}
+        } 
+        // first time level is started: as soon as recharging animation and starting conversation has finished, start level with countdown
+        else if (ConversationTrigger.GetToken("startBeginningConvo") && ConversationTrigger.GetToken("doneWithBeginningConvo"))
+        {
+            ConversationTrigger.RemoveToken("startBeginningConvo");
+            ConversationTrigger.RemoveToken("doneWithBeginningConvo");
+            StartCoroutine(doCountdownAndEnableControls());
+        }
+    }
 }

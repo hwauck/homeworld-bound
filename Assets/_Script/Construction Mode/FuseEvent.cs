@@ -316,12 +316,8 @@ public class FuseEvent : MonoBehaviour {
             case "b1":
                 BatterySystem.AddPower(2);
                 BatterySystem.PowerToTokens();
-                Debug.Log("About to load next scene: b2!");
                 LoadUtils.LoadScene("b2");
-                Debug.Log("Finished loading next scene: b2!");
-                Debug.Log("About to unload previous scene: b1!");
                 LoadUtils.UnloadScene("b1");
-                Debug.Log("Finished unloading previous scene: b1!");
 
                 break;
             case "b2":
@@ -446,11 +442,10 @@ public class FuseEvent : MonoBehaviour {
         //wait till next scene has loaded
         while (!LoadUtils.isSceneLoaded)
         {
-            Debug.Log("Next Scene loaded? " + LoadUtils.isSceneLoaded);
             // Application.isEditor allows me to test individual levels that aren't the starting level in isolation
             // if testing just one level, use if(isFirstLevel || Application.isEditor)
             // if testing levels in sequence, use if(isFirstLevel)
-            if(isFirstLevel)
+            if(isFirstLevel || Application.isEditor)
             {
                 break;
             }
@@ -474,7 +469,7 @@ public class FuseEvent : MonoBehaviour {
         // Application.isEditor allows me to test individual levels that aren't the starting level in isolation
         // if testing just one level, use if(isFirstLevel || Application.isEditor)
         // if testing levels in sequence, use if(isFirstLevel)
-        if (isFirstLevel)
+        if (isFirstLevel || Application.isEditor)
         {
             //This might not work once Exploration is the first scene?
             currentScene = SceneManager.GetActiveScene().name;
@@ -516,6 +511,25 @@ public class FuseEvent : MonoBehaviour {
             fuseMapping.Add("b2p2_bb2_a1", "bb2_b2p2_a1");
             fuseMapping.Add("b2p2_bb2_a2", "bb2_b2p2_a2");
             fuseMapping.Add("b2p2_bb2_a3", "bb2_b2p2_a3");
+
+        }
+        else if(currentScene.Equals("b3"))
+        {
+            //b3p1 to bb3
+            fuseMapping.Add("b3p1_bb3_a1", "bb3_b3p1_a1");
+            fuseMapping.Add("b3p1_bb3_a2", "bb3_b3p1_a2");
+            fuseMapping.Add("b3p1_bb3_a3", "bb3_b3p1_a3");
+            fuseMapping.Add("b3p1_bb3_a4", "bb3_b3p1_a4");
+            fuseMapping.Add("b3p1_bb3_a5", "bb3_b3p1_a5");
+            fuseMapping.Add("b3p1_bb3_a6", "bb3_b3p1_a6");
+
+            //b3p2 to bb3
+            fuseMapping.Add("b3p2_bb3_a1", "bb3_b3p2_a1");
+            fuseMapping.Add("b3p2_bb3_a2", "bb3_b3p2_a2");
+            fuseMapping.Add("b3p2_bb3_a3", "bb3_b3p2_a3");
+            fuseMapping.Add("b3p2_bb3_a4", "bb3_b3p2_a4");
+            fuseMapping.Add("b3p2_bb3_a5", "bb3_b3p2_a5");
+            fuseMapping.Add("b3p2_bb3_a6", "bb3_b3p2_a6");
 
         }
         else if (currentScene.Equals("boot"))
