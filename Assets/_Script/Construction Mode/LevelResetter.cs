@@ -63,8 +63,14 @@ public class LevelResetter : MonoBehaviour {
 
         //display Recharging screen while level loads
         //note: fadeOutPanel Image needs to be enabled in Inspector for it to look right
+        Debug.Log("Starting recharging!");
         StartCoroutine(rechargingAnimation());
+        Debug.Log("Starting wait for zoom up!");
+
+        StartCoroutine(waitAndThenZoomUpPart(4f));
+        Debug.Log("Started wait for zoom up!");
         StartCoroutine(waitAndThenAddToken(4, "startBeginningConvo"));
+
     }
 
     // Use this for initialization
@@ -80,6 +86,14 @@ public class LevelResetter : MonoBehaviour {
         // ConversationTrigger.AddToken("doneRestarting")
         yield return new WaitForSeconds(seconds);
         ConversationTrigger.AddToken(token);
+    }
+
+    private IEnumerator waitAndThenZoomUpPart(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        Debug.Log("starting zoom up!");
+        StartCoroutine(startingPartZoomUp());
+
     }
 
     private IEnumerator rechargingAnimation()
@@ -120,16 +134,13 @@ public class LevelResetter : MonoBehaviour {
         Vector3 explosionPosition;
         // all parts from level b2 and later should have the tag "part" on them for this to work correctly
         parts = GameObject.FindGameObjectsWithTag("part");
-        Debug.Log("parts length: " + parts.Length);
         for (int i = 0; i < parts.Length; i++)
         {
             // first, set all meshcolliders to convex to avoid bad interaction with Rigidbody
             meshColliders = parts[i].GetComponentsInChildren<MeshCollider>();
             wasConvex = new bool[meshColliders.Length];
-            Debug.Log("parts[" + i + "] - meshColliders length: " + meshColliders.Length + ", wasConvex length: " + wasConvex.Length);
             for (int j = 0; j < meshColliders.Length; j++)
             {
-                Debug.Log(meshColliders[j].gameObject);
                 if(!meshColliders[j].convex)
                 {
                     wasConvex[j] = false;
@@ -211,6 +222,9 @@ public class LevelResetter : MonoBehaviour {
             case "b3":
                 eventSystem.GetComponent<CreatePartB3>().destroyAllCreatedParts();
                 break;
+            case "b4":
+                eventSystem.GetComponent<CreatePartB4>().destroyAllCreatedParts();
+                break;
             case "boot":
                 eventSystem.GetComponent<CreatePartRB>().destroyAllCreatedParts();
                 break;
@@ -285,6 +299,7 @@ public class LevelResetter : MonoBehaviour {
         {
             startingPart.transform.position = Vector3.Lerp(startingPartOffscreenPos, startingPartFinalPos, step);
             step *= 1.2f;
+            Debug.Log("ZOOM " + step);
             yield return new WaitForSeconds(0.01f);
         }
 

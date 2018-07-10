@@ -230,7 +230,7 @@ public class CreatePartB3 : MonoBehaviour
             //b3p1_bb3_a2
             b3p1_bb3_a2.gameObject.AddComponent<FuseBehavior>();
             b3p1_bb3_a2.gameObject.GetComponent<FuseBehavior>().setFuseTo(fuseAtts);
-            b3p1_bb3_a2.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B2p1"));
+            b3p1_bb3_a2.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p1"));
 
             b3p1_bb3_a2.gameObject.AddComponent<FaceSelector>();
             b3p1_bb3_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
