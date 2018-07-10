@@ -21,7 +21,7 @@ public class LevelResetter : MonoBehaviour {
     public CanvasGroup errorPanel;
     public Text powerFailureText;
     public AudioSource audioSource;
-    public AudioClip powerFailureSound;
+    private AudioClip powerFailureSound;
 
     public CanvasGroup bottomPanel;
     public CameraControls cameraControls;
@@ -37,9 +37,9 @@ public class LevelResetter : MonoBehaviour {
     public CanvasGroup timeRemainingPanel;
     public CanvasGroup rotationsRemainingPanel;
 
-    public AudioClip countdownSound;
-    public AudioClip finalCountSound;
-    public AudioClip rechargingSound;
+    private AudioClip countdownSound;
+    private AudioClip finalCountSound;
+    private AudioClip rechargingSound;
 
     private float flickeringTime;
     private float flickerLength;
@@ -53,22 +53,28 @@ public class LevelResetter : MonoBehaviour {
     public GameObject startingPart;
     private Vector3 startingPartFinalPos = new Vector3(-100, 30, 100);
     private Vector3 startingPartOffscreenPos = new Vector3(-100, -40, 100);
+    private Vector3 originalColliderCenter;
+    private Vector3 originalColliderSize;
 
     private const float MOVEMENT_SPEED = 100f;
 
     private void Awake()
     {
+        powerFailureSound = Resources.Load<AudioClip>("Audio/ConstModeMusic/msfx_chrono_latency_hammer");
+        countdownSound = Resources.Load<AudioClip>("Audio/ConstModeMusic/Select02");
+        finalCountSound = Resources.Load<AudioClip>("Audio/ConstModeMusic/Select04");
+        rechargingSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-03");
+        originalColliderCenter = startingPart.GetComponent<BoxCollider>().center;
+        originalColliderSize = startingPart.GetComponent<BoxCollider>().size;
+
         // make sure player controls are always disabled at beginning before countdown begins
         disablePlayerControls();
 
         //display Recharging screen while level loads
         //note: fadeOutPanel Image needs to be enabled in Inspector for it to look right
-        Debug.Log("Starting recharging!");
         StartCoroutine(rechargingAnimation());
-        Debug.Log("Starting wait for zoom up!");
 
         StartCoroutine(waitAndThenZoomUpPart(4f));
-        Debug.Log("Started wait for zoom up!");
         StartCoroutine(waitAndThenAddToken(4, "startBeginningConvo"));
 
     }
@@ -91,7 +97,6 @@ public class LevelResetter : MonoBehaviour {
     private IEnumerator waitAndThenZoomUpPart(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        Debug.Log("starting zoom up!");
         StartCoroutine(startingPartZoomUp());
 
     }
@@ -225,12 +230,19 @@ public class LevelResetter : MonoBehaviour {
             case "b4":
                 eventSystem.GetComponent<CreatePartB4>().destroyAllCreatedParts();
                 break;
-            case "boot":
+            case "rocketBoots":
                 eventSystem.GetComponent<CreatePartRB>().destroyAllCreatedParts();
                 break;
             default:
                 break;
         }
+
+        // reset the starting part's box collider to its original size 
+        Destroy(startingPart.GetComponent<BoxCollider>());
+        BoxCollider newCollider = startingPart.AddComponent<BoxCollider>();
+        newCollider.enabled = false;
+        newCollider.center = originalColliderCenter;
+        newCollider.size = originalColliderSize;
     }
 
     public void showTryAgainButton()

@@ -17,9 +17,6 @@ public class CreatePartB2 : MonoBehaviour
     public int NUM_PARTS;
     private GameObject startObject;
 
-    public GameObject rotateYButton;
-    public GameObject rotateXButton;
-    public GameObject rotateZButton;
     public RotationGizmo rotateGizmo;
 
     private const float MOVEMENT_SPEED = 100;
@@ -172,17 +169,6 @@ public class CreatePartB2 : MonoBehaviour
         }
     }
 
-    public void enableManipulationButtons(GameObject toRotate)
-    {
-        rotateYButton.transform.GetComponent<Button>().interactable = true;
-        rotateXButton.transform.GetComponent<Button>().interactable = true;
-        rotateZButton.transform.GetComponent<Button>().interactable = true;
-
-        rotateYButton.transform.GetComponent<RotateButton>().setObjectToRotate(toRotate);
-        rotateXButton.transform.GetComponent<RotateButton>().setObjectToRotate(toRotate);
-        rotateZButton.transform.GetComponent<RotateButton>().setObjectToRotate(toRotate);
-    }
-
     // Makes the newly created part zip up from a lower point as it's created, making it seem like it was pulled up from the ground
     IEnumerator moveToStartingPosition(GameObject part)
     {
@@ -294,9 +280,6 @@ public class CreatePartB2 : MonoBehaviour
 
             selectionManager.newPartCreated("b2p1Prefab(Clone)");
 
-            enableManipulationButtons(newB2p1);
-
-
         }
     }
 
@@ -373,9 +356,6 @@ public class CreatePartB2 : MonoBehaviour
             partButtons[1].interactable = false;
 
             selectionManager.newPartCreated("b2p2Prefab(Clone)");
-
-            enableManipulationButtons(newB2p2);
-
 
         }
     }

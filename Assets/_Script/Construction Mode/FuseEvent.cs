@@ -38,19 +38,14 @@ public class FuseEvent : MonoBehaviour {
     //Buttons
     public GameObject[] partButtons;
 	public Button connectButton;
-	public GameObject rotateXButton;
-	public GameObject rotateYButton;
-	public GameObject rotateZButton;
     public Button claimItem;    // NEW ADDITION. A button which appears upon completion of an item to claim it in exploration mode.
 
     // Non-Button UI elements
     public Text congrats;
 	public Text shapesWrong;
 	public Text rotationWrong;
-	public Text getPassword;
 	public RotationGizmo rotateGizmo;	// NEW ADDITION. when completing a fusion, disable the rotation gizmo.
 	public GameObject victoryPrefab;
-	public CanvasGroup rotatePanelGroup;
 	public CanvasGroup bottomPanelGroup;
 	public CanvasGroup congratsPanelGroup;
 	public CanvasGroup errorPanelGroup;
@@ -94,19 +89,19 @@ public class FuseEvent : MonoBehaviour {
 		rotateGizmo = GameObject.FindGameObjectWithTag("RotationGizmo").GetComponent<RotationGizmo>();
 
 		// Setup the back button.
-		Button backButton = GameObject.Find ("Back Button").GetComponent<Button>();
-		backButton.onClick.AddListener(() => 
-		{
-			SimpleData.WriteDataPoint("Left_Scene", "Incomplete_Construction", "", "", "", "");
-			//SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO," + InventoryController.levelName);
-			stopLevelTimer();
-			printLevelDataFail();
-			LoadUtils.LoadScene(InventoryController.levelName);
-		});
+		//backButton.onClick.AddListener(() => 
+		//{
+		//	SimpleData.WriteDataPoint("Left_Scene", "Incomplete_Construction", "", "", "", "");
+		//	//SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO," + InventoryController.levelName);
+		//	stopLevelTimer();
+		//	printLevelDataFail();
+		//	LoadUtils.LoadScene(InventoryController.levelName);
+		//});
 
         // is this a tutorial level? If so, there will be a conversation after victory that must be clicked through before
         // Take button appears. So we need to know what level it is so that the script can listen for the correct ConversationTrigger
         activatedTakeButton = false;
+
 
   //      // New addition for claim item button.
   //      if (claimItem != null)
@@ -244,15 +239,15 @@ public class FuseEvent : MonoBehaviour {
             //GameObject.Find("BatteryIndicator").transform.localScale = Vector3.zero;
 
             // Change back button functionality.
-            backButton.onClick.RemoveAllListeners();
-            backButton.onClick.AddListener(() =>
-            {
-                stopLevelTimer();
-                printLevelDataFail();
-                SimpleData.WriteDataPoint("Left_Scene", "Construction_Only", "", "", "", "");
-                //SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO,SimpleMenu");
-                SceneManager.LoadScene("SimpleMenu");
-            });
+            //backButton.onClick.RemoveAllListeners();
+            //backButton.onClick.AddListener(() =>
+            //{
+            //    stopLevelTimer();
+            //    printLevelDataFail();
+            //    SimpleData.WriteDataPoint("Left_Scene", "Construction_Only", "", "", "", "");
+            //    //SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO,SimpleMenu");
+            //    SceneManager.LoadScene("SimpleMenu");
+            //});
 
 
             // Change Claim Item functionality.
@@ -338,7 +333,7 @@ public class FuseEvent : MonoBehaviour {
                 LoadUtils.LoadScene("rocketBoots");
                 LoadUtils.UnloadScene("b4");
                 break;
-            case "boot":
+            case "rocketBoots":
                 RocketBoots.ActivateBoots();
                 InventoryController.items.Remove("Rocket Boots Body");
                 InventoryController.items.Remove("Rocket Boots Calf");
@@ -570,26 +565,26 @@ public class FuseEvent : MonoBehaviour {
             fuseMapping.Add("b4p3_b4p2_a2", "b4p2_b4p3_a2");
 
         }
-        else if (currentScene.Equals("boot"))
+        else if (currentScene.Equals("rocketBoots"))
         {
-            /*		fuseSet1.Add ("heel_widening_attach");
-                    fuseMapping.Add ("widening_heel_attach", fuseSet1);
-                    HashSet<string> fuseSet2 = new HashSet<string> ();
-                    fuseSet2.Add ("heel_midfoot_attach");
-                    fuseMapping.Add ("midfoot_heel_attach", fuseSet2);
-                    HashSet<string> fuseSet3 = new HashSet<string> ();
-                    fuseSet3.Add ("widening_calf_attach");
-                    fuseMapping.Add ("calf_widening_attach", fuseSet3);
-                    HashSet<string> fuseSet4 = new HashSet<string> ();
-                    fuseSet4.Add ("calf_trim_attach");
-                    fuseMapping.Add ("trim_calf_attach", fuseSet4);
-                    HashSet<string> fuseSet5 = new HashSet<string> ();
-                    fuseSet5.Add ("midfoot_ballfoot_attach");
-                    fuseMapping.Add ("ballfoot_midfoot_attach", fuseSet5);
-                    HashSet<string> fuseSet6 = new HashSet<string> ();
-                    fuseSet6.Add ("ballfoot_toe_attach");
-                    fuseMapping.Add ("toe_ballfoot_attach", fuseSet6);
-            */
+            // widening to heel
+            fuseMapping.Add("widening_heel_attach", "heel_widening_attach");
+
+            // calf to widening
+            fuseMapping.Add("calf_widening_attach", "widening_calf_attach");
+
+            // trim to calf
+            fuseMapping.Add("trim_calf_attach", "calf_trim_attach");
+
+            // midfoot to heel
+            fuseMapping.Add("midfoot_heel_attach", "heel_midfoot_attach");
+
+            // ballfoot to midfoot
+            fuseMapping.Add("ballfoot_midfoot_attach", "midfoot_ballfoot_attach");
+
+            // toe to ballfoot
+            fuseMapping.Add("toe_ballfoot_attach", "ballfoot_toe_attach");
+
         }
         else if (currentScene.Equals("key1"))
         {
@@ -1214,12 +1209,6 @@ public class FuseEvent : MonoBehaviour {
 		connectButton.interactable = false;
 	}
 
-	public void disableRotationButtons() {
-		rotateXButton.GetComponent<Button>().interactable = false;
-		rotateYButton.GetComponent<Button>().interactable = false;
-		rotateZButton.GetComponent<Button>().interactable = false;
-	}
-
 	public void initiateFuse() {
 		string data_fuseStatus = "Success";
 		string data_failureType = "";
@@ -1262,7 +1251,9 @@ public class FuseEvent : MonoBehaviour {
             }
 			selectedObject.GetComponent<FuseBehavior>().fuse(selectedFuseTo.name);
 
-	
+            // delete starting part's old BoxCollider, replace with a new one combining the old one's bounds with those of 
+            // the part that was just attached
+            extendBoxCollider(GetComponent<SelectPart>().startingPart, selectedObject.transform.parent.gameObject);
 
 			fuseCleanUp();
 			fuseCount++;
@@ -1275,12 +1266,9 @@ public class FuseEvent : MonoBehaviour {
 			if(done ()) {
 				stopLevelTimer();
 				printLevelData();
-				rotatePanelGroup.alpha = 0;
 				bottomPanelGroup.alpha = 0;
                 congratsPanel.SetActive(true);
-				//congratsPanelGroup.GetComponent<Image>().CrossFadeAlpha(255, 4, false);
 				finishedImage.enabled = false;
-				GameObject.Find("Back Button").SetActive(false);
                 if (isFirstLevel)
                 {
                     ConversationTrigger.AddToken("finishedB1");
@@ -1316,6 +1304,75 @@ public class FuseEvent : MonoBehaviour {
 
 		SimpleData.WriteDataPoint("Fuse_Attempt", selectedObject.transform.parent.name, data_failureType, "", "", data_fuseStatus);
 	}
+
+    // combines the BoxColliders of GameObjects starting and added and replaces
+    // starting's BoxCollider with the result
+    private void extendBoxCollider(GameObject starting, GameObject added)
+    {
+        Debug.Log("Starting: " + starting);
+        Debug.Log("added: " + added);
+        BoxCollider startingBoxCollider = starting.GetComponent<BoxCollider>();
+        BoxCollider addedBoxCollider = added.GetComponent<BoxCollider>();
+        startingBoxCollider.enabled = true;
+        addedBoxCollider.enabled = true;
+        Bounds oldBounds = starting.GetComponent<BoxCollider>().bounds;
+        Bounds addedBounds = added.GetComponent<BoxCollider>().bounds;
+        addedBoxCollider.enabled = false;
+        Debug.Log("oldBounds: " + oldBounds);
+        Debug.Log("addedBounds: " + addedBounds);
+
+        Vector3 oldBoundsMax = oldBounds.max;
+        Vector3 oldBoundsMin = oldBounds.min;
+        Vector3 addedBoundsMax = addedBounds.max;
+        Vector3 addedBoundsMin = addedBounds.min;
+
+        float newXMax, newYMax, newZMax;
+        float newXMin, newYMin, newZMin;
+        newXMax = Mathf.Max(oldBoundsMax.x, addedBoundsMax.x);
+        newYMax = Mathf.Max(oldBoundsMax.y, addedBoundsMax.y);
+        newZMax = Mathf.Max(oldBoundsMax.z, addedBoundsMax.z);
+
+        newXMin = Mathf.Min(oldBoundsMin.x, addedBoundsMin.x);
+        newYMin = Mathf.Min(oldBoundsMin.y, addedBoundsMin.y);
+        newZMin = Mathf.Min(oldBoundsMin.z, addedBoundsMin.z);
+
+        float newColliderWorldX = (newXMax + newXMin) / 2;
+        float newColliderWorldY = (newYMax + newYMin) / 2;
+        float newColliderWorldZ = (newZMax + newZMin) / 2;
+        Vector3 startingPos = starting.transform.position;
+
+        Vector3 startingScale = starting.transform.lossyScale;
+        Vector3 startingSize = startingBoxCollider.size;
+        Vector3 addedSize = addedBoxCollider.size;
+
+        //I got this formula from engineeringcorecourses.com
+        float startingVolume = startingBoxCollider.size.x * startingBoxCollider.size.y * startingBoxCollider.size.z;
+        float addedVolume = addedBoxCollider.size.x * addedBoxCollider.size.y * addedBoxCollider.size.z;
+        float totalVolume = startingVolume + addedVolume;
+
+        Vector3 startingColliderWorldCenter = starting.transform.TransformPoint(startingBoxCollider.center);
+        Vector3 addedColliderWorldCenter = added.transform.TransformPoint(startingBoxCollider.center);
+
+        float weightedCenterX = startingColliderWorldCenter.x * startingVolume + addedColliderWorldCenter.x * addedVolume;
+        float weightedCenterY = startingColliderWorldCenter.y * startingVolume + addedColliderWorldCenter.y * addedVolume;
+        float weightedCenterZ = startingColliderWorldCenter.z * startingVolume + addedColliderWorldCenter.z * addedVolume;
+
+        Vector3 newCenter = new Vector3(weightedCenterX / totalVolume, weightedCenterY / totalVolume, weightedCenterZ / totalVolume);
+        Vector3 newCenterLocalCoord = starting.transform.InverseTransformPoint(newCenter);
+        // TODO: center formula is slightly off - moves too far in -z direction as shapes are added in -z direction, doesn't move far enough 
+        // in +y direction when shapes are added in +y direction
+
+        startingBoxCollider.size = new Vector3((newXMax - newXMin) / startingScale.x, (newYMax - newYMin) / startingScale.y, (newZMax - newZMin) / startingScale.z);
+        Debug.Log("New Size: " + startingBoxCollider.size);
+
+        // sum of the volumes times the centers of starting and added, divided by sum of the volumes
+        startingBoxCollider.center = newCenterLocalCoord;
+        Debug.Log("New Center: " + startingBoxCollider.center);
+
+
+        startingBoxCollider.enabled = false;
+
+    }
 
     IEnumerator errorWrongFace()
     {
@@ -1378,7 +1435,6 @@ public class FuseEvent : MonoBehaviour {
 		GetComponent<SelectPart>().resetSelectedObject();
 		GetComponent<SelectPart>().resetSelectedFuseTo();
 		disableConnectButton();
-		disableRotationButtons();
 	}
 		
 	public bool positionMatches(GameObject selectedObj, GameObject fuseTo) {

@@ -38,8 +38,8 @@ public class ScrollingText : MonoBehaviour
 	void Awake ()
 	{
 		choiceButton = Resources.Load<GameObject>("Prefabs/ChoiceButton");
-        scrollLetterSound = Resources.Load<AudioClip>("Audio/DM-CGS-01");
-        scrollTextSound = Resources.Load<AudioClip>("Audio/DM-CGS-03");
+        scrollLetterSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-01");
+        scrollTextSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-03");
         GameObject audioSourceObj = GameObject.Find("Audio Source");
         if (audioSourceObj != null)
         {
@@ -124,7 +124,7 @@ public class ScrollingText : MonoBehaviour
 							// Apply the conversation relating to the only choice.
 							// Also make sure to add any token which may be a part of this single choice.
 							ApplyConversation(ConversationsDB.convos[choiceConvoPointers[0]]);
-							Debug.Log("Adding token: " + choiceTokens[0]);
+							//Debug.Log("Adding token: " + choiceTokens[0]);
 							ConversationTrigger.AddToken(choiceTokens[0]);
 							break;
 						default:
@@ -150,7 +150,6 @@ public class ScrollingText : MonoBehaviour
 
 			numScrolled++;
             audioSource.PlayOneShot(scrollLetterSound);
-            Debug.Log("played scroll letter sound!");
         }
         // Keep track of whether text is currently scrolling or not.
         if (!initializing && numScrolled >= letters.Length)
