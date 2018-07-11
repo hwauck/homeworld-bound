@@ -270,7 +270,7 @@ public class FuseEvent : MonoBehaviour {
             runningJustConstructionMode = false;
         }
 
-
+        // TODO: make sure all this is reset in data collection as needed whenever level is reset
         fuseCount = 0;
 		fuseStatus = "none";
 		filename = "ConstructionModeData.txt";
@@ -291,6 +291,12 @@ public class FuseEvent : MonoBehaviour {
 
 	}
 
+    // used by level resetter to reset the fuse count every time level is reset
+    public void resetFuseCount()
+    {
+        fuseCount = 0;
+    }
+
     public void setIsFirstLevel(bool isFirstLevel)
     {
         this.isFirstLevel = isFirstLevel;
@@ -301,7 +307,17 @@ public class FuseEvent : MonoBehaviour {
 
         SimpleData.WriteDataPoint("Left_Scene", "Complete_Construction", "", "", "", "");
         //SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO," + InventoryController.levelName);
-        switch (SceneManager.GetActiveScene().name)
+        // if testing individual levels, use if(isFirstLevel || Application.isEditor). If testing levels in sequence,
+        // use if(isFirstLevel)
+        string currentLevel;  
+        if(isFirstLevel)
+        {
+            currentLevel = SceneManager.GetActiveScene().name;
+        } else
+        {
+            currentLevel = LoadUtils.currentSceneName;
+        }
+        switch (currentLevel)
         {
             // TODO: Need to think about how to handle it when the player might need an unspecified number of 
             // batteries. Procedurally generate battery models/Construction Mode levels so they stay different?
@@ -440,7 +456,7 @@ public class FuseEvent : MonoBehaviour {
             // Application.isEditor allows me to test individual levels that aren't the starting level in isolation
             // if testing just one level, use if(isFirstLevel || Application.isEditor)
             // if testing levels in sequence, use if(isFirstLevel)
-            if(isFirstLevel || Application.isEditor)
+            if(isFirstLevel)
             {
                 break;
             }
@@ -464,7 +480,7 @@ public class FuseEvent : MonoBehaviour {
         // Application.isEditor allows me to test individual levels that aren't the starting level in isolation
         // if testing just one level, use if(isFirstLevel || Application.isEditor)
         // if testing levels in sequence, use if(isFirstLevel)
-        if (isFirstLevel || Application.isEditor)
+        if (isFirstLevel)
         {
             //This might not work once Exploration is the first scene?
             currentScene = SceneManager.GetActiveScene().name;
@@ -1265,7 +1281,11 @@ public class FuseEvent : MonoBehaviour {
             }
 			if(done ()) {
 				stopLevelTimer();
-				printLevelData();
+                if(GameObject.Find("TimeRemainingPanel") != null)
+                {
+                    GameObject.Find("TimeRemainingPanel").GetComponent<Timer>().stopTimer();
+                }
+                printLevelData();
 				bottomPanelGroup.alpha = 0;
                 congratsPanel.SetActive(true);
 				finishedImage.enabled = false;
@@ -1336,9 +1356,7 @@ public class FuseEvent : MonoBehaviour {
         newYMin = Mathf.Min(oldBoundsMin.y, addedBoundsMin.y);
         newZMin = Mathf.Min(oldBoundsMin.z, addedBoundsMin.z);
 
-        float newColliderWorldX = (newXMax + newXMin) / 2;
-        float newColliderWorldY = (newYMax + newYMin) / 2;
-        float newColliderWorldZ = (newZMax + newZMin) / 2;
+        Vector3 newCenter = starting.transform.InverseTransformPoint((newXMax + newXMin) / 2, (newYMax + newYMin) / 2, (newZMax + newZMin) / 2);
         Vector3 startingPos = starting.transform.position;
 
         Vector3 startingScale = starting.transform.lossyScale;
@@ -1357,7 +1375,7 @@ public class FuseEvent : MonoBehaviour {
         float weightedCenterY = startingColliderWorldCenter.y * startingVolume + addedColliderWorldCenter.y * addedVolume;
         float weightedCenterZ = startingColliderWorldCenter.z * startingVolume + addedColliderWorldCenter.z * addedVolume;
 
-        Vector3 newCenter = new Vector3(weightedCenterX / totalVolume, weightedCenterY / totalVolume, weightedCenterZ / totalVolume);
+        //Vector3 newCenter = new Vector3(weightedCenterX / totalVolume, weightedCenterY / totalVolume, weightedCenterZ / totalVolume);
         Vector3 newCenterLocalCoord = starting.transform.InverseTransformPoint(newCenter);
         // TODO: center formula is slightly off - moves too far in -z direction as shapes are added in -z direction, doesn't move far enough 
         // in +y direction when shapes are added in +y direction
@@ -1366,7 +1384,8 @@ public class FuseEvent : MonoBehaviour {
         Debug.Log("New Size: " + startingBoxCollider.size);
 
         // sum of the volumes times the centers of starting and added, divided by sum of the volumes
-        startingBoxCollider.center = newCenterLocalCoord;
+        //startingBoxCollider.center = newCenterLocalCoord;
+        startingBoxCollider.center = newCenter;
         Debug.Log("New Center: " + startingBoxCollider.center);
 
 

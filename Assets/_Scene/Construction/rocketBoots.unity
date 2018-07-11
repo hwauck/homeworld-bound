@@ -1514,7 +1514,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 0
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!114 &514515395
 MonoBehaviour:
@@ -3148,6 +3148,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 514515393}
     m_Modifications:
+    - target: {fileID: 11461554, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 22447662, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3245,6 +3249,26 @@ Prefab:
     - target: {fileID: 11436724, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
       propertyPath: m_Color.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11461554, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11461554, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11461554, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1321869685}
+    - target: {fileID: 11461554, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: goToNextScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 11461554, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad89286775433fd4cace6f35a7c5e113, type: 2}
@@ -3501,7 +3525,7 @@ MonoBehaviour:
   powerFailure:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1321869679}
         m_MethodName: resetLevel
         m_Mode: 1
         m_Arguments:
@@ -3709,7 +3733,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1404103520
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3734,7 +3758,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1404103519}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -4012,7 +4036,7 @@ MonoBehaviour:
   powerFailure:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1321869679}
         m_MethodName: resetLevel
         m_Mode: 1
         m_Arguments:
@@ -4432,7 +4456,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1321869679}
         m_MethodName: doResetConstruction
         m_Mode: 1
         m_Arguments:

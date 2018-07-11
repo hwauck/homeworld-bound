@@ -44,7 +44,6 @@ public class LevelResetter : MonoBehaviour {
     private float flickeringTime;
     private float flickerLength;
     private GameObject[] parts;
-    private bool[] wasConvex;
     private MeshCollider[] meshColliders;
 
     // need this to get the "mode" so I can get the correct CreatePart script, bleh
@@ -53,6 +52,7 @@ public class LevelResetter : MonoBehaviour {
     public GameObject startingPart;
     private Vector3 startingPartFinalPos = new Vector3(-100, 30, 100);
     private Vector3 startingPartOffscreenPos = new Vector3(-100, -40, 100);
+    private Quaternion startingPartRotation;
     private Vector3 originalColliderCenter;
     private Vector3 originalColliderSize;
 
@@ -66,21 +66,33 @@ public class LevelResetter : MonoBehaviour {
         rechargingSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-03");
         originalColliderCenter = startingPart.GetComponent<BoxCollider>().center;
         originalColliderSize = startingPart.GetComponent<BoxCollider>().size;
+        startingPartRotation = startingPart.transform.rotation;
 
         // make sure player controls are always disabled at beginning before countdown begins
         disablePlayerControls();
-
-        //display Recharging screen while level loads
-        //note: fadeOutPanel Image needs to be enabled in Inspector for it to look right
-        StartCoroutine(rechargingAnimation());
-
-        StartCoroutine(waitAndThenZoomUpPart(4f));
-        StartCoroutine(waitAndThenAddToken(4, "startBeginningConvo"));
 
     }
 
     // Use this for initialization
     void Start () {
+
+    }
+
+    void OnEnable()
+    {
+        //display Recharging screen while level loads
+        //note: fadeOutPanel Image needs to be enabled in Inspector for it to look right
+        if(fadeOutScreen.enabled) // b2 shouldn't recharge on startup, so don't do animation or sounds
+        {
+            Debug.Log("OnEnable() method in LevelResetter - starting recharging animation!");
+            StartCoroutine(rechargingAnimation());
+            StartCoroutine(waitAndThenZoomUpPart(4f));
+            StartCoroutine(waitAndThenAddToken(4, "startBeginningConvo"));
+        } else
+        {
+            StartCoroutine(waitAndThenZoomUpPart(1f));
+            StartCoroutine(waitAndThenAddToken(1, "startBeginningConvo"));
+        }
 
     }
 
@@ -143,17 +155,18 @@ public class LevelResetter : MonoBehaviour {
         {
             // first, set all meshcolliders to convex to avoid bad interaction with Rigidbody
             meshColliders = parts[i].GetComponentsInChildren<MeshCollider>();
-            wasConvex = new bool[meshColliders.Length];
             for (int j = 0; j < meshColliders.Length; j++)
             {
-                if(!meshColliders[j].convex)
+                if (meshColliders[j].GetComponent<FuseBehavior>() == null)
                 {
-                    wasConvex[j] = false;
-                } else
+                    // is not an attachment region - make meshCollider convex to avoid errors with Rigidbodies
+                    meshColliders[j].convex = true;
+                } else 
                 {
-                    wasConvex[j] = true;
+                    // is an attachment region - causes wonky behavior sometimes if meshcollider is set to convex
+                    // so just disable it instead
+                    meshColliders[j].enabled = false;
                 }
-                meshColliders[j].convex = true;
             }
             // then, add Rigidbodies to apply a downward explosive force
             parts[i].AddComponent<Rigidbody>();
@@ -201,7 +214,10 @@ public class LevelResetter : MonoBehaviour {
         for (int i = 0; i < meshColliders.Length; i++)
         {
             //change meshcolliders on startingPart back to non-convex if they weren't before
-            if (meshColliders[i].gameObject.GetComponent<Convexity>() == null)
+            if(!meshColliders[i].enabled)
+            {
+                meshColliders[i].enabled = true;
+            }else if (meshColliders[i].gameObject.GetComponent<Convexity>() == null)
             {
                 meshColliders[i].convex = false;
             }
@@ -211,14 +227,15 @@ public class LevelResetter : MonoBehaviour {
         fuseEvent.fuseCleanUp();
 
         string currentLevel;
-        if(Application.isEditor)
+        // if testing individual levels, use if(Application.isEditor). If testing levels in
+        // sequence, use if(false)
+        if(false)
         {
             currentLevel = SceneManager.GetActiveScene().name;
         } else
         {
             currentLevel = LoadUtils.currentSceneName;
         }
-
         switch (currentLevel)
         {
             case "b2":
@@ -259,14 +276,15 @@ public class LevelResetter : MonoBehaviour {
         StartCoroutine(rechargingAnimation());
 
         // put starting part back to where it was
-        startingPart.transform.SetPositionAndRotation(startingPartOffscreenPos, Quaternion.Euler(0, 0, 0));
+        startingPart.transform.SetPositionAndRotation(startingPartOffscreenPos, startingPartRotation);
 
         // and reset camera
         cameraControls.gameObject.transform.SetPositionAndRotation(new Vector3(-90, 45, -3.36f), Quaternion.Euler(0, 0, 0));
 
-        // and reset the number of rotations and time remaining
+        // and reset the number of rotations, time remaining, and fuseCount
         rotationsRemainingPanel.GetComponent<RotationCounter>().resetRotations();
         timeRemainingPanel.GetComponent<Timer>().resetTimer();
+        fuseEvent.resetFuseCount();
         yield return new WaitForSeconds(4f);
 
         //flicker screen back in
@@ -348,6 +366,7 @@ public class LevelResetter : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        Debug.Log("startBeginningConvo is already here? " + ConversationTrigger.GetToken("startBeginningConvo"));
         // finished recharging after power failure, show Try Again? button to restart level
         if (ConversationTrigger.GetToken("outOfPower") && ConversationTrigger.GetToken("hasPower"))
         {

@@ -123,6 +123,7 @@ public class Tutorial2 : MonoBehaviour {
         // player just clicked Ready! answer, so start countdown
         else if (!startedCountdown && ConversationTrigger.GetToken("finishedConst_23"))
         {
+            ConversationTrigger.AddToken("doneWithBeginningConvo");
             startedCountdown = true;
             // do countdown
             // as soon as countdown finishes, enable player controls with one flash
@@ -188,8 +189,8 @@ public class Tutorial2 : MonoBehaviour {
             lowPowerText.enabled = false;
             yield return new WaitForSeconds(0.5f);
         }
-        Debug.Log("Adding finishedLowPowerWarning token!");
-        ConversationTrigger.AddToken("finishedLowPowerWarning");
+        Debug.Log("Adding startBeginningConvo token!");
+        ConversationTrigger.AddToken("startBeginningConvo");
         yield return null;
     }
 
