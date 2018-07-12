@@ -65,7 +65,13 @@ public class PickUp : MonoBehaviour
         {
             Pickup.clip = pickupSound;
             Pickup.Play();
-            PartsSounds.Stop();
+
+            if (WindChimes != null && PartsSounds != null)
+            {
+
+                PartsSounds.Stop();
+
+            }
 			SimpleData.WriteDataPoint("Pickup_Item", "", "", "", "", pickupName);
 			//SimpleData.WriteStringToFile("pickups.txt", Time.time + ",PICKUP," + pickupName);
 			switch (type)
