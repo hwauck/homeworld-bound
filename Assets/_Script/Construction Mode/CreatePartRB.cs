@@ -5,22 +5,27 @@ using UnityEngine.UI;
 
 public class CreatePartRB : MonoBehaviour {
 
+
 	private GameObject[] instantiated;
 	public GameObject[] parts;
 	private bool[] partCreated;
 	private Vector3 createLoc;
-	public GameObject eventSystem;
+    private Vector3 offscreenCreateLoc;
+    public Button[] partButtons;
+    public GameObject eventSystem;
 	private SelectPart selectionManager;
 	public int NUM_PARTS;
 	private GameObject startObject;
 
-	public GameObject rotateYButton;
-	public GameObject rotateXButton;
-	public GameObject rotateZButton;
 	public RotationGizmo rotateGizmo;
 
-	// Use this for initialization
-	void Awake () {
+    private const float MOVEMENT_SPEED = 100;
+    private float step;
+    private const float WAIT_TIME = 0.01f;
+
+    // Use this for initialization
+    void Awake () {
+
 		//number of parts to fuse
 		partCreated = new bool[NUM_PARTS];
 		instantiated = new GameObject[NUM_PARTS];
@@ -35,15 +40,9 @@ public class CreatePartRB : MonoBehaviour {
 
 		//CHANGE this string to the name of your starting part
 		startObject = GameObject.Find ("startObject");
+        offscreenCreateLoc = new Vector3(-40, -60, 100);
 
-		//CHANGE these lines so they refer to each black part on your starting part
-		GameObject heelMidfootAttach = GameObject.Find("heel_midfoot_attach");
-		GameObject heelWideningAttach = GameObject.Find("heel_widening_attach");
-		//to avoid errors when selectedObject starts as startObject
-		//CHANGE these lines to match above
-		heelMidfootAttach.GetComponent<FuseBehavior>().isFused = true;
-		heelWideningAttach.GetComponent<FuseBehavior>().isFused = true;
-		rotateGizmo = GameObject.FindGameObjectWithTag("RotationGizmo").GetComponent<RotationGizmo>();
+        rotateGizmo = GameObject.FindGameObjectWithTag("RotationGizmo").GetComponent<RotationGizmo>();
 
 	}
 
@@ -227,47 +226,82 @@ public class CreatePartRB : MonoBehaviour {
 		for(int i = 0; i < instantiated.Length; i++) {
 			if(instantiated[i] != null && !instantiated[i].GetComponent<IsFused>().isFused) {
 				Destroy(instantiated[i]);
-			}
-		}
+                partButtons[i].interactable = true;
+            }
+        }
 	}
 
-	public void enableManipulationButtons(GameObject toRotate) {
-		rotateYButton.transform.GetComponent<Button>().interactable = true;
-		rotateXButton.transform.GetComponent<Button>().interactable = true;
-		rotateZButton.transform.GetComponent<Button>().interactable = true;
+    //when power failure occurs, delete all but starting part.
+    // Called by LevelResetter
+    public void destroyAllCreatedParts()
+    {
+        for (int i = 0; i < partCreated.Length; i++)
+        {
+            partCreated[i] = false;
+        }
+        for (int i = 0; i < instantiated.Length; i++)
+        {
+            if (instantiated[i] != null)
+            {
+                Destroy(instantiated[i]);
+                partButtons[i].interactable = true;
+            }
+        }
+    }
 
-		rotateYButton.transform.GetComponent<RotateButton>().setObjectToRotate(toRotate);
-		rotateXButton.transform.GetComponent<RotateButton>().setObjectToRotate(toRotate);
-		rotateZButton.transform.GetComponent<RotateButton>().setObjectToRotate(toRotate);
-	}
+    // Makes the newly created part zip up from a lower point as it's created, making it seem like it was pulled up from the ground
+    IEnumerator moveToStartingPosition(GameObject part)
+    {
+        // while the part hasn't reached its destination and while it hasn't been destroyed by choosing another part
+        while (part != null && !part.transform.position.Equals(createLoc))
+        {
+            step = MOVEMENT_SPEED * Time.deltaTime;
+            part.transform.position = Vector3.MoveTowards(part.transform.position, createLoc, step);
 
-	//CHANGE these next 5 methods so that they refer to the 5 prefabs you made. This requires you to 
-	// change most of the variables and strings in each method.	
-	public void createBallfoot() {
+            yield return new WaitForSeconds(WAIT_TIME);
+        }
+    }
+
+    //CHANGE these next 5 methods so that they refer to the 5 prefabs you made. This requires you to 
+    // change most of the variables and strings in each method.	
+    public void createBallfoot() {
 		if(!partCreated[0]) {
 			clearPartsCreated();
-			Vector3 pos = createLoc; // this is where the object will appear when it's instantiated		
+			Vector3 pos = offscreenCreateLoc; // this is where the object will appear when it's instantiated		
 			Quaternion fuseToRotation = Quaternion.Euler (0,90,0);
 			GameObject newBallfoot = rotateGizmo.Enable(LoadUtils.InstantiateParenter((GameObject)Instantiate (parts[0], pos, fuseToRotation)));
+            StartCoroutine(moveToStartingPosition(newBallfoot)); // this creates the zooming up from the ground effect
 
-			Transform ballfootMidfootAttach = newBallfoot.transform.Find("ballfoot_midfoot_attach");
+            Transform ballfootMidfootAttach = newBallfoot.transform.Find("ballfoot_midfoot_attach");
 			Transform ballfootToeAttach = newBallfoot.transform.Find("ballfoot_toe_attach");
 
 			FuseAttributes fuseAtts = ballfootFuses ();
 
+            // ballfoot_Midfoot_Attach
 			ballfootMidfootAttach.gameObject.AddComponent<FuseBehavior>();
 			ballfootMidfootAttach.gameObject.GetComponent<FuseBehavior>().setFuseTo(fuseAtts);
 			ballfootMidfootAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Ballfoot"));
 
-			ballfootToeAttach.gameObject.AddComponent<FuseBehavior>();
+            ballfootMidfootAttach.gameObject.AddComponent<FaceSelector>();
+            ballfootMidfootAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            ballfootMidfootAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
+            ballfootMidfootAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
+
+            // ballfoot_Toe_Attach
+            ballfootToeAttach.gameObject.AddComponent<FuseBehavior>();
 			ballfootToeAttach.gameObject.GetComponent<FuseBehavior>().setFuseTo(fuseAtts);
 			ballfootToeAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Ballfoot"));
 
-			instantiated[0] = newBallfoot;
-			partCreated[0] = true;
-			selectionManager.newPartCreated("ballfootPrefab(Clone)");
+            ballfootToeAttach.gameObject.AddComponent<FaceSelector>();
+            ballfootToeAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            ballfootToeAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
+            ballfootToeAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
-			enableManipulationButtons(newBallfoot);
+            instantiated[0] = newBallfoot;
+			partCreated[0] = true;
+            partButtons[0].interactable = false;
+
+            selectionManager.newPartCreated("ballfootPrefab(Clone)");
 
 
 		}
@@ -276,28 +310,41 @@ public class CreatePartRB : MonoBehaviour {
 	public void createCalf() {
 		if(!partCreated[1]){
 			clearPartsCreated();
-			Vector3 pos = createLoc; // this is where the object will appear when it's instantiated
+			Vector3 pos = offscreenCreateLoc; // this is where the object will appear when it's instantiated
 			Quaternion fuseToRotation = Quaternion.Euler(0,90,90);
 			GameObject newCalf = rotateGizmo.Enable(LoadUtils.InstantiateParenter((GameObject)Instantiate (parts[1], pos, fuseToRotation)));
+            StartCoroutine(moveToStartingPosition(newCalf)); // this creates the zooming up from the ground effect
 
-			Transform calfWideningAttach = newCalf.transform.Find("calf_widening_attach");
+            Transform calfWideningAttach = newCalf.transform.Find("calf_widening_attach");
 			Transform calfTrimAttach = newCalf.transform.Find("calf_trim_attach");
 
 			FuseAttributes fuseAtts = calfFuses ();
 
+            // calf_widening_attach
 			calfWideningAttach.gameObject.AddComponent<FuseBehavior>();
 			calfWideningAttach.gameObject.GetComponent<FuseBehavior>().setFuseTo(fuseAtts);
 			calfWideningAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Calf"));
 
-			calfTrimAttach.gameObject.AddComponent<FuseBehavior>();
+            calfWideningAttach.gameObject.AddComponent<FaceSelector>();
+            calfWideningAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.back;
+            calfWideningAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
+            calfWideningAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
+
+            // calf_trim_attach
+            calfTrimAttach.gameObject.AddComponent<FuseBehavior>();
 			calfTrimAttach.gameObject.GetComponent<FuseBehavior>().setFuseTo(fuseAtts);
 			calfTrimAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Calf"));
 
-			instantiated[1] = newCalf;
-			partCreated[1] = true;
-			selectionManager.newPartCreated("calf_harderPrefab(Clone)");
+            calfTrimAttach.gameObject.AddComponent<FaceSelector>();
+            calfTrimAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.forward;
+            calfTrimAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
+            calfTrimAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
-			enableManipulationButtons(newCalf);
+            instantiated[1] = newCalf;
+			partCreated[1] = true;
+            partButtons[1].interactable = false;
+
+            selectionManager.newPartCreated("calf_harderPrefab(Clone)");
 
 
 		}
@@ -306,28 +353,41 @@ public class CreatePartRB : MonoBehaviour {
 	public void createMidfoot() {
 		if(!partCreated[2]){
 			clearPartsCreated();
-			Vector3 pos = createLoc; // this is where the object will appear when it's instantiated
+			Vector3 pos = offscreenCreateLoc; // this is where the object will appear when it's instantiated
 			Quaternion fuseToRotation = Quaternion.Euler (270,0,90);
-			GameObject newMidfoot = rotateGizmo.Enable(LoadUtils.InstantiateParenter((GameObject)Instantiate (parts[2], pos, fuseToRotation)));	
+			GameObject newMidfoot = rotateGizmo.Enable(LoadUtils.InstantiateParenter((GameObject)Instantiate (parts[2], pos, fuseToRotation)));
+            StartCoroutine(moveToStartingPosition(newMidfoot)); // this creates the zooming up from the ground effect
 
-			Transform midfootHeelAttach = newMidfoot.transform.Find("midfoot_heel_attach");
+            Transform midfootHeelAttach = newMidfoot.transform.Find("midfoot_heel_attach");
 			Transform midfootBallfootAttach = newMidfoot.transform.Find("midfoot_ballfoot_attach");
 
 			FuseAttributes fuseAtts = midfootFuses ();
 
+            // midfoot_heel_attach
 			midfootHeelAttach.gameObject.AddComponent<FuseBehavior>();
 			midfootHeelAttach.gameObject.GetComponent<FuseBehavior>().setFuseTo(fuseAtts);
 			midfootHeelAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Midfoot"));
 
-			midfootBallfootAttach.gameObject.AddComponent<FuseBehavior>();
+            midfootHeelAttach.gameObject.AddComponent<FaceSelector>();
+            midfootHeelAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
+            midfootHeelAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
+            midfootHeelAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
+
+            // midfoot_ballfoot_attach
+            midfootBallfootAttach.gameObject.AddComponent<FuseBehavior>();
 			midfootBallfootAttach.gameObject.GetComponent<FuseBehavior>().setFuseTo(fuseAtts);
 			midfootBallfootAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Midfoot"));
 
-			instantiated[2] = newMidfoot;	
-			partCreated[2] = true;
-			selectionManager.newPartCreated("midfootPrefab(Clone)");
+            midfootBallfootAttach.gameObject.AddComponent<FaceSelector>();
+            midfootBallfootAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.up;
+            midfootBallfootAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
+            midfootBallfootAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
-			enableManipulationButtons(newMidfoot);
+            instantiated[2] = newMidfoot;	
+			partCreated[2] = true;
+            partButtons[2].interactable = false;
+
+            selectionManager.newPartCreated("midfootPrefab(Clone)");
 
 
 		}
@@ -336,23 +396,31 @@ public class CreatePartRB : MonoBehaviour {
 	public void createToe() {
 		if(!partCreated[3]){
 			clearPartsCreated();
-			Vector3 pos = createLoc; // this is where the object will appear when it's instantiated
+			Vector3 pos = offscreenCreateLoc; // this is where the object will appear when it's instantiated
 			Quaternion fuseToRotation = new Quaternion();
 			GameObject newToe = rotateGizmo.Enable(LoadUtils.InstantiateParenter((GameObject)Instantiate (parts[3], pos, fuseToRotation)));
+            StartCoroutine(moveToStartingPosition(newToe)); // this creates the zooming up from the ground effect
 
-			Transform toeBallfootAttach = newToe.transform.Find("toe_ballfoot_attach");
+            Transform toeBallfootAttach = newToe.transform.Find("toe_ballfoot_attach");
 
 			FuseAttributes fuseAtts = toeFuses ();
 
+            // toe_ballfoot_attach
 			toeBallfootAttach.gameObject.AddComponent<FuseBehavior>();
 			toeBallfootAttach.gameObject.GetComponent<FuseBehavior>().setFuseTo(fuseAtts);
 			toeBallfootAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Toe"));
 
-			instantiated[3] = newToe;
-			partCreated[3] = true;
-			selectionManager.newPartCreated("toe_harderPrefab(Clone)");
+            toeBallfootAttach.gameObject.AddComponent<FaceSelector>();
+            toeBallfootAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.back;
+            toeBallfootAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
+            toeBallfootAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
-			enableManipulationButtons(newToe);
+
+            instantiated[3] = newToe;
+			partCreated[3] = true;
+            partButtons[3].interactable = false;
+
+            selectionManager.newPartCreated("toe_harderPrefab(Clone)");
 
 
 		}
@@ -361,23 +429,30 @@ public class CreatePartRB : MonoBehaviour {
 	public void createTrim() {
 		if(!partCreated[4]){
 			clearPartsCreated();
-			Vector3 pos = createLoc; // this is where the object will appear when it's instantiated
+			Vector3 pos = offscreenCreateLoc; // this is where the object will appear when it's instantiated
 			Quaternion fuseToRotation = Quaternion.Euler (270,270,0);		
 			GameObject newTrim = rotateGizmo.Enable(LoadUtils.InstantiateParenter((GameObject)Instantiate (parts[4], pos, fuseToRotation)));
+            StartCoroutine(moveToStartingPosition(newTrim)); // this creates the zooming up from the ground effect
 
-			Transform trimCalfAttach = newTrim.transform.Find("trim_calf_attach");
+            Transform trimCalfAttach = newTrim.transform.Find("trim_calf_attach");
 
 			FuseAttributes fuseAtts = trimFuses ();
 
+            // trim_calf_attach
 			trimCalfAttach.gameObject.AddComponent<FuseBehavior>();
 			trimCalfAttach.gameObject.GetComponent<FuseBehavior>().setFuseTo(fuseAtts);
 			trimCalfAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Trim"));
 
-			instantiated[4] = newTrim;
-			partCreated[4] = true;
-			selectionManager.newPartCreated("trim_harderPrefab(Clone)");
+            trimCalfAttach.gameObject.AddComponent<FaceSelector>();
+            trimCalfAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            trimCalfAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
+            trimCalfAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
-			enableManipulationButtons(newTrim);
+            instantiated[4] = newTrim;
+			partCreated[4] = true;
+            partButtons[4].interactable = false;
+
+            selectionManager.newPartCreated("trim_harderPrefab(Clone)");
 
 
 		}
@@ -386,28 +461,41 @@ public class CreatePartRB : MonoBehaviour {
 	public void createWidening() {
 		if(!partCreated[5]){
 			clearPartsCreated();
-			Vector3 pos = createLoc; // this is where the object will appear when it's instantiated
+			Vector3 pos = offscreenCreateLoc; // this is where the object will appear when it's instantiated
 			Quaternion fuseToRotation = Quaternion.Euler (0,0,270);		
 			GameObject newWidening = rotateGizmo.Enable(LoadUtils.InstantiateParenter((GameObject)Instantiate (parts[5], pos, fuseToRotation)));
+            StartCoroutine(moveToStartingPosition(newWidening)); // this creates the zooming up from the ground effect
 
-			Transform wideningHeelAttach = newWidening.transform.Find("widening_heel_attach");
+            Transform wideningHeelAttach = newWidening.transform.Find("widening_heel_attach");
 			Transform wideningCalfAttach = newWidening.transform.Find("widening_calf_attach");
 
 			FuseAttributes fuseAtts = wideningFuses ();
 
+            // widening_heel_attach
 			wideningHeelAttach.gameObject.AddComponent<FuseBehavior>();
 			wideningHeelAttach.gameObject.GetComponent<FuseBehavior>().setFuseTo(fuseAtts);
 			wideningHeelAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Widening"));
 
-			wideningCalfAttach.gameObject.AddComponent<FuseBehavior>();
+            wideningHeelAttach.gameObject.AddComponent<FaceSelector>();
+            wideningHeelAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            wideningHeelAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
+            wideningHeelAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
+
+            // widening_calf_attach
+            wideningCalfAttach.gameObject.AddComponent<FuseBehavior>();
 			wideningCalfAttach.gameObject.GetComponent<FuseBehavior>().setFuseTo(fuseAtts);
 			wideningCalfAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Widening"));
 
-			instantiated[5] = newWidening;
-			partCreated[5] = true;
-			selectionManager.newPartCreated("wideningPrefab(Clone)");
+            wideningCalfAttach.gameObject.AddComponent<FaceSelector>();
+            wideningCalfAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            wideningCalfAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
+            wideningCalfAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
-			enableManipulationButtons(newWidening);
+            instantiated[5] = newWidening;
+			partCreated[5] = true;
+            partButtons[5].interactable = false;
+
+            selectionManager.newPartCreated("wideningPrefab(Clone)");
 
 
 		}
@@ -416,7 +504,7 @@ public class CreatePartRB : MonoBehaviour {
 	//checks to see if an object has been fused already
 	public bool alreadyFused(string part) {
 		GameObject partInstance = GameObject.Find(part);
-		if(partInstance != null && !partInstance.GetComponent<FuseBehavior>().fused ()) {
+		if(partInstance != null && !partInstance.GetComponent<FuseBehavior>().fused()) {
 			return false;
 		} else {
 			return true;

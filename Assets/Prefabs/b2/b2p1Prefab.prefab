@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 114691957265702678}
   - component: {fileID: 114744827318931080}
   - component: {fileID: 114617350838031388}
+  - component: {fileID: 65363014668513100}
   m_Layer: 0
   m_Name: b2p1Prefab
   m_TagString: part
@@ -181,7 +182,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1472096702860438}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 9.737133, y: 112.09918, z: 88.65492}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4786365149253222}
@@ -689,6 +690,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000012, y: 1.0160422, z: 0}
   m_Center: {x: -3.6028867, y: 0.49197912, z: 0.49850413}
+--- !u!65 &65363014668513100
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1472096702860438}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2.75}
+  m_Center: {x: 0, y: 0, z: -0.65}
 --- !u!65 &65457136334181438
 BoxCollider:
   m_ObjectHideFlags: 1

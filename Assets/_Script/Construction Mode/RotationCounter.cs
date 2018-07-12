@@ -19,10 +19,13 @@ public class RotationCounter : MonoBehaviour {
     public void decrementRotations()
     {
         numRemaining--;
-        remainingRotationsText.text = "" + numRemaining;
-        if (numRemaining <= 0)
+        if (numRemaining < 0)
         {
             powerFailure.Invoke();
+        }
+        else
+        {
+            remainingRotationsText.text = "" + numRemaining;
         }
     }
 

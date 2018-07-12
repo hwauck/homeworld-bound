@@ -20,6 +20,10 @@ public class ScrollingText : MonoBehaviour
 	float scrollTimer = 0f;
 	public int numScrolled = 0;
 
+    private AudioClip scrollTextSound;
+    private AudioClip scrollLetterSound;
+    private AudioSource audioSource;
+
 	// Public Variables
 	public float letterDelay = 0.1f; // The time between letters appearing.
 	public string[] conversation;		// The basic conversation which scrolls across the screen.
@@ -34,6 +38,25 @@ public class ScrollingText : MonoBehaviour
 	void Awake ()
 	{
 		choiceButton = Resources.Load<GameObject>("Prefabs/ChoiceButton");
+        scrollLetterSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-01");
+        scrollTextSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-03");
+        GameObject audioSourceObj = GameObject.Find("Audio Source");
+        if (audioSourceObj != null)
+        {
+
+            if(audioSourceObj.GetComponent<AudioSource>() != null)
+            {
+                audioSource = audioSourceObj.GetComponent<AudioSource>();
+                Debug.Log("Successfully set up Audio Source in scrolling text!");
+            }
+            else
+            {
+                Debug.LogError("ERROR: Audio Source GameObject is missing Audio Source Component!");
+            }
+        } else
+        {
+            Debug.LogError("ERROR: GameObject Audio Source not found in scene!");
+        }
 	}
 
 	void Start ()
@@ -72,6 +95,7 @@ public class ScrollingText : MonoBehaviour
 		{
 			if (scrolling)
 			{
+                audioSource.PlayOneShot(scrollTextSound);
 				EnableLetters();        // Enable everything, thereby skipping the scrolling effect.
 				numScrolled = letters.Length;
 			}
@@ -100,7 +124,7 @@ public class ScrollingText : MonoBehaviour
 							// Apply the conversation relating to the only choice.
 							// Also make sure to add any token which may be a part of this single choice.
 							ApplyConversation(ConversationsDB.convos[choiceConvoPointers[0]]);
-							Debug.Log("Adding token: " + choiceTokens[0]);
+							//Debug.Log("Adding token: " + choiceTokens[0]);
 							ConversationTrigger.AddToken(choiceTokens[0]);
 							break;
 						default:
@@ -125,10 +149,10 @@ public class ScrollingText : MonoBehaviour
 				letters[numScrolled].enabled = true;
 
 			numScrolled++;
-			// TODO sound effect here.
-		}
-		// Keep track of whether text is currently scrolling or not.
-		if (!initializing && numScrolled >= letters.Length)
+            audioSource.PlayOneShot(scrollLetterSound);
+        }
+        // Keep track of whether text is currently scrolling or not.
+        if (!initializing && numScrolled >= letters.Length)
 		{
 			scrolling = false;
 		}

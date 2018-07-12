@@ -116,6 +116,7 @@ public class InventoryController : MonoBehaviour
 
 		// Restarting game
 		// DEMO MODE ONLY.
+        // TODO: delete for full version
 		if (Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.R))
 		{
 			RestartGame();

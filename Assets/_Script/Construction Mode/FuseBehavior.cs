@@ -15,12 +15,7 @@ public class FuseBehavior : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-        // TODO: see if I can just delete this
-		if(this.name.Equals("rocket_boots_start") || this.name.Equals ("base")) {
-			isFused = true;
-		} else {
-			isFused = false;
-		}
+
 	}
 
 	// Update is called once per frame

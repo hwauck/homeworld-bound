@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114779573668075146}
   - component: {fileID: 114556738153000062}
   - component: {fileID: 114396448310722252}
+  - component: {fileID: 65990516218927684}
   m_Layer: 0
   m_Name: b2p2Prefab
   m_TagString: part
@@ -145,7 +146,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1539141367031890}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 79.453186, y: 135.80772, z: 119.659676}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4127876154013924}
@@ -571,6 +572,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300004, guid: d503b8e7d6f79ff45ac48b56d8087694, type: 3}
+--- !u!65 &65990516218927684
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1539141367031890}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95068117169287906
 Animator:
   serializedVersion: 3

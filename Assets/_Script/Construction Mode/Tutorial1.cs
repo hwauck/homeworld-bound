@@ -80,6 +80,8 @@ public class Tutorial1 : MonoBehaviour {
         cameraControls = mainCam.GetComponent<CameraControls>();
         baseStartPosition = new Vector3(-100, 30, 100);
 
+        fuseEvent.setIsFirstLevel(true);
+
         partButtons = new Button[3];
         partButtons[0] = b1p1Button;
         partButtons[1] = b1p2Button;
@@ -106,10 +108,16 @@ public class Tutorial1 : MonoBehaviour {
         {
             enabledControls = true;
             bottomPanel.blocksRaycasts = true;
-            cameraControls.tutorialMode = false;
-            rotationScript.tutorialMode = false;
-            selectPart.tutorialMode = false;
+            cameraControls.controlsDisabled = false;
+            rotationScript.controlsDisabled = false;
+            selectPart.controlsDisabled = false;
             enableControlsAndAddToken("finishedEnablingControls");
+        } else
+        {
+            bottomPanel.blocksRaycasts = false;
+            cameraControls.controlsDisabled = true;
+            rotationScript.controlsDisabled = true;
+            selectPart.controlsDisabled = true;
         }
     }
 
@@ -279,9 +287,9 @@ public class Tutorial1 : MonoBehaviour {
             {
                 enabledControls = true;
                 bottomPanel.blocksRaycasts = true;
-                cameraControls.tutorialMode = false;
-                rotationScript.tutorialMode = false;
-                selectPart.tutorialMode = false;
+                cameraControls.controlsDisabled = false;
+                rotationScript.controlsDisabled = false;
+                selectPart.controlsDisabled = false;
                 enableControlsAndAddToken("finishedEnablingControls");
             }
             // Once player attaches their first part, Dresha congratulates them

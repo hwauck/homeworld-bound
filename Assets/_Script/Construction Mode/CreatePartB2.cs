@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-
 public class CreatePartB2 : MonoBehaviour
 {
 
@@ -18,9 +17,6 @@ public class CreatePartB2 : MonoBehaviour
     public int NUM_PARTS;
     private GameObject startObject;
 
-    public GameObject rotateYButton;
-    public GameObject rotateXButton;
-    public GameObject rotateZButton;
     public RotationGizmo rotateGizmo;
 
     private const float MOVEMENT_SPEED = 100;
@@ -45,15 +41,6 @@ public class CreatePartB2 : MonoBehaviour
         offscreenCreateLoc = new Vector3(-40, -60, 100);
         selectionManager = eventSystem.GetComponent<SelectPart>();
         startObject = GameObject.Find("bb2Start");
-        //GameObject bb1B1p1A1 = startObject.transform.Find("bb2_b1p1_a1").gameObject;
-        //GameObject bb1B1p2A1 = startObject.transform.Find("bb2_b1p2_a1").gameObject;
-        //GameObject bb1B1p2A2 = startObject.transform.Find("bb2_b1p2_a2").gameObject;
-        //GameObject bb1B1p3A1 = startObject.transform.Find("bb2_b1p3_a1").gameObject;
-        ////to avoid errors when selectedObject starts as startObject
-        //bb1B1p1A1.GetComponent<FuseBehavior>().isFused = true;
-        //bb1B1p2A1.GetComponent<FuseBehavior>().isFused = true;
-        //bb1B1p2A2.GetComponent<FuseBehavior>().isFused = true;
-        //bb1B1p3A1.GetComponent<FuseBehavior>().isFused = true;
 
         rotateGizmo = GameObject.FindGameObjectWithTag("RotationGizmo").GetComponent<RotationGizmo>();
 
@@ -164,15 +151,22 @@ public class CreatePartB2 : MonoBehaviour
         }
     }
 
-    public void enableManipulationButtons(GameObject toRotate)
+    //when power failure occurs, delete all but starting part.
+    // Called by LevelResetter
+    public void destroyAllCreatedParts()
     {
-        rotateYButton.transform.GetComponent<Button>().interactable = true;
-        rotateXButton.transform.GetComponent<Button>().interactable = true;
-        rotateZButton.transform.GetComponent<Button>().interactable = true;
-
-        rotateYButton.transform.GetComponent<RotateButton>().setObjectToRotate(toRotate);
-        rotateXButton.transform.GetComponent<RotateButton>().setObjectToRotate(toRotate);
-        rotateZButton.transform.GetComponent<RotateButton>().setObjectToRotate(toRotate);
+        for (int i = 0; i < partCreated.Length; i++)
+        {
+            partCreated[i] = false;
+        }
+        for (int i = 0; i < instantiated.Length; i++)
+        {
+            if (instantiated[i] != null)
+            {
+                Destroy(instantiated[i]);
+                partButtons[i].interactable = true;
+            }
+        }
     }
 
     // Makes the newly created part zip up from a lower point as it's created, making it seem like it was pulled up from the ground
@@ -286,9 +280,6 @@ public class CreatePartB2 : MonoBehaviour
 
             selectionManager.newPartCreated("b2p1Prefab(Clone)");
 
-            enableManipulationButtons(newB2p1);
-
-
         }
     }
 
@@ -365,9 +356,6 @@ public class CreatePartB2 : MonoBehaviour
             partButtons[1].interactable = false;
 
             selectionManager.newPartCreated("b2p2Prefab(Clone)");
-
-            enableManipulationButtons(newB2p2);
-
 
         }
     }

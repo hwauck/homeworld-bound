@@ -18,9 +18,6 @@ public class CreatePartB1 : MonoBehaviour
     public int NUM_PARTS;
     private GameObject startObject;
 
-    public GameObject rotateYButton;
-    public GameObject rotateXButton;
-    public GameObject rotateZButton;
     public RotationGizmo rotateGizmo;
 
     private const float MOVEMENT_SPEED = 100;
@@ -153,15 +150,22 @@ public class CreatePartB1 : MonoBehaviour
         }
     }
 
-    public void enableManipulationButtons(GameObject toRotate)
+    //when power failure occurs, delete all but starting part.
+    // Called by LevelResetter
+    public void destroyAllCreatedParts()
     {
-        rotateYButton.transform.GetComponent<Button>().interactable = true;
-        rotateXButton.transform.GetComponent<Button>().interactable = true;
-        rotateZButton.transform.GetComponent<Button>().interactable = true;
-
-        rotateYButton.transform.GetComponent<RotateButton>().setObjectToRotate(toRotate);
-        rotateXButton.transform.GetComponent<RotateButton>().setObjectToRotate(toRotate);
-        rotateZButton.transform.GetComponent<RotateButton>().setObjectToRotate(toRotate);
+        for (int i = 0; i < partCreated.Length; i++)
+        {
+            partCreated[i] = false;
+        }
+        for (int i = 0; i < instantiated.Length; i++)
+        {
+            if (instantiated[i] != null)
+            {
+                Destroy(instantiated[i]);
+                partButtons[i].interactable = true;
+            }
+        }
     }
 
     // Makes the newly created part zip up from a lower point as it's created, making it seem like it was pulled up from the ground
@@ -200,6 +204,7 @@ public class CreatePartB1 : MonoBehaviour
             b1p1_bb1_a1.gameObject.AddComponent<FaceSelector>();
             b1p1_bb1_a1.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b1p1_bb1_a1.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
+            b1p1_bb1_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
 
 
             instantiated[0] = newB1p1;
@@ -207,9 +212,6 @@ public class CreatePartB1 : MonoBehaviour
             partButtons[0].interactable = false;
 
             selectionManager.newPartCreated("b1p1Prefab(Clone)");
-
-            enableManipulationButtons(newB1p1);
-
 
         }
     }
@@ -236,6 +238,7 @@ public class CreatePartB1 : MonoBehaviour
             b1p2_bb1_a1.gameObject.AddComponent<FaceSelector>();
             b1p2_bb1_a1.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b1p2_bb1_a1.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
+            b1p2_bb1_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
 
             b1p2_bb1_a2.gameObject.AddComponent<FuseBehavior>();
             b1p2_bb1_a2.gameObject.GetComponent<FuseBehavior>().setFuseTo(fuseAtts);
@@ -244,6 +247,7 @@ public class CreatePartB1 : MonoBehaviour
             b1p2_bb1_a2.gameObject.AddComponent<FaceSelector>();
             b1p2_bb1_a2.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b1p2_bb1_a2.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
+            b1p2_bb1_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
 
 
             instantiated[1] = newB1p2;
@@ -251,8 +255,6 @@ public class CreatePartB1 : MonoBehaviour
             partButtons[1].interactable = false;
 
             selectionManager.newPartCreated("b1p2Prefab(Clone)");
-
-            enableManipulationButtons(newB1p2);
 
 
         }
@@ -279,14 +281,13 @@ public class CreatePartB1 : MonoBehaviour
             b1p3_bb1_a1.gameObject.AddComponent<FaceSelector>();
             b1p3_bb1_a1.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b1p3_bb1_a1.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
+            b1p3_bb1_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
 
             instantiated[2] = newB1p3;
             partCreated[2] = true;
             partButtons[2].interactable = false;
 
             selectionManager.newPartCreated("b1p3Prefab(Clone)");
-
-            enableManipulationButtons(newB1p3);
 
 
         }

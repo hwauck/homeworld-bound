@@ -12,7 +12,7 @@ public class Tutorial2 : MonoBehaviour {
 
 	public Text congrats;
 	public Button goToRocketBootsLevel;
-	public GameObject eventSystem;
+	private GameObject eventSystem;
 	private SelectPart selectPart;
 	private FuseEvent fuseEvent;
 	private GameObject selectedObj;
@@ -29,7 +29,7 @@ public class Tutorial2 : MonoBehaviour {
 
     private bool enabledControls;
     public CameraControls cameraControls;
-    public GameObject rotationGizmo;
+    private GameObject rotationGizmo;
     private RotationGizmo rotationScript;
     public Button fuseButton;
     public Button controlsButton;
@@ -51,16 +51,17 @@ public class Tutorial2 : MonoBehaviour {
     private bool startedCountdown;
 
     void Awake() {
-
-	}
+        eventSystem = GameObject.Find("EventSystem");
+        rotationGizmo = GameObject.Find("RotationGizmo");
+        rotationScript = rotationGizmo.GetComponent<RotationGizmo>();
+        selectPart = eventSystem.GetComponent<SelectPart>();
+        fuseEvent = eventSystem.GetComponent<FuseEvent>();
+        conversationSystem = GameObject.Find("ConversationSystem");
+    }
 
 	// Use this for initialization
 	void Start () {
 
-        rotationScript = rotationGizmo.GetComponent<RotationGizmo>();
-        selectPart = eventSystem.GetComponent<SelectPart>();
-		fuseEvent = eventSystem.GetComponent<FuseEvent>();
-		conversationSystem = GameObject.Find("ConversationSystem");
 
         enabledControls = false;
         displayedTimerAndRotations = false;
@@ -71,25 +72,38 @@ public class Tutorial2 : MonoBehaviour {
         {
             enabledControls = true;
             bottomPanel.blocksRaycasts = true;
-            cameraControls.tutorialMode = false;
-            rotationScript.tutorialMode = false;
-            selectPart.tutorialMode = false;
+            cameraControls.controlsDisabled = false;
+            rotationScript.controlsDisabled = false;
+            selectPart.controlsDisabled = false;
             fuseEvent.startMusic();
             timeRemainingPanel.GetComponent<Timer>().startTimer();
-        }
-    }
-	
-	// Update is called once per frame
-	void Update () {
-
-        // low power warning flashes on screen
-        if(!flashedLowPowerWarning)
+        } else // tutorial is on. Could set these manually in inspector, but is easier this way
         {
-            flashedLowPowerWarning = true;
-            StartCoroutine(flashLowPowerAndAddToken());
+            bottomPanel.blocksRaycasts = false;
+            cameraControls.controlsDisabled = true;
+            rotationScript.controlsDisabled = true;
+            selectPart.controlsDisabled = true;
         }
+
+
+
+    }
+
+    private void OnEnable()
+    {
+        // low power warning flashes on screen
+        flashedLowPowerWarning = true;
+        // this Coroutine needs to start here and not in Awake(), Start(), or Update() 
+        // because of execution order when loading this scene after another one.
+        StartCoroutine(flashLowPowerAndAddToken());
+    }
+
+    // Update is called once per frame
+    void Update () {
+ 
+ 
         // show timer and number of rotations remaining at top
-        else if(!displayedTimerAndRotations && ConversationTrigger.GetToken("finishedConst_21"))
+        if(!displayedTimerAndRotations && ConversationTrigger.GetToken("finishedConst_21"))
         {
             displayedTimerAndRotations = true;
             timeRemainingPanel.alpha = 1;
@@ -109,6 +123,7 @@ public class Tutorial2 : MonoBehaviour {
         // player just clicked Ready! answer, so start countdown
         else if (!startedCountdown && ConversationTrigger.GetToken("finishedConst_23"))
         {
+            ConversationTrigger.AddToken("doneWithBeginningConvo");
             startedCountdown = true;
             // do countdown
             // as soon as countdown finishes, enable player controls with one flash
@@ -135,9 +150,9 @@ public class Tutorial2 : MonoBehaviour {
         countdownPanel.alpha = 0;
         enabledControls = true;
         bottomPanel.blocksRaycasts = true;
-        cameraControls.tutorialMode = false;
-        rotationScript.tutorialMode = false;
-        selectPart.tutorialMode = false;
+        cameraControls.controlsDisabled = false;
+        rotationScript.controlsDisabled = false;
+        selectPart.controlsDisabled = false;
         flashControls();
 
         fuseEvent.startMusic();
@@ -165,6 +180,7 @@ public class Tutorial2 : MonoBehaviour {
     {
         for (int i = 0; i < 3; i++)
         {
+            Debug.Log("Flashing low power iteration " + i + "!");
             audioSource.PlayOneShot(lowPowerSound);
             errorPanel.alpha = 1;
             lowPowerText.enabled = true;
@@ -173,7 +189,9 @@ public class Tutorial2 : MonoBehaviour {
             lowPowerText.enabled = false;
             yield return new WaitForSeconds(0.5f);
         }
-        ConversationTrigger.AddToken("finishedLowPowerWarning");
+        Debug.Log("Adding startBeginningConvo token!");
+        ConversationTrigger.AddToken("startBeginningConvo");
+        yield return null;
     }
 
     private void flashControls()

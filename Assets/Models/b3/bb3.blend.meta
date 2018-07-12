@@ -17,6 +17,7 @@ ModelImporter:
     100022: bb3_b3p2_a4
     100024: bb3_b3p2_a5
     100026: bb3_gray
+    100028: bb3_b3p2_a6
     400000: //RootNode
     400002: bb3
     400004: bb3_b3p1_a1
@@ -31,6 +32,7 @@ ModelImporter:
     400022: bb3_b3p2_a4
     400024: bb3_b3p2_a5
     400026: bb3_gray
+    400028: bb3_b3p2_a6
     2100000: gray
     2100002: black
     2100004: purple
@@ -47,6 +49,7 @@ ModelImporter:
     2300020: bb3_b3p2_a4
     2300022: bb3_b3p2_a5
     2300024: bb3_gray
+    2300026: bb3_b3p2_a6
     3300000: bb3
     3300002: bb3_b3p1_a1
     3300004: bb3_b3p1_a2
@@ -60,6 +63,7 @@ ModelImporter:
     3300020: bb3_b3p2_a4
     3300022: bb3_b3p2_a5
     3300024: bb3_gray
+    3300026: bb3_b3p2_a6
     4300000: bb3_gray
     4300002: bb3_b3p1_a6
     4300004: bb3_b3p1_a5
@@ -73,6 +77,7 @@ ModelImporter:
     4300020: bb3_b3p2_a2
     4300022: bb3_b3p2_a1
     4300024: bb3
+    4300026: bb3_b3p2_a6
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}

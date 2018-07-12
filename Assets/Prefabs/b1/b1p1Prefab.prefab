@@ -59,9 +59,10 @@ GameObject:
   - component: {fileID: 114849028244127684}
   - component: {fileID: 114852869169621068}
   - component: {fileID: 114838300632097708}
+  - component: {fileID: 65223843125657096}
   m_Layer: 0
   m_Name: b1p1Prefab
-  m_TagString: Untagged
+  m_TagString: part
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +74,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1715952294042966}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -38.402626, y: 48.80582, z: 75.51165}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4498482621613596}
@@ -191,6 +192,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380824518241524}
   m_Mesh: {fileID: 4300002, guid: 77e9a1493268c8e4ab75fb53aa87c110, type: 3}
+--- !u!65 &65223843125657096
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1715952294042966}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65229519755316262
 BoxCollider:
   m_ObjectHideFlags: 1
