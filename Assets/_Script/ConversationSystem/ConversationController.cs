@@ -46,14 +46,11 @@ public class ConversationController : MonoBehaviour
 
 		// Disable to start with.
 		FakeActive(gameObject, false);
-        Debug.Log("DISABLED ConversationSystem in Start()!");
 
         // prevents problem with OnEnable() calling Start() AFTER a trigger has been enabled
         if (currentlyEnabled)
         {
             FakeActive(gameObject, true);
-            Debug.Log("ENABLED ConversationSystem in Start()!");
-
         }
     }
 
@@ -89,8 +86,6 @@ public class ConversationController : MonoBehaviour
 		currentConversationName = "nowhere";
 		SetStarterName("");
 		FakeActive(thisObject, false);
-        Debug.Log("DISABLED ConversationSystem using Disable()!");
-
         currentlyEnabled = false;
 		LockMouse();
 	}
@@ -102,7 +97,6 @@ public class ConversationController : MonoBehaviour
 	{
 		currentConversationName = "nowhere";
 		FakeActive(thisObject, false);
-        Debug.Log("DISABLED ConversationSystem using SoftDisable()!");
 
         currentlyEnabled = false;
 		LockMouse();
@@ -120,7 +114,6 @@ public class ConversationController : MonoBehaviour
 			return;
 		}
 		FakeActive(thisObject, true);
-        Debug.Log("ENABLED ConversationSystem in Enable(string)!");
         currentlyEnabled = true;
 		AllowMouse();
 	}
@@ -137,7 +130,6 @@ public class ConversationController : MonoBehaviour
 		}
 		SetStarterName(conversationStarter);
 		FakeActive(thisObject, true);
-        Debug.Log("ENABLED ConversationSystem in Enable(string, string)!");
         currentlyEnabled = true;
 		AllowMouse();
 	}
@@ -167,7 +159,6 @@ public class ConversationController : MonoBehaviour
 		}
 		SetStarterName(trigger.nameOfStarter);
 		FakeActive(thisObject, true);
-        Debug.Log("ENABLED ConversationSystem in Enable(ConversationTrigger)!");
 
         currentlyEnabled = true;
 		AllowMouse();
@@ -188,12 +179,10 @@ public class ConversationController : MonoBehaviour
         if (name != "")
         {
             FakeActive(nameBox.gameObject, true);
-            Debug.Log("ENABLED ConversationSystem in SetStarterName()!");
         }
         else
         {
             FakeActive(nameBox.gameObject, false);
-            Debug.Log("DISABLED ConversationSystem in SetStarterName()!");
         }
     }
 

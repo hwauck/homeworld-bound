@@ -1433,23 +1433,33 @@ public class FuseEvent : MonoBehaviour {
 		group.transform.Rotate (0,50*Time.deltaTime,0);
 
 	}
-		
 
-	IEnumerator FadeAudio (float timer, Fade fadeType) {
-		float start = fadeType == Fade.In? 0.0F : 1.0F;
-		float end = fadeType == Fade.In? 1.0F : 0.0F;
-		float i = 0.0F;
-		float step = 1.0F/timer;
-		
-		while (i <= 1.0F) {
-			i += step * Time.deltaTime;
-			musicsource.volume = Mathf.Lerp(start, end, i);
-			yield return new WaitForSeconds(step * Time.deltaTime);
-		}
-	}
+    IEnumerator FadeAudio(float timer, Fade fadeType)
+    {
+        float start, end;
+        if (fadeType == Fade.In)
+        {
+            start = 0.0F;
+            end = 1.0F;
+        }
+        else
+        {
+            start = 1.0F;
+            end = 0.0F;
+        }
+        float i = 0.0F;
+        float step = 1.0F / timer;
 
-	//remove old arrows from fused part and unselect fused parts
-	public void fuseCleanUp() {
+        while (i <= 1.0F)
+        {
+            i += step * Time.deltaTime;
+            musicsource.volume = Mathf.Lerp(start, end, i);
+            yield return new WaitForSeconds(step * Time.deltaTime);
+        }
+    }
+
+    //remove old arrows from fused part and unselect fused parts
+    public void fuseCleanUp() {
 		// Disable rotation gizmo.
 		rotateGizmo.Disable();
 

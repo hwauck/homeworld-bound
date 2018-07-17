@@ -99,14 +99,11 @@ public class PickUp : MonoBehaviour
 					{
 						ConversationTrigger.AddToken("picked_up_a_boots_piece");
                         partCounterObj.GetComponent<PartCounter>().setWhatToBuild("b1", "Rocket Boots");
-                        partCounterObj.GetComponent<PartCounter>().setPartsNeeded(7);
-
                     }
                     if (pickupName.Contains("Sledge"))
 					{
 						ConversationTrigger.AddToken("picked_up_a_sledge_piece");
                         partCounterObj.GetComponent<PartCounter>().setWhatToBuild("b5", "Sledgehammer");
-                        partCounterObj.GetComponent<PartCounter>().setPartsNeeded(0);
                     }
                     if (pickupName.Contains("Key1"))
 					{
@@ -130,20 +127,6 @@ public class PickUp : MonoBehaviour
                 
 				case PickupType.Battery:
 					ConversationTrigger.AddToken("picked_up_a_battery");
-
-                    int partsNeeded;
-                    // all battery parts need to be named with the appropriate construction level
-                  //  if(pickupName.StartsWith("Pickup_rb"))
-                  //  {
-                        partsNeeded = 14;
-                  //  } else if (pickupName.StartsWith("Pickup_sledge"))
-                   // {
-                   //     partsNeeded = 99;
-                   // } else
-                   // {
-                   //     partsNeeded = 0;
-                  //  }
-                    partCounterObj.GetComponent<BatteryCounter>().setPartsNeeded(partsNeeded);
 
                     // inc count of battery parts and check if done collecting
                     partCounterObj.GetComponent<BatteryCounter>().incParts();
