@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PickUp : MonoBehaviour
@@ -7,6 +8,7 @@ public class PickUp : MonoBehaviour
     public AudioClip WindChimes;
     public AudioSource Pickup;
 	public AudioClip pickupSound;
+    private GameObject partCounterObj;
 	public enum PickupType { Item, Battery, Clue };
 
 	[Header("Basic Variables")]
@@ -57,7 +59,16 @@ public class PickUp : MonoBehaviour
 			//ii.name = "NAME CHANGED TO PREVENT BUGS";
 			ii.name += "_fix";
 		}
-	}
+
+        if(type == PickupType.Item)
+        {
+            partCounterObj = GameObject.Find("PartsFound");
+        } else if(type == PickupType.Battery)
+        {
+            partCounterObj = GameObject.Find("BatteriesFound");
+
+        }
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -81,18 +92,23 @@ public class PickUp : MonoBehaviour
 					InventoryController.Add(this, 1);
 					InventoryController.ConvertInventoryToTokens();
 
-					// Poke the build button so it can check if it needs to update.
-					BuildButton.CheckRecipes();
+                    // Poke the build button so it can check if it needs to update.
+                    BuildButton.CheckRecipes();
 
 					if (pickupName.Contains("Rocket"))
 					{
 						ConversationTrigger.AddToken("picked_up_a_boots_piece");
-					}
-					if (pickupName.Contains("Sledge"))
+                        partCounterObj.GetComponent<PartCounter>().setWhatToBuild("b1", "Rocket Boots");
+                        partCounterObj.GetComponent<PartCounter>().setPartsNeeded(7);
+
+                    }
+                    if (pickupName.Contains("Sledge"))
 					{
 						ConversationTrigger.AddToken("picked_up_a_sledge_piece");
-					}
-					if (pickupName.Contains("Key1"))
+                        partCounterObj.GetComponent<PartCounter>().setWhatToBuild("b5", "Sledgehammer");
+                        partCounterObj.GetComponent<PartCounter>().setPartsNeeded(0);
+                    }
+                    if (pickupName.Contains("Key1"))
 					{
 						ConversationTrigger.AddToken("picked_up_a_key1_piece");
 					}
@@ -106,11 +122,33 @@ public class PickUp : MonoBehaviour
 					// Also parents to the scene manager object so it rejects deletion as much as possible.
 					transform.position = new Vector3(-1000f, -1000f, -1000f);
 					LoadUtils.IconParenter(this.gameObject);
-					break;
+
+                    // inc count of item parts and check if done collecting
+                    partCounterObj.GetComponent<PartCounter>().incParts();
+
+                    break;
                 
 				case PickupType.Battery:
 					ConversationTrigger.AddToken("picked_up_a_battery");
-					RespawnBattery();
+
+                    int partsNeeded;
+                    // all battery parts need to be named with the appropriate construction level
+                  //  if(pickupName.StartsWith("Pickup_rb"))
+                  //  {
+                        partsNeeded = 14;
+                  //  } else if (pickupName.StartsWith("Pickup_sledge"))
+                   // {
+                   //     partsNeeded = 99;
+                   // } else
+                   // {
+                   //     partsNeeded = 0;
+                  //  }
+                    partCounterObj.GetComponent<BatteryCounter>().setPartsNeeded(partsNeeded);
+
+                    // inc count of battery parts and check if done collecting
+                    partCounterObj.GetComponent<BatteryCounter>().incParts();
+
+                    RespawnBattery();
 					break;
 
 				case PickupType.Clue:

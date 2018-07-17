@@ -40,14 +40,13 @@ public class ScrollingText : MonoBehaviour
 		choiceButton = Resources.Load<GameObject>("Prefabs/ChoiceButton");
         scrollLetterSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-01");
         scrollTextSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-03");
-        GameObject audioSourceObj = GameObject.Find("Audio Source");
+        GameObject audioSourceObj = GameObject.Find("Audio Source"); // Construction Mode audio listener
         if (audioSourceObj != null)
         {
 
             if(audioSourceObj.GetComponent<AudioSource>() != null)
             {
                 audioSource = audioSourceObj.GetComponent<AudioSource>();
-                Debug.Log("Successfully set up Audio Source in scrolling text!");
             }
             else
             {
@@ -55,7 +54,22 @@ public class ScrollingText : MonoBehaviour
             }
         } else
         {
-            Debug.LogError("ERROR: GameObject Audio Source not found in scene!");
+            audioSourceObj = GameObject.Find("SFX"); // Exploration Mode audio listener
+            if (audioSourceObj != null)
+            {
+                if (audioSourceObj.GetComponent<AudioSource>() != null)
+                {
+                    audioSource = audioSourceObj.GetComponent<AudioSource>();
+                }
+                else
+                {
+                    Debug.LogError("ERROR: Audio Source GameObject is missing Audio Source Component!");
+                }
+            }
+            else
+            {
+                Debug.LogError("ERROR: GameObject Audio Source not found in scene!");
+            }
         }
 	}
 

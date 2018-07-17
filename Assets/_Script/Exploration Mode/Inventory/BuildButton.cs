@@ -23,6 +23,7 @@ public class BuildButton : MonoBehaviour
 		build.onClick.AddListener(() =>
 		{	
 			// Save player info before entering.
+            // TODO: re-implement for final version of game?
 			InventoryController.levelName = SceneManager.GetActiveScene().name;
 
 			// Record data.

@@ -1801,6 +1801,26 @@ GameObject:
   m_PrefabParentObject: {fileID: 1666278699987482, guid: 8856ae325d5eea44ca83145dacc533a6,
     type: 2}
   m_PrefabInternal: {fileID: 849323870}
+--- !u!1 &849323872 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1201675682215172, guid: 8856ae325d5eea44ca83145dacc533a6,
+    type: 2}
+  m_PrefabInternal: {fileID: 849323870}
+--- !u!1 &849323873 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1015071618780528, guid: 8856ae325d5eea44ca83145dacc533a6,
+    type: 2}
+  m_PrefabInternal: {fileID: 849323870}
+--- !u!1 &849323874 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1918777185830778, guid: 8856ae325d5eea44ca83145dacc533a6,
+    type: 2}
+  m_PrefabInternal: {fileID: 849323870}
+--- !u!1 &849323875 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1884513948196416, guid: 8856ae325d5eea44ca83145dacc533a6,
+    type: 2}
+  m_PrefabInternal: {fileID: 849323870}
 --- !u!1 &851936993
 GameObject:
   m_ObjectHideFlags: 0
@@ -3105,7 +3125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb47f5be5f0b074885d21feca888d84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableTutorial: 1
+  disableTutorial: 0
   eventSystem: {fileID: 1321869678}
   mainCam: {fileID: 58732411}
   fuseButton: {fileID: 1418366674}
@@ -3117,6 +3137,10 @@ MonoBehaviour:
   goToNextTutorial: {fileID: 13824565}
   rotationGizmo: {fileID: 849323871}
   highlighter: {fileID: 1321869688}
+  yUp: {fileID: 849323875}
+  yDown: {fileID: 849323874}
+  zUp: {fileID: 849323873}
+  zDown: {fileID: 849323872}
   bb1: {fileID: 1730035233}
   shapesWrong: {fileID: 1972374894}
   rotationWrong: {fileID: 1707600179}
@@ -4632,7 +4656,8 @@ MonoBehaviour:
   oneShot: 1
   trigger: 3
   keyRequired: 0
-  tokenWhitelist: []
+  tokenWhitelist:
+  - beginTutorial
   tokenBlacklist:
   - finishedConst_1
 --- !u!4 &1705217128

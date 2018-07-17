@@ -53,7 +53,8 @@ public class InventoryController : MonoBehaviour
 			RecipesDB.unlockedRecipes.Add(RecipesDB.FFA);
 
 		// Load save when inventory controller activates. Has to happen somewhere!
-		SaveController.Load();
+        // TODO: reenable for final version of game
+		//SaveController.Load();
 	}
 
 
@@ -314,7 +315,8 @@ public class InventoryController : MonoBehaviour
 		{
 			ConversationTrigger.AddToken(ii, false);
 		}
-		SaveController.Save();
+        //TODO: reenable for final version of game
+		//SaveController.Save();
 	}
 
 	// Only called by SaveController.Load();

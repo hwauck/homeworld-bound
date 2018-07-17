@@ -21,8 +21,10 @@ public class RecipePopulator : MonoBehaviour
 
 	void Awake ()
 	{
+        Debug.Log("Loading recipeBase!");
 		recipeBase = Resources.Load<GameObject>("Prefabs/RecipeText");
 		tileBase = Resources.Load<GameObject>("Prefabs/ItemTile");
+        Debug.Log("Loaded recipeBase: " + recipeBase.name);
 		Repopulate();
 	}
 
@@ -47,7 +49,8 @@ public class RecipePopulator : MonoBehaviour
 		// Actually repopulate.
 		foreach (Recipe ii in RecipesDB.unlockedRecipes)
 		{
-			// Create the object.
+            // Create the object.
+            Debug.Log("Creating recipe " + ii.recipeName);
 			GameObject instance = Instantiate(recipeBase);
 
 

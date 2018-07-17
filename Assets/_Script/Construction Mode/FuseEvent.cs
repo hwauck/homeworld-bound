@@ -309,14 +309,15 @@ public class FuseEvent : MonoBehaviour {
         //SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO," + InventoryController.levelName);
         // if testing individual levels, use if(isFirstLevel || Application.isEditor). If testing levels in sequence,
         // use if(isFirstLevel)
+        // if testing within Exploration levels, comment out whole if statement
         string currentLevel;  
-        if(isFirstLevel)
-        {
-            currentLevel = SceneManager.GetActiveScene().name;
-        } else
-        {
+        //if(isFirstLevel)
+        //{
+        //    currentLevel = SceneManager.GetActiveScene().name;
+        //} else
+        //{
             currentLevel = LoadUtils.currentSceneName;
-        }
+        //}
         switch (currentLevel)
         {
             // TODO: Need to think about how to handle it when the player might need an unspecified number of 
@@ -454,12 +455,13 @@ public class FuseEvent : MonoBehaviour {
         while (!LoadUtils.isSceneLoaded)
         {
             // Application.isEditor allows me to test individual levels that aren't the starting level in isolation
-            // if testing just one level, use if(isFirstLevel || Application.isEditor)
-            // if testing levels in sequence, use if(isFirstLevel)
-            if(isFirstLevel)
-            {
-                break;
-            }
+            // if testing just one level, use if(isFirstLevel || Application.isEditor) break;
+            // if testing levels in sequence, use if(isFirstLevel) break;
+            // if testing levels within Exploration Mode, remove the whole if statement
+           // if(isFirstLevel)
+            //{
+            //    break;
+            //}
             yield return null;
         }
         //reset isSceneLoaded for next level load
@@ -480,14 +482,15 @@ public class FuseEvent : MonoBehaviour {
         // Application.isEditor allows me to test individual levels that aren't the starting level in isolation
         // if testing just one level, use if(isFirstLevel || Application.isEditor)
         // if testing levels in sequence, use if(isFirstLevel)
-        if (isFirstLevel)
-        {
+        // if testing levels within Exploration Mode, comment out this whole if statement
+        //if (isFirstLevel)
+        //{
             //This might not work once Exploration is the first scene?
-            currentScene = SceneManager.GetActiveScene().name;
-        } else
-        {
+        //    currentScene = SceneManager.GetActiveScene().name;
+        //} else
+        //{
             currentScene = LoadUtils.currentSceneName;
-        }
+        //}
         
         Debug.Log("Creating fuse mappings for Scene " + currentScene);
         if (currentScene.Equals("b1"))

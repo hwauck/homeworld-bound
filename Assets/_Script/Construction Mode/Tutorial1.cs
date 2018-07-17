@@ -21,6 +21,11 @@ public class Tutorial1 : MonoBehaviour {
 	private RotationGizmo rotationScript;
 	public Highlighter highlighter;
 
+    public GameObject yUp;
+    public GameObject yDown;
+    public GameObject zUp;
+    public GameObject zDown;
+
     public GameObject bb1;
     private GameObject bb1_b1p2_a1; // selected fuseTo on starting part
     private GameObject b1p1_bb1_a1; // incorrect first attempt: wrong part
@@ -74,9 +79,14 @@ public class Tutorial1 : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		rotationScript = rotationGizmo.GetComponent<RotationGizmo>();
-		fuseEvent = eventSystem.GetComponent<FuseEvent>();
-		selectPart = eventSystem.GetComponent<SelectPart>();
+
+    }
+
+    void OnEnable()
+    {
+        rotationScript = rotationGizmo.GetComponent<RotationGizmo>();
+        fuseEvent = eventSystem.GetComponent<FuseEvent>();
+        selectPart = eventSystem.GetComponent<SelectPart>();
         cameraControls = mainCam.GetComponent<CameraControls>();
         baseStartPosition = new Vector3(-100, 30, 100);
 
@@ -104,7 +114,7 @@ public class Tutorial1 : MonoBehaviour {
         attemptedWrongRotationFuse = false;
         enabledControls = false;
 
-        if(disableTutorial)
+        if (disableTutorial)
         {
             enabledControls = true;
             bottomPanel.blocksRaycasts = true;
@@ -112,12 +122,15 @@ public class Tutorial1 : MonoBehaviour {
             rotationScript.controlsDisabled = false;
             selectPart.controlsDisabled = false;
             enableControlsAndAddToken("finishedEnablingControls");
-        } else
+        }
+        else
         {
             bottomPanel.blocksRaycasts = false;
             cameraControls.controlsDisabled = true;
             rotationScript.controlsDisabled = true;
             selectPart.controlsDisabled = true;
+            ConversationTrigger.AddToken("beginTutorial");
+
         }
     }
 
@@ -326,12 +339,12 @@ public class Tutorial1 : MonoBehaviour {
     IEnumerator rotateWrongPartScript()
     {
         b1p1 = GameObject.Find("b1p1Prefab(Clone)");
-        Highlighter.Highlight(rotationScript.yGizmo); 
+        Highlighter.Highlight(yUp); 
         yield return new WaitForSeconds(2f);
-        Highlighter.Unhighlight(rotationScript.yGizmo);
+        Highlighter.Unhighlight(yUp);
         rotationScript.runManualRotation(b1p1, 0,90,0);
         yield return new WaitForSeconds(2f);
-        Highlighter.Highlight(rotationScript.zGizmo);
+        Highlighter.Highlight(zUp);
 
         ConversationTrigger.AddToken("finishedRotatingOnceWrongPart");
 
@@ -339,7 +352,7 @@ public class Tutorial1 : MonoBehaviour {
 
     IEnumerator rotateTwiceWrongPartScript()
     {
-        Highlighter.Unhighlight(rotationScript.zGizmo);
+        Highlighter.Unhighlight(zUp);
         rotationScript.runManualRotation(b1p1, 0, 0, -90);
         yield return new WaitForSeconds(2f);
         ConversationTrigger.AddToken("finishedRotatingTwiceWrongPart");
@@ -348,11 +361,11 @@ public class Tutorial1 : MonoBehaviour {
     IEnumerator rotateWrongFaceScript()
     {
         b1p2 = GameObject.Find("b1p2Prefab(Clone)");
-        Highlighter.Highlight(rotationScript.zGizmo);
+        Highlighter.Highlight(zDown);
         yield return new WaitForSeconds(2f);
         rotationScript.runManualRotation(b1p2, 0, 0, 90);
         yield return new WaitForSeconds(2f);
-        Highlighter.Unhighlight(rotationScript.zGizmo);
+        Highlighter.Unhighlight(zDown);
         rotationScript.runManualRotation(b1p2, 0, 0, 90);
         yield return new WaitForSeconds(2f);
 
@@ -362,11 +375,11 @@ public class Tutorial1 : MonoBehaviour {
 
     IEnumerator rotateWrongRotationScript()
     {
-        Highlighter.Highlight(rotationScript.yGizmo);
+        Highlighter.Highlight(yDown);
         yield return new WaitForSeconds(2f);
         rotationScript.runManualRotation(b1p2, 0, -90, 0);
         yield return new WaitForSeconds(2f);
-        Highlighter.Unhighlight(rotationScript.yGizmo);
+        Highlighter.Unhighlight(yDown);
         rotationScript.runManualRotation(b1p2, 0, -90, 0);
         yield return new WaitForSeconds(2f);
 
@@ -433,32 +446,7 @@ public class Tutorial1 : MonoBehaviour {
         //	ConversationTrigger.AddToken("dreshaFlashedPartButtons");
 
     }
-
-    //highlights for the specified length of time, then unhighlights
-    private void highlightSelectedObj(float sec) { // generalizes to any selectedObj
-		GameObject activePart = selectPart.getActivePart();
-		Debug.Log("Selected Obj to highlight: " + activePart);
-		if(activePart.name.Equals("tutorial1_triPrefab(Clone)")) {
-			highlighter.HighlightTimed(GameObject.Find("tri"), sec); 
-		} else if(activePart.name.Equals("tutorial1_pyrPrefab(Clone)")) {
-			highlighter.HighlightTimed(GameObject.Find("pyr"), sec); 
-		} else {
-			highlighter.HighlightTimed(GameObject.Find("cone"), sec); 
-		}
-	}
-		
-
-	private void unhighlightSelectedObj() { // generalizes to any selectedObj
-		GameObject activePart = selectPart.getActivePart();
-		Debug.Log("Selected Obj to UNhighlight: " + activePart);
-		if(activePart.name.Equals("tutorial1_triPrefab(Clone)")) {
-			Highlighter.Highlight(GameObject.Find("tri")); 
-		} else if(activePart.name.Equals("tutorial1_pyrPrefab(Clone)")) {
-			Highlighter.Unhighlight(GameObject.Find("pyr")); 
-		} else {
-			Highlighter.Unhighlight(GameObject.Find("cone")); 
-		}
-	}
+	
 
 	private void highlightGizmo(float seconds) {
 		// maybe should highlight only the sliders instead?
