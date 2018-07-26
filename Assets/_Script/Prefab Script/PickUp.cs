@@ -9,6 +9,7 @@ public class PickUp : MonoBehaviour
     public AudioSource Pickup;
 	public AudioClip pickupSound;
     private GameObject partCounterObj;
+    public ExplorationLevelResetter levelResetter;
 	public enum PickupType { Item, Battery, Clue };
 
 	[Header("Basic Variables")]
@@ -84,6 +85,13 @@ public class PickUp : MonoBehaviour
 
             }
 			SimpleData.WriteDataPoint("Pickup_Item", "", "", "", "", pickupName);
+            if(!levelResetter.hasTaggedFirstPart())
+            {
+                levelResetter.startCountdown();
+            } else
+            {
+                levelResetter.setTaggedFirstPart(true);
+            }
 			//SimpleData.WriteStringToFile("pickups.txt", Time.time + ",PICKUP," + pickupName);
 			switch (type)
 			{

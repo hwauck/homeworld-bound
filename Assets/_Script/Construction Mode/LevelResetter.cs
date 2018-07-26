@@ -60,9 +60,9 @@ public class LevelResetter : MonoBehaviour {
 
     private void Awake()
     {
-        powerFailureSound = Resources.Load<AudioClip>("Audio/ConstModeMusic/msfx_chrono_latency_hammer");
-        countdownSound = Resources.Load<AudioClip>("Audio/ConstModeMusic/Select02");
-        finalCountSound = Resources.Load<AudioClip>("Audio/ConstModeMusic/Select04");
+        powerFailureSound = Resources.Load<AudioClip>("Audio/BothModes/msfx_chrono_latency_hammer");
+        countdownSound = Resources.Load<AudioClip>("Audio/BothModes/Select02");
+        finalCountSound = Resources.Load<AudioClip>("Audio/BothModes/Select04");
         rechargingSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-03");
         originalColliderCenter = startingPart.GetComponent<BoxCollider>().center;
         originalColliderSize = startingPart.GetComponent<BoxCollider>().size;

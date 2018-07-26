@@ -7,16 +7,14 @@ public class Timer : MonoBehaviour {
     public Text timerLabel;
     public float timeGiven;
     private float timeRemaining; // saves the timeRemaining value entered in inspector for when the level is restarted
-    private bool outOfTime;
+    private bool outOfTime = false;
     private int minutes;
     private int seconds;
-    private bool timerStarted;
+    private bool timerStarted = false;
     public UnityEvent powerFailure;
 
     // Use this for initialization
     void Start () {
-        outOfTime = false;
-        timerStarted = false;
         timeRemaining = timeGiven;
         minutes = Mathf.FloorToInt(timeRemaining / 60F);
         seconds = Mathf.FloorToInt(timeRemaining - minutes * 60);
