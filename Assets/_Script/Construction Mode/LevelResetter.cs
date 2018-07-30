@@ -229,7 +229,7 @@ public class LevelResetter : MonoBehaviour {
         string currentLevel;
         // if testing individual levels, use if(Application.isEditor). If testing levels in
         // sequence, use if(false)
-        if(false)
+        if(Application.isEditor)
         {
             currentLevel = SceneManager.GetActiveScene().name;
         } else

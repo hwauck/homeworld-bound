@@ -15484,7 +15484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerLabel: {fileID: 427531887}
-  timeGiven: 300
+  timeGiven: 360
   powerFailure:
     m_PersistentCalls:
       m_Calls:
