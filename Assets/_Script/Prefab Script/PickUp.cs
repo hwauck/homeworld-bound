@@ -85,33 +85,36 @@ public class PickUp : MonoBehaviour
 
             }
 			SimpleData.WriteDataPoint("Pickup_Item", "", "", "", "", pickupName);
+            Debug.Log("Has tagged first part already? " + levelResetter.hasTaggedFirstPart());
             if(!levelResetter.hasTaggedFirstPart())
             {
-                levelResetter.startCountdown();
-            } else
-            {
                 levelResetter.setTaggedFirstPart(true);
+
+                levelResetter.startCountdown();
             }
-			//SimpleData.WriteStringToFile("pickups.txt", Time.time + ",PICKUP," + pickupName);
-			switch (type)
+            //SimpleData.WriteStringToFile("pickups.txt", Time.time + ",PICKUP," + pickupName);
+            ParticleSystem ps = GetComponent<ParticleSystem>();
+            ParticleSystem.MainModule psMain = GetComponent<ParticleSystem>().main;
+            switch (type)
 			{
+
 				case PickupType.Item:
 					// Add the item and update the tokens.
 					InventoryController.Add(this, 1);
 					InventoryController.ConvertInventoryToTokens();
 
                     // Poke the build button so it can check if it needs to update.
-                    BuildButton.CheckRecipes();
+                    //BuildButton.CheckRecipes();
 
-					if (pickupName.Contains("Rocket"))
+                    if (pickupName.Contains("Rocket"))
 					{
 						ConversationTrigger.AddToken("picked_up_a_boots_piece");
-                        partCounterObj.GetComponent<PartCounter>().setWhatToBuild("b1", "Rocket Boots");
+                        levelResetter.setWhatToBuild("b1", "Rocket Boots");
                     }
                     if (pickupName.Contains("Sledge"))
 					{
 						ConversationTrigger.AddToken("picked_up_a_sledge_piece");
-                        partCounterObj.GetComponent<PartCounter>().setWhatToBuild("b5", "Sledgehammer");
+                        levelResetter.setWhatToBuild("b5", "Sledgehammer");
                     }
                     if (pickupName.Contains("Key1"))
 					{
@@ -122,10 +125,15 @@ public class PickUp : MonoBehaviour
 						ConversationTrigger.AddToken("picked_up_a_ffa_piece");
 					}
 
-					// Object still needs to exist for the icon to work.
-					// Silly, but let's just shove it into a corner and forget about it.
-					// Also parents to the scene manager object so it rejects deletion as much as possible.
-					transform.position = new Vector3(-1000f, -1000f, -1000f);
+                    // Object still needs to exist for the icon to work.
+                    // Silly, but let's just shove it into a corner and forget about it.
+                    // Also parents to the scene manager object so it rejects deletion as much as possible.
+                    //transform.position = new Vector3(-1000f, -1000f, -1000f);
+
+                    //turn aura green and disable pickup trigger if already picked up
+                    this.GetComponent<Collider>().enabled = false;
+                    psMain.startColor = new Color(0f, 255f, 0f, 255f);
+
 					LoadUtils.IconParenter(this.gameObject);
 
                     // inc count of item parts and check if done collecting
@@ -134,13 +142,16 @@ public class PickUp : MonoBehaviour
                     break;
                 
 				case PickupType.Battery:
-					ConversationTrigger.AddToken("picked_up_a_battery");
+                    ConversationTrigger.AddToken("picked_up_a_battery");
 
                     // inc count of battery parts and check if done collecting
                     partCounterObj.GetComponent<BatteryCounter>().incParts();
 
-                    RespawnBattery();
-					break;
+                    //RespawnBattery();
+                    //TODO: make aura green and disable pickup trigger
+                    this.GetComponent<Collider>().enabled = false;
+                    psMain.startColor = new Color(0f, 255f, 0f, 255f);
+                    break;
 
 				case PickupType.Clue:
 					CluePopulator.AddClue(pickupName, clueSprite);

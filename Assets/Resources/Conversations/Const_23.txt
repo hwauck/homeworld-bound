@@ -1,4 +1,4 @@
-If you run out of time or rotations, the whole construction will fall apart!
+If you run out of time or rotations, the fuser will shut down and your construction will fall apart!
 Ready?
 [CHOOSE]
 Ready!|nowhere|finishedConst_23

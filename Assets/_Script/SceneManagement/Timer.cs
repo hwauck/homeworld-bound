@@ -7,11 +7,16 @@ public class Timer : MonoBehaviour {
     public Text timerLabel;
     public float timeGiven;
     private float timeRemaining; // saves the timeRemaining value entered in inspector for when the level is restarted
-    private bool outOfTime = false;
     private int minutes;
     private int seconds;
     private bool timerStarted = false;
     public UnityEvent powerFailure;
+    private int numRanOutOfTime; // this should be recorded by the appropriate level and then reset to 0 each level.
+
+    void Awake()
+    {
+        numRanOutOfTime = 0;
+    }
 
     // Use this for initialization
     void Start () {
@@ -41,9 +46,9 @@ public class Timer : MonoBehaviour {
 
     }
 
-    public bool isOutOfTime()
+    public int getNumRanOutOfTime()
     {
-        return outOfTime;
+        return numRanOutOfTime;
     }
 
     void Update()
@@ -58,8 +63,8 @@ public class Timer : MonoBehaviour {
             if (timeRemaining < 0)
             {
                 stopTimer();
-                outOfTime = true;
                 powerFailure.Invoke();
+                numRanOutOfTime++; // data collection
                 minutes = 0;
                 seconds = 0;
             }

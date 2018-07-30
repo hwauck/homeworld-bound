@@ -406,7 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_5
   allowEscape: 0
   oneShot: 1
@@ -532,7 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_13
   allowEscape: 0
   oneShot: 1
@@ -663,7 +663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_20
   allowEscape: 0
   oneShot: 1
@@ -1330,7 +1330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_19
   allowEscape: 0
   oneShot: 1
@@ -1379,7 +1379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_2
   allowEscape: 0
   oneShot: 1
@@ -1428,7 +1428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_6
   allowEscape: 0
   oneShot: 1
@@ -1477,7 +1477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_16
   allowEscape: 0
   oneShot: 1
@@ -1526,7 +1526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_4
   allowEscape: 0
   oneShot: 1
@@ -1712,7 +1712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_10
   allowEscape: 0
   oneShot: 1
@@ -2268,7 +2268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_11
   allowEscape: 0
   oneShot: 1
@@ -2382,7 +2382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_7
   allowEscape: 0
   oneShot: 1
@@ -2483,7 +2483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_14
   allowEscape: 0
   oneShot: 1
@@ -2634,7 +2634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_12
   allowEscape: 0
   oneShot: 1
@@ -2753,7 +2753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_15
   allowEscape: 0
   oneShot: 1
@@ -3188,7 +3188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_9
   allowEscape: 0
   oneShot: 1
@@ -3768,7 +3768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_3
   allowEscape: 0
   oneShot: 1
@@ -4650,7 +4650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_1
   allowEscape: 0
   oneShot: 1
@@ -5888,7 +5888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_18
   allowEscape: 0
   oneShot: 1
@@ -6271,7 +6271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_17
   allowEscape: 0
   oneShot: 1
@@ -6432,7 +6432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Dresha
+  nameOfStarter: Fuser
   conversationName: Const_8
   allowEscape: 0
   oneShot: 1

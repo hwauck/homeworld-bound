@@ -1,4 +1,7 @@
-Oh, uh, I guess I selected the wrong black area. 
-Let's try this one.
+UNEXPECTED ERROR IN TUTORIAL.
+ERROR: Incompatible black areas selected!
+Recalibrating...
+Tutorial recalibrated!
+Selecting correct black area...
 [CHOOSE]
 |nowhere|finishedConst_15

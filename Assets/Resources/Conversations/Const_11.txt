@@ -1,3 +1,7 @@
-Uh, whoops. That's the wrong part. I meant to select a different one.
+UNEXPECTED ERROR IN TUTORIAL.
+ERROR: Incompatible parts selected!
+Recalibrating...
+Tutorial recalibrated!
+Selecting correct part...
 [CHOOSE]
 |nowhere|finishedConst_11

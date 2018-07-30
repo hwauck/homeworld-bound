@@ -1,4 +1,4 @@
-All right, this is it - the last battery!
+Battery complete! Build [color]880one more[color] to supercharge the Fuser.
 Ready?
 [CHOOSE]
 |nowhere|doneWithBeginningConvo

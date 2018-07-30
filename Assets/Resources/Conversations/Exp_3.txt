@@ -1,4 +1,0 @@
-Oh, good, you found something!
-If you find 6 parts, we can build something cool. You can see how many parts you have by [color]880pressing I to access your inventory.
-[CHOOSE]
-nowhere|nowhere|Exp_3_Done

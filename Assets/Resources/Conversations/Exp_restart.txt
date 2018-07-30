@@ -1,5 +1,4 @@
-Ok, you'll need to find and [color]880tag every battery and item part again[color].
-Time won't start running out until you tag the first item or battery part.
-You have a better idea of where things are now - you can do this!
+Emergency power supply recharged.
+Ready?
 [CHOOSE]
 |nowhere|doneRestarting

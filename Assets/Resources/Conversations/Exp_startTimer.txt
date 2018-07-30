@@ -1,0 +1,4 @@
+All right, you've got [color]8805 minutes[color] to find and [color]080tag[color] the rest of the [color]880item and battery parts[color]!
+Ready?
+[CHOOSE]
+|nowhere|readyToStartTimer

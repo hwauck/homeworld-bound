@@ -7,7 +7,6 @@ public class ExplorationTutorial : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        findPartsTimer.startTimer();
 	}
 	
 	// Update is called once per frame

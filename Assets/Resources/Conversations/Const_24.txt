@@ -1,4 +1,4 @@
-Ok, 2 batteries down, 2 to go.
+Battery complete! Build [color]880two more[color] to supercharge the Fuser.
 Ready for the next one?
 [CHOOSE]
 |nowhere|doneWithBeginningConvo

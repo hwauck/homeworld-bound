@@ -1,3 +1,5 @@
-Ready to build the rocket boots?
+Fuser supercharged!
+Fuser can now build the [color]880Rocket Boots[color].
+Ready?
 [CHOOSE]
 |nowhere|doneWithBeginningConvo

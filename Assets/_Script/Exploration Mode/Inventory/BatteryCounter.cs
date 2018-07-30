@@ -1,7 +1,7 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.Events;
 
 public class BatteryCounter : MonoBehaviour {
 
@@ -16,9 +16,11 @@ public class BatteryCounter : MonoBehaviour {
     private string whatToBuild;
     private bool partsDone = false; // has the player collected all the parts they need yet? 
 
+    public UnityEvent readyForNextLevel;
+
     // Use this for initialization
     void Start () {
-        partsFound = 12;
+        partsFound = 0;
         if (!RocketBoots.GetBootsActive())
         {
             partsNeededText = 14 + "";
@@ -38,35 +40,44 @@ public class BatteryCounter : MonoBehaviour {
         if (partsFound == partsNeeded)
         {
             partsDone = true;
-        }
+            readyForNextLevel.Invoke();
+        }           
 
-        Debug.Log("BATTERY COUNTER battery parts done? " + partsDone);
-        Debug.Log("BATTERY COUNTER item parts done? " + partCounter.allPartsCollected());
-        if (partsDone && partCounter.allPartsCollected()) {
-            fadeScreen.fadeOut(3f);
-            resetCounter();
-            partCounter.resetCounter();
-            levelTimer.stopTimer();
-            levelTimer.resetTimer();
-            InventoryController.levelName = SceneManager.GetActiveScene().name;
-            StartCoroutine(waitThenLoadLevel(3f, whatToBuild));
-        }
+
+        //if (partsDone && partCounter.allPartsCollected()) {
+        //    fadeScreen.fadeOut(3f);
+        //    resetCounter();
+        //    partCounter.resetCounter();
+        //    levelTimer.stopTimer();
+        //    levelTimer.resetTimer();
+        //    InventoryController.levelName = SceneManager.GetActiveScene().name;
+        //    StartCoroutine(waitThenLoadLevel(3f, whatToBuild));
+        //}
     }
 
     public void resetCounter()
     {
+        // if this reset is due to completing the level, reset object text to ???
+        // if this reset is due to power failure (running out of time), keep object text
+        if (partsDone)
+        {
+            // CHANGE when more levels are added
+            if (!RocketBoots.GetBootsActive())
+            {
+                partsNeededText = 14 + "";
+
+            }
+            else
+            {
+                partsNeededText = "??";
+
+            }
+        }
         partsFound = 0;
         partsDone = false;
-        // CHANGE when more levels are added
-        if (!RocketBoots.GetBootsActive())
-        {
-            partsNeededText = 14 + "";
 
-        } else
-        {
-            partsNeededText = "??";
+        partsFoundText.text = "Battery Parts: " + partsFound + "/" + partsNeededText;
 
-        }
     }
 
     public bool allPartsCollected()
@@ -77,13 +88,6 @@ public class BatteryCounter : MonoBehaviour {
     public void setWhatToBuild(string whatToBuild)
     {
         this.whatToBuild = whatToBuild;
-
-    }
-
-    private IEnumerator waitThenLoadLevel(float seconds, string level)
-    {
-        yield return new WaitForSeconds(seconds);
-        LoadUtils.LoadScene(level);
 
     }
 

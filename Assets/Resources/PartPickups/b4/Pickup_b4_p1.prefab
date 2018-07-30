@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 199990939915257206}
   m_Layer: 0
   m_Name: Pickup_b4_p1
-  m_TagString: part
+  m_TagString: PickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -173,7 +173,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1066213541953176}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -409.84, y: 48.31, z: 339.09}
+  m_LocalPosition: {x: -442.06, y: 53.98, z: 80.64}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 4008647995479990}
@@ -565,7 +565,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 2}
+  m_Size: {x: 3, y: 3, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65972116824973636
 BoxCollider:
@@ -690,13 +690,14 @@ MonoBehaviour:
   WindChimes: {fileID: 8300000, guid: 6d46d3a3ddbf77e4a8d647a14d6136b5, type: 3}
   Pickup: {fileID: 0}
   pickupSound: {fileID: 8300000, guid: 1c011066b8292f94392a2b2a1667fc77, type: 3}
-  type: 0
+  levelResetter: {fileID: 0}
+  type: 1
   pickupName: Battery 4 part 1
   pickupDesc: A fancy floating cube.
   prefabPath: PartPickups/b4/Pickup_b4_p1
   clueSprite: {fileID: 0}
   deleteToken: 
-  autoDelete: 0
+  autoDelete: 1
 --- !u!114 &114381560406564284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -894,7 +895,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 1, g: 0, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -956,7 +957,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.6
+      scalar: 0.3
       minScalar: 1
       maxCurve:
         serializedVersion: 2

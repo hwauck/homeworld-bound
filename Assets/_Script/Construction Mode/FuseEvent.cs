@@ -422,7 +422,7 @@ public class FuseEvent : MonoBehaviour {
         if (!runningJustConstructionMode)
         {
             // Update the build button based on the now-removed parts.
-            BuildButton.CheckRecipes();
+            //BuildButton.CheckRecipes();
         }
     }
 

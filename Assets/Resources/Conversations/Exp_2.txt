@@ -1,5 +1,0 @@
-But don't worry! I can help you build a new spaceship.
-First we need to find some parts for the new ship.
-There's sure to be some scrap metal we can use lying around here somewhere. Go find some for me and then I'll see what I can do.
-[CHOOSE]
-nowhere|nowhere|Exp_2_Done

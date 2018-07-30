@@ -1,6 +1,4 @@
-Oh dear, looks like we took a little too long building that battery. The Fuser is almost out of power.
-You're gonna have to build the next batteries [color]880quickly[color] and [color]880carefully[color].
-If you [color]880take too long[color] to build something, the Fuser will run out of power. But that's not all!
-Every [color]880rotation[color] you make will also drain some of the Fuser's power.
+Warning: Fuser is low on power.
+Work [color]880quickly[color] and [color]880use fewer rotations[color] to avoid losing power.
 [CHOOSE]
 |nowhere|finishedConst_21
