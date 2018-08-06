@@ -70,13 +70,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4493416854755684}
-  - component: {fileID: 95115524084967012}
   - component: {fileID: 65798788942956514}
+  - component: {fileID: 114579363896447124}
   - component: {fileID: 114059216157296406}
   - component: {fileID: 82304626107869576}
   - component: {fileID: 198359490374882390}
   - component: {fileID: 199017083236560820}
-  - component: {fileID: 114579363896447124}
   m_Layer: 0
   m_Name: Pickup_b1_bb1
   m_TagString: PickUp
@@ -519,24 +518,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!95 &95115524084967012
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1468016533665034}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 6f06cf52ecc47f14d93c2ce9e15c3d24, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114059216157296406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -554,7 +535,7 @@ MonoBehaviour:
   pickupSound: {fileID: 8300000, guid: 1c011066b8292f94392a2b2a1667fc77, type: 3}
   levelResetter: {fileID: 0}
   type: 1
-  pickupName: Battery 1 part base
+  pickupName: Battery 1 part 4
   pickupDesc: A fancy floating cube.
   prefabPath: PartPickups/b1/Pickup_b1_bb1
   clueSprite: {fileID: 0}
