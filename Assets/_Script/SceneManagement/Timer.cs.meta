@@ -3,7 +3,10 @@ guid: 6b4dea9852ed38b468ccc40b4a1d0227
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - timerLabel: {instanceID: 0}
+  - Music: {fileID: 8300000, guid: 67bb2c82c970c4340bb8570c275c0f04, type: 3}
+  - MusicSource: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

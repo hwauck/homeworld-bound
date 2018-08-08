@@ -12,7 +12,9 @@ public class Timer : MonoBehaviour {
     private bool timerStarted = false;
     public UnityEvent powerFailure;
     private int numRanOutOfTime; // this should be recorded by the appropriate level and then reset to 0 each level.
-
+    public AudioClip ExploreM;
+    public AudioClip ExploreMLOW;
+    public AudioSource MusicSource;
     void Awake()
     {
         numRanOutOfTime = 0;
@@ -30,6 +32,8 @@ public class Timer : MonoBehaviour {
     public void startTimer()
     {
         timerStarted = true;
+        MusicSource.clip = ExploreM;
+        MusicSource.Play();
     }
 
     public void stopTimer()
@@ -60,6 +64,13 @@ public class Timer : MonoBehaviour {
                 timeRemaining -= Time.deltaTime;
             }
 
+             if (timeRemaining == 340)
+            {
+                MusicSource.Stop();
+                MusicSource.clip = ExploreMLOW;
+                MusicSource.Play();
+            }
+
             if (timeRemaining < 0)
             {
                 stopTimer();
@@ -68,6 +79,7 @@ public class Timer : MonoBehaviour {
                 minutes = 0;
                 seconds = 0;
             }
+      
             else
             {
                 minutes = Mathf.FloorToInt(timeRemaining / 60F);
