@@ -15,6 +15,7 @@ public class Timer : MonoBehaviour {
     public AudioClip ExploreM;
     public AudioClip ExploreMLOW;
     public AudioSource MusicSource;
+    private bool sinisterMusicstarted = false;
     void Awake()
     {
         numRanOutOfTime = 0;
@@ -64,11 +65,22 @@ public class Timer : MonoBehaviour {
                 timeRemaining -= Time.deltaTime;
             }
 
-             if (timeRemaining == 340)
+            if (timeRemaining < 240)
+
             {
-                MusicSource.Stop();
-                MusicSource.clip = ExploreMLOW;
-                MusicSource.Play();
+                if (sinisterMusicstarted == false)
+                {
+                    sinisterMusicstarted = true;
+
+
+                    Debug.Log("setting sinister Musictotrue");
+                    MusicSource.Stop();
+
+
+                    MusicSource.clip = ExploreMLOW;
+                    MusicSource.Play();
+                    Debug.Log("changing clip and playing");
+                }
             }
 
             if (timeRemaining < 0)

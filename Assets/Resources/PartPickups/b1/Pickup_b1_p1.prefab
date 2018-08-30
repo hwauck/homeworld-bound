@@ -344,7 +344,7 @@ MonoBehaviour:
   type: 1
   pickupName: Battery 1 part 1
   pickupDesc: A fancy floating cube.
-  prefabPath: PartPickups/b1/Pickup_b1_p1
+  prefabPath: PartPickups/b1/Pickup_b1_bb1
   clueSprite: {fileID: 0}
   deleteToken: 
   autoDelete: 1
