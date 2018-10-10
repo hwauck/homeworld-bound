@@ -58,6 +58,8 @@ public class LevelResetter : MonoBehaviour {
 
     private const float MOVEMENT_SPEED = 100f;
 
+    private bool runningJustConstructionMode = false;
+
     private void Awake()
     {
         powerFailureSound = Resources.Load<AudioClip>("Audio/BothModes/msfx_chrono_latency_hammer");
@@ -70,6 +72,11 @@ public class LevelResetter : MonoBehaviour {
 
         // make sure player controls are always disabled at beginning before countdown begins
         disablePlayerControls();
+
+        if(InventoryController.levelName == "")
+        {
+            runningJustConstructionMode = true;
+        }
 
     }
 
@@ -229,7 +236,10 @@ public class LevelResetter : MonoBehaviour {
         string currentLevel;
         // if testing individual levels, use if(Application.isEditor). If testing levels in
         // sequence, use if(false)
-        if(false)
+        print("Running just construction mode? " + runningJustConstructionMode);
+        print("SceneManager.GetActiveScene().name: " + SceneManager.GetActiveScene().name);
+        print("LoadUtils.currentSceneName: " + LoadUtils.currentSceneName);
+        if (runningJustConstructionMode)
         {
             currentLevel = SceneManager.GetActiveScene().name;
         } else
@@ -366,7 +376,7 @@ public class LevelResetter : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        Debug.Log("startBeginningConvo is already here? " + ConversationTrigger.GetToken("startBeginningConvo"));
+        //Debug.Log("startBeginningConvo is already here? " + ConversationTrigger.GetToken("startBeginningConvo"));
         // finished recharging after power failure, show Try Again? button to restart level
         if (ConversationTrigger.GetToken("outOfPower") && ConversationTrigger.GetToken("hasPower"))
         {

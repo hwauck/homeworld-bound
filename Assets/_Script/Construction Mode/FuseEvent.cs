@@ -13,6 +13,7 @@ public class FuseEvent : MonoBehaviour {
     private bool activatedTakeButton;
     private bool firstFuseComplete;
     private bool isFirstLevel = false; // so we don't have to wait for LoadUtils.LoadScene before setting up fuseMapping
+    private int loadedLevels = 0;
 
     //keep track of which objects are currently selected for fusing
     private GameObject selectedObject;
@@ -307,17 +308,16 @@ public class FuseEvent : MonoBehaviour {
 
         SimpleData.WriteDataPoint("Left_Scene", "Complete_Construction", "", "", "", "");
         //SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO," + InventoryController.levelName);
-        // if testing individual levels, use if(isFirstLevel || Application.isEditor). If testing levels in sequence,
-        // use if(isFirstLevel)
-        // if testing within Exploration levels, comment out whole if statement
+
         string currentLevel;  
-        //if(isFirstLevel)
-        //{
-        //    currentLevel = SceneManager.GetActiveScene().name;
-        //} else
-        //{
+        if(loadedLevels < 2)
+        {
+            currentLevel = SceneManager.GetActiveScene().name;
+        } else
+        {
             currentLevel = LoadUtils.currentSceneName;
-        //}
+        }
+        Debug.Log("currentLevel: " + currentLevel);
         switch (currentLevel)
         {
             // TODO: Need to think about how to handle it when the player might need an unspecified number of 
@@ -451,24 +451,31 @@ public class FuseEvent : MonoBehaviour {
 
     private IEnumerator createFuseMapping() {
 
+        fuseMapping = new Dictionary<string, string>();
         //wait till next scene has loaded
-        while (!LoadUtils.isSceneLoaded)
+        if (loadedLevels > 0)
         {
-            // Application.isEditor allows me to test individual levels that aren't the starting level in isolation
-            // if testing just one level, use if(isFirstLevel || Application.isEditor) break;
-            // if testing levels in sequence, use if(isFirstLevel) break;
-            // if testing levels within Exploration Mode, remove the whole if statement
-           // if(isFirstLevel)
-            //{
-            //    break;
-            //}
-            yield return null;
+            while (!LoadUtils.isSceneLoaded)
+            {
+
+                yield return null;
+            }
         }
+        loadedLevels++;
         //reset isSceneLoaded for next level load
         LoadUtils.isSceneLoaded = false;
 
+        string currentScene;
+
+        if (loadedLevels < 2)
+        {
+            currentScene = SceneManager.GetActiveScene().name;
+        } else
+        {
+            currentScene = LoadUtils.currentSceneName;
+        }
+
         //NOW do fuse mappings with the correct level name!
-        fuseMapping = new Dictionary<string, string>();
         //fueMapping.Add(active part, fused part)
         //CHANGE this if statement by adding a new else if onto the end of it for your new level.
         // The name of the mode is the name of your level. You need to add key-value pairs to 
@@ -478,20 +485,6 @@ public class FuseEvent : MonoBehaviour {
         // attach to. 
         // NOTE: when there are parts A and B that can be fused to each other instead of starting part,
         // fuseMapping needs mappings from A -> B AND from B -> A
-        string currentScene;
-        // Application.isEditor allows me to test individual levels that aren't the starting level in isolation
-        // if testing just one level, use if(isFirstLevel || Application.isEditor)
-        // if testing levels in sequence, use if(isFirstLevel)
-        // if testing levels within Exploration Mode, comment out this whole if statement
-        //if (isFirstLevel)
-        //{
-            //This might not work once Exploration is the first scene?
-        //    currentScene = SceneManager.GetActiveScene().name;
-        //} else
-        //{
-            currentScene = LoadUtils.currentSceneName;
-        //}
-        
         Debug.Log("Creating fuse mappings for Scene " + currentScene);
         if (currentScene.Equals("b1"))
         {
