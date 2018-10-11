@@ -10,7 +10,7 @@ public class PickUp : MonoBehaviour
 	public AudioClip pickupSound;
     private GameObject partCounterObj;
     public ExplorationLevelResetter levelResetter;
-	public enum PickupType { Item, Battery, Clue };
+	public enum PickupType { Item, Battery, Clue, Fuser };
 
 	[Header("Basic Variables")]
 	public PickupType type = PickupType.Item;
@@ -85,13 +85,12 @@ public class PickUp : MonoBehaviour
 
             }
 			SimpleData.WriteDataPoint("Pickup_Item", "", "", "", "", pickupName);
-            Debug.Log("Has tagged first part already? " + levelResetter.hasTaggedFirstPart());
-            if(!levelResetter.hasTaggedFirstPart())
-            {
-                levelResetter.setTaggedFirstPart(true);
+            //if(!levelResetter.hasTaggedFirstPart())
+            //{
+            //    levelResetter.setTaggedFirstPart(true);
 
-                levelResetter.startCountdown();
-            }
+            //    levelResetter.startCountdown();
+            //}
             //SimpleData.WriteStringToFile("pickups.txt", Time.time + ",PICKUP," + pickupName);
             ParticleSystem ps = GetComponent<ParticleSystem>();
             ParticleSystem.MainModule psMain = GetComponent<ParticleSystem>().main;
@@ -128,11 +127,11 @@ public class PickUp : MonoBehaviour
                     // Object still needs to exist for the icon to work.
                     // Silly, but let's just shove it into a corner and forget about it.
                     // Also parents to the scene manager object so it rejects deletion as much as possible.
-                    //transform.position = new Vector3(-1000f, -1000f, -1000f);
+                    transform.position = new Vector3(-1000f, -1000f, -1000f);
 
                     //turn aura green and disable pickup trigger if already picked up
-                    this.GetComponent<Collider>().enabled = false;
-                    psMain.startColor = new Color(0f, 255f, 0f, 255f);
+                    //this.GetComponent<Collider>().enabled = false;
+                    //psMain.startColor = new Color(0f, 255f, 0f, 255f);
 
 					LoadUtils.IconParenter(this.gameObject);
 
@@ -146,11 +145,12 @@ public class PickUp : MonoBehaviour
 
                     // inc count of battery parts and check if done collecting
                     partCounterObj.GetComponent<BatteryCounter>().incParts();
+                    transform.position = new Vector3(-1000f, -1000f, -1000f);
 
                     //RespawnBattery();
                     //TODO: make aura green and disable pickup trigger
-                    this.GetComponent<Collider>().enabled = false;
-                    psMain.startColor = new Color(0f, 255f, 0f, 255f);
+                    //this.GetComponent<Collider>().enabled = false;
+                    //psMain.startColor = new Color(0f, 255f, 0f, 255f);
                     break;
 
 				case PickupType.Clue:
@@ -159,6 +159,13 @@ public class PickUp : MonoBehaviour
 					ConversationTrigger.AddToken("picked_up_a_clue");
 					Destroy(gameObject);
 					break;
+                case PickupType.Fuser:
+                    transform.position = new Vector3(-1000f, -1000f, -1000f);
+                    ConversationTrigger.AddToken("pickedUpFuser");
+                    // gross might have to fix this at some point
+                    GameObject.FindWithTag("Player").GetComponent<Fuser>().ActivateFuser();
+
+                    break;
 			}
 			if (autoDelete)
 			{

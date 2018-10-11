@@ -1,0 +1,1 @@
+Move over an object to pick it up!

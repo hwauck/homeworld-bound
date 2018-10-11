@@ -254,7 +254,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        Debug.Log(ConversationTrigger.GetToken("firstPickup"));
+        //Debug.Log(ConversationTrigger.GetToken("firstPickup"));
         // finished recharging after power failure
         if (ConversationTrigger.GetToken("outOfPower") && ConversationTrigger.GetToken("hasPower"))
         {
