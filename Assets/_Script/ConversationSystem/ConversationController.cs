@@ -203,7 +203,7 @@ public class ConversationController : MonoBehaviour
 
 	// Allows you to move your mouse around the screen to select a choice or something.
 	// Also disables player movement.
-	static void AllowMouse()
+	public static void AllowMouse()
 	{
 		if (player != null)
 		{
@@ -221,7 +221,7 @@ public class ConversationController : MonoBehaviour
 	}
 
 	// Re-enables all aspects of the player controller.
-	static void LockMouse()
+	public static void LockMouse()
 	{
 		if (player != null)
 		{

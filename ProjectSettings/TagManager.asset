@@ -16,6 +16,12 @@ TagManager:
   - Breakable
   - FullPlayer
   - part
+  - b1
+  - b2
+  - b3
+  - b4
+  - rocketBoots
+  - sledgehammer
   layers:
   - Default
   - TransparentFX

@@ -1,0 +1,5 @@
+Click and drag with the mouse to move the camera.
+Use the scroll wheel on the mouse to zoom in and out.
+Move over the interface with the cursor to learn how to build things with the Fuser!
+[CHOOSE]
+|nowhere|finished_cameraControls

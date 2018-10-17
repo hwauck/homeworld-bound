@@ -328,26 +328,25 @@ public class FuseEvent : MonoBehaviour {
             case "b1":
                 BatterySystem.AddPower(2);
                 BatterySystem.PowerToTokens();
-                LoadUtils.LoadScene("b2");
+                LoadUtils.LoadScene(InventoryController.levelName);
                 LoadUtils.UnloadScene("b1");
-
                 break;
             case "b2":
                 BatterySystem.AddPower(2);
                 BatterySystem.PowerToTokens();
-                LoadUtils.LoadScene("b3");
+                LoadUtils.LoadScene(InventoryController.levelName);
                 LoadUtils.UnloadScene("b2");
                 break;
             case "b3":
                 BatterySystem.AddPower(2);
                 BatterySystem.PowerToTokens();
-                LoadUtils.LoadScene("b4");
+                LoadUtils.LoadScene(InventoryController.levelName);
                 LoadUtils.UnloadScene("b3");
                 break;
             case "b4":
                 BatterySystem.AddPower(2);
                 BatterySystem.PowerToTokens();
-                LoadUtils.LoadScene("rocketBoots");
+                LoadUtils.LoadScene(InventoryController.levelName);
                 LoadUtils.UnloadScene("b4");
                 break;
             case "rocketBoots":
@@ -1493,10 +1492,22 @@ public class FuseEvent : MonoBehaviour {
             {
                 activatedTakeButton = true;
                 claimItem.gameObject.SetActive(true);
+                ConversationTrigger.AddToken("finished_b1");
             } else if(!activatedTakeButton && !currentLevel.Equals("b1"))
             {
                 activatedTakeButton = true;
                 claimItem.gameObject.SetActive(true);
+                // CHANGE to add new battery levels as they're created
+                if(currentLevel.Equals("b2"))
+                {
+                    ConversationTrigger.AddToken("finished_b2");
+                } else if (currentLevel.Equals("b3"))
+                {
+                    ConversationTrigger.AddToken("finished_b3");
+                } else if (currentLevel.Equals("b4"))
+                {
+                    ConversationTrigger.AddToken("finished_b4");
+                }
             }
         }
 

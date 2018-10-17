@@ -34,7 +34,7 @@ public class PartCounter : MonoBehaviour {
         if(partsFound==partsNeeded)
         {
             partsDone = true;
-            readyForNextLevel.Invoke();
+            //readyForNextLevel.Invoke();
         }
 
         //if (partsDone && batteryCounter.allPartsCollected()) {

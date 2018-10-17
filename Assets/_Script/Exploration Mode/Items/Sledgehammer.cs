@@ -110,8 +110,13 @@ public class Sledgehammer : ItemBase
 		ConversationTrigger.AddToken("gear_sledgehammer");
 	}
 
-	// Sometimes, things don't happen in time. Specifically, this static reference conversion.
-	void GetRef()
+    public static bool GetSledgehammerActive()
+    {
+        return sledgeActive;
+    }
+
+    // Sometimes, things don't happen in time. Specifically, this static reference conversion.
+    void GetRef()
 	{
 		if (sledgehammerStatic == null)
 			sledgehammerStatic = sledgehammer;

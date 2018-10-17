@@ -8,7 +8,7 @@ public class PickUp : MonoBehaviour
     public AudioClip WindChimes;
     public AudioSource Pickup;
 	public AudioClip pickupSound;
-    private GameObject partCounterObj;
+    public GameObject partCounterObj;
     public ExplorationLevelResetter levelResetter;
 	public enum PickupType { Item, Battery, Clue, Fuser };
 
@@ -61,14 +61,6 @@ public class PickUp : MonoBehaviour
 			ii.name += "_fix";
 		}
 
-        if(type == PickupType.Item)
-        {
-            partCounterObj = GameObject.Find("PartsFound");
-        } else if(type == PickupType.Battery)
-        {
-            partCounterObj = GameObject.Find("BatteriesFound");
-
-        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -105,15 +97,15 @@ public class PickUp : MonoBehaviour
                     // Poke the build button so it can check if it needs to update.
                     //BuildButton.CheckRecipes();
 
-                    if (pickupName.Contains("Rocket"))
+                    if (gameObject.tag.Equals("rocketBoots"))
 					{
 						ConversationTrigger.AddToken("picked_up_a_boots_piece");
-                        levelResetter.setWhatToBuild("b1", "Rocket Boots");
+                        levelResetter.setWhatToBuild("rocketBoots");
                     }
-                    if (pickupName.Contains("Sledge"))
+                    if (gameObject.tag.Equals("sledgehammer"))
 					{
 						ConversationTrigger.AddToken("picked_up_a_sledge_piece");
-                        levelResetter.setWhatToBuild("b5", "Sledgehammer");
+                        levelResetter.setWhatToBuild("sledgehammer");
                     }
                     if (pickupName.Contains("Key1"))
 					{
@@ -141,14 +133,16 @@ public class PickUp : MonoBehaviour
                     break;
                 
 				case PickupType.Battery:
+
                     ConversationTrigger.AddToken("picked_up_a_battery");
 
                     // inc count of battery parts and check if done collecting
+                    // make sure battery parts UI elements are enabled (won't be for every first battery part pickup)
+
                     partCounterObj.GetComponent<BatteryCounter>().incParts();
                     transform.position = new Vector3(-1000f, -1000f, -1000f);
 
                     //RespawnBattery();
-                    //TODO: make aura green and disable pickup trigger
                     //this.GetComponent<Collider>().enabled = false;
                     //psMain.startColor = new Color(0f, 255f, 0f, 255f);
                     break;
@@ -163,7 +157,7 @@ public class PickUp : MonoBehaviour
                     transform.position = new Vector3(-1000f, -1000f, -1000f);
                     ConversationTrigger.AddToken("pickedUpFuser");
                     // gross might have to fix this at some point
-                    GameObject.FindWithTag("Player").GetComponent<Fuser>().ActivateFuser();
+                    GameObject.FindWithTag("Player").GetComponent<Fuser>().ActivateFuserFirstLook();
 
                     break;
 			}

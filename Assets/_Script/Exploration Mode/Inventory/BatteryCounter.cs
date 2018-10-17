@@ -7,9 +7,12 @@ public class BatteryCounter : MonoBehaviour {
 
     private int partsFound;
     private int partsNeeded;
-    private string partsNeededText;
+    private int batteriesBuilt;
+    private int batteriesNeeded;
     public Text partsFoundText;
     public PartCounter partCounter;
+    public Image batteriesBuiltBG;
+    public Text batteriesBuiltText;
     public Timer levelTimer;
     public FadeScreen fadeScreen;
 
@@ -21,25 +24,56 @@ public class BatteryCounter : MonoBehaviour {
     // Use this for initialization
     void Start () {
         partsFound = 0;
+        batteriesBuilt = 0;
         if (!RocketBoots.GetBootsActive())
         {
-            partsNeededText = 14 + "";
-
+            partsNeeded = 4;
+            batteriesNeeded = 4;
         }
-        else
+
+    }
+
+    // make BatteryCounter UI element invisible
+    public void hide()
+    {
+        gameObject.GetComponent<Image>().enabled = false;
+        gameObject.transform.GetComponentInChildren<Text>().enabled = false;
+    }
+
+    // make BatteryCounter UI element visible
+    public void show()
+    {
+        gameObject.GetComponent<Image>().enabled = true;
+        gameObject.transform.GetComponentInChildren<Text>().enabled = true;
+        if(batteriesBuilt > 0)
         {
-            partsNeededText = "??";
-
+            batteriesBuiltText.text = "Batteries Built: " + batteriesBuilt + "/" + batteriesNeeded;
+            batteriesBuiltBG.enabled = true;
+            batteriesBuiltText.enabled = true;
         }
+    }
+
+    public int getBatteriesBuilt()
+    {
+        return batteriesBuilt;
     }
 
     public void incParts()
     {
         partsFound++;
-        partsFoundText.text = "Battery Parts: " + partsFound + "/" + partsNeededText;
+        partsFoundText.text = "Battery Parts: " + partsFound + "/" + partsNeeded;
+        show();
+        Debug.Log("partsFound in incParts: " + partsFound);
+
         if (partsFound == partsNeeded)
         {
             partsDone = true;
+            // reset battery pickup conversation for next battery level
+            ConversationTrigger.RemoveToken("picked_up_a_battery");
+            batteriesBuilt++; // technically, they're not built yet. But they will be when the player returns to scene.
+
+            StartCoroutine(waitThenHide(6));
+
             readyForNextLevel.Invoke();
         }           
 
@@ -55,6 +89,12 @@ public class BatteryCounter : MonoBehaviour {
         //}
     }
 
+    private IEnumerator waitThenHide(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        hide();
+    }
+
     public void resetCounter()
     {
         // if this reset is due to completing the level, reset object text to ???
@@ -64,19 +104,16 @@ public class BatteryCounter : MonoBehaviour {
             // CHANGE when more levels are added
             if (!RocketBoots.GetBootsActive())
             {
-                partsNeededText = 14 + "";
+                partsNeeded = 4;
 
             }
-            else
-            {
-                partsNeededText = "??";
 
-            }
         }
         partsFound = 0;
         partsDone = false;
 
-        partsFoundText.text = "Battery Parts: " + partsFound + "/" + partsNeededText;
+        partsFoundText.text = "Battery Parts: " + partsFound + "/" + partsNeeded;
+        Debug.Log("partsFoundText in resetCounter: " + partsFoundText.text);
 
     }
 
@@ -94,8 +131,9 @@ public class BatteryCounter : MonoBehaviour {
     public void setPartsNeeded(int partsNeeded)
     {
         this.partsNeeded = partsNeeded;
-        partsNeededText = partsNeeded + "";
-        partsFoundText.text = "Battery Parts: " + partsFound + "/" + partsNeededText;
+        partsFoundText.text = "Battery Parts: " + partsFound + "/" + partsNeeded;
+        Debug.Log("partsFoundText in setPartsNeeded: " + partsFoundText.text);
+
     }
 
     // Update is called once per frame

@@ -15,6 +15,12 @@ public class ScrollingText : MonoBehaviour
 	bool scrolling = true;
 	bool conversationMode = false;
 	bool nextLine = false;
+
+    // scrolls text like normal. If false, all text displayed at once
+    // WARNING: with this set to false, ConversationController will not disable on mouse click or space.
+    // disable must be called manually from a script to disable the ConversationController
+    public bool enableScroll = true; 
+
 	int conversationIdx = 0;
 
 	float scrollTimer = 0f;
@@ -105,7 +111,7 @@ public class ScrollingText : MonoBehaviour
 	void Update()
 	{
 		// Skipping line scrolling or advancing a conversation.
-		if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+		if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) || !enableScroll)
 		{
 			if (scrolling)
 			{
@@ -132,8 +138,11 @@ public class ScrollingText : MonoBehaviour
 					{
 						case 0:
 							// Apply the nowhere conversation to safely end the conversation.
-							ConversationController.Disable();
-							break;
+                            if(enableScroll)
+                            {
+                                ConversationController.Disable();
+                            }
+                            break;
 						case 1:
 							// Apply the conversation relating to the only choice.
 							// Also make sure to add any token which may be a part of this single choice.

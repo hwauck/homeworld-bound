@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class Tutorial1 : MonoBehaviour {
 
-    public bool disableTutorial;
-
     public GameObject eventSystem;
     public Camera mainCam;
 
@@ -26,6 +24,7 @@ public class Tutorial1 : MonoBehaviour {
     public GameObject zUp;
     public GameObject zDown;
 
+    public GameObject bb1Start;
     public GameObject bb1;
     private GameObject bb1_b1p2_a1; // selected fuseTo on starting part
     private GameObject b1p1_bb1_a1; // incorrect first attempt: wrong part
@@ -45,32 +44,19 @@ public class Tutorial1 : MonoBehaviour {
     private SelectPart selectPart;
     private FuseEvent fuseEvent;
     private CameraControls cameraControls;
+    public ScrollingText scrollingText;
     private GameObject b1p1;
     private GameObject b1p2;
     private Vector3 baseStartPosition;
     private Button[] partButtons;
 
+    private Tooltip[] allTooltips;
+
     private const float MOVEMENT_SPEED = 100f;
     private const float SHOW_IMAGE_DURATION = 2f;
     private float step;
 
-    private bool flashedPartButtons;
-    private bool clickedB1P1Button;
-    private bool flashedFinishedImage;
-    private bool selectedAC;
-    private bool selectedFuseTo;
-    private bool rotatedOnceWrongPart;
-    private bool rotatedTwiceWrongPart;
-    private bool rotatedOnceWrongFace;
-    private bool flashedFuseButton;
-    private bool attemptedWrongPartFuse;
-    private bool clickedB1P2Button;
-    private bool selectedSecondAC;
-    private bool attemptedWrongFaceFuse;
-    private bool selectedThirdAC;
-    private bool attemptedWrongRotationFuse;
-    private bool enabledControls;
-
+    private bool tooltipsEnabled;
     private GameObject selectedObj;
 
 	void Awake() {
@@ -84,6 +70,8 @@ public class Tutorial1 : MonoBehaviour {
 
     void OnEnable()
     {
+        tooltipsEnabled = false;
+
         rotationScript = rotationGizmo.GetComponent<RotationGizmo>();
         fuseEvent = eventSystem.GetComponent<FuseEvent>();
         selectPart = eventSystem.GetComponent<SelectPart>();
@@ -97,224 +85,224 @@ public class Tutorial1 : MonoBehaviour {
         partButtons[1] = b1p2Button;
         partButtons[2] = b1p3Button;
 
-        flashedPartButtons = false;
-        clickedB1P1Button = false;
-        flashedFinishedImage = false;
-        selectedAC = false;
-        selectedFuseTo = false;
-        rotatedOnceWrongPart = false;
-        rotatedTwiceWrongPart = false;
-        flashedFuseButton = false;
-        attemptedWrongPartFuse = false;
-        clickedB1P2Button = false;
-        selectedSecondAC = false;
-        rotatedOnceWrongFace = false;
-        attemptedWrongFaceFuse = false;
-        selectedThirdAC = false;
-        attemptedWrongRotationFuse = false;
-        enabledControls = false;
+        // tooltips occur on: all part buttons, Fuse button, Finished Image, bb1 child
+        allTooltips = new Tooltip[6];
+        allTooltips[0] = b1p1Button.gameObject.GetComponent<Tooltip>();
+        allTooltips[1] = b1p2Button.gameObject.GetComponent<Tooltip>();
+        allTooltips[2] = b1p3Button.gameObject.GetComponent<Tooltip>();
+        allTooltips[3] = finishedImage.GetComponent<Tooltip>();
+        allTooltips[4] = fuseButton.gameObject.GetComponent<Tooltip>();
+        allTooltips[5] = bb1.GetComponent<Tooltip>();
 
-        if (disableTutorial)
+        //make sure all tooltips are disabled on startup
+        for(int i = 0; i < allTooltips.Length; i++)
         {
-            enabledControls = true;
-            bottomPanel.blocksRaycasts = true;
-            cameraControls.controlsDisabled = false;
-            rotationScript.controlsDisabled = false;
-            selectPart.controlsDisabled = false;
-            enableControlsAndAddToken("finishedEnablingControls");
+            allTooltips[i].enabled = false;
         }
-        else
-        {
-            bottomPanel.blocksRaycasts = false;
-            cameraControls.controlsDisabled = true;
-            rotationScript.controlsDisabled = true;
-            selectPart.controlsDisabled = true;
-            ConversationTrigger.AddToken("beginTutorial");
 
-        }
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if (!disableTutorial)
+
+        // Wait till intro text is done, then enable Tooltip scripts on each of the objects that have them
+        // Also after intro text is done, change ScrollingText's enableScroll to false
+        if(!tooltipsEnabled && ConversationTrigger.GetToken("finished_cameraControls"))
         {
-            // show Dresha moving starting part into position from bottom of screen
-            if (!ConversationTrigger.GetToken("finishedMovingbb1") && ConversationTrigger.GetToken("finishedConst_1"))
+            tooltipsEnabled = true;
+            scrollingText.enableScroll = false;
+            for (int i = 0; i < allTooltips.Length; i++)
             {
-                step = MOVEMENT_SPEED * Time.deltaTime;
-                bb1.transform.position = Vector3.MoveTowards(bb1.transform.position, baseStartPosition, step);
-                if (bb1.transform.position.Equals(baseStartPosition))
-                {
-                    Debug.Log("finished moving!");
-                    ConversationTrigger.AddToken("finishedMovingbb1");
-                }
+                allTooltips[i].enabled = true;
             }
-
-            // draw player's attention to the part buttons at the bottom of the screen
-            else if (!flashedPartButtons && ConversationTrigger.GetToken("finishedConst_2"))
-            {
-                flashedPartButtons = true;
-                StartCoroutine(showImageAndAddToken(arrowPartButtons, SHOW_IMAGE_DURATION, "finishedFlashingPartButtons"));
-                highlightPartButtons(2f);
-
-            }
-
-            // Dresha clicks the part button, part appears
-            else if (!clickedB1P1Button && ConversationTrigger.GetToken("finishedConst_3"))
-            {
-                clickedB1P1Button = true;
-                b1p1Button.onClick.Invoke();
-                StartCoroutine(waitThenAddToken("finishedSelectingPart", 2f));
-                StartCoroutine(waitThenMoveCamera(-32f, -13f, 0f, -70f, -25.5f, 13.76f, 1f, 1f));
-
-            }
-
-            // draw player's attention to the finished image at the top left of the screen
-            else if (!flashedFinishedImage && ConversationTrigger.GetToken("finishedConst_4"))
-            {
-                flashedFinishedImage = true;
-                StartCoroutine(showImageAndAddToken(arrowFinishedImageLeft.GetComponent<Image>(), SHOW_IMAGE_DURATION, "finishedFlashingFinishedImage"));
-                StartCoroutine(showImage(arrowFinishedImageUp.GetComponent<Image>(), SHOW_IMAGE_DURATION));
-                highlighter.HighlightTimed(finishedImage, 2);
-
-            }
-
-            // Dresha selects the black area on bb1
-            else if (!selectedFuseTo && ConversationTrigger.GetToken("finishedConst_5"))
-            {
-                selectedFuseTo = true;
-                //hardcoded normal here since we don't have pointer raycast
-                selectPart.setFuseToNormal(Vector3.right);
-                bb1_b1p2_a1 = GameObject.Find("bb1_b1p2_a1");
-                StartCoroutine(waitThenSelectFuseTo(bb1_b1p2_a1, 1f));
-                StartCoroutine(waitThenAddToken("finishedSelectingbb1_a1", 4f));
-            }
-
-            // Dresha selects the black area on b1p1
-            else if (!selectedAC && ConversationTrigger.GetToken("finishedConst_6"))
-            {
-                selectedAC = true;
-                b1p1 = GameObject.Find("b1p1Prefab(Clone)");
-                b1p1_bb1_a1 = b1p1.transform.GetChild(1).gameObject;
-
-                StartCoroutine(waitThenSelectObject(b1p1_bb1_a1, 2f));
-                StartCoroutine(waitThenAddToken("finishedSelectingb1p1_a1", 4f));
-            }
-
-            // Dresha rotates once along y axis - should go so the black part is facing up
-            else if (!rotatedOnceWrongPart && ConversationTrigger.GetToken("finishedConst_7"))
-            {
-                rotatedOnceWrongPart = true;
-                StartCoroutine(rotateWrongPartScript());
-            }
-
-            //Then Dresha rotates once along z axis - should go so the black part is facing bb1
-            else if (!rotatedTwiceWrongPart && ConversationTrigger.GetToken("finishedConst_8"))
-            {
-                rotatedTwiceWrongPart = true;
-                StartCoroutine(rotateTwiceWrongPartScript());
-            }
-
-            //Then Fuse button is shown/pointed to
-            else if (!flashedFuseButton && ConversationTrigger.GetToken("finishedConst_9"))
-            {
-                flashedFuseButton = true;
-                StartCoroutine(showImageAndAddToken(arrowFuseButton.GetComponent<Image>(), SHOW_IMAGE_DURATION, "finishedFlashingFuseButton"));
-                highlighter.HighlightTimed(fuseButton.gameObject, 2);
-            }
-
-            //Then Dresha tries to attach the wrong two parts
-            else if (!attemptedWrongPartFuse && ConversationTrigger.GetToken("finishedConst_10"))
-            {
-                attemptedWrongPartFuse = true;
-                StartCoroutine(waitThenInitiateFuse(1f));
-                StartCoroutine(waitThenAddToken("finishedWrongPartFuseAttempt", 2f));
-            }
-
-            //Then Dresha selects a different part - the correct one (b1p2)
-            else if (!clickedB1P2Button && ConversationTrigger.GetToken("finishedConst_11"))
-            {
-                clickedB1P2Button = true;
-                b1p2Button.onClick.Invoke();
-                StartCoroutine(waitThenAddToken("finishedSelectingSecondPart", 2f));
-            }
-
-            //Then Dresha selects the wrong black area on b1p2
-            else if (!selectedSecondAC && ConversationTrigger.GetToken("finishedConst_12"))
-            {
-                selectedSecondAC = true;
-                // move camera so the black area to be selected is visible
-                StartCoroutine(waitThenMoveCamera(-6.8f, -61.9f, 0f, 1.48f, 17.63f, 51.15f, 1f, 1f));
-
-                b1p2 = GameObject.Find("b1p2Prefab(Clone)");
-                b1p2_bb1_a2 = b1p2.transform.GetChild(2).gameObject;
-
-                StartCoroutine(waitThenSelectObject(b1p2_bb1_a2, 2f));
-                StartCoroutine(waitThenAddToken("finishedSelectingb1p2_a2", 4f));
-            }
-
-            //Then Dresha rotates again
-            else if (!rotatedOnceWrongFace && ConversationTrigger.GetToken("finishedConst_13"))
-            {
-                rotatedOnceWrongFace = true;
-                // move camera so player can see how the part is aligned as it's rotated
-                StartCoroutine(waitThenMoveCamera(39.7f, -3.1f, 0f, -85.65f, 96.72f, 19.76f, 1f, 1f));
-
-                StartCoroutine(rotateWrongFaceScript());
-            }
-
-            //Then Dresha tries to attach to wrong black area
-            else if (!attemptedWrongFaceFuse && ConversationTrigger.GetToken("finishedConst_14"))
-            {
-                attemptedWrongFaceFuse = true;
-                fuseEvent.initiateFuse();
-                StartCoroutine(waitThenAddToken("finishedWrongFaceFuseAttempt", 3f));
-            }
-
-            //Then Dresha selects the correct black area on b1p2
-            else if (!selectedThirdAC && ConversationTrigger.GetToken("finishedConst_15"))
-            {
-                selectedThirdAC = true;
-                // move camera so the black area to be selected is visible
-                //StartCoroutine(waitThenMoveCamera(-6.8f, -61.9f, 0f, 1.48f, 17.63f, 51.15f, 1f, 1f));
-
-                b1p2_bb1_a1 = b1p2.transform.GetChild(1).gameObject;
-
-                StartCoroutine(waitThenSelectObject(b1p2_bb1_a1, 2f));
-                selectPart.deselectObject(b1p2_bb1_a2);
-                StartCoroutine(waitThenAddToken("finishedSelectingb1p2_a1", 4f));
-            }
-
-            //Then Dresha tries to fuse with incorrect rotation
-            else if (!attemptedWrongRotationFuse && ConversationTrigger.GetToken("finishedConst_16"))
-            {
-                attemptedWrongRotationFuse = true;
-                StartCoroutine(waitThenInitiateFuse(1f));
-                StartCoroutine(waitThenAddToken("finishedWrongRotationFuseAttempt", 2f));
-            }
-
-            //Then Dresha enables your controls
-            else if (!enabledControls && ConversationTrigger.GetToken("finishedConst_17"))
-            {
-                enabledControls = true;
-                bottomPanel.blocksRaycasts = true;
-                cameraControls.controlsDisabled = false;
-                rotationScript.controlsDisabled = false;
-                selectPart.controlsDisabled = false;
-                enableControlsAndAddToken("finishedEnablingControls");
-            }
-            // Once player attaches their first part, Dresha congratulates them
-
-            // Once player finishes building, Dresha says we've got more batteries to build
-
-        } else
-        {
-            step = MOVEMENT_SPEED * Time.deltaTime;
-            bb1.transform.position = Vector3.MoveTowards(bb1.transform.position, baseStartPosition, step);
 
         }
+
+
+        //When player mouses over starting part and no selected part face has been selected, have tooltip saying 
+        //"Select one of the black sections on the construction where it should attach to a new part"
+
+        //When player mouses over the starting part and a selected part face has been selected, have tooltip saying
+        // "Select the black section of the construction where the highlighted face on the new part would fit"
+
+
+        //if (!disableTutorial)
+        //{
+        //    // show Dresha moving starting part into position from bottom of screen
+        //    if (!ConversationTrigger.GetToken("finishedMovingbb1") && ConversationTrigger.GetToken("finishedConst_1"))
+        //    {
+        //        step = MOVEMENT_SPEED * Time.deltaTime;
+        //        bb1.transform.position = Vector3.MoveTowards(bb1.transform.position, baseStartPosition, step);
+        //        if (bb1.transform.position.Equals(baseStartPosition))
+        //        {
+        //            Debug.Log("finished moving!");
+        //            ConversationTrigger.AddToken("finishedMovingbb1");
+        //        }
+        //    }
+
+        //    // draw player's attention to the part buttons at the bottom of the screen
+        //    else if (!flashedPartButtons && ConversationTrigger.GetToken("finishedConst_2"))
+        //    {
+        //        flashedPartButtons = true;
+        //        StartCoroutine(showImageAndAddToken(arrowPartButtons, SHOW_IMAGE_DURATION, "finishedFlashingPartButtons"));
+        //        highlightPartButtons(2f);
+
+        //    }
+
+        //    // Dresha clicks the part button, part appears
+        //    else if (!clickedB1P1Button && ConversationTrigger.GetToken("finishedConst_3"))
+        //    {
+        //        clickedB1P1Button = true;
+        //        b1p1Button.onClick.Invoke();
+        //        StartCoroutine(waitThenAddToken("finishedSelectingPart", 2f));
+        //        StartCoroutine(waitThenMoveCamera(-32f, -13f, 0f, -70f, -25.5f, 13.76f, 1f, 1f));
+
+        //    }
+
+        //    // draw player's attention to the finished image at the top left of the screen
+        //    else if (!flashedFinishedImage && ConversationTrigger.GetToken("finishedConst_4"))
+        //    {
+        //        flashedFinishedImage = true;
+        //        StartCoroutine(showImageAndAddToken(arrowFinishedImageLeft.GetComponent<Image>(), SHOW_IMAGE_DURATION, "finishedFlashingFinishedImage"));
+        //        StartCoroutine(showImage(arrowFinishedImageUp.GetComponent<Image>(), SHOW_IMAGE_DURATION));
+        //        highlighter.HighlightTimed(finishedImage, 2);
+
+        //    }
+
+        //    // Dresha selects the black area on bb1
+        //    else if (!selectedFuseTo && ConversationTrigger.GetToken("finishedConst_5"))
+        //    {
+        //        selectedFuseTo = true;
+        //        //hardcoded normal here since we don't have pointer raycast
+        //        selectPart.setFuseToNormal(Vector3.right);
+        //        bb1_b1p2_a1 = GameObject.Find("bb1_b1p2_a1");
+        //        StartCoroutine(waitThenSelectFuseTo(bb1_b1p2_a1, 1f));
+        //        StartCoroutine(waitThenAddToken("finishedSelectingbb1_a1", 4f));
+        //    }
+
+        //    // Dresha selects the black area on b1p1
+        //    else if (!selectedAC && ConversationTrigger.GetToken("finishedConst_6"))
+        //    {
+        //        selectedAC = true;
+        //        b1p1 = GameObject.Find("b1p1Prefab(Clone)");
+        //        b1p1_bb1_a1 = b1p1.transform.GetChild(1).gameObject;
+
+        //        StartCoroutine(waitThenSelectObject(b1p1_bb1_a1, 2f));
+        //        StartCoroutine(waitThenAddToken("finishedSelectingb1p1_a1", 4f));
+        //    }
+
+        //    // Dresha rotates once along y axis - should go so the black part is facing up
+        //    else if (!rotatedOnceWrongPart && ConversationTrigger.GetToken("finishedConst_7"))
+        //    {
+        //        rotatedOnceWrongPart = true;
+        //        StartCoroutine(rotateWrongPartScript());
+        //    }
+
+        //    //Then Dresha rotates once along z axis - should go so the black part is facing bb1
+        //    else if (!rotatedTwiceWrongPart && ConversationTrigger.GetToken("finishedConst_8"))
+        //    {
+        //        rotatedTwiceWrongPart = true;
+        //        StartCoroutine(rotateTwiceWrongPartScript());
+        //    }
+
+        //    //Then Fuse button is shown/pointed to
+        //    else if (!flashedFuseButton && ConversationTrigger.GetToken("finishedConst_9"))
+        //    {
+        //        flashedFuseButton = true;
+        //        StartCoroutine(showImageAndAddToken(arrowFuseButton.GetComponent<Image>(), SHOW_IMAGE_DURATION, "finishedFlashingFuseButton"));
+        //        highlighter.HighlightTimed(fuseButton.gameObject, 2);
+        //    }
+
+        //    //Then Dresha tries to attach the wrong two parts
+        //    else if (!attemptedWrongPartFuse && ConversationTrigger.GetToken("finishedConst_10"))
+        //    {
+        //        attemptedWrongPartFuse = true;
+        //        StartCoroutine(waitThenInitiateFuse(1f));
+        //        StartCoroutine(waitThenAddToken("finishedWrongPartFuseAttempt", 2f));
+        //    }
+
+        //    //Then Dresha selects a different part - the correct one (b1p2)
+        //    else if (!clickedB1P2Button && ConversationTrigger.GetToken("finishedConst_11"))
+        //    {
+        //        clickedB1P2Button = true;
+        //        b1p2Button.onClick.Invoke();
+        //        StartCoroutine(waitThenAddToken("finishedSelectingSecondPart", 2f));
+        //    }
+
+        //    //Then Dresha selects the wrong black area on b1p2
+        //    else if (!selectedSecondAC && ConversationTrigger.GetToken("finishedConst_12"))
+        //    {
+        //        selectedSecondAC = true;
+        //        // move camera so the black area to be selected is visible
+        //        StartCoroutine(waitThenMoveCamera(-6.8f, -61.9f, 0f, 1.48f, 17.63f, 51.15f, 1f, 1f));
+
+        //        b1p2 = GameObject.Find("b1p2Prefab(Clone)");
+        //        b1p2_bb1_a2 = b1p2.transform.GetChild(2).gameObject;
+
+        //        StartCoroutine(waitThenSelectObject(b1p2_bb1_a2, 2f));
+        //        StartCoroutine(waitThenAddToken("finishedSelectingb1p2_a2", 4f));
+        //    }
+
+        //    //Then Dresha rotates again
+        //    else if (!rotatedOnceWrongFace && ConversationTrigger.GetToken("finishedConst_13"))
+        //    {
+        //        rotatedOnceWrongFace = true;
+        //        // move camera so player can see how the part is aligned as it's rotated
+        //        StartCoroutine(waitThenMoveCamera(39.7f, -3.1f, 0f, -85.65f, 96.72f, 19.76f, 1f, 1f));
+
+        //        StartCoroutine(rotateWrongFaceScript());
+        //    }
+
+        //    //Then Dresha tries to attach to wrong black area
+        //    else if (!attemptedWrongFaceFuse && ConversationTrigger.GetToken("finishedConst_14"))
+        //    {
+        //        attemptedWrongFaceFuse = true;
+        //        fuseEvent.initiateFuse();
+        //        StartCoroutine(waitThenAddToken("finishedWrongFaceFuseAttempt", 3f));
+        //    }
+
+        //    //Then Dresha selects the correct black area on b1p2
+        //    else if (!selectedThirdAC && ConversationTrigger.GetToken("finishedConst_15"))
+        //    {
+        //        selectedThirdAC = true;
+        //        // move camera so the black area to be selected is visible
+        //        //StartCoroutine(waitThenMoveCamera(-6.8f, -61.9f, 0f, 1.48f, 17.63f, 51.15f, 1f, 1f));
+
+        //        b1p2_bb1_a1 = b1p2.transform.GetChild(1).gameObject;
+
+        //        StartCoroutine(waitThenSelectObject(b1p2_bb1_a1, 2f));
+        //        selectPart.deselectObject(b1p2_bb1_a2);
+        //        StartCoroutine(waitThenAddToken("finishedSelectingb1p2_a1", 4f));
+        //    }
+
+        //    //Then Dresha tries to fuse with incorrect rotation
+        //    else if (!attemptedWrongRotationFuse && ConversationTrigger.GetToken("finishedConst_16"))
+        //    {
+        //        attemptedWrongRotationFuse = true;
+        //        StartCoroutine(waitThenInitiateFuse(1f));
+        //        StartCoroutine(waitThenAddToken("finishedWrongRotationFuseAttempt", 2f));
+        //    }
+
+        //    //Then Dresha enables your controls
+        //    else if (!enabledControls && ConversationTrigger.GetToken("finishedConst_17"))
+        //    {
+        //        enabledControls = true;
+        //        bottomPanel.blocksRaycasts = true;
+        //        cameraControls.controlsDisabled = false;
+        //        rotationScript.controlsDisabled = false;
+        //        selectPart.controlsDisabled = false;
+        //        enableControlsAndAddToken("finishedEnablingControls");
+        //    }
+        //    // Once player attaches their first part, Dresha congratulates them
+
+        //    // Once player finishes building, Dresha says we've got more batteries to build
+
+
+        step = MOVEMENT_SPEED * Time.deltaTime;
+        bb1Start.transform.position = Vector3.MoveTowards(bb1Start.transform.position, baseStartPosition, step);
+
     }
 
 

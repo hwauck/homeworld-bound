@@ -149,7 +149,7 @@ public class LevelResetter : MonoBehaviour {
 
     }
 
-    // makes the parts in the scene fall apart and downwards
+    // makes the parts in the scene fall apart and downwards - only happens for item levels, not battery levels
     private IEnumerator doPowerFailure()
     {
         yield return new WaitForSeconds(1f);
@@ -248,15 +248,6 @@ public class LevelResetter : MonoBehaviour {
         }
         switch (currentLevel)
         {
-            case "b2":
-                eventSystem.GetComponent<CreatePartB2>().destroyAllCreatedParts();
-                break;
-            case "b3":
-                eventSystem.GetComponent<CreatePartB3>().destroyAllCreatedParts();
-                break;
-            case "b4":
-                eventSystem.GetComponent<CreatePartB4>().destroyAllCreatedParts();
-                break;
             case "rocketBoots":
                 eventSystem.GetComponent<CreatePartRB>().destroyAllCreatedParts();
                 break;

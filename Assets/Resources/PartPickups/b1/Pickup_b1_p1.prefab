@@ -38,14 +38,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4574589493812266}
   - component: {fileID: 65421340943802822}
-  - component: {fileID: 114917508826191940}
   - component: {fileID: 114884813659993628}
   - component: {fileID: 82580560521662578}
+  - component: {fileID: 114917508826191940}
   - component: {fileID: 198753458988993316}
   - component: {fileID: 199648303564944050}
   m_Layer: 0
   m_Name: Pickup_b1_p1
-  m_TagString: PickUp
+  m_TagString: b1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

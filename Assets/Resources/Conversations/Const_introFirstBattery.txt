@@ -1,0 +1,4 @@
+Welcome to the Fuser X7000 - the premier technology for constructing and crafting!
+Fuser battery parts detected. Activating low power construction mode!
+[CHOOSE]
+|nowhere|finished_introFirstBattery

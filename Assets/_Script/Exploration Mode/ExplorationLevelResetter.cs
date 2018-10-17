@@ -13,8 +13,12 @@ public class ExplorationLevelResetter : MonoBehaviour {
     private bool resetDueToPowerFailure;
 
     public FadeScreen screenFader;
+    public Text lowPowerText;
     public CanvasGroup errorPanel;
     public AudioSource audioSource;
+    public ConversationTrigger Exp_firstBattery_b2;
+    public ConversationTrigger Exp_firstBattery_b3;
+    public ConversationTrigger Exp_firstBattery_b4;
 
     public Text powerFailureText;
     public CanvasGroup countdownPanel;
@@ -25,6 +29,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     private AudioClip countdownSound;
     private AudioClip finalCountSound;
     private AudioClip rechargingSound;
+    private AudioClip powerUpSound;
 
     public RigidbodyFirstPersonController controller;
     public PartCounter itemPartCounter;
@@ -47,6 +52,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         countdownSound = Resources.Load<AudioClip>("Audio/BothModes/Select02");
         finalCountSound = Resources.Load<AudioClip>("Audio/BothModes/Select04");
         rechargingSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-03");
+        powerUpSound = Resources.Load<AudioClip>("Audio/BothMoades/Slider3");
 
         // save original values of all player control variables in RigidBodyFirstPersonController
         forwardSpeed = controller.movementSettings.ForwardSpeed;
@@ -61,37 +67,142 @@ public class ExplorationLevelResetter : MonoBehaviour {
 		
 	}
 
-    public void setWhatToBuild(string whatToBuild, string objectToBuild)
+    public void setWhatToBuild(string whatToBuild)
     {
         this.whatToBuild = whatToBuild;
-        itemPartCounter.setObjectToBuild(objectToBuild);
+        //itemPartCounter.setObjectToBuild(objectToBuild);
 
-        // CHANGE for each new Item construction level added
-        if (whatToBuild.Equals("b1"))
+    }
+
+    private void setWhatToBuild()
+    {
+        // CHANGE this every time a new battery level is added
+        if(!ConversationTrigger.GetToken("finished_b1"))
         {
-            itemPartCounter.setPartsNeeded(7);
-            batteryPartCounter.setPartsNeeded(14);
+            whatToBuild = "b1";
+            Exp_firstBattery_b2.enabled = true;
+
         }
-        else if (whatToBuild.Equals("b5"))
+        else if (!ConversationTrigger.GetToken("finished_b2"))
         {
-            itemPartCounter.setPartsNeeded(12);
-            //batteryCounter.setPartsNeeded()
+            whatToBuild = "b2";
+            Exp_firstBattery_b3.enabled = true;
+
+        }
+        else if (!ConversationTrigger.GetToken("finished_b3"))
+        {
+            whatToBuild = "b3";
+            Exp_firstBattery_b4.enabled = true;
+
+        }
+        else if (!ConversationTrigger.GetToken("finished_b4"))
+        {
+            whatToBuild = "b4";
+        } else if (!ConversationTrigger.GetToken("finished_RB"))
+        {
+            whatToBuild = "rocketBoots";
+        } else if (!ConversationTrigger.GetToken("finished_b5"))
+        {
+            whatToBuild = "b5";
+        } else if (!ConversationTrigger.GetToken("finished_b6"))
+        {
+            whatToBuild = "b6";
+        } else if (!ConversationTrigger.GetToken("finished_b7"))
+        {
+            whatToBuild = "b7";
+        } else if (!ConversationTrigger.GetToken("finished_b8"))
+        {
+            whatToBuild = "b8";
+        } else if (!ConversationTrigger.GetToken("finished_sledgehammer"))
+        {
+            whatToBuild = "sledgehammer";
+        } else
+        {
+            whatToBuild = "none";
         }
     }
 
-    //invoke this method from PartCounter/BatteryCounter whenever all parts are successfully tagged within time limit
+    //invoke this method from PartCounter/BatteryCounter whenever all parts are collected (batteries) within time limit (items)
     public void prepareNextLevel()
     {
-        if (itemPartCounter.allPartsCollected() && batteryPartCounter.allPartsCollected())
+        setWhatToBuild();
+
+        if (batteryPartCounter.allPartsCollected())
         {
+            // play power up noise
+            audioSource.PlayOneShot(powerUpSound);
+            // player gets "All battery parts collected!" message
+            ConversationTrigger.AddToken("all_battery_parts_collected");
+            StartCoroutine(waitForEndOfConvoThenLoadLevel(3f, whatToBuild));
+  
+        } else if (itemPartCounter.allPartsCollected())
+        {
+            // play power up noise
+            audioSource.PlayOneShot(powerUpSound);
+
             screenFader.fadeOut(3f);
             itemPartCounter.resetCounter();
-            batteryPartCounter.resetCounter();
             timer.stopTimer();
             timer.resetTimer();
             InventoryController.levelName = SceneManager.GetActiveScene().name;
             StartCoroutine(waitThenLoadLevel(3f, whatToBuild));
+        } else
+        {
+            Debug.LogError("Error: prepareNextLevel() should not be called before all item/battery parts have been collected");
         }
+    }
+
+    private IEnumerator waitForEndOfConvoThenLoadLevel(float seconds, string whatToBuild)
+    {
+        GameObject fuser = GameObject.FindWithTag("Player");
+        Quaternion startingRotation = fuser.transform.rotation;
+        Quaternion endingRotation = startingRotation * Quaternion.Euler(0, 0, 90);
+        float lerpTime = 1f;
+        float currentLerpTime = 0f;
+        fuser.GetComponent<Fuser>().ActivateFuserFirstLook();
+
+        //wait until player has closed the "You got all the batteries!" textbox
+        while (!ConversationController.currentlyEnabled)
+        {
+            yield return new WaitForFixedUpdate();
+        }
+        ConversationTrigger.AddToken("disable_all_battery_parts_collected");
+        ConversationTrigger.RemoveToken("all_battery_parts_collected");
+        while (ConversationController.currentlyEnabled)
+        {
+
+            yield return new WaitForFixedUpdate();
+        }
+
+        disablePlayerControl();
+
+        screenFader.fadeOut(0.2f);
+
+        while (Quaternion.Angle(fuser.transform.rotation, endingRotation) > 2)
+        {
+            fuser.transform.rotation = Quaternion.Lerp(startingRotation, endingRotation, currentLerpTime / lerpTime);
+            currentLerpTime += Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        batteryPartCounter.resetCounter();
+        InventoryController.levelName = SceneManager.GetActiveScene().name;
+        Debug.Log("whatToBuild: " + whatToBuild);
+
+        if(whatToBuild.Equals("b1"))
+        {
+            lowPowerText.enabled = true;
+            lowPowerText.text = "Welcome to the Fuser X7000 - the premier technology for constructing and crafting!";
+            audioSource.PlayOneShot(powerUpSound);
+            yield return new WaitForSeconds(4f);
+            lowPowerText.text = "Fuser battery parts detected. Activating low power construction mode!";
+            audioSource.PlayOneShot(powerUpSound);
+
+        }
+
+        StartCoroutine(waitThenLoadLevel(seconds, whatToBuild));
     }
 
     //call this method whenever there's a power failure
@@ -119,27 +230,34 @@ public class ExplorationLevelResetter : MonoBehaviour {
         errorPanel.alpha = 0;
         yield return new WaitForSeconds(fadeSeconds);
         itemPartCounter.resetCounter();
-        batteryPartCounter.resetCounter();
         taggedFirstPart = false;
 
+        //untagAllPartsInLevel();
+
+        ConversationTrigger.AddToken("outOfPower");
+    }
+
+    //obsolete
+    private void untagAllPartsInLevel()
+    {
         GameObject[] pickups = GameObject.FindGameObjectsWithTag("PickUp");
-        for(int i = 0; i < pickups.Length; i++)
+        for (int i = 0; i < pickups.Length; i++)
         {
             pickups[i].GetComponent<Collider>().enabled = true;
             ParticleSystem ps = pickups[i].GetComponent<ParticleSystem>();
             ParticleSystem.MainModule psMain = pickups[i].GetComponent<ParticleSystem>().main;
 
             //turn the particle effect back to original white/magenta
-            if(pickups[i].GetComponent<PickUp>().type == PickUp.PickupType.Battery)
+            if (pickups[i].GetComponent<PickUp>().type == PickUp.PickupType.Battery)
             {
                 psMain.startColor = new Color(255f, 0f, 255f, 255f);
 
-            } else
+            }
+            else
             {
                 psMain.startColor = new Color(255f, 255f, 255f, 255f);
             }
         }
-        ConversationTrigger.AddToken("outOfPower");
     }
 
     private IEnumerator waitThenRestart(float seconds, string token)
@@ -197,9 +315,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     public void startCountdown()
     {
         disablePlayerControl();
-        // firstPickup should always be an item part. So the first time the player tries the level, 
-        // they'll get the Exp_firstRBPart message.
-        // But if it's not their first time, they'll just get the startTimer message
+        // firstPickup should always be a battery part - change from last time
 
         if (timer.getNumRanOutOfTime() > 0)
         {
@@ -248,6 +364,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     private IEnumerator waitThenLoadLevel(float seconds, string level)
     {
         yield return new WaitForSeconds(seconds);
+
         LoadUtils.LoadScene(level);
 
     }
