@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33144785856030588}
   - component: {fileID: 23675339646580928}
   - component: {fileID: 65823817105175524}
+  - component: {fileID: 114228868447288450}
   m_Layer: 0
   m_Name: b1p1_bb1_a1
   m_TagString: Untagged
@@ -40,6 +41,7 @@ GameObject:
   - component: {fileID: 33407680501659764}
   - component: {fileID: 23190070742832848}
   - component: {fileID: 65229519755316262}
+  - component: {fileID: 114768413530338902}
   m_Layer: 0
   m_Name: b1p1
   m_TagString: Untagged
@@ -246,6 +248,50 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114228868447288450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1113302792954562}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54674ddb2ca313245841078e41ca06f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayTokens:
+  - trigger_tt_sc
+  - trigger_tt_no_sc
+  createPartB1Trigger: {fileID: 0}
+  selectedFuseToTriggers:
+  - bb1_b1p1_a1
+  - bb1_b1p2_a1
+  - bb1_b1p2_a2
+  - bb1_b1p3_a1
+  selectedObjectTriggers: []
+  buttonTrigger: {fileID: 0}
+--- !u!114 &114768413530338902
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1380824518241524}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54674ddb2ca313245841078e41ca06f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayTokens:
+  - trigger_tt_sc
+  - trigger_tt_no_sc
+  createPartB1Trigger: {fileID: 0}
+  selectedFuseToTriggers:
+  - bb1_b1p1_a1
+  - bb1_b1p2_a1
+  - bb1_b1p2_a2
+  - bb1_b1p3_a1
+  selectedObjectTriggers: []
+  buttonTrigger: {fileID: 0}
 --- !u!114 &114838300632097708
 MonoBehaviour:
   m_ObjectHideFlags: 1

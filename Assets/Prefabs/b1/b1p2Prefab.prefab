@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33452441230449388}
   - component: {fileID: 23670514018276530}
   - component: {fileID: 65131068940765698}
+  - component: {fileID: 114398150498553482}
   m_Layer: 0
   m_Name: b1p2_bb1_a2
   m_TagString: Untagged
@@ -40,6 +41,7 @@ GameObject:
   - component: {fileID: 33657893970286390}
   - component: {fileID: 23648771890848224}
   - component: {fileID: 64012042939514578}
+  - component: {fileID: 114365602099237802}
   m_Layer: 0
   m_Name: b1p2
   m_TagString: Untagged
@@ -58,6 +60,7 @@ GameObject:
   - component: {fileID: 33088425519749424}
   - component: {fileID: 23204209569549328}
   - component: {fileID: 64208705861629066}
+  - component: {fileID: 114421615594594332}
   m_Layer: 0
   m_Name: b1p2_bb1_a1
   m_TagString: Untagged
@@ -347,6 +350,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b72abd7302859134984436cf919a3276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114365602099237802
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1168553474700382}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54674ddb2ca313245841078e41ca06f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayTokens:
+  - trigger_tt_sc
+  - trigger_tt_no_sc
+  createPartB1Trigger: {fileID: 0}
+  selectedFuseToTriggers:
+  - bb1_b1p1_a1
+  - bb1_b1p2_a1
+  - bb1_b1p2_a2
+  - bb1_b1p3_a1
+  selectedObjectTriggers: []
+  buttonTrigger: {fileID: 0}
+--- !u!114 &114398150498553482
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1165031338214884}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54674ddb2ca313245841078e41ca06f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayTokens:
+  - trigger_tt_sc
+  - trigger_tt_no_sc
+  createPartB1Trigger: {fileID: 0}
+  selectedFuseToTriggers:
+  - bb1_b1p1_a1
+  - bb1_b1p2_a1
+  - bb1_b1p2_a2
+  - bb1_b1p3_a1
+  selectedObjectTriggers: []
+  buttonTrigger: {fileID: 0}
+--- !u!114 &114421615594594332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1449807571791484}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54674ddb2ca313245841078e41ca06f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayTokens:
+  - trigger_tt_sc
+  - trigger_tt_no_sc
+  createPartB1Trigger: {fileID: 0}
+  selectedFuseToTriggers:
+  - bb1_b1p1_a1
+  - bb1_b1p2_a1
+  - bb1_b1p2_a2
+  - bb1_b1p3_a1
+  selectedObjectTriggers: []
+  buttonTrigger: {fileID: 0}
 --- !u!114 &114683468792880064
 MonoBehaviour:
   m_ObjectHideFlags: 1

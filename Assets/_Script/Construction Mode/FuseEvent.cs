@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using System.IO;
+using UnityEngine.Events;
 
 public class FuseEvent : MonoBehaviour {
 
@@ -42,7 +42,6 @@ public class FuseEvent : MonoBehaviour {
     public Button claimItem;    // NEW ADDITION. A button which appears upon completion of an item to claim it in exploration mode.
 
     // Non-Button UI elements
-    public Text congrats;
 	public Text shapesWrong;
 	public Text rotationWrong;
 	public RotationGizmo rotateGizmo;	// NEW ADDITION. when completing a fusion, disable the rotation gizmo.
@@ -66,6 +65,7 @@ public class FuseEvent : MonoBehaviour {
 	private int numWrongRotationFails;
 	private int numWrongFacesFails;
 
+    public UnityEvent levelComplete;
 
 	void OnEnable()
 	{
@@ -1287,20 +1287,40 @@ public class FuseEvent : MonoBehaviour {
                 if (isFirstLevel)
                 {
                     ConversationTrigger.AddToken("finishedB1");
+                    levelComplete.Invoke(); // tells Tutorial1 that level is complete, so tooltips should be disabled
                 }
-				congrats.enabled = true;
 
                 musicsource.clip = victorymusic;
                 mainCam.transform.position = new Vector3(-90, 80, -3.36f);
                 mainCam.transform.rotation = Quaternion.Euler(new Vector3(15, 0, 0));
                 musicsource.Play();
                 StartCoroutine(FadeAudio(fadeTime, Fade.Out));
-  
+
+                string currentLevel = LoadUtils.currentSceneName;
+
+                //CHANGE this to add new levels
+                if (currentLevel.Equals("b1"))
+                {
+                    ConversationTrigger.AddToken("finished_b1");
+                }
+                else if (currentLevel.Equals("b2"))
+                {
+                    ConversationTrigger.AddToken("finished_b2");
+                } else if (currentLevel.Equals("b3"))
+                {
+                    ConversationTrigger.AddToken("finished_b3");
+                } else if (currentLevel.Equals("b4"))
+                {
+                    ConversationTrigger.AddToken("finished_b4");
+                }
+
+                claimItem.gameObject.SetActive(true);
+
             }
 
 
 
-		} else if (!fuseMapping[selectedObject.name].Contains (selectedFuseTo.name)) {
+        } else if (!fuseMapping[selectedObject.name].Contains (selectedFuseTo.name)) {
 			print ("Invalid fuse: Cannot fuse " + selectedObject.name + " to " + selectedFuseTo.name);
 			StartCoroutine(errorWrongFace());
 			data_fuseStatus = "Failure";
@@ -1317,7 +1337,12 @@ public class FuseEvent : MonoBehaviour {
 			print ("MYSTERIOUS FUSE ERROR");
 		}
 
-		SimpleData.WriteDataPoint("Fuse_Attempt", selectedObject.transform.parent.name, data_failureType, "", "", data_fuseStatus);
+        Debug.Log("selectedObject: " + selectedObject);
+        Debug.Log("selectedObject parent: " + selectedObject.transform.parent);
+        Debug.Log("data_failureType: " + data_failureType);
+        Debug.Log("data_fuseStatus: " + data_fuseStatus);
+
+        SimpleData.WriteDataPoint("Fuse_Attempt", selectedObject.transform.parent.name, data_failureType, "", "", data_fuseStatus);
 	}
 
     // combines the BoxColliders of GameObjects starting and added and replaces
@@ -1487,28 +1512,7 @@ public class FuseEvent : MonoBehaviour {
 		if(done ())
         {
 			rotateConstruction ();
-            string currentLevel = LoadUtils.currentSceneName;
-            if (!activatedTakeButton && currentLevel.Equals("b1") && ConversationTrigger.GetToken("finished_Const20"))
-            {
-                activatedTakeButton = true;
-                claimItem.gameObject.SetActive(true);
-                ConversationTrigger.AddToken("finished_b1");
-            } else if(!activatedTakeButton && !currentLevel.Equals("b1"))
-            {
-                activatedTakeButton = true;
-                claimItem.gameObject.SetActive(true);
-                // CHANGE to add new battery levels as they're created
-                if(currentLevel.Equals("b2"))
-                {
-                    ConversationTrigger.AddToken("finished_b2");
-                } else if (currentLevel.Equals("b3"))
-                {
-                    ConversationTrigger.AddToken("finished_b3");
-                } else if (currentLevel.Equals("b4"))
-                {
-                    ConversationTrigger.AddToken("finished_b4");
-                }
-            }
+ 
         }
 
         // Ensure mouse works...

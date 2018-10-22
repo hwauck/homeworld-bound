@@ -168,6 +168,11 @@ public class CreatePartB1 : MonoBehaviour
         }
     }
 
+    public GameObject[] getInstantiated()
+    {
+        return instantiated;
+    }
+
     // Makes the newly created part zip up from a lower point as it's created, making it seem like it was pulled up from the ground
     IEnumerator moveToStartingPosition(GameObject part)
     {
@@ -194,6 +199,10 @@ public class CreatePartB1 : MonoBehaviour
             StartCoroutine(moveToStartingPosition(newB1p1)); // this creates the zooming up from the ground effect
 
             Transform b1p1_bb1_a1 = newB1p1.transform.Find("b1p1_bb1_a1");
+            Transform b1p1 = newB1p1.transform.Find("b1p1");
+            b1p1.GetComponent<Tooltip>().enabled = true;
+            b1p1_bb1_a1.GetComponent<Tooltip>().enabled = true;
+
 
             FuseAttributes fuseAtts = b1p1Fuses();
 
@@ -226,8 +235,12 @@ public class CreatePartB1 : MonoBehaviour
             GameObject newB1p2 = rotateGizmo.Enable(LoadUtils.InstantiateParenter((GameObject)Instantiate(parts[1], pos, fuseToRotation)));
             StartCoroutine(moveToStartingPosition(newB1p2)); // this creates the zooming up from the ground effect
 
+            Transform b1p2 = newB1p2.transform.Find("b1p2");
             Transform b1p2_bb1_a1 = newB1p2.transform.Find("b1p2_bb1_a1");
             Transform b1p2_bb1_a2 = newB1p2.transform.Find("b1p2_bb1_a2");
+            b1p2.GetComponent<Tooltip>().enabled = true;
+            b1p2_bb1_a1.GetComponent<Tooltip>().enabled = true;
+            b1p2_bb1_a2.GetComponent<Tooltip>().enabled = true;
 
             FuseAttributes fuseAtts = b1p2Fuses();
 
@@ -270,7 +283,10 @@ public class CreatePartB1 : MonoBehaviour
             GameObject newB1p3 = rotateGizmo.Enable(LoadUtils.InstantiateParenter((GameObject)Instantiate(parts[2], pos, fuseToRotation)));
             StartCoroutine(moveToStartingPosition(newB1p3)); // this creates the zooming up from the ground effect
 
+            Transform b1p3 = newB1p3.transform.Find("b1p3");
             Transform b1p3_bb1_a1 = newB1p3.transform.Find("b1p3_bb1_a1");
+            b1p3.GetComponent<Tooltip>().enabled = true;
+            b1p3_bb1_a1.GetComponent<Tooltip>().enabled = true;
 
             FuseAttributes fuseAtts = b1p3Fuses();
 

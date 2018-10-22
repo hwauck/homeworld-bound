@@ -19,6 +19,8 @@ public class Tutorial1 : MonoBehaviour {
 	private RotationGizmo rotationScript;
 	public Highlighter highlighter;
 
+    public GameObject xUp;
+    public GameObject xDown;
     public GameObject yUp;
     public GameObject yDown;
     public GameObject zUp;
@@ -26,19 +28,16 @@ public class Tutorial1 : MonoBehaviour {
 
     public GameObject bb1Start;
     public GameObject bb1;
-    private GameObject bb1_b1p2_a1; // selected fuseTo on starting part
-    private GameObject b1p1_bb1_a1; // incorrect first attempt: wrong part
-    private GameObject b1p2_bb1_a2; // incorrect second attempt: wrong black area
-    private GameObject b1p2_bb1_a1; // incorrect third attempt: black area is correct but rotation is wrong
+    public GameObject bb1_b1p1_a1;
+    public GameObject bb1_b1p2_a1;
+    public GameObject bb1_b1p2_a2;
+    public GameObject bb1_b1p3_a1;
+
 
     public Text shapesWrong;
 	public Text rotationWrong;
 	public Text congrats;
 
-    public Image arrowPartButtons;
-    public Image arrowFinishedImageLeft;
-    public Image arrowFinishedImageUp;
-    public Image arrowFuseButton;
     public GameObject finishedImage;
 
     private SelectPart selectPart;
@@ -86,20 +85,47 @@ public class Tutorial1 : MonoBehaviour {
         partButtons[2] = b1p3Button;
 
         // tooltips occur on: all part buttons, Fuse button, Finished Image, bb1 child
-        allTooltips = new Tooltip[6];
+        allTooltips = new Tooltip[16];
         allTooltips[0] = b1p1Button.gameObject.GetComponent<Tooltip>();
         allTooltips[1] = b1p2Button.gameObject.GetComponent<Tooltip>();
         allTooltips[2] = b1p3Button.gameObject.GetComponent<Tooltip>();
         allTooltips[3] = finishedImage.GetComponent<Tooltip>();
         allTooltips[4] = fuseButton.gameObject.GetComponent<Tooltip>();
         allTooltips[5] = bb1.GetComponent<Tooltip>();
+        allTooltips[6] = yUp.GetComponent<Tooltip>();
+        allTooltips[7] = yDown.GetComponent<Tooltip>();
+        allTooltips[8] = xUp.GetComponent<Tooltip>();
+        allTooltips[9] = xDown.GetComponent<Tooltip>();
+        allTooltips[10] = zUp.GetComponent<Tooltip>();
+        allTooltips[11] = zDown.GetComponent<Tooltip>();
+        allTooltips[12] = bb1_b1p1_a1.GetComponent<Tooltip>();
+        allTooltips[13] = bb1_b1p2_a1.GetComponent<Tooltip>();
+        allTooltips[14] = bb1_b1p2_a2.GetComponent<Tooltip>();
+        allTooltips[15] = bb1_b1p3_a1.GetComponent<Tooltip>();
 
         //make sure all tooltips are disabled on startup
-        for(int i = 0; i < allTooltips.Length; i++)
+        for (int i = 0; i < allTooltips.Length; i++)
         {
             allTooltips[i].enabled = false;
         }
 
+    }
+
+    public void disableTooltips()
+    {
+        allTooltips = Object.FindObjectsOfType<Tooltip>();
+        for(int i = 0; i < allTooltips.Length; i++)
+        {
+            allTooltips[i].enabled = false;
+            for (int t = 0; t < allTooltips[i].displayTokens.Length; t++)
+            {
+                ConversationTrigger.RemoveToken(allTooltips[i].displayTokens[t]);
+            }
+
+        }
+
+        // makes any currently displayed tooltip go away
+        ConversationController.Disable();
     }
 
 
@@ -119,13 +145,6 @@ public class Tutorial1 : MonoBehaviour {
             }
 
         }
-
-
-        //When player mouses over starting part and no selected part face has been selected, have tooltip saying 
-        //"Select one of the black sections on the construction where it should attach to a new part"
-
-        //When player mouses over the starting part and a selected part face has been selected, have tooltip saying
-        // "Select the black section of the construction where the highlighted face on the new part would fit"
 
 
         //if (!disableTutorial)

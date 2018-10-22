@@ -25,32 +25,67 @@ public class BatteryCounter : MonoBehaviour {
     void Start () {
         partsFound = 0;
         batteriesBuilt = 0;
-        if (!RocketBoots.GetBootsActive())
+        setCounterMaximums();
+
+    }
+
+    // sets what partsNeeded and batteriesBuilt should be depending on
+    // player's progress
+    private void setCounterMaximums()
+    {
+        // CHANGE when more levels are added
+        if (!ConversationTrigger.GetToken("finished_b1"))
         {
             partsNeeded = 4;
             batteriesNeeded = 4;
         }
-
+        else if (!ConversationTrigger.GetToken("finished_b2"))
+        {
+            partsNeeded = 3;
+            batteriesNeeded = 4;
+        }
+        else if (!ConversationTrigger.GetToken("finished_b3"))
+        {
+            partsNeeded = 3;
+            batteriesNeeded = 4;
+        }
+        else if (!ConversationTrigger.GetToken("finished_b4"))
+        {
+            partsNeeded = 4;
+            batteriesNeeded = 4;
+        } else
+        {
+            partsNeeded = 0;
+            batteriesNeeded = 0;
+        }
     }
 
     // make BatteryCounter UI element invisible
-    public void hide()
+    public void hideBatteryParts()
     {
         gameObject.GetComponent<Image>().enabled = false;
         gameObject.transform.GetComponentInChildren<Text>().enabled = false;
     }
 
+    public void hideBatteriesBuilt()
+    {
+        batteriesBuiltBG.enabled = false;
+        batteriesBuiltText.enabled = false;
+    }
+
     // make BatteryCounter UI element visible
-    public void show()
+    public void showBatteryParts()
     {
         gameObject.GetComponent<Image>().enabled = true;
         gameObject.transform.GetComponentInChildren<Text>().enabled = true;
-        if(batteriesBuilt > 0)
-        {
-            batteriesBuiltText.text = "Batteries Built: " + batteriesBuilt + "/" + batteriesNeeded;
-            batteriesBuiltBG.enabled = true;
-            batteriesBuiltText.enabled = true;
-        }
+
+    }
+
+    public void showBatteriesBuilt()
+    {
+        batteriesBuiltText.text = "Batteries Built: " + batteriesBuilt + "/" + batteriesNeeded;
+        batteriesBuiltBG.enabled = true;
+        batteriesBuiltText.enabled = true;
     }
 
     public int getBatteriesBuilt()
@@ -62,7 +97,7 @@ public class BatteryCounter : MonoBehaviour {
     {
         partsFound++;
         partsFoundText.text = "Battery Parts: " + partsFound + "/" + partsNeeded;
-        show();
+        showBatteryParts();
         Debug.Log("partsFound in incParts: " + partsFound);
 
         if (partsFound == partsNeeded)
@@ -92,7 +127,7 @@ public class BatteryCounter : MonoBehaviour {
     private IEnumerator waitThenHide(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        hide();
+        hideBatteryParts();
     }
 
     public void resetCounter()
@@ -101,12 +136,7 @@ public class BatteryCounter : MonoBehaviour {
         // if this reset is due to power failure (running out of time), keep object text
         if (partsDone)
         {
-            // CHANGE when more levels are added
-            if (!RocketBoots.GetBootsActive())
-            {
-                partsNeeded = 4;
-
-            }
+            setCounterMaximums();
 
         }
         partsFound = 0;

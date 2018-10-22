@@ -71,11 +71,14 @@ public class LevelResetter : MonoBehaviour {
         startingPartRotation = startingPart.transform.rotation;
 
         // make sure player controls are always disabled at beginning before countdown begins
-        disablePlayerControls();
+        //disablePlayerControls();
 
         if(InventoryController.levelName == "")
         {
             runningJustConstructionMode = true;
+            //string currentLevel = SceneManager.GetActiveScene().name;
+            //if(currentLevel == "b1" || currentLevel == "b2" || currentLevel == "b3" ||)
+            //InventoryController.levelName = 
         }
 
     }
@@ -143,7 +146,7 @@ public class LevelResetter : MonoBehaviour {
         powerFailureText.enabled = true;
         errorPanel.alpha = 1;
         audioSource.PlayOneShot(powerFailureSound);
-        disablePlayerControls();
+        //disablePlayerControls();
         timeRemainingPanel.GetComponent<Timer>().stopTimer();
         StartCoroutine(doPowerFailure());
 

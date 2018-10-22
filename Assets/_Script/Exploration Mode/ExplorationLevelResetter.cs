@@ -34,6 +34,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     public RigidbodyFirstPersonController controller;
     public PartCounter itemPartCounter;
     public BatteryCounter batteryPartCounter;
+    public GameObject fuserObject;
 
     private float forwardSpeed;
     private float backwardSpeed;
@@ -61,6 +62,15 @@ public class ExplorationLevelResetter : MonoBehaviour {
         jumpForce = controller.movementSettings.JumpForce;
         XRotSensitivity = controller.mouseLook.XSensitivity;
         YRotSensitivity = controller.mouseLook.YSensitivity;
+    }
+
+    //reset fadeOutPanel from last scene transition if needed
+    private void OnEnable()
+    {
+        screenFader.fadeIn(0f);
+        lowPowerText.enabled = false;
+        enablePlayerControl();
+
     }
     // Use this for initialization
     void Start () {
@@ -133,6 +143,11 @@ public class ExplorationLevelResetter : MonoBehaviour {
             audioSource.PlayOneShot(powerUpSound);
             // player gets "All battery parts collected!" message
             ConversationTrigger.AddToken("all_battery_parts_collected");
+
+            batteryPartCounter.resetCounter();
+
+            //remembers which Exploration Mode we were in so we can get back
+            InventoryController.levelName = SceneManager.GetActiveScene().name;
             StartCoroutine(waitForEndOfConvoThenLoadLevel(3f, whatToBuild));
   
         } else if (itemPartCounter.allPartsCollected())
@@ -144,6 +159,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
             itemPartCounter.resetCounter();
             timer.stopTimer();
             timer.resetTimer();
+
+            //remembers which Exploration Mode we were in so we can get back
             InventoryController.levelName = SceneManager.GetActiveScene().name;
             StartCoroutine(waitThenLoadLevel(3f, whatToBuild));
         } else
@@ -154,12 +171,11 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
     private IEnumerator waitForEndOfConvoThenLoadLevel(float seconds, string whatToBuild)
     {
-        GameObject fuser = GameObject.FindWithTag("Player");
-        Quaternion startingRotation = fuser.transform.rotation;
+        Quaternion startingRotation = fuserObject.gameObject.transform.rotation;
         Quaternion endingRotation = startingRotation * Quaternion.Euler(0, 0, 90);
         float lerpTime = 1f;
         float currentLerpTime = 0f;
-        fuser.GetComponent<Fuser>().ActivateFuserFirstLook();
+        controller.GetComponent<Fuser>().ActivateFuser();
 
         //wait until player has closed the "You got all the batteries!" textbox
         while (!ConversationController.currentlyEnabled)
@@ -178,14 +194,17 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
         screenFader.fadeOut(0.2f);
 
-        while (Quaternion.Angle(fuser.transform.rotation, endingRotation) > 2)
+        while (Quaternion.Angle(fuserObject.transform.rotation, endingRotation) > 2)
         {
-            fuser.transform.rotation = Quaternion.Lerp(startingRotation, endingRotation, currentLerpTime / lerpTime);
+            fuserObject.gameObject.transform.rotation = Quaternion.Lerp(startingRotation, endingRotation, currentLerpTime / lerpTime);
             currentLerpTime += Time.deltaTime;
             yield return new WaitForFixedUpdate();
         }
 
         yield return new WaitForSeconds(1f);
+
+        //reset Fuser rotation/position for next time Fuser is used
+        fuserObject.gameObject.transform.rotation = startingRotation;
 
         batteryPartCounter.resetCounter();
         InventoryController.levelName = SceneManager.GetActiveScene().name;

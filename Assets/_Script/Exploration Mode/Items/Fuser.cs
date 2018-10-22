@@ -36,17 +36,7 @@ public class Fuser : ItemBase {
         lowPowerSound = Resources.Load<AudioClip>("Audio/BothModes/Denied3");
         powerUpSound = Resources.Load<AudioClip>("Audio/BothModes/Slider3");
 
-        // Check token and activate if unlocked, but deselected.
-        if (ConversationTrigger.GetToken("gear_fuser"))
-        {
-            ActivateFuserFirstLook();
-            //Deselect();
-        }
-        else
-        {
-            // Disable if not unlocked.
-            fuserStatic.SetActive(false);
-        }
+        fuserStatic.SetActive(false);
     }
 
     // activate the fuser and then run the Fuser interface 
@@ -65,8 +55,7 @@ public class Fuser : ItemBase {
     {
         fuserActive = true;
         fuserStatic.SetActive(true);
-        ConversationTrigger.AddToken("gear_fuser");
-    }
+   }
 
     public override void Deselect()
     {
@@ -135,6 +124,9 @@ public class Fuser : ItemBase {
         }
 
         yield return new WaitForSeconds(1f);
+
+        // set Fuser back to original position/rotation for next time it's used
+        fuser.transform.rotation = startingRotation;
 
         //Booting up... animation
         lowPowerText.enabled = true;

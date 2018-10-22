@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33836662090428058}
   - component: {fileID: 23628146425285792}
   - component: {fileID: 64362498328869570}
+  - component: {fileID: 114575028049135400}
   m_Layer: 0
   m_Name: b1p3
   m_TagString: Untagged
@@ -40,6 +41,7 @@ GameObject:
   - component: {fileID: 33724739325911100}
   - component: {fileID: 23314786658030270}
   - component: {fileID: 64126135009912626}
+  - component: {fileID: 114239647869914446}
   m_Layer: 0
   m_Name: b1p3_bb1_a1
   m_TagString: Untagged
@@ -263,6 +265,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFused: 0
   locationTag: 
+--- !u!114 &114239647869914446
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1581127335689472}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54674ddb2ca313245841078e41ca06f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayTokens:
+  - trigger_tt_sc
+  - trigger_tt_no_sc
+  createPartB1Trigger: {fileID: 0}
+  selectedFuseToTriggers:
+  - bb1_b1p1_a1
+  - bb1_b1p2_a1
+  - bb1_b1p2_a2
+  - bb1_b1p3_a1
+  selectedObjectTriggers: []
+  buttonTrigger: {fileID: 0}
 --- !u!114 &114474091053798062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -288,3 +312,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b72abd7302859134984436cf919a3276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114575028049135400
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1312503504443062}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54674ddb2ca313245841078e41ca06f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayTokens:
+  - trigger_tt_sc
+  - trigger_tt_no_sc
+  createPartB1Trigger: {fileID: 0}
+  selectedFuseToTriggers:
+  - bb1_b1p1_a1
+  - bb1_b1p2_a1
+  - bb1_b1p2_a2
+  - bb1_b1p3_a1
+  selectedObjectTriggers: []
+  buttonTrigger: {fileID: 0}
