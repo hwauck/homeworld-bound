@@ -8,6 +8,7 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
 
     public RotationGizmo rotationGizmo;
     public RotationCounter rotationCounter;
+    public bool tutorialLevel;
 
 	// Use this for initialization
 	void Start () {
@@ -37,6 +38,15 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
     {
         if (!rotationGizmo.controlsDisabled)
         {
+            Debug.Log("Tutorial Level? " + tutorialLevel);
+            Debug.Log("Rotations remaining: " + rotationCounter.getRotationsRemaining());
+            // if first time rotating, display Rotation Counter and warning message
+            if(tutorialLevel && rotationCounter.getRotationsRemaining() == 10)
+            {
+
+                rotationCounter.doIntroRotationsRemaining();
+
+            }
             switch (this.gameObject.name)
             {
                 case "XUp":

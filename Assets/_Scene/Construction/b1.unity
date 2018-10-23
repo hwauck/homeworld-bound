@@ -578,7 +578,7 @@ GameObject:
   - component: {fileID: 231500171}
   - component: {fileID: 231500170}
   m_Layer: 0
-  m_Name: ConvoTrigger_Const_20
+  m_Name: ConvoTrigger_Const_rotationsRemaining
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -595,14 +595,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameOfStarter: Fuser
-  conversationName: Const_20
+  nameOfStarter: 
+  conversationName: Const_rotationsRemaining
   allowEscape: 0
   oneShot: 1
   trigger: 3
   keyRequired: 0
   tokenWhitelist:
-  - finishedB1
+  - intro_rr
   tokenBlacklist: []
 --- !u!4 &231500171
 Transform:
@@ -1477,7 +1477,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1321869686}
         m_MethodName: doResetConstruction
         m_Mode: 1
         m_Arguments:
@@ -1835,7 +1835,7 @@ Prefab:
     - target: {fileID: 114407626769213550, guid: 8856ae325d5eea44ca83145dacc533a6,
         type: 2}
       propertyPath: limitRotations
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114407626769213550, guid: 8856ae325d5eea44ca83145dacc533a6,
         type: 2}
@@ -1882,6 +1882,36 @@ Prefab:
       propertyPath: rotationCounter
       value: 
       objectReference: {fileID: 1716405245}
+    - target: {fileID: 114430586704669088, guid: 8856ae325d5eea44ca83145dacc533a6,
+        type: 2}
+      propertyPath: tutorialLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114562735018382808, guid: 8856ae325d5eea44ca83145dacc533a6,
+        type: 2}
+      propertyPath: tutorialLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114550601128593724, guid: 8856ae325d5eea44ca83145dacc533a6,
+        type: 2}
+      propertyPath: tutorialLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114167853759541534, guid: 8856ae325d5eea44ca83145dacc533a6,
+        type: 2}
+      propertyPath: tutorialLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114427599618894296, guid: 8856ae325d5eea44ca83145dacc533a6,
+        type: 2}
+      propertyPath: tutorialLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114027408300113068, guid: 8856ae325d5eea44ca83145dacc533a6,
+        type: 2}
+      propertyPath: tutorialLevel
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8856ae325d5eea44ca83145dacc533a6, type: 2}
   m_IsPrefabParent: 0
@@ -3361,7 +3391,6 @@ MonoBehaviour:
   - {fileID: 1649524225}
   connectButton: {fileID: 1418366674}
   claimItem: {fileID: 13824565}
-  congrats: {fileID: 0}
   shapesWrong: {fileID: 1972374894}
   rotationWrong: {fileID: 1707600179}
   rotateGizmo: {fileID: 0}
@@ -3401,7 +3430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorPanel: {fileID: 1405330834}
   powerFailureText: {fileID: 1630593130}
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 369571929}
   bottomPanel: {fileID: 297973225}
   cameraControls: {fileID: 1079976718}
   rotationScript: {fileID: 849323876}
@@ -5074,7 +5103,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: -0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1716405245
@@ -5093,8 +5122,8 @@ MonoBehaviour:
   powerFailure:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1321869678}
-        m_MethodName: 
+      - m_Target: {fileID: 1321869686}
+        m_MethodName: resetLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5106,6 +5135,9 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  audioSource: {fileID: 369571929}
+  conversationText: {fileID: 1308713701}
+  tutorial: {fileID: 1321869687}
 --- !u!225 &1716405246
 CanvasGroup:
   m_ObjectHideFlags: 0

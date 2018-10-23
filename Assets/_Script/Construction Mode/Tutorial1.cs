@@ -113,7 +113,7 @@ public class Tutorial1 : MonoBehaviour {
 
     public void disableTooltips()
     {
-        allTooltips = Object.FindObjectsOfType<Tooltip>();
+        allTooltips = FindObjectsOfType<Tooltip>();
         for(int i = 0; i < allTooltips.Length; i++)
         {
             allTooltips[i].enabled = false;

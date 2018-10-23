@@ -146,8 +146,11 @@ public class LevelResetter : MonoBehaviour {
         powerFailureText.enabled = true;
         errorPanel.alpha = 1;
         audioSource.PlayOneShot(powerFailureSound);
-        //disablePlayerControls();
-        timeRemainingPanel.GetComponent<Timer>().stopTimer();
+        disablePlayerControls();
+        if (timeRemainingPanel != null)
+        {
+            timeRemainingPanel.GetComponent<Timer>().stopTimer();
+        }
         StartCoroutine(doPowerFailure());
 
     }
@@ -287,7 +290,10 @@ public class LevelResetter : MonoBehaviour {
 
         // and reset the number of rotations, time remaining, and fuseCount
         rotationsRemainingPanel.GetComponent<RotationCounter>().resetRotations();
-        timeRemainingPanel.GetComponent<Timer>().resetTimer();
+        if (timeRemainingPanel != null)
+        {
+            timeRemainingPanel.GetComponent<Timer>().resetTimer();
+        }
         fuseEvent.resetFuseCount();
         yield return new WaitForSeconds(4f);
 
@@ -341,23 +347,26 @@ public class LevelResetter : MonoBehaviour {
 
     private IEnumerator doCountdownAndEnableControls()
     {
-        countdownPanel.alpha = 1;
-        for (int i = 3; i > 0; i--)
+        if (timeRemainingPanel != null)
         {
-            countdownText.text = "" + i;
-            audioSource.PlayOneShot(countdownSound);
+            countdownPanel.alpha = 1;
+            for (int i = 3; i > 0; i--)
+            {
+                countdownText.text = "" + i;
+                audioSource.PlayOneShot(countdownSound);
+                yield return new WaitForSeconds(1f);
+
+            }
+            countdownText.text = "GO!";
+            audioSource.PlayOneShot(finalCountSound);
             yield return new WaitForSeconds(1f);
+            countdownPanel.alpha = 0;
 
+            timeRemainingPanel.GetComponent<Timer>().startTimer();
         }
-        countdownText.text = "GO!";
-        audioSource.PlayOneShot(finalCountSound);
-        yield return new WaitForSeconds(1f);
-        countdownPanel.alpha = 0;
-
         enablePlayerControls();
-
         fuseEvent.startMusic();
-        timeRemainingPanel.GetComponent<Timer>().startTimer();
+
     }
 
     private void enablePlayerControls()
