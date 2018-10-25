@@ -1264,7 +1264,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 754462454}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -1971,7 +1971,7 @@ RectTransform:
   - {fileID: 1834598604}
   - {fileID: 1663419682}
   m_Father: {fileID: 1730654016}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3034,7 +3034,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22478512, guid: ca95c809c7100f941a716a128503d054, type: 2}
       propertyPath: m_RootOrder
-      value: 14
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 22478512, guid: ca95c809c7100f941a716a128503d054, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -3186,6 +3186,12 @@ RectTransform:
   m_PrefabParentObject: {fileID: 22478512, guid: ca95c809c7100f941a716a128503d054,
     type: 2}
   m_PrefabInternal: {fileID: 1308713699}
+--- !u!114 &1308713701 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11427988, guid: ca95c809c7100f941a716a128503d054,
+    type: 2}
+  m_PrefabInternal: {fileID: 1308713699}
+  m_Script: {fileID: 11500000, guid: e2df946665c25ed4fa466c57f2e5c002, type: 3}
 --- !u!1 &1321869678
 GameObject:
   m_ObjectHideFlags: 0
@@ -3310,7 +3316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a62bd1f9e428d64fb664298c3add03b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inTutorial: 0
   source: {fileID: 369571929}
   musicsource: {fileID: 1406899348}
   success: {fileID: 8300000, guid: ae9e829741082eb4093adf3c61753e96, type: 3}
@@ -3348,6 +3353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91309dd515171064dbf48d0fd4c9ef6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorial: {fileID: 0}
   errorPanel: {fileID: 1405330834}
   powerFailureText: {fileID: 1169793019}
   audioSource: {fileID: 369571929}
@@ -3488,6 +3494,9 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  audioSource: {fileID: 369571929}
+  conversationText: {fileID: 1308713701}
+  tutorial: {fileID: 0}
 --- !u!1 &1354454465
 GameObject:
   m_ObjectHideFlags: 0
@@ -4428,9 +4437,9 @@ RectTransform:
   - {fileID: 1349615589}
   - {fileID: 297973224}
   - {fileID: 1232480374}
-  - {fileID: 473907159}
   - {fileID: 1141979919}
   - {fileID: 1977389424}
+  - {fileID: 473907159}
   - {fileID: 1985057582}
   - {fileID: 1308713700}
   m_Father: {fileID: 0}
@@ -5256,7 +5265,7 @@ RectTransform:
   m_Children:
   - {fileID: 1566945148}
   m_Father: {fileID: 1730654016}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -5391,7 +5400,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1985057581}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 

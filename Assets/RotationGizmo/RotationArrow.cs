@@ -51,7 +51,7 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
             {
                 case "XUp":
                     rotationGizmo.incXRots();
-                    if (rotationGizmo.limitRotations)
+                    if (rotationGizmo.limitRotations && !rotationGizmo.isRotating())
                     {
                         rotationCounter.decrementRotations();
                     }
@@ -72,7 +72,7 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
                     //if (!CheckBattery())
                     //    break;
                     rotationGizmo.incXRots();
-                    if (rotationGizmo.limitRotations)
+                    if (rotationGizmo.limitRotations && !rotationGizmo.isRotating())
                     {
                         rotationCounter.decrementRotations();
                     }
@@ -93,7 +93,7 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
                     //   if (!CheckBattery())
                     //      break;
                     rotationGizmo.incYRots();
-                    if (rotationGizmo.limitRotations)
+                    if (rotationGizmo.limitRotations && !rotationGizmo.isRotating())
                     {
                         rotationCounter.decrementRotations();
                     }
@@ -106,7 +106,7 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
                     //   if (!CheckBattery())
                     //        break;
                     rotationGizmo.incYRots();
-                    if (rotationGizmo.limitRotations)
+                    if (rotationGizmo.limitRotations && !rotationGizmo.isRotating())
                     {
                         rotationCounter.decrementRotations();
                     }
@@ -119,7 +119,7 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
                     //   if (!CheckBattery())
                     //       break;
                     rotationGizmo.incZRots();
-                    if (rotationGizmo.limitRotations)
+                    if (rotationGizmo.limitRotations && !rotationGizmo.isRotating())
                     {
                         rotationCounter.decrementRotations();
                     }
@@ -140,7 +140,7 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
                     //   if (!CheckBattery())
                     //       break;
                     rotationGizmo.incZRots();
-                    if (rotationGizmo.limitRotations)
+                    if (rotationGizmo.limitRotations && !rotationGizmo.isRotating())
                     {
                         rotationCounter.decrementRotations();
                     }

@@ -7,7 +7,8 @@ public class CreatePartSledge : MonoBehaviour {
 
 	private GameObject[] instantiated;
 	public GameObject[] parts;
-	private bool[] partCreated;
+    public Button[] partButtons;
+    private bool[] partCreated;
 	private Vector3 createLoc;
 	public GameObject eventSystem;
 	private SelectPart selectionManager;
@@ -397,11 +398,30 @@ public class CreatePartSledge : MonoBehaviour {
 		for(int i = 0; i < instantiated.Length; i++) {
 			if(instantiated[i] != null && !instantiated[i].GetComponent<IsFused>().isFused) {
 				Destroy(instantiated[i]);
-			}
-		}
+                partButtons[i].interactable = true;
+            }
+        }
 	}
 
-	public void enableManipulationButtons(GameObject toRotate) {
+    //when power failure occurs, delete all but starting part.
+    // Called by LevelResetter
+    public void destroyAllCreatedParts()
+    {
+        for (int i = 0; i < partCreated.Length; i++)
+        {
+            partCreated[i] = false;
+        }
+        for (int i = 0; i < instantiated.Length; i++)
+        {
+            if (instantiated[i] != null)
+            {
+                Destroy(instantiated[i]);
+                partButtons[i].interactable = true;
+            }
+        }
+    }
+
+    public void enableManipulationButtons(GameObject toRotate) {
 		rotateYButton.transform.GetComponent<Button>().interactable = true;
 		rotateXButton.transform.GetComponent<Button>().interactable = true;
 		rotateZButton.transform.GetComponent<Button>().interactable = true;
@@ -435,7 +455,9 @@ public class CreatePartSledge : MonoBehaviour {
 
 			instantiated[0] = newBottomPointLeft;
 			partCreated[0] = true;
-			selectionManager.newPartCreated("bottom_point_leftPrefab(Clone)");
+            partButtons[0].interactable = false;
+
+            selectionManager.newPartCreated("bottom_point_leftPrefab(Clone)");
 
 			enableManipulationButtons(newBottomPointLeft);
 
@@ -465,7 +487,9 @@ public class CreatePartSledge : MonoBehaviour {
 
 			instantiated[1] = newBottomPointRight;
 			partCreated[1] = true;
-			selectionManager.newPartCreated("bottom_point_rightPrefab(Clone)");
+            partButtons[1].interactable = false;
+
+            selectionManager.newPartCreated("bottom_point_rightPrefab(Clone)");
 
 			enableManipulationButtons(newBottomPointRight);
 
@@ -490,7 +514,9 @@ public class CreatePartSledge : MonoBehaviour {
 
 			instantiated[2] = newHaft;	
 			partCreated[2] = true;
-			selectionManager.newPartCreated("haftPrefab(Clone)");
+            partButtons[2].interactable = false;
+
+            selectionManager.newPartCreated("haftPrefab(Clone)");
 
 			enableManipulationButtons(newHaft);
 
@@ -540,7 +566,9 @@ public class CreatePartSledge : MonoBehaviour {
 
 			instantiated[3] = newHead;
 			partCreated[3] = true;
-			selectionManager.newPartCreated("head_harderPrefab(Clone)");
+            partButtons[3].interactable = false;
+
+            selectionManager.newPartCreated("head_harderPrefab(Clone)");
 
 			enableManipulationButtons(newHead);
 
@@ -565,7 +593,9 @@ public class CreatePartSledge : MonoBehaviour {
 
 			instantiated[4] = newSmallTip;
 			partCreated[4] = true;
-			selectionManager.newPartCreated("small_tipPrefab(Clone)");
+            partButtons[4].interactable = false;
+
+            selectionManager.newPartCreated("small_tipPrefab(Clone)");
 
 			enableManipulationButtons(newSmallTip);
 
@@ -595,7 +625,9 @@ public class CreatePartSledge : MonoBehaviour {
 
 			instantiated[5] = newSmallTrapezoid;
 			partCreated[5] = true;
-			selectionManager.newPartCreated("small_trapezoidPrefab(Clone)");
+            partButtons[5].interactable = false;
+
+            selectionManager.newPartCreated("small_trapezoidPrefab(Clone)");
 
 			enableManipulationButtons(newSmallTrapezoid);
 
@@ -620,7 +652,9 @@ public class CreatePartSledge : MonoBehaviour {
 
 			instantiated[6] = newSpike;
 			partCreated[6] = true;
-			selectionManager.newPartCreated("spikePrefab(Clone)");
+            partButtons[6].interactable = false;
+
+            selectionManager.newPartCreated("spikePrefab(Clone)");
 
 			enableManipulationButtons(newSpike);
 
@@ -645,7 +679,9 @@ public class CreatePartSledge : MonoBehaviour {
 
 			instantiated[7] = newTip;
 			partCreated[7] = true;
-			selectionManager.newPartCreated("tipPrefab(Clone)");
+            partButtons[7].interactable = false;
+
+            selectionManager.newPartCreated("tipPrefab(Clone)");
 
 			enableManipulationButtons(newTip);
 
@@ -675,7 +711,9 @@ public class CreatePartSledge : MonoBehaviour {
 
 			instantiated[8] = newTopPointLeft;
 			partCreated[8] = true;
-			selectionManager.newPartCreated("top_point_leftPrefab(Clone)");
+            partButtons[8].interactable = false;
+
+            selectionManager.newPartCreated("top_point_leftPrefab(Clone)");
 
 			enableManipulationButtons(newTopPointLeft);
 
@@ -705,7 +743,9 @@ public class CreatePartSledge : MonoBehaviour {
 
 			instantiated[9] = newTopPointRight;
 			partCreated[9] = true;
-			selectionManager.newPartCreated("top_point_rightPrefab(Clone)");
+            partButtons[9].interactable = false;
+
+            selectionManager.newPartCreated("top_point_rightPrefab(Clone)");
 
 			enableManipulationButtons(newTopPointRight);
 
@@ -735,7 +775,9 @@ public class CreatePartSledge : MonoBehaviour {
 
 			instantiated[10] = newTrapezoid;
 			partCreated[10] = true;
-			selectionManager.newPartCreated("trapezoid_harderPrefab(Clone)");
+            partButtons[10].interactable = false;
+
+            selectionManager.newPartCreated("trapezoid_harderPrefab(Clone)");
 
 			enableManipulationButtons(newTrapezoid);
 

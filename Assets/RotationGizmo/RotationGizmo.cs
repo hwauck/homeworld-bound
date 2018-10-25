@@ -245,6 +245,11 @@ public class RotationGizmo : MonoBehaviour
         return toRotate;
     }
 
+    public bool isRotating()
+    {
+        return rotating;
+    }
+
 	// Checks battery, returns whether this rotation can happen. If it cannot, shows error.
     // This method will likely be deprecated now that battery power is controlled by rotation counter and timer
 	bool CheckBattery()

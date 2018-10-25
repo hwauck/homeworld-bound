@@ -95,10 +95,13 @@ public class BatteryCounter : MonoBehaviour {
 
     public void incParts()
     {
+        if(partsFound == 0)
+        {
+            setCounterMaximums(); // figure out how many batteries are needed for next Construction level
+        }
         partsFound++;
         partsFoundText.text = "Battery Parts: " + partsFound + "/" + partsNeeded;
         showBatteryParts();
-        Debug.Log("partsFound in incParts: " + partsFound);
 
         if (partsFound == partsNeeded)
         {
@@ -134,11 +137,11 @@ public class BatteryCounter : MonoBehaviour {
     {
         // if this reset is due to completing the level, reset object text to ???
         // if this reset is due to power failure (running out of time), keep object text
-        if (partsDone)
-        {
-            setCounterMaximums();
+ //       if (partsDone)
+  //      {
+  //          setCounterMaximums();
 
-        }
+  //      }
         partsFound = 0;
         partsDone = false;
 

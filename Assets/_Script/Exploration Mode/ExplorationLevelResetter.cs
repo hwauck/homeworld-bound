@@ -53,7 +53,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         countdownSound = Resources.Load<AudioClip>("Audio/BothModes/Select02");
         finalCountSound = Resources.Load<AudioClip>("Audio/BothModes/Select04");
         rechargingSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-03");
-        powerUpSound = Resources.Load<AudioClip>("Audio/BothMoades/Slider3");
+        powerUpSound = Resources.Load<AudioClip>("Audio/BothModes/Slider3");
 
         // save original values of all player control variables in RigidBodyFirstPersonController
         forwardSpeed = controller.movementSettings.ForwardSpeed;
@@ -143,6 +143,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             audioSource.PlayOneShot(powerUpSound);
             // player gets "All battery parts collected!" message
             ConversationTrigger.AddToken("all_battery_parts_collected");
+            ConversationTrigger.RemoveToken("disable_all_battery_parts_collected");
 
             batteryPartCounter.resetCounter();
 

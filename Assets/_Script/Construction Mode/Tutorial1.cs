@@ -123,19 +123,29 @@ public class Tutorial1 : MonoBehaviour {
             }
 
         }
-
         // makes any currently displayed tooltip go away
         ConversationController.Disable();
+    }
+
+    public void enableTooltips()
+    {
+        allTooltips = FindObjectsOfType<Tooltip>();
+        for (int i = 0; i < allTooltips.Length; i++)
+        {
+            allTooltips[i].enabled = true;
+        }
+
     }
 
 
     // Update is called once per frame
     void Update()
     {
-
+        //step = MOVEMENT_SPEED * Time.deltaTime;
+        //bb1Start.transform.position = Vector3.MoveTowards(bb1Start.transform.position, baseStartPosition, step);
         // Wait till intro text is done, then enable Tooltip scripts on each of the objects that have them
         // Also after intro text is done, change ScrollingText's enableScroll to false
-        if(!tooltipsEnabled && ConversationTrigger.GetToken("finished_cameraControls"))
+        if (!tooltipsEnabled && ConversationTrigger.GetToken("finished_cameraControls"))
         {
             tooltipsEnabled = true;
             scrollingText.enableScroll = false;
@@ -319,8 +329,7 @@ public class Tutorial1 : MonoBehaviour {
         //    // Once player finishes building, Dresha says we've got more batteries to build
 
 
-        step = MOVEMENT_SPEED * Time.deltaTime;
-        bb1Start.transform.position = Vector3.MoveTowards(bb1Start.transform.position, baseStartPosition, step);
+
 
     }
 

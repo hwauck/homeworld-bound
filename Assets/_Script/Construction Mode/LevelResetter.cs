@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 // Then, all parts on the screen should have gravity applied to them and fall downwards until offscreen
 // delete all created parts except starting part
 // Then, screen sputters and flickers, goes black
-// message from "SYSTEM" says "Recharging emergency power..." for a couple seconds
+// message from "SYSTEM" says "Recharging..." for a couple seconds
 // Button appears: Restart Construction
 // then, level is reset: starting part rigidbody removed, correctly rotated
 // interface reappears, Dresha says stuff (Const_restart)
@@ -18,6 +18,7 @@ using UnityEngine.SceneManagement;
 // Countdown begins again
 public class LevelResetter : MonoBehaviour {
 
+    public Tutorial1 tutorial;
     public CanvasGroup errorPanel;
     public Text powerFailureText;
     public AudioSource audioSource;
@@ -97,11 +98,11 @@ public class LevelResetter : MonoBehaviour {
             Debug.Log("OnEnable() method in LevelResetter - starting recharging animation!");
             StartCoroutine(rechargingAnimation());
             StartCoroutine(waitAndThenZoomUpPart(4f));
-            StartCoroutine(waitAndThenAddToken(4, "startBeginningConvo"));
+            StartCoroutine(waitAndThenAddToken(4, "doneRestarting"));
         } else
         {
             StartCoroutine(waitAndThenZoomUpPart(1f));
-            StartCoroutine(waitAndThenAddToken(1, "startBeginningConvo"));
+            StartCoroutine(waitAndThenAddToken(1, "doneRestarting"));
         }
 
     }
@@ -142,11 +143,16 @@ public class LevelResetter : MonoBehaviour {
 
     public void resetLevel()
     {
+        Debug.Log("RESETTING LEVEL!");
         fuseEvent.stopMusic();
         powerFailureText.enabled = true;
         errorPanel.alpha = 1;
         audioSource.PlayOneShot(powerFailureSound);
         disablePlayerControls();
+        if(tutorial != null)
+        {
+            tutorial.disableTooltips();
+        }
         if (timeRemainingPanel != null)
         {
             timeRemainingPanel.GetComponent<Timer>().stopTimer();
@@ -162,7 +168,8 @@ public class LevelResetter : MonoBehaviour {
 
         Vector3 rbPos;
         Vector3 explosionPosition;
-        // all parts from level b2 and later should have the tag "part" on them for this to work correctly
+        float xExpOffset, yExpOffset, zExpOffset;
+        // all parts including the starting part should have the tag "part" on them for this to work correctly
         parts = GameObject.FindGameObjectsWithTag("part");
         for (int i = 0; i < parts.Length; i++)
         {
@@ -185,7 +192,15 @@ public class LevelResetter : MonoBehaviour {
             parts[i].AddComponent<Rigidbody>();
             parts[i].GetComponent<Rigidbody>().useGravity = false;
             rbPos = parts[i].transform.position;
-            explosionPosition = new Vector3(rbPos.x, rbPos.y + 5f, rbPos.z);
+            xExpOffset = (Random.Range(0, 1) * 2 - 1) * Random.Range(5, 15);
+            yExpOffset = 5f;
+            zExpOffset = (Random.Range(0, 1) * 2 - 1) * Random.Range(5, 15);
+
+            explosionPosition = new Vector3(rbPos.x + xExpOffset, rbPos.y + yExpOffset, rbPos.z + zExpOffset);
+
+            //TODO: use this to figure out why some explosions look bad/jerky.
+            // I suspect it's because the explosion is too close to the center of the object
+            Debug.Log("Explosion Position for " + parts[i] + ": " + explosionPosition);
             parts[i].GetComponent<Rigidbody>().AddExplosionForce(1000f, explosionPosition, 20f, 0f);
 
         }
@@ -235,13 +250,10 @@ public class LevelResetter : MonoBehaviour {
                 meshColliders[i].convex = false;
             }
         }
-        // destroy all parts except starting part
-        // CHANGE this to add the new level string each time a new level is added
+
         fuseEvent.fuseCleanUp();
 
         string currentLevel;
-        // if testing individual levels, use if(Application.isEditor). If testing levels in
-        // sequence, use if(false)
         print("Running just construction mode? " + runningJustConstructionMode);
         print("SceneManager.GetActiveScene().name: " + SceneManager.GetActiveScene().name);
         print("LoadUtils.currentSceneName: " + LoadUtils.currentSceneName);
@@ -252,10 +264,28 @@ public class LevelResetter : MonoBehaviour {
         {
             currentLevel = LoadUtils.currentSceneName;
         }
+
+        // destroy all parts except starting part
+        // CHANGE this to add the new level string each time a new level is added
         switch (currentLevel)
         {
+            case "b1":
+                eventSystem.GetComponent<CreatePartB1>().destroyAllCreatedParts();
+                break;
+            case "b2":
+                eventSystem.GetComponent<CreatePartB2>().destroyAllCreatedParts();
+                break;
+            case "b3":
+                eventSystem.GetComponent<CreatePartB3>().destroyAllCreatedParts();
+                break;
+            case "b4":
+                eventSystem.GetComponent<CreatePartB4>().destroyAllCreatedParts();
+                break;
             case "rocketBoots":
                 eventSystem.GetComponent<CreatePartRB>().destroyAllCreatedParts();
+                break;
+            case "sledgehammer":
+                eventSystem.GetComponent<CreatePartSledge>().destroyAllCreatedParts();
                 break;
             default:
                 break;
@@ -283,6 +313,7 @@ public class LevelResetter : MonoBehaviour {
         StartCoroutine(rechargingAnimation());
 
         // put starting part back to where it was
+        Debug.Log("Setting " + startingPart + " position to " + startingPartOffscreenPos + "!");
         startingPart.transform.SetPositionAndRotation(startingPartOffscreenPos, startingPartRotation);
 
         // and reset camera
@@ -309,7 +340,12 @@ public class LevelResetter : MonoBehaviour {
         }
         fadeOutScreen.enabled = false;
 
+        if (tutorial != null)
+        {
+            tutorial.enableTooltips();
+        }
         yield return new WaitForSeconds(1f);
+        Debug.Log("Starting zoom up animation!");
 
         StartCoroutine(startingPartZoomUp());
 
@@ -339,7 +375,6 @@ public class LevelResetter : MonoBehaviour {
         {
             startingPart.transform.position = Vector3.Lerp(startingPartOffscreenPos, startingPartFinalPos, step);
             step *= 1.2f;
-            Debug.Log("ZOOM " + step);
             yield return new WaitForSeconds(0.01f);
         }
 
@@ -381,10 +416,9 @@ public class LevelResetter : MonoBehaviour {
     void Update () {
         //Debug.Log("startBeginningConvo is already here? " + ConversationTrigger.GetToken("startBeginningConvo"));
         // finished recharging after power failure, show Try Again? button to restart level
-        if (ConversationTrigger.GetToken("outOfPower") && ConversationTrigger.GetToken("hasPower"))
+        if (ConversationTrigger.GetToken("outOfPower"))
         {
             ConversationTrigger.RemoveToken("outOfPower");
-            ConversationTrigger.RemoveToken("hasPower");
             showTryAgainButton();
         }
         // when Dresha has finished the restart message, reenable controls and start level again with countdown

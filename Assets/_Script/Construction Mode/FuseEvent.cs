@@ -8,7 +8,6 @@ using UnityEngine.Events;
 public class FuseEvent : MonoBehaviour {
 
     //tutorial variables
-    public bool inTutorial;
     public static bool runningJustConstructionMode = false;
     private bool activatedTakeButton;
     private bool firstFuseComplete;
@@ -72,10 +71,8 @@ public class FuseEvent : MonoBehaviour {
         // For data collection.
         startLevelTimer();
         musicsource.clip = music;
-        if (!inTutorial)
-        {
-            musicsource.Play();
-        }
+
+        musicsource.Play();
 
         //wait until level has officially loaded before assigning fuse mappings
         StartCoroutine(createFuseMapping());
@@ -283,7 +280,7 @@ public class FuseEvent : MonoBehaviour {
 
 		selectedObject = GetComponent<SelectPart>().getSelectedObject();
 		selectedFuseTo = GetComponent<SelectPart>().getSelectedFuseTo();
-		group = (GameObject)GameObject.Instantiate(victoryPrefab, new Vector3(-100, 30, 100), new Quaternion());
+		group = Instantiate(victoryPrefab, new Vector3(-100, 30, 100), new Quaternion());
 		NUM_FUSES = 0;
 		for(int i = 0; i < partButtons.Length; i++) {
 			NUM_FUSES += partButtons[i].GetComponent<Uses>().numUses;

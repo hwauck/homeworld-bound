@@ -2376,6 +2376,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1048708134
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1048708136}
+  - component: {fileID: 1048708135}
+  m_Layer: 0
+  m_Name: ConvoTrigger_Const_restart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1048708135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1048708134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameOfStarter: Fuser
+  conversationName: Const_restart
+  allowEscape: 0
+  oneShot: 0
+  trigger: 3
+  keyRequired: 0
+  tokenWhitelist:
+  - letsRestart
+  tokenBlacklist:
+  - doneRestarting
+--- !u!4 &1048708136
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1048708134}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -124.885826, y: 44.960445, z: 56.75526}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 33
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1058967712
 GameObject:
   m_ObjectHideFlags: 0
@@ -2581,7 +2631,8 @@ MonoBehaviour:
   oneShot: 1
   trigger: 2
   keyRequired: 0
-  tokenWhitelist: []
+  tokenWhitelist:
+  - doneRestarting
   tokenBlacklist: []
 --- !u!4 &1095966173
 Transform:
@@ -3378,7 +3429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a62bd1f9e428d64fb664298c3add03b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inTutorial: 1
   source: {fileID: 369571929}
   musicsource: {fileID: 1406899348}
   success: {fileID: 8300000, guid: ae9e829741082eb4093adf3c61753e96, type: 3}
@@ -3428,6 +3478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91309dd515171064dbf48d0fd4c9ef6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorial: {fileID: 1321869687}
   errorPanel: {fileID: 1405330834}
   powerFailureText: {fileID: 1630593130}
   audioSource: {fileID: 369571929}
@@ -3992,7 +4043,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 33
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1418366672
 GameObject:

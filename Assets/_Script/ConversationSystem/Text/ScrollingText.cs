@@ -115,7 +115,10 @@ public class ScrollingText : MonoBehaviour
 		{
 			if (scrolling)
 			{
-                audioSource.PlayOneShot(scrollTextSound);
+                if (enableScroll)
+                {   // only make the "boop" sound if this is regular scrolling text - with tooltips it gets annoying
+                    audioSource.PlayOneShot(scrollTextSound);
+                }
 				EnableLetters();        // Enable everything, thereby skipping the scrolling effect.
 				numScrolled = letters.Length;
 			}
