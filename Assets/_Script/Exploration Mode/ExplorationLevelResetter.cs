@@ -212,7 +212,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         Debug.Log("whatToBuild: " + whatToBuild);
 
         if(whatToBuild.Equals("b1"))
-        {
+        {   // first battery level only
             lowPowerText.enabled = true;
             lowPowerText.text = "Welcome to the Fuser X7000 - the premier technology for constructing and crafting!";
             audioSource.PlayOneShot(powerUpSound);
@@ -220,6 +220,23 @@ public class ExplorationLevelResetter : MonoBehaviour {
             lowPowerText.text = "Fuser battery parts detected. Activating low power construction mode!";
             audioSource.PlayOneShot(powerUpSound);
 
+        } else if (whatToBuild.StartsWith("b") && whatToBuild.Length == 2)
+        {   // all battery levels except first one
+            lowPowerText.enabled = true;
+            lowPowerText.text = "Welcome to the Fuser X7000!";
+            audioSource.PlayOneShot(powerUpSound);
+            yield return new WaitForSeconds(2f);
+            lowPowerText.text = "Fuser battery parts detected. Activating low power construction mode!";
+            audioSource.PlayOneShot(powerUpSound);
+        }
+            else
+        {   //all item levels
+            lowPowerText.enabled = true;
+            lowPowerText.text = "Welcome to the Fuser X7000!";
+            audioSource.PlayOneShot(powerUpSound);
+            yield return new WaitForSeconds(2f);
+            lowPowerText.text = "New parts detected. Activating full power construction mode!";
+            audioSource.PlayOneShot(powerUpSound);
         }
 
         StartCoroutine(waitThenLoadLevel(seconds, whatToBuild));

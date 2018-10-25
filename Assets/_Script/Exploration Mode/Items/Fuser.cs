@@ -191,7 +191,6 @@ public class Fuser : ItemBase {
         controller.movementSettings.StrafeSpeed = 0f;
         controller.movementSettings.JumpForce = 0f;
 
-        //doesn't work?
         controller.mouseLook.XSensitivity = 0;
         controller.mouseLook.YSensitivity = 0;
     }

@@ -1,0 +1,6 @@
+If you are reading this, you've managed to fully charge this Fuser. Great!
+But use its power sparingly - there is an evil power here that can sense the energy output of the fully charged Fuser. 
+Use the Fuser to find the locations of [color]880hidden building materials[color], but work [color]880quickly[color] so that you aren't detected. 
+Good luck!
+[CHOOSE]
+|nowhere|show_locate_button

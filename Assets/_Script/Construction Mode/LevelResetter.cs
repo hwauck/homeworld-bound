@@ -29,7 +29,7 @@ public class LevelResetter : MonoBehaviour {
     public RotationGizmo rotationScript;
     public SelectPart selectPart;
     public FuseEvent fuseEvent;
-    public Image fadeOutScreen;
+
     public Text rechargingText;
     public Button tryAgainButton;
 
@@ -61,12 +61,24 @@ public class LevelResetter : MonoBehaviour {
 
     private bool runningJustConstructionMode = false;
 
+    // variables for transition to timed Exploration Mode levels
+    public Image fadeOutScreen;
+    public FadeScreen screenFader;
+    private AudioClip fullyChargedSound;
+    private AudioClip logMessageSound;
+    public Button readButton;
+    public Button locateButton;
+    public Button startButton;
+    public ConversationController controller;
+
     private void Awake()
     {
         powerFailureSound = Resources.Load<AudioClip>("Audio/BothModes/msfx_chrono_latency_hammer");
         countdownSound = Resources.Load<AudioClip>("Audio/BothModes/Select02");
         finalCountSound = Resources.Load<AudioClip>("Audio/BothModes/Select04");
         rechargingSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-03");
+        fullyChargedSound = Resources.Load<AudioClip>("Audio/ConstModeMusic/sfx_shield");
+        logMessageSound = Resources.Load<AudioClip>("Audio/BothModes/Denied3");
         originalColliderCenter = startingPart.GetComponent<BoxCollider>().center;
         originalColliderSize = startingPart.GetComponent<BoxCollider>().size;
         startingPartRotation = startingPart.transform.rotation;
@@ -104,6 +116,86 @@ public class LevelResetter : MonoBehaviour {
             StartCoroutine(waitAndThenZoomUpPart(1f));
             StartCoroutine(waitAndThenAddToken(1, "doneRestarting"));
         }
+
+    }
+
+    //called by Claim Item button in b4
+    public void doTransitionToFuserLog()
+    {
+        StartCoroutine(transitionToFuserLog());
+    }
+
+    // only for b4 - RocketBoots part collection transition
+    private IEnumerator transitionToFuserLog()
+    {
+        disablePlayerControls();
+        screenFader.fadeOut(1f);
+        yield return new WaitForSeconds(1f);
+
+        rechargingText.enabled = true;
+        rechargingText.text = "Fuser is now fully charged!";
+        audioSource.PlayOneShot(fullyChargedSound);
+        yield return new WaitForSeconds(2f);
+        rechargingText.text = "New log message detected.";
+        audioSource.PlayOneShot(logMessageSound);
+        readButton.gameObject.SetActive(true);
+        // now wait for player input
+
+
+    }
+
+    //called by clicking on "Read" button - reads Fuser log
+    // only for b4 level
+    public void readLog()
+    {
+        rechargingText.enabled = false;
+
+        // move controller to center of screen
+        RectTransform controllerRect = controller.GetComponent<RectTransform>();
+        controllerRect.anchorMin = new Vector2(0.5f, 0.5f);
+        controllerRect.anchorMax = new Vector2(0.5f, 0.5f);
+        controllerRect.anchoredPosition = new Vector2(0, 0);
+        
+        // start log display
+        ConversationTrigger.AddToken("read_fuser_log");
+
+        // wait till conversation finishes
+        while(!ConversationTrigger.GetToken("show_locate_button"))
+        {
+            
+        }
+
+        //once convo is finished, Locate Hidden Materials button appears, triggered
+        // by token given by read fuser log conversation
+        locateButton.gameObject.SetActive(true);
+    }
+
+    //called by clicking on the Locate Hidden Materials button
+    // only for levels transitioning to timed Exploration Mode
+    public void doShowMap()
+    {
+        StartCoroutine(showMap());
+;    }
+
+    private IEnumerator showMap()
+    {
+        rechargingText.text = "";
+        rechargingText.enabled = true;
+        for (int i = 0; i < 3; i++)
+        {
+            rechargingText.text = "Searching.  ";
+            yield return new WaitForSeconds(0.25f);
+            rechargingText.text = "Searching.. ";
+            yield return new WaitForSeconds(0.25f);
+            rechargingText.text = "Searching...";
+            audioSource.PlayOneShot(rechargingSound);
+            yield return new WaitForSeconds(0.5f);
+            rechargingText.text = "Searching   ";
+        }
+        yield return new WaitForSeconds(0.5f);
+        rechargingText.text = "Hidden materials located. Generating area map...";
+
+        rechargingText.enabled = false;
 
     }
 
