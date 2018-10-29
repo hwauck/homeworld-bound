@@ -42,8 +42,6 @@ public class LevelResetter : MonoBehaviour {
     private AudioClip finalCountSound;
     private AudioClip rechargingSound;
 
-    private float flickeringTime;
-    private float flickerLength;
     private GameObject[] parts;
     private MeshCollider[] meshColliders;
 
@@ -63,12 +61,15 @@ public class LevelResetter : MonoBehaviour {
 
     // variables for transition to timed Exploration Mode levels
     public Image fadeOutScreen;
+    public Image map;
     public FadeScreen screenFader;
     private AudioClip fullyChargedSound;
     private AudioClip logMessageSound;
     public Button readButton;
     public Button locateButton;
     public Button startButton;
+    public Button claimButton;
+    public Text showMapText;
     public ConversationController controller;
 
     private void Awake()
@@ -105,7 +106,7 @@ public class LevelResetter : MonoBehaviour {
     {
         //display Recharging screen while level loads
         //note: fadeOutPanel Image needs to be enabled in Inspector for it to look right
-        if(fadeOutScreen.enabled) // b2 shouldn't recharge on startup, so don't do animation or sounds
+        if(fadeOutScreen.enabled) 
         {
             Debug.Log("OnEnable() method in LevelResetter - starting recharging animation!");
             StartCoroutine(rechargingAnimation());
@@ -128,6 +129,7 @@ public class LevelResetter : MonoBehaviour {
     // only for b4 - RocketBoots part collection transition
     private IEnumerator transitionToFuserLog()
     {
+        claimButton.gameObject.SetActive(false);
         disablePlayerControls();
         screenFader.fadeOut(1f);
         yield return new WaitForSeconds(1f);
@@ -146,23 +148,30 @@ public class LevelResetter : MonoBehaviour {
 
     //called by clicking on "Read" button - reads Fuser log
     // only for b4 level
-    public void readLog()
+    public void doReadLog()
     {
         rechargingText.enabled = false;
+        readButton.gameObject.SetActive(false);
 
         // move controller to center of screen
         RectTransform controllerRect = controller.GetComponent<RectTransform>();
         controllerRect.anchorMin = new Vector2(0.5f, 0.5f);
         controllerRect.anchorMax = new Vector2(0.5f, 0.5f);
         controllerRect.anchoredPosition = new Vector2(0, 0);
-        
+
+        StartCoroutine(readLog());
+ 
+    }
+
+    private IEnumerator readLog()
+    {
         // start log display
         ConversationTrigger.AddToken("read_fuser_log");
 
         // wait till conversation finishes
-        while(!ConversationTrigger.GetToken("show_locate_button"))
+        while (!ConversationTrigger.GetToken("show_locate_button"))
         {
-            
+            yield return new WaitForFixedUpdate();
         }
 
         //once convo is finished, Locate Hidden Materials button appears, triggered
@@ -174,6 +183,7 @@ public class LevelResetter : MonoBehaviour {
     // only for levels transitioning to timed Exploration Mode
     public void doShowMap()
     {
+        locateButton.gameObject.SetActive(false);
         StartCoroutine(showMap());
 ;    }
 
@@ -194,9 +204,17 @@ public class LevelResetter : MonoBehaviour {
         }
         yield return new WaitForSeconds(0.5f);
         rechargingText.text = "Hidden materials located. Generating area map...";
+        yield return new WaitForSeconds(3f);
 
         rechargingText.enabled = false;
 
+        // show the map, explanation of map
+        showMapText.gameObject.SetActive(true); // does this make sprite text appear?
+        map.gameObject.SetActive(true);
+
+        // and finally show Start button
+        yield return new WaitForSeconds(2f);
+        startButton.gameObject.SetActive(true);
     }
 
     private IEnumerator waitAndThenAddToken(float seconds, string token)
@@ -230,7 +248,6 @@ public class LevelResetter : MonoBehaviour {
             rechargingText.text = "Recharging   ";
         }
         rechargingText.enabled = false;
-        fadeOutScreen.enabled = false;
     }
 
     public void resetLevel()
@@ -301,23 +318,24 @@ public class LevelResetter : MonoBehaviour {
 
 
         //flicker screen, then go to black
-        flickeringTime = 0.5f;
-        while (flickeringTime > 0)
-        {
-            flickerLength = Random.Range(0.05f, 0.15f);
-            fadeOutScreen.enabled = true;
-            yield return new WaitForSeconds(flickerLength);
-            fadeOutScreen.enabled = false;
-            flickeringTime -= flickerLength;
-            yield return new WaitForSeconds(flickerLength);
-        }
-        fadeOutScreen.enabled = true;
+        //       flickeringTime = 0.5f;
+        //       while (flickeringTime > 0)
+        //       {
+        //          flickerLength = Random.Range(0.05f, 0.15f);
+        //          fadeOutScreen.enabled = true;
+        //           yield return new WaitForSeconds(flickerLength);
+        //           fadeOutScreen.enabled = false;
+        //           flickeringTime -= flickerLength;
+        //           yield return new WaitForSeconds(flickerLength);
+        //       }
+        //      fadeOutScreen.enabled = true;
+        screenFader.fadeOut(0.5f);
         powerFailureText.enabled = false;
         errorPanel.alpha = 0;
 
         yield return new WaitForSeconds(1f);
 
-        //Dresha gives you the failure message
+        //Try Again button appears
         ConversationTrigger.AddToken("outOfPower");
 
         //stop downward movement of parts
@@ -408,6 +426,9 @@ public class LevelResetter : MonoBehaviour {
         Debug.Log("Setting " + startingPart + " position to " + startingPartOffscreenPos + "!");
         startingPart.transform.SetPositionAndRotation(startingPartOffscreenPos, startingPartRotation);
 
+        // reset victoryPrefab, otherwise it does weird stuff once level is complete
+        fuseEvent.resetVictoryPrefab();
+
         // and reset camera
         cameraControls.gameObject.transform.SetPositionAndRotation(new Vector3(-90, 45, -3.36f), Quaternion.Euler(0, 0, 0));
 
@@ -420,17 +441,18 @@ public class LevelResetter : MonoBehaviour {
         fuseEvent.resetFuseCount();
         yield return new WaitForSeconds(4f);
 
+        screenFader.fadeIn(0.5f);
         //flicker screen back in
-        flickeringTime = 0.5f;
-        while (flickeringTime > 0)
-        {
-            flickerLength = Random.Range(0.01f, 0.1f);
-            fadeOutScreen.enabled = false;
-            yield return new WaitForSeconds(flickerLength);
-            fadeOutScreen.enabled = true;
-            flickeringTime -= flickerLength;
-        }
-        fadeOutScreen.enabled = false;
+ //       flickeringTime = 0.5f;
+ //       while (flickeringTime > 0)
+ //       {
+ //           flickerLength = Random.Range(0.01f, 0.1f);
+ //           fadeOutScreen.enabled = false;
+ //           yield return new WaitForSeconds(flickerLength);
+ //           fadeOutScreen.enabled = true;
+ //           flickeringTime -= flickerLength;
+  //      }
+  //      fadeOutScreen.enabled = false;
 
         if (tutorial != null)
         {

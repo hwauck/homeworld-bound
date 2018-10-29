@@ -24,6 +24,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     public CanvasGroup countdownPanel;
     public Text countdownText;
     public Text rechargingText;
+    public Map map;
 
     private AudioClip powerFailureSound;
     private AudioClip countdownSound;
@@ -44,6 +45,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
     private float YRotSensitivity;
 
     private string whatToBuild;
+
+    public GameObject[] rocketBootParts;
 
     private void Awake()
     {
@@ -67,15 +70,61 @@ public class ExplorationLevelResetter : MonoBehaviour {
     //reset fadeOutPanel from last scene transition if needed
     private void OnEnable()
     {
-        screenFader.fadeIn(0f);
         lowPowerText.enabled = false;
-        enablePlayerControl();
+
+        //TODO: add condition for sledgehammer level
+        if(ConversationTrigger.GetToken("finished_b4") && !ConversationTrigger.GetToken("finished_RB"))
+        {
+            disablePlayerControl();
+            map.gameObject.SetActive(true);
+
+            //reveal all rocket boots parts so player can collect them
+            for(int i = 0; i < rocketBootParts.Length; i++)
+            {
+                rocketBootParts[i].SetActive(true);
+            }
+
+            screenFader.fadeIn(1f);
+            map.doIntroMap(); // when this is done, it triggers startCountdown() and beginning of timed level
+        } else
+        {
+            enablePlayerControl();
+        }
+
 
     }
+
     // Use this for initialization
     void Start () {
 		
 	}
+
+    IEnumerator introTimer()
+    {
+        // move to center of screen
+        RectTransform rrRect = GetComponent<RectTransform>();
+        rrRect.anchoredPosition = new Vector3(0f, -233f, 0f);
+
+        Highlighter.Highlight(this.gameObject);
+        yield return new WaitForSeconds(4f);
+        Highlighter.Unhighlight(this.gameObject);
+
+        // zoom Rotations Remaining Panel to upper right
+        Vector3 startPosition = rrRect.anchoredPosition;
+        Vector3 endPosition = new Vector3(0, 0, 0);
+        float lerpTime = 0.5f;
+        float currentLerpTime = 0f;
+
+        while (Vector3.Distance(rrRect.anchoredPosition, endPosition) > 2)
+        {
+            Debug.Log(rrRect.anchoredPosition);
+            rrRect.anchoredPosition = Vector3.Lerp(startPosition, endPosition, currentLerpTime / lerpTime);
+            currentLerpTime += Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        rrRect.anchoredPosition = endPosition;
+    }
 
     public void setWhatToBuild(string whatToBuild)
     {
@@ -130,6 +179,9 @@ public class ExplorationLevelResetter : MonoBehaviour {
         {
             whatToBuild = "none";
         }
+
+        //TESTING ONLY
+        whatToBuild = "b4";
     }
 
     //invoke this method from PartCounter/BatteryCounter whenever all parts are collected (batteries) within time limit (items)
@@ -351,14 +403,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
     public void startCountdown()
     {
-        disablePlayerControl();
-        // firstPickup should always be a battery part - change from last time
-
-        if (timer.getNumRanOutOfTime() > 0)
-        {
-            ConversationTrigger.AddToken("firstPickup");
-        }
-
+        ConversationTrigger.AddToken("introTimer");
         StartCoroutine(doCountdownAndEnableControls());
     }
 
@@ -378,8 +423,9 @@ public class ExplorationLevelResetter : MonoBehaviour {
         {
             yield return new WaitForFixedUpdate();
         }
-        ConversationTrigger.RemoveToken("firstPickup");
+        ConversationTrigger.RemoveToken("introTimer");
         ConversationTrigger.RemoveToken("readyToStartTimer");
+        StartCoroutine(introTimer());
         countdownPanel.alpha = 1;
         for (int i = 3; i > 0; i--)
         {

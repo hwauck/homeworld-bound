@@ -1,4 +1,4 @@
-All right, you've got [color]8805 minutes[color] to find and [color]080tag[color] the rest of the [color]880item and battery parts[color]!
+You have [color]8805 minutes[color] to collect all of the parts shown on the map!
 Ready?
 [CHOOSE]
 |nowhere|readyToStartTimer

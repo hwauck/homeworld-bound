@@ -289,6 +289,12 @@ public class FuseEvent : MonoBehaviour {
 
 	}
 
+    // re-instantiates the victoryPrefab to avoid weird rotation behavior on level completion after power failure
+    public void resetVictoryPrefab()
+    {
+        group = Instantiate(victoryPrefab, new Vector3(-100, 30, 100), new Quaternion());
+    }
+
     // used by level resetter to reset the fuse count every time level is reset
     public void resetFuseCount()
     {
@@ -300,6 +306,8 @@ public class FuseEvent : MonoBehaviour {
         this.isFirstLevel = isFirstLevel;
     }
 
+    // called by Claim/Take button after level is finished for all levels except the last battery level
+    // before timed Exploration Mode
     public void goToNextScene()
     {
 
@@ -317,11 +325,6 @@ public class FuseEvent : MonoBehaviour {
         Debug.Log("currentLevel: " + currentLevel);
         switch (currentLevel)
         {
-            // TODO: Need to think about how to handle it when the player might need an unspecified number of 
-            // batteries. Procedurally generate battery models/Construction Mode levels so they stay different?
-            // Or just make a lot of batteries in advance, loop through them again, and hope the player doesn't
-            // notice?
-            // Should have a generic "battery" mode for all non-tutorial batteries
             case "b1":
                 BatterySystem.AddPower(2);
                 BatterySystem.PowerToTokens();

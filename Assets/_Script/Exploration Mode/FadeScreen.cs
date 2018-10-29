@@ -44,6 +44,7 @@ public class FadeScreen : MonoBehaviour {
             newColor.a = Mathf.Lerp(start, end, i);
             fadePanel.color = newColor;
             yield return new WaitForSeconds(step * Time.deltaTime);
+            Debug.Log("new color alpha: " + newColor.a);
         }
     }
 
