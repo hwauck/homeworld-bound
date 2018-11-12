@@ -41,6 +41,7 @@ public class LevelResetter : MonoBehaviour {
     private AudioClip countdownSound;
     private AudioClip finalCountSound;
     private AudioClip rechargingSound;
+    private AudioClip hiddenMaterialsFoundSound;
 
     private GameObject[] parts;
     private MeshCollider[] meshColliders;
@@ -80,6 +81,7 @@ public class LevelResetter : MonoBehaviour {
         rechargingSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-03");
         fullyChargedSound = Resources.Load<AudioClip>("Audio/ConstModeMusic/sfx_shield");
         logMessageSound = Resources.Load<AudioClip>("Audio/BothModes/Denied3");
+        hiddenMaterialsFoundSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-26");
         originalColliderCenter = startingPart.GetComponent<BoxCollider>().center;
         originalColliderSize = startingPart.GetComponent<BoxCollider>().size;
         startingPartRotation = startingPart.transform.rotation;
@@ -137,7 +139,7 @@ public class LevelResetter : MonoBehaviour {
         rechargingText.enabled = true;
         rechargingText.text = "Fuser is now fully charged!";
         audioSource.PlayOneShot(fullyChargedSound);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         rechargingText.text = "New log message detected.";
         audioSource.PlayOneShot(logMessageSound);
         readButton.gameObject.SetActive(true);
@@ -203,6 +205,7 @@ public class LevelResetter : MonoBehaviour {
             rechargingText.text = "Searching   ";
         }
         yield return new WaitForSeconds(0.5f);
+        audioSource.PlayOneShot(hiddenMaterialsFoundSound);
         rechargingText.text = "Hidden materials located. Generating area map...";
         yield return new WaitForSeconds(3f);
 

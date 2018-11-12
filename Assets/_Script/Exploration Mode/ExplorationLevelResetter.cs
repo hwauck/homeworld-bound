@@ -79,8 +79,10 @@ public class ExplorationLevelResetter : MonoBehaviour {
             map.gameObject.SetActive(true);
 
             //reveal all rocket boots parts so player can collect them
+            Debug.Log("Activating Rocket Boots parts!");
             for(int i = 0; i < rocketBootParts.Length; i++)
             {
+                Debug.Log("Activating part " + i + ": " + rocketBootParts[i]);
                 rocketBootParts[i].SetActive(true);
             }
 
@@ -102,14 +104,15 @@ public class ExplorationLevelResetter : MonoBehaviour {
     IEnumerator introTimer()
     {
         // move to center of screen
-        RectTransform rrRect = GetComponent<RectTransform>();
+        RectTransform rrRect = timer.gameObject.GetComponent<RectTransform>();
         rrRect.anchoredPosition = new Vector3(0f, -233f, 0f);
+        timer.gameObject.GetComponent<CanvasGroup>().alpha = 1; //show TimeRemainingPanel in center of screen
 
         Highlighter.Highlight(this.gameObject);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(1f);
         Highlighter.Unhighlight(this.gameObject);
 
-        // zoom Rotations Remaining Panel to upper right
+        // zoom TimeRemainingPanel to upper right
         Vector3 startPosition = rrRect.anchoredPosition;
         Vector3 endPosition = new Vector3(0, 0, 0);
         float lerpTime = 0.5f;

@@ -25,13 +25,11 @@ public class Map : MonoBehaviour {
     {
         // move to center of screen
         RectTransform rrRect = GetComponent<RectTransform>();
-        rrRect.anchoredPosition = new Vector3(-420.5f, -187.5f, 0);
+        rrRect.anchoredPosition = new Vector3(-382.99f, -150f, 0);
 
-        Highlighter.Highlight(this.gameObject);
-        yield return new WaitForSeconds(4f);
-        Highlighter.Unhighlight(this.gameObject);
+        yield return new WaitForSeconds(1f);
 
-        // zoom Rotations Remaining Panel to upper right
+        // zoom Map to upper right
         Vector3 startPosition = rrRect.anchoredPosition;
         Vector3 endPosition = new Vector3(0, 0, 0);
         float lerpTime = 0.5f;
