@@ -71,7 +71,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
     private void OnEnable()
     {
         lowPowerText.enabled = false;
-        ConversationTrigger.RemoveToken("doneRestarting");
 
         //TODO: add condition for sledgehammer level
         if(ConversationTrigger.GetToken("finished_b4") && !ConversationTrigger.GetToken("finished_RB"))
@@ -121,7 +120,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
         while (Vector3.Distance(rrRect.anchoredPosition, endPosition) > 2)
         {
-            Debug.Log(rrRect.anchoredPosition);
             rrRect.anchoredPosition = Vector3.Lerp(startPosition, endPosition, currentLerpTime / lerpTime);
             currentLerpTime += Time.deltaTime;
             yield return new WaitForFixedUpdate();
@@ -185,6 +183,10 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
         //TESTING ONLY
         whatToBuild = "b4";
+        if(ConversationTrigger.GetToken("finished_b4"))
+        {
+            whatToBuild = "rocketBoots";
+        }
     }
 
     //invoke this method from PartCounter/BatteryCounter whenever all parts are collected (batteries) within time limit (items)
@@ -213,6 +215,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
             screenFader.fadeOut(3f);
             map.hide();
+
+            itemPartCounter.hideParts();
             itemPartCounter.resetCounter();
             timer.stopTimer();
             timer.resetTimer();
@@ -358,7 +362,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     {
         yield return new WaitForSeconds(seconds);
         map.show();
-        Debug.Log("Adding " + token + "!");
+        Debug.Log("ADDING CONVO TOKEN " + token + "!");
         ConversationTrigger.AddToken(token);
         enablePlayerControl();
     }
@@ -369,16 +373,21 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
         for (int i = 0; i < 3; i++)
         {
-            rechargingText.text = "Booting up.  ";
+            rechargingText.text = "Recharging.  ";
             yield return new WaitForSeconds(0.25f);
-            rechargingText.text = "Booting up.. ";
+            rechargingText.text = "Recharging.. ";
             yield return new WaitForSeconds(0.25f);
-            rechargingText.text = "Booting up...";
+            rechargingText.text = "Recharging...";
             audioSource.PlayOneShot(rechargingSound);
             yield return new WaitForSeconds(0.5f);
-            rechargingText.text = "Booting up   ";
+            rechargingText.text = "Recharging   ";
         }
         rechargingText.enabled = false;
+        for(int i = 0; i < rocketBootParts.Length; i++)
+        {
+            rocketBootParts[i].SetActive(true);
+        }
+        timer.gameObject.GetComponent<CanvasGroup>().alpha = 0;
         timer.resetTimer();
         screenFader.fadeIn(3f);
         StartCoroutine(waitThenRestart(3f, "letsRestart"));
@@ -426,12 +435,14 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
     private IEnumerator doCountdownAndEnableControls()
     {
-        while(!ConversationTrigger.GetToken("readyToStartTimer"))
-        {
-            yield return new WaitForFixedUpdate();
-        }
+     //   while(!ConversationTrigger.GetToken("doneRestarting"))
+     //   {
+     //       Debug.Log("Waiting for doneRestarting token!");
+     //       yield return new WaitForFixedUpdate();
+     //   }
+     //   ConversationTrigger.RemoveToken("doneRestarting");
+        ConversationTrigger.RemoveToken("letsRestart");
         ConversationTrigger.RemoveToken("introTimer");
-        ConversationTrigger.RemoveToken("readyToStartTimer");
         StartCoroutine(introTimer()); 
 
         yield return new WaitForSeconds(3f);
@@ -468,22 +479,24 @@ public class ExplorationLevelResetter : MonoBehaviour {
         // finished recharging after power failure
         if (ConversationTrigger.GetToken("outOfPower") && ConversationTrigger.GetToken("hasPower"))
         {
+            Debug.Log("Finished recharging after power failure!");
             ConversationTrigger.RemoveToken("outOfPower");
             ConversationTrigger.RemoveToken("hasPower");
             StartCoroutine(rechargingAndRestart());
 
         }
         // when the restart message finishes, reenable controls and start countdown
-        else if (ConversationTrigger.GetToken("letsRestart") && ConversationTrigger.GetToken("doneRestarting"))
+        else if (ConversationTrigger.GetToken("doneRestarting"))
         {
-            ConversationTrigger.RemoveToken("letsRestart");
             ConversationTrigger.RemoveToken("doneRestarting");
+            Debug.Log("Beginning countdown!");
             StartCoroutine(doCountdownAndEnableControls());
             enablePlayerControl();
         }
         // first time level is started: may want this for as soon as the tutorial before first part is over
         else if (ConversationTrigger.GetToken("startBeginningConvo") && ConversationTrigger.GetToken("doneWithBeginningConvo"))
         {
+            Debug.Log("This shouldn't be triggering");
             ConversationTrigger.RemoveToken("startBeginningConvo");
             ConversationTrigger.RemoveToken("doneWithBeginningConvo");
             StartCoroutine(doCountdownAndEnableControls());

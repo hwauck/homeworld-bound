@@ -1,4 +1,4 @@
 You have [color]8805 minutes[color] to collect all of the parts shown on the map!
 Ready?
 [CHOOSE]
-|nowhere|readyToStartTimer
+|nowhere|doneRestarting

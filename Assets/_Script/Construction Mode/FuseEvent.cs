@@ -1312,6 +1312,9 @@ public class FuseEvent : MonoBehaviour {
                 } else if (currentLevel.Equals("b4"))
                 {
                     ConversationTrigger.AddToken("finished_b4");
+                } else if (currentLevel.Equals("rocketBoots"))
+                {
+                    ConversationTrigger.AddToken("finished_RB");
                 }
 
                 claimItem.gameObject.SetActive(true);

@@ -4365,7 +4365,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 256577647}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be138e1344296904cab08901f0cf1dd3, type: 3}
   m_Name: 
@@ -4379,7 +4379,7 @@ MonoBehaviour:
   tokenWhitelist:
   - introTimer
   tokenBlacklist:
-  - readyToStartTimer
+  - doneRestarting
 --- !u!4 &256577649
 Transform:
   m_ObjectHideFlags: 0
@@ -6628,9 +6628,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'WARNING: Level 5 Psyonic lifeform detected.
+  m_Text: 'TIME''S UP! SHUTTING DOWN
 
-    SHUTTING DOWN to avoid detection!'
+'
 --- !u!222 &390568381
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16471,7 +16471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerLabel: {fileID: 427531887}
-  timeGiven: 300
+  timeGiven: 100
   powerFailure:
     m_PersistentCalls:
       m_Calls:
