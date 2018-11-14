@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Map : MonoBehaviour {
 
@@ -26,6 +27,7 @@ public class Map : MonoBehaviour {
         // move to center of screen
         RectTransform rrRect = GetComponent<RectTransform>();
         rrRect.anchoredPosition = new Vector3(-382.99f, -150f, 0);
+        show();
 
         yield return new WaitForSeconds(1f);
 
@@ -51,4 +53,14 @@ public class Map : MonoBehaviour {
     void Update () {
 		
 	}
+
+    public void show()
+    {
+        gameObject.GetComponent<Image>().enabled = true;
+    }
+
+    public void hide()
+    {
+        gameObject.GetComponent<Image>().enabled = false;
+    }
 }

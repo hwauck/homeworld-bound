@@ -31,10 +31,13 @@ public class PartCounter : MonoBehaviour {
     {
         partsFound++;
         partsFoundText.text = objectToBuild + " Parts: " + partsFound + "/" + partsNeededText;
+        showParts();
         if(partsFound==partsNeeded)
         {
             partsDone = true;
-            //readyForNextLevel.Invoke();
+            StartCoroutine(waitThenHide(6));
+
+            readyForNextLevel.Invoke();
         }
 
         //if (partsDone && batteryCounter.allPartsCollected()) {
@@ -46,6 +49,12 @@ public class PartCounter : MonoBehaviour {
         //    InventoryController.levelName = SceneManager.GetActiveScene().name;
         //    StartCoroutine(waitThenLoadLevel(3f, whatToBuild));
         //}
+    }
+
+    private IEnumerator waitThenHide(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        hideParts();
     }
 
     public bool allPartsCollected()
@@ -81,7 +90,20 @@ public class PartCounter : MonoBehaviour {
 
     }
 
+    // make PartCounter UI element visible
+    public void showParts()
+    {
+        gameObject.GetComponent<Image>().enabled = true;
+        gameObject.transform.GetComponentInChildren<Text>().enabled = true;
 
+    }
+
+    // make PartCounter UI element invisible
+    public void hideParts()
+    {
+        gameObject.GetComponent<Image>().enabled = false;
+        gameObject.transform.GetComponentInChildren<Text>().enabled = false;
+    }
 
     // Update is called once per frame
     void Update () {

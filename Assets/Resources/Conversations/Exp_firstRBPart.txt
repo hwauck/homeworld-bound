@@ -1,6 +1,2 @@
 You found a part that can be used to make a pair of [color]880Rocket Boots[color]! 
-Find the rest of the [color]880Rocket Boot[color] and [color]808battery[color] parts to build the [color]880Rocket Boots[color].
-You've got [color]8805 minutes[color] to find and [color]080tag[color] the rest of the [color]880item and battery parts[color]!
-Ready?
-[CHOOSE]
-|nowhere|readyToStartTimer
+Find the [color]880six[color] remaining Rocket Boot parts to build the [color]880Rocket Boots[color].

@@ -12,6 +12,7 @@ public class Timer : MonoBehaviour {
     private bool timerStarted = false;
     public UnityEvent powerFailure;
     private int numRanOutOfTime; // this should be recorded by the appropriate level and then reset to 0 each level.
+    private AudioClip batteryExpMusic;
     public AudioClip ExploreM;
     public AudioClip ExploreMLOW;
     public AudioSource MusicSource;
@@ -23,16 +24,23 @@ public class Timer : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        batteryExpMusic = Resources.Load<AudioClip>("Audio/ExpModeMusic/Danse-Morialta");
         timeRemaining = timeGiven;
         minutes = Mathf.FloorToInt(timeRemaining / 60F);
         seconds = Mathf.FloorToInt(timeRemaining - minutes * 60);
         timerLabel.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+
+        //play regular music during battery levels
+        MusicSource.clip = batteryExpMusic;
+        Debug.Log("playing music!");
+        MusicSource.Play();
 
     }
 
     public void startTimer()
     {
         timerStarted = true;
+        MusicSource.Stop();
         MusicSource.clip = ExploreM;
         MusicSource.Play();
     }
@@ -56,6 +64,16 @@ public class Timer : MonoBehaviour {
         return numRanOutOfTime;
     }
 
+    public void stopMusic()
+    {
+        MusicSource.Stop();
+    }
+
+    public void startMusic()
+    {
+        MusicSource.Play();
+    }
+
     void Update()
     {
         if (timerStarted)
@@ -65,7 +83,7 @@ public class Timer : MonoBehaviour {
                 timeRemaining -= Time.deltaTime;
             }
 
-            if (timeRemaining < 240)
+            if (timeRemaining < 60)
 
             {
                 if (sinisterMusicstarted == false)
@@ -87,6 +105,7 @@ public class Timer : MonoBehaviour {
             {
                 stopTimer();
                 powerFailure.Invoke();
+                MusicSource.Stop();
                 numRanOutOfTime++; // data collection
                 minutes = 0;
                 seconds = 0;

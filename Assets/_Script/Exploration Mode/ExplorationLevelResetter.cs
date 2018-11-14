@@ -71,22 +71,23 @@ public class ExplorationLevelResetter : MonoBehaviour {
     private void OnEnable()
     {
         lowPowerText.enabled = false;
+        ConversationTrigger.RemoveToken("doneRestarting");
 
         //TODO: add condition for sledgehammer level
         if(ConversationTrigger.GetToken("finished_b4") && !ConversationTrigger.GetToken("finished_RB"))
         {
             disablePlayerControl();
-            map.gameObject.SetActive(true);
 
             //reveal all rocket boots parts so player can collect them
-            Debug.Log("Activating Rocket Boots parts!");
-            for(int i = 0; i < rocketBootParts.Length; i++)
+            //Debug.Log("Activating Rocket Boots parts!");
+            for (int i = 0; i < rocketBootParts.Length; i++)
             {
-                Debug.Log("Activating part " + i + ": " + rocketBootParts[i]);
+                //Debug.Log("Activating part " + i + ": " + rocketBootParts[i]);
                 rocketBootParts[i].SetActive(true);
             }
 
             screenFader.fadeIn(1f);
+
             map.doIntroMap(); // when this is done, it triggers startCountdown() and beginning of timed level
         } else
         {
@@ -108,9 +109,9 @@ public class ExplorationLevelResetter : MonoBehaviour {
         rrRect.anchoredPosition = new Vector3(0f, -233f, 0f);
         timer.gameObject.GetComponent<CanvasGroup>().alpha = 1; //show TimeRemainingPanel in center of screen
 
-        Highlighter.Highlight(this.gameObject);
+        Highlighter.Highlight(timer.gameObject);
         yield return new WaitForSeconds(1f);
-        Highlighter.Unhighlight(this.gameObject);
+        Highlighter.Unhighlight(timer.gameObject);
 
         // zoom TimeRemainingPanel to upper right
         Vector3 startPosition = rrRect.anchoredPosition;
@@ -132,7 +133,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
     public void setWhatToBuild(string whatToBuild)
     {
         this.whatToBuild = whatToBuild;
-        //itemPartCounter.setObjectToBuild(objectToBuild);
 
     }
 
@@ -212,6 +212,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             audioSource.PlayOneShot(powerUpSound);
 
             screenFader.fadeOut(3f);
+            map.hide();
             itemPartCounter.resetCounter();
             timer.stopTimer();
             timer.resetTimer();
@@ -318,6 +319,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     {
         yield return new WaitForSeconds(waitSeconds);
         screenFader.fadeOut(fadeSeconds);
+        map.hide();
         powerFailureText.enabled = false;
         errorPanel.alpha = 0;
         yield return new WaitForSeconds(fadeSeconds);
@@ -355,6 +357,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
     private IEnumerator waitThenRestart(float seconds, string token)
     {
         yield return new WaitForSeconds(seconds);
+        map.show();
+        Debug.Log("Adding " + token + "!");
         ConversationTrigger.AddToken(token);
         enablePlayerControl();
     }
@@ -365,14 +369,14 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
         for (int i = 0; i < 3; i++)
         {
-            rechargingText.text = "Recharging.  ";
+            rechargingText.text = "Booting up.  ";
             yield return new WaitForSeconds(0.25f);
-            rechargingText.text = "Recharging.. ";
+            rechargingText.text = "Booting up.. ";
             yield return new WaitForSeconds(0.25f);
-            rechargingText.text = "Recharging...";
+            rechargingText.text = "Booting up...";
             audioSource.PlayOneShot(rechargingSound);
             yield return new WaitForSeconds(0.5f);
-            rechargingText.text = "Recharging   ";
+            rechargingText.text = "Booting up   ";
         }
         rechargingText.enabled = false;
         timer.resetTimer();
@@ -428,7 +432,10 @@ public class ExplorationLevelResetter : MonoBehaviour {
         }
         ConversationTrigger.RemoveToken("introTimer");
         ConversationTrigger.RemoveToken("readyToStartTimer");
-        StartCoroutine(introTimer());
+        StartCoroutine(introTimer()); 
+
+        yield return new WaitForSeconds(3f);
+
         countdownPanel.alpha = 1;
         for (int i = 3; i > 0; i--)
         {
@@ -466,11 +473,12 @@ public class ExplorationLevelResetter : MonoBehaviour {
             StartCoroutine(rechargingAndRestart());
 
         }
-        // when Dresha has finished the restart message, reenable controls
-        else if (ConversationTrigger.GetToken("doneRestarting") && ConversationTrigger.GetToken("letsRestart"))
+        // when the restart message finishes, reenable controls and start countdown
+        else if (ConversationTrigger.GetToken("letsRestart") && ConversationTrigger.GetToken("doneRestarting"))
         {
             ConversationTrigger.RemoveToken("letsRestart");
             ConversationTrigger.RemoveToken("doneRestarting");
+            StartCoroutine(doCountdownAndEnableControls());
             enablePlayerControl();
         }
         // first time level is started: may want this for as soon as the tutorial before first part is over

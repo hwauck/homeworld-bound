@@ -94,17 +94,23 @@ public class PickUp : MonoBehaviour
 					InventoryController.Add(this, 1);
 					InventoryController.ConvertInventoryToTokens();
 
+                    PartCounter partCounter = partCounterObj.GetComponent<PartCounter>();
+
                     // Poke the build button so it can check if it needs to update.
                     //BuildButton.CheckRecipes();
 
                     if (gameObject.tag.Equals("rocketBoots"))
 					{
 						ConversationTrigger.AddToken("picked_up_a_boots_piece");
+                        partCounter.setObjectToBuild("Rocket Boots");
+                        partCounter.setPartsNeeded(7);
                         levelResetter.setWhatToBuild("rocketBoots");
                     }
                     if (gameObject.tag.Equals("sledgehammer"))
 					{
 						ConversationTrigger.AddToken("picked_up_a_sledge_piece");
+                        partCounter.setObjectToBuild("Sledgehammer");
+                        partCounter.setPartsNeeded(11);
                         levelResetter.setWhatToBuild("sledgehammer");
                     }
                     if (pickupName.Contains("Key1"))
@@ -119,7 +125,8 @@ public class PickUp : MonoBehaviour
                     // Object still needs to exist for the icon to work.
                     // Silly, but let's just shove it into a corner and forget about it.
                     // Also parents to the scene manager object so it rejects deletion as much as possible.
-                    transform.position = new Vector3(-1000f, -1000f, -1000f);
+                    //transform.position = new Vector3(-1000f, -1000f, -1000f);
+                    gameObject.SetActive(false);
 
                     //turn aura green and disable pickup trigger if already picked up
                     //this.GetComponent<Collider>().enabled = false;

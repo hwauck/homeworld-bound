@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.Events;
 
 public class Fuser : ItemBase {
     public GameObject fuser;
@@ -17,6 +18,9 @@ public class Fuser : ItemBase {
 
     public Button putAwayButton;
     public Text putAwayText;
+
+    public UnityEvent fuserLaunched;
+    public UnityEvent fuserPutAway;
 
     //FPS controller variables
     public RigidbodyFirstPersonController controller;
@@ -46,15 +50,19 @@ public class Fuser : ItemBase {
         fuserStatic.SetActive(true);
         ConversationTrigger.AddToken("gear_fuser");
         StartCoroutine(firstLookAtFuser());
+        fuserLaunched.Invoke();
+
     }
-    
+
     // activate the fuser for all subsequent fuser accesses (each time all the parts
     // for an item/battery have been collected and Construction Mode will be launched)
     public void ActivateFuser()
     {
         fuserActive = true;
         fuserStatic.SetActive(true);
-   }
+        fuserLaunched.Invoke();
+
+    }
 
     public override void Deselect()
     {
@@ -63,6 +71,7 @@ public class Fuser : ItemBase {
             GetRef();
             // Hide the sledge when deselected, and set a flag.
             fuserStatic.gameObject.SetActive(false);
+            fuserPutAway.Invoke();
 
         }
     }
@@ -73,6 +82,8 @@ public class Fuser : ItemBase {
             GetRef();
             // Re-show the sledgewhen selected, and set a flag.
             fuserStatic.gameObject.SetActive(true);
+            fuserLaunched.Invoke();
+
 
         }
     }
