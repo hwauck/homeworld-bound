@@ -72,7 +72,7 @@ public class FuseEvent : MonoBehaviour {
         startLevelTimer();
         musicsource.clip = music;
 
-        musicsource.Play();
+        //musicsource.Play();
 
         //wait until level has officially loaded before assigning fuse mappings
         StartCoroutine(createFuseMapping());
@@ -485,6 +485,14 @@ public class FuseEvent : MonoBehaviour {
         // NOTE: when there are parts A and B that can be fused to each other instead of starting part,
         // fuseMapping needs mappings from A -> B AND from B -> A
         Debug.Log("Creating fuse mappings for Scene " + currentScene);
+
+        //also, here we decide whether or not to use the FuseEvent's music setup. If it's a non-timed level,
+        //we play the music from FuseEvent. If it's a timed level (with a TimeRemainingPanel), we let the 
+        //Timer script on the TimeRemainingPanel handle the music
+        if(!currentScene.Equals("rocketBoots") && !currentScene.Equals("sledgehammer"))
+        {
+            startMusic();
+        }
         if (currentScene.Equals("b1"))
         {
             //b1p1 to bb1

@@ -12,27 +12,27 @@ public class Timer : MonoBehaviour {
     private bool timerStarted = false;
     public UnityEvent powerFailure;
     private int numRanOutOfTime; // this should be recorded by the appropriate level and then reset to 0 each level.
-    private AudioClip batteryExpMusic;
     public AudioClip ExploreM;
     public AudioClip ExploreMLOW;
+    public AudioClip ExploreNonTimed;
     public AudioSource MusicSource;
     private bool sinisterMusicstarted = false;
+    public UnityEvent isTimedLevel;
+
     void Awake()
     {
+        isTimedLevel.Invoke(); // prompts LevelResetter to disablePlayerControls()
         numRanOutOfTime = 0;
     }
 
     // Use this for initialization
     void Start () {
-        batteryExpMusic = Resources.Load<AudioClip>("Audio/ExpModeMusic/Danse-Morialta");
         timeRemaining = timeGiven;
         minutes = Mathf.FloorToInt(timeRemaining / 60F);
         seconds = Mathf.FloorToInt(timeRemaining - minutes * 60);
         timerLabel.text = string.Format("{0:0}:{1:00}", minutes, seconds);
 
         //play regular music during battery levels
-        MusicSource.clip = batteryExpMusic;
-        Debug.Log("playing music!");
         MusicSource.Play();
 
     }

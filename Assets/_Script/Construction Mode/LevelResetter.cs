@@ -497,10 +497,56 @@ public class LevelResetter : MonoBehaviour {
 
     }
 
+    IEnumerator introTimerAndRotations()
+    {
+        // move to center of screen
+        RectTransform rrRectTimer = timeRemainingPanel.gameObject.GetComponent<RectTransform>();
+        RectTransform rrRectRotations = rotationsRemainingPanel.gameObject.GetComponent<RectTransform>();
+
+        rrRectTimer.anchoredPosition = new Vector3(-400f, -175f, 0f);
+        rrRectRotations.anchoredPosition = new Vector3(-300f, -175f, 0f);
+
+        timeRemainingPanel.alpha = 1; //show TimeRemainingPanel in center of screen
+        rotationsRemainingPanel.alpha = 1; //show RotationsRemainingPanel in center of screen
+
+        Highlighter.Highlight(timeRemainingPanel.gameObject);
+        Highlighter.Highlight(rotationsRemainingPanel.gameObject);
+        yield return new WaitForSeconds(1f);
+        Highlighter.Unhighlight(timeRemainingPanel.gameObject);
+        Highlighter.Unhighlight(rotationsRemainingPanel.gameObject);
+
+        // zoom panels to upper right
+        Vector3 startPositionTimer = rrRectTimer.anchoredPosition;
+        Vector3 startPositionRotations = rrRectRotations.anchoredPosition;
+
+        Vector3 endPositionTimer = new Vector3(-100, 0, 0);
+        Vector3 endPositionRotations = new Vector3(0, 0, 0);
+
+        float lerpTime = 0.5f;
+        float currentLerpTime = 0f;
+
+        while (Vector3.Distance(rrRectTimer.anchoredPosition, endPositionTimer) > 2)
+        {
+            rrRectTimer.anchoredPosition = Vector3.Lerp(startPositionTimer, endPositionTimer, currentLerpTime / lerpTime);
+            rrRectRotations.anchoredPosition = Vector3.Lerp(startPositionRotations, endPositionRotations, currentLerpTime / lerpTime);
+            currentLerpTime += Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        rrRectTimer.anchoredPosition = endPositionTimer;
+        rrRectRotations.anchoredPosition = endPositionRotations;
+    }
+
     private IEnumerator doCountdownAndEnableControls()
     {
         if (timeRemainingPanel != null)
         {
+            yield return new WaitForSeconds(1f); // wait for part to finish zooming up
+
+            StartCoroutine(introTimerAndRotations());
+
+            yield return new WaitForSeconds(3f);
+
             countdownPanel.alpha = 1;
             for (int i = 3; i > 0; i--)
             {
@@ -539,7 +585,7 @@ public class LevelResetter : MonoBehaviour {
             showTryAgainButton();
         }
         // when Dresha has finished the restart message, reenable controls and start level again with countdown
-        else if (ConversationTrigger.GetToken("doneRestarting") && ConversationTrigger.GetToken("letsRestart"))
+        else if (ConversationTrigger.GetToken("doneRestarting"))
         { 
             ConversationTrigger.RemoveToken("letsRestart");
             ConversationTrigger.RemoveToken("doneRestarting");

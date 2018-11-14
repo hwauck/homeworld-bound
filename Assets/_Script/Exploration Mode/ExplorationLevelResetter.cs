@@ -491,7 +491,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
             ConversationTrigger.RemoveToken("doneRestarting");
             Debug.Log("Beginning countdown!");
             StartCoroutine(doCountdownAndEnableControls());
-            enablePlayerControl();
         }
         // first time level is started: may want this for as soon as the tutorial before first part is over
         else if (ConversationTrigger.GetToken("startBeginningConvo") && ConversationTrigger.GetToken("doneWithBeginningConvo"))
