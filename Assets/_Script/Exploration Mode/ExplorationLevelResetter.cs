@@ -1,10 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.Events;
+using System.Runtime.InteropServices;
 
 public class ExplorationLevelResetter : MonoBehaviour {
 
@@ -24,6 +24,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
     public CanvasGroup countdownPanel;
     public Text countdownText;
     public Text rechargingText;
+    public Text demoFinishedText;
+    public Text demoFinishedAltText;
     public Map map;
 
     private AudioClip powerFailureSound;
@@ -47,6 +49,27 @@ public class ExplorationLevelResetter : MonoBehaviour {
     private string whatToBuild;
 
     public GameObject[] rocketBootParts;
+
+    public UnityEvent gameQuit;
+
+    // Javascript methods imported from browserUnityInteraction.jslib Plugin
+    [DllImport("__Internal")]
+    private static extern void Hello();
+
+    [DllImport("__Internal")]
+    private static extern void HelloString(string str);
+
+    [DllImport("__Internal")]
+    private static extern void PrintFloatArray(float[] array, int size);
+
+    [DllImport("__Internal")]
+    private static extern int AddNumbers(int x, int y);
+
+    [DllImport("__Internal")]
+    private static extern string StringReturnValueFunction();
+
+    [DllImport("__Internal")]
+    private static extern void BindWebGLTexture(int texture);
 
     private void Awake()
     {
@@ -88,6 +111,10 @@ public class ExplorationLevelResetter : MonoBehaviour {
             screenFader.fadeIn(1f);
 
             map.doIntroMap(); // when this is done, it triggers startCountdown() and beginning of timed level
+        } else if (ConversationTrigger.GetToken("finished_RB"))
+        {
+            screenFader.fadeIn(1f);
+            enablePlayerControl();
         } else
         {
             enablePlayerControl();
@@ -100,6 +127,38 @@ public class ExplorationLevelResetter : MonoBehaviour {
     void Start () {
 		
 	}
+
+    // when player reaches highlands level with rocket boots, fade out to DEMO FINISHED words
+    public void doFadeToDemoFinished(float seconds, bool playerInitiated)
+    {
+        gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
+        disablePlayerControl();
+        StopAllCoroutines();
+        timer.stopTimer();
+        timer.stopMusic();
+        ConversationController.Disable();
+        errorPanel.alpha = 0;
+        countdownPanel.alpha = 0;
+        StartCoroutine(fadeToDemoFinished(seconds, playerInitiated));
+    }
+
+    private IEnumerator fadeToDemoFinished(float seconds, bool playerInitiated)
+    {
+        screenFader.fadeOut(seconds);
+        yield return new WaitForSeconds(seconds);
+
+        if(playerInitiated)
+        {
+            demoFinishedAltText.enabled = true;
+            yield return new WaitForSeconds(3f);
+            // load next page, however that's done
+            Hello();
+
+        } else
+        {
+            demoFinishedText.enabled = true;
+        }
+    }
 
     IEnumerator introTimer()
     {
@@ -364,7 +423,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
         map.show();
         Debug.Log("ADDING CONVO TOKEN " + token + "!");
         ConversationTrigger.AddToken(token);
-        enablePlayerControl();
     }
 
     private IEnumerator rechargingAndRestart()
@@ -475,6 +533,14 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+
+        // player presses P key, game ends and player sees demo finished screen, goes to post-game survey
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            doFadeToDemoFinished(3f, true);
+            
+        }
+
         //Debug.Log(ConversationTrigger.GetToken("firstPickup"));
         // finished recharging after power failure
         if (ConversationTrigger.GetToken("outOfPower") && ConversationTrigger.GetToken("hasPower"))

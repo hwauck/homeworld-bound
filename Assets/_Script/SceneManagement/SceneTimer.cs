@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.Collections;
+using UnityEngine.Events;
 
 // This Timer class is used to track how long players spend in explortation levels.
 // The tracking for construction levels is done separately, and is in FuseEvent.cs.
@@ -12,6 +11,7 @@ public class SceneTimer : MonoBehaviour
 	float timer = 0f;
 	Transform playerPos;
 	public static bool highland = false;
+    public UnityEvent enteredHighland;
 	void Start(){
 		playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 	}
@@ -22,7 +22,8 @@ public class SceneTimer : MonoBehaviour
         // TODO: change this so that separation is more definition
 		if (!highland) {
 			if (sceneName == "Canyon2" && playerPos.position.y >= 33) {
-				//Debug.Log("here");
+				Debug.Log("ENTERED HIGHLANDS");
+                enteredHighland.Invoke();
 				SimpleData.WriteDataPoint("Left_Scene", "", "", "", "", "");
 				//SimpleData.WriteStringToFile ("TimeSpent.txt", Time.time + ",TIMESPENT_INLEVEL," + sceneName + "," + timer);
 				timer = 0f;

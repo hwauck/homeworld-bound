@@ -1520,6 +1520,7 @@ public class FuseEvent : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
 		if(done ())
         {
 			rotateConstruction ();

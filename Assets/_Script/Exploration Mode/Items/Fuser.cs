@@ -103,6 +103,14 @@ public class Fuser : ItemBase {
         Start();
     }
 
+
+    public void onQuitGame()
+    {
+        StopAllCoroutines();
+        lowPowerText.enabled = false;
+        putAwayButton.gameObject.SetActive(false);
+    }
+
     // when the player first finds the Fuser on the ground
     IEnumerator firstLookAtFuser()
     {

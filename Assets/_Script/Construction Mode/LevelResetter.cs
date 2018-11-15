@@ -63,6 +63,8 @@ public class LevelResetter : MonoBehaviour {
     // variables for transition to timed Exploration Mode levels
     public Image fadeOutScreen;
     public Image map;
+    public Text howToQuitText;
+    public Text demoFinishedText;
     public FadeScreen screenFader;
     private AudioClip fullyChargedSound;
     private AudioClip logMessageSound;
@@ -575,8 +577,64 @@ public class LevelResetter : MonoBehaviour {
         selectPart.controlsDisabled = false;
     }
 
+    // when player presses P key, call this method to end game
+    public void doFadeToDemoFinished(float seconds)
+    {
+        //gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
+        // might need to tell new tutorial level coroutines to stop too
+        disablePlayerControls();
+        StopAllCoroutines();
+        if(timeRemainingPanel != null)
+        {
+            Timer timer = timeRemainingPanel.gameObject.GetComponent<Timer>();
+            timer.stopTimer();
+            timer.stopMusic();
+            countdownPanel.alpha = 0;
+        }
+
+        ConversationController.Disable();
+        errorPanel.alpha = 0;
+
+        // only for non-tutorial levels (everything but newTutorial)
+        if (rechargingText != null)
+        {
+            rechargingText.enabled = false;
+            tryAgainButton.gameObject.SetActive(false);
+        }
+
+        // only for timed levels
+        if (showMapText != null)
+        {
+            showMapText.enabled = false;
+            readButton.gameObject.SetActive(false);
+            locateButton.gameObject.SetActive(false);
+            startButton.gameObject.SetActive(false);
+            map.gameObject.SetActive(false);
+        }
+
+        howToQuitText.enabled = false;
+        StartCoroutine(fadeToDemoFinished(seconds));
+    }
+
+    private IEnumerator fadeToDemoFinished(float seconds)
+    {
+        screenFader.fadeOut(seconds);
+        yield return new WaitForSeconds(seconds);
+
+        demoFinishedText.enabled = true;
+        yield return new WaitForSeconds(3f);
+            // load next page, however that's done
+
+    }
+
     // Update is called once per frame
     void Update () {
+
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            doFadeToDemoFinished(3f);
+            disablePlayerControls();
+        }
         //Debug.Log("startBeginningConvo is already here? " + ConversationTrigger.GetToken("startBeginningConvo"));
         // finished recharging after power failure, show Try Again? button to restart level
         if (ConversationTrigger.GetToken("outOfPower"))
