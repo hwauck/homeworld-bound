@@ -26,28 +26,40 @@ public class TutorialManager : MonoBehaviour
     public GameObject finishedPic;
     public GameObject conversation;
     public GameObject cameraRig;
+    public GameObject canvas;
+    public GameObject partsGroup;
     // RectTransform of the arrow image. The changes are hardcoded. 
     private RectTransform arrowTransform;
     private RectTransform conversationTransform;
+    private Camera cam;
+    private float canvasWidth;
+    private float canvasHeight;
 
     void Start()
     {
         step = 1;
-        p1s1.GetComponent<TutorialSelect>().enabled = false;
+        p1s1.GetComponent<TutorialBlackSurfaceMove>().enabled = false;
         p2s2.GetComponent<TutorialSelect>().enabled = false;
         arrowTransform = arrow.GetComponent<RectTransform>();
         arrowTransform.localRotation = Quaternion.Euler(0, 0, -180);
         arrowTransform.anchoredPosition = new Vector2(-150f, 287f);
         conversationTransform = conversation.GetComponent<RectTransform>();
         conversationTransform.anchoredPosition = new Vector2(0, 0);
+        cam = Camera.main;
+        partsGroup.transform.position = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth / 2f, cam.pixelHeight / 2f, 72));
+        
     }
 
     void Update()
     {
+        canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
+        canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
         if (step == 1)
         {
             tutorialText.text = "This is the target object";
             Highlighter.Highlight(finishedPic);
+            arrow.transform.SetParent(finishedPic.transform);
+            arrowTransform.anchoredPosition = finishedPic.GetComponent<RectTransform>().anchoredPosition + new Vector2(280, 160);
         }
         else if (step == 2)
         {
@@ -58,7 +70,8 @@ public class TutorialManager : MonoBehaviour
             Highlighter.Highlight(part1);
             Highlighter.Highlight(p1s1);
             Highlighter.Unhighlight(finishedPic);
-            arrowTransform.anchoredPosition = new Vector2(35, 190);
+            arrow.transform.SetParent(canvas.transform);
+            arrowTransform.anchoredPosition = new Vector2(canvasWidth / 20f, canvasHeight / 2f);
             conversationTransform.anchoredPosition = new Vector2(156, -81);
         }
         else if (step == 3)
@@ -72,7 +85,7 @@ public class TutorialManager : MonoBehaviour
             Highlighter.Highlight(part2Button);
 
             arrowTransform.localRotation = Quaternion.Euler(0, 0, -90);
-            arrowTransform.anchoredPosition = new Vector2(-177, 136);
+            arrowTransform.anchoredPosition = new Vector2(-170, 136);
             conversationTransform.anchoredPosition = new Vector2(-28, -81);
         }
         else if (step == 4)
@@ -84,7 +97,8 @@ public class TutorialManager : MonoBehaviour
             tutorialText.text = "CLICK on arrow to rotate the object";
             part2Button.GetComponent<Button>().interactable = false;
             arrowTransform.localRotation = Quaternion.Euler(0, 0, 0);
-            arrowTransform.anchoredPosition = new Vector2(-31, 78);
+            //arrowTransform.anchoredPosition = new Vector2(-31, 78);
+            arrowTransform.anchoredPosition = new Vector2(0, canvasHeight / 3.4f);
             conversationTransform.anchoredPosition = new Vector2(-28, -45);
         }
         else if (step == 5)
@@ -98,7 +112,7 @@ public class TutorialManager : MonoBehaviour
             Highlighter.Unhighlight(zDownArrow);
             Highlighter.Highlight(rotationRemain);
             arrowTransform.localRotation = Quaternion.Euler(0, 0, 90);
-            arrowTransform.anchoredPosition = new Vector2(393, 250);
+            arrowTransform.anchoredPosition = new Vector2(393, canvasHeight - 150f);
             conversationTransform.anchoredPosition = new Vector2(121, -16);
         }
         else if (step == 6)
@@ -108,15 +122,17 @@ public class TutorialManager : MonoBehaviour
             p2s2.GetComponent<TutorialSelect>().enabled = true;
             Highlighter.Unhighlight(rotationRemain);
             arrowTransform.localRotation = Quaternion.Euler(0, 0, 45);
-            arrowTransform.anchoredPosition = new Vector2(113, 79);
+            //arrowTransform.anchoredPosition = new Vector2(113, 79);
+            arrowTransform.anchoredPosition = new Vector2(canvasWidth / 5, canvasHeight / 5);
             conversationTransform.anchoredPosition = new Vector2(83, -37);
         }
         else if (step == 7)
         {
             tutorialText.text = "CLICK on another part's black surface to select it";
-            p1s1.GetComponent<TutorialSelect>().enabled = true;
+            p1s1.GetComponent<TutorialBlackSurfaceMove>().enabled = true;
             arrowTransform.localRotation = Quaternion.Euler(0, 0, -135);
-            arrowTransform.anchoredPosition = new Vector2(-47, 217);
+            //arrowTransform.anchoredPosition = new Vector2(-47, 217);
+            arrowTransform.anchoredPosition = new Vector2(0, canvasHeight / 2);
             conversationTransform.anchoredPosition = new Vector2(83, -37);
         }
         else if (step == 8)
@@ -130,6 +146,7 @@ public class TutorialManager : MonoBehaviour
             arrowTransform.localRotation = Quaternion.Euler(0, 0, -90);
             arrowTransform.anchoredPosition = new Vector2(-90, 126);
             conversationTransform.anchoredPosition = new Vector2(-44, -81);
+            //Debug.Log(part2.transform.position);
         }
         else if (step == 9)
         {
@@ -140,8 +157,10 @@ public class TutorialManager : MonoBehaviour
             rotationGizmo.SetActive(false);
             correct.SetActive(true);
             Highlighter.Unhighlight(FuzeButton);
-            tutorialText.text = "Congratulations! You have successfully fuzed two parts";
+            tutorialText.text = "Congratulations! You have successfully fuzed two parts. Click NEXT to end the tutorial!";
             arrow.SetActive(false);
+            FuzeButton.SetActive(false);
+            nextButton.SetActive(true);
             conversationTransform.anchoredPosition = new Vector2(0, 0);
             cameraRig.GetComponent<CameraControls>().enabled = true;
         }
