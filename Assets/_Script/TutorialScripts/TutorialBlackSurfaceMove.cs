@@ -4,16 +4,27 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 /// <summary>
-/// This class defines selection behaviors of black surfaces in tutorial mode.
-/// It adds highlight effects on the black surface and makes tutorial go to next step when the black surface is clicked.
+/// Similar to TutorialSelect.
+/// However, this class moves another part and makes tutorial go to next step after the movement is finished.
 /// </summary>
-public class TutorialSelect : MonoBehaviour, IPointerClickHandler
+public class TutorialBlackSurfaceMove : MonoBehaviour, IPointerClickHandler
 {
+
     public bool isSelected = false;
+    private bool isMoving = false;
+    private bool hasMoved = false;
     private float delay = 0.15f;
     private float timer = 0f;
     public Vector3 normal;
     GameObject instance;
+    // The part to be moved
+    public GameObject partToMove1;
+    public GameObject partToMove2;
+    // The old position of that part
+    private Vector3 origPos1;
+    private Vector3 origPos2;
+    public Vector3 destination;
+    private Vector3 distSurfanceObj;
 
     void Start()
     {
@@ -22,13 +33,18 @@ public class TutorialSelect : MonoBehaviour, IPointerClickHandler
         {
             normal = new Vector3(1f, 0, 0);
         }
+        //destination = partToMove1.transform.TransformPoint(destination);
     }
 
     public void OnPointerClick(PointerEventData data)
     {
-        if (!isSelected)
+        if (!isSelected && !hasMoved)
         {
-            TutorialManager.step++;
+            //TutorialManager.step++;
+            origPos1 = partToMove1.transform.position;
+            origPos2 = partToMove2.transform.position;
+            distSurfanceObj = origPos1 - origPos2;
+            StartCoroutine(Move(destination));
             isSelected = true;
         }
     }
@@ -43,7 +59,6 @@ public class TutorialSelect : MonoBehaviour, IPointerClickHandler
                 timer = 0f;
                 spawnGhost(normal);
             }
-
         }
     }
 
@@ -69,4 +84,25 @@ public class TutorialSelect : MonoBehaviour, IPointerClickHandler
         SelectedGhost ghost = instance.AddComponent<SelectedGhost>();
         ghost.setNormal(normal);
     }
+
+    public IEnumerator Move(Vector3 destination)
+    {
+        Vector3 movePath = destination - origPos1;
+        Debug.Log(movePath);
+        if (!isMoving)
+        {
+            isMoving = true;
+            // How many frames the movement animation takes
+            int moveFrame = 30;
+            for (int i = 0; i < moveFrame; i++)
+            {
+                partToMove1.transform.position += movePath / ((float)moveFrame);
+                partToMove2.transform.position = partToMove1.transform.position - distSurfanceObj;
+                yield return null;
+            }
+            hasMoved = true;
+            TutorialManager.step++;
+        }
+    }
+
 }

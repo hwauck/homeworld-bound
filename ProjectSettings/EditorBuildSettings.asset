@@ -92,4 +92,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scene/Construction/b4.unity
     guid: 9cedbabd5eeea3247bbee9460e88747c
+  - enabled: 1
+    path: Assets/_Scene/Construction/newTutorial.unity
+    guid: 2b1ca8b7e475a5d48b4effb956ce4ac1
   m_configObjects: {}
