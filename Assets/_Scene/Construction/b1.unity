@@ -1986,6 +1986,10 @@ Prefab:
       propertyPath: tutorialLevel
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4809947594353942, guid: 8856ae325d5eea44ca83145dacc533a6, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8856ae325d5eea44ca83145dacc533a6, type: 2}
   m_IsPrefabParent: 0
