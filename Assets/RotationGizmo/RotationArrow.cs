@@ -10,10 +10,17 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
     public RotationCounter rotationCounter;
     public bool tutorialLevel;
 
+    // For data collection.
+    public ConstructionDataManager dataManager;
+
 	// Use this for initialization
 	void Start () {
-		
-	}
+        if (!dataManager)
+        {
+            if (GameObject.Find("DataCollectionManager"))
+                dataManager = GameObject.Find("DataCollectionManager").GetComponent<ConstructionDataManager>();
+        }
+    }
 
     private void OnMouseOver()
     {
@@ -38,6 +45,10 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
     {
         if (!rotationGizmo.controlsDisabled)
         {
+            // Data collection
+            if (dataManager)
+                dataManager.AddRotation();
+
             Debug.Log("Tutorial Level? " + tutorialLevel);
             Debug.Log("Rotations remaining: " + rotationCounter.getRotationsRemaining());
             // if first time rotating, display Rotation Counter and warning message

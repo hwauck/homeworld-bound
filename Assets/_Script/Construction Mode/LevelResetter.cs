@@ -75,6 +75,9 @@ public class LevelResetter : MonoBehaviour {
     public Text showMapText;
     public ConversationController controller;
 
+    // Data collection
+    public ConstructionDataManager dataManager;
+
     private void Awake()
     {
         powerFailureSound = Resources.Load<AudioClip>("Audio/BothModes/msfx_chrono_latency_hammer");
@@ -97,6 +100,13 @@ public class LevelResetter : MonoBehaviour {
             //string currentLevel = SceneManager.GetActiveScene().name;
             //if(currentLevel == "b1" || currentLevel == "b2" || currentLevel == "b3" ||)
             //InventoryController.levelName = 
+        }
+
+        // For data collection.
+        if (!dataManager)
+        {
+            if (GameObject.Find("DataCollectionManager"))
+                dataManager = GameObject.Find("DataCollectionManager").GetComponent<ConstructionDataManager>();
         }
 
     }
@@ -476,6 +486,8 @@ public class LevelResetter : MonoBehaviour {
     //triggered by click of the tryAgainButton
     public void doResetConstruction()
     {
+        if (dataManager)
+            dataManager.AddNewAttempt();
         StartCoroutine(resetConstruction());
     }
 

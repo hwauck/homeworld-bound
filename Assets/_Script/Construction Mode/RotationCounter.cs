@@ -13,13 +13,19 @@ public class RotationCounter : MonoBehaviour {
     public AudioSource audioSource;
     public ScrollingText conversationText;
     public Tutorial1 tutorial;
+    public ConstructionDataManager dataManager;
 
     // Use this for initialization
     void Start () {
         numRemaining = numRotations;
         remainingRotationsText.text = "" + numRemaining;
         decrementRotation = Resources.Load<AudioClip>("Audio/BothModes/Select02");
-
+        if (!dataManager)
+        {
+            if (GameObject.Find("DataCollectionManager"))
+                dataManager = GameObject.Find("DataCollectionManager").GetComponent<ConstructionDataManager>();
+        }
+            
     }
 
     // called by RotationGizmo every time a rotation is performed
@@ -28,6 +34,9 @@ public class RotationCounter : MonoBehaviour {
         numRemaining--;
         if (numRemaining < 0)
         {
+            // For data collection
+            if (dataManager)
+                dataManager.SetFailType("OutOfRotations");
             powerFailure.Invoke();
         }
         else

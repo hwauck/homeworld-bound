@@ -37,7 +37,7 @@ public class SaveController : MonoBehaviour
 		bf.Serialize(file, data);
 		file.Close();
 
-		Debug.Log("Saved all options successfully.");
+		//Debug.Log("Saved all options successfully.");
 	}
 
 	// Applies all options from the saved file to the locally created variables.

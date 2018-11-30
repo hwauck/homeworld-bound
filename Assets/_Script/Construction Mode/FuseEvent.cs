@@ -66,10 +66,18 @@ public class FuseEvent : MonoBehaviour {
 
     public UnityEvent levelComplete;
 
+    // Data collection
+    public ConstructionDataManager dataManager;
+
 	void OnEnable()
 	{
         // For data collection.
         startLevelTimer();
+        if (!dataManager)
+        {
+            if (GameObject.Find("DataCollectionManager"))
+                dataManager = GameObject.Find("DataCollectionManager").GetComponent<ConstructionDataManager>();
+        }
         musicsource.clip = music;
 
         //musicsource.Play();
@@ -1284,6 +1292,9 @@ public class FuseEvent : MonoBehaviour {
             }
 			if(done ()) {
 				stopLevelTimer();
+
+                //dataManager.SetPlaytime(levelTimer);
+
                 if(GameObject.Find("TimeRemainingPanel") != null)
                 {
                     GameObject.Find("TimeRemainingPanel").GetComponent<Timer>().stopTimer();
@@ -1336,6 +1347,8 @@ public class FuseEvent : MonoBehaviour {
 			StartCoroutine(errorWrongFace());
 			data_fuseStatus = "Failure";
 			data_failureType = "Wrong_Face";
+            if (dataManager)
+                dataManager.AddFaceError();
 
 		} else if (fuseMapping[selectedObject.name].Contains (selectedFuseTo.name) && !positionMatches (selectedObject, selectedFuseTo)){
 			//rotation isn't right - tell player this or let them figure it out themselves?
@@ -1343,6 +1356,8 @@ public class FuseEvent : MonoBehaviour {
 			data_fuseStatus = "Failure";
 			data_failureType = "Wrong_Rotation";
 			print ("Invalid fuse: Correct fuse selection, but the orientation isn't right!");
+            if (dataManager)
+                dataManager.AddRotateError();
 		} else {
 			//this shouldn't happen
 			print ("MYSTERIOUS FUSE ERROR");
@@ -1352,7 +1367,11 @@ public class FuseEvent : MonoBehaviour {
         Debug.Log("selectedObject parent: " + selectedObject.transform.parent);
         Debug.Log("data_failureType: " + data_failureType);
         Debug.Log("data_fuseStatus: " + data_fuseStatus);
-
+        if (dataManager)
+        {
+            Debug.Log(dataManager.ToString());
+            Debug.Log(dataManager.GetAllAttemptsInfo());
+        }
         SimpleData.WriteDataPoint("Fuse_Attempt", selectedObject.transform.parent.name, data_failureType, "", "", data_fuseStatus);
 	}
 

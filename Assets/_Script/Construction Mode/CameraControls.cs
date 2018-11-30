@@ -27,6 +27,9 @@ public class CameraControls : MonoBehaviour
 	// the current distance from pivot point (locked to Vector3.zero)
 	float distance = 0f;
 
+    // For data collection.
+    public ConstructionDataManager dataManager;
+
 	void Start()
 	{
 		//distance = Vector3.Distance(transform.position, Vector3.zero);
@@ -36,7 +39,13 @@ public class CameraControls : MonoBehaviour
 		spot.type = LightType.Spot;
 		spot.spotAngle = 75f;
 		spot.range = 300f;
-	}
+
+        if (!dataManager)
+        {
+            if (GameObject.Find("DataCollectionManager"))
+                dataManager = GameObject.Find("DataCollectionManager").GetComponent<ConstructionDataManager>();
+        }
+    }
 
 	void LateUpdate()
 	{
@@ -57,6 +66,13 @@ public class CameraControls : MonoBehaviour
 
                 transform.localRotation = Quaternion.Euler(eulerRotation);
                 transform.position = (transform.localRotation * (Vector3.forward * -distance)) + orbitPoint;
+
+                // data collection
+                if (rot_x != 0 || rot_y != 0)
+                {
+                    if (dataManager)
+                        dataManager.UpdateRotateTime();
+                }
             }
 
             if (Input.GetAxis(INPUT_MOUSE_SCROLLWHEEL) != 0f)

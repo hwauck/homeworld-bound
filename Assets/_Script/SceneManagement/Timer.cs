@@ -18,6 +18,8 @@ public class Timer : MonoBehaviour {
     public AudioSource MusicSource;
     private bool sinisterMusicstarted = false;
     public UnityEvent isTimedLevel;
+    // For data collection
+    public ConstructionDataManager dataManager;
 
     void Awake()
     {
@@ -35,6 +37,11 @@ public class Timer : MonoBehaviour {
         //play regular music during battery levels
         MusicSource.Play();
 
+        // For data collection
+        if (!dataManager)
+        {
+            dataManager = GameObject.Find("DataCollectionManager").GetComponent<ConstructionDataManager>();
+        }
     }
 
     public void startTimer()
@@ -106,7 +113,10 @@ public class Timer : MonoBehaviour {
                 stopTimer();
                 powerFailure.Invoke();
                 MusicSource.Stop();
-                numRanOutOfTime++; // data collection
+                // For data collection
+                numRanOutOfTime++;
+                dataManager.SetFailType("OutOfTime");
+
                 minutes = 0;
                 seconds = 0;
             }
