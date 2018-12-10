@@ -487,7 +487,18 @@ public class LevelResetter : MonoBehaviour {
     public void doResetConstruction()
     {
         if (dataManager)
-            dataManager.AddNewAttempt();
+        {
+            string currentLevel;
+            if (runningJustConstructionMode)
+            {
+                currentLevel = SceneManager.GetActiveScene().name;
+            }
+            else
+            {
+                currentLevel = LoadUtils.currentSceneName;
+            }
+            dataManager.AddNewAttempt(currentLevel);
+        }
         StartCoroutine(resetConstruction());
     }
 

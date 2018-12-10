@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1396145202}
-  m_IndirectSpecularColor: {r: 0.30036062, g: 0.25133297, b: 0.20512995, a: 1}
+  m_IndirectSpecularColor: {r: 0.29980338, g: 0.2506952, b: 0.204507, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7182,6 +7182,10 @@ Prefab:
       propertyPath: partCounterObj
       value: 
       objectReference: {fileID: 2046087897}
+    - target: {fileID: 11480848, guid: fedb2bd5519d9ed4d8a9dbbb21257ff3, type: 2}
+      propertyPath: autoDelete
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fedb2bd5519d9ed4d8a9dbbb21257ff3, type: 2}
   m_IsPrefabParent: 0
@@ -12268,6 +12272,10 @@ Prefab:
       propertyPath: partCounterObj
       value: 
       objectReference: {fileID: 2046087897}
+    - target: {fileID: 11470596, guid: 84e8546f078680a4b964f22317c90956, type: 2}
+      propertyPath: autoDelete
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 84e8546f078680a4b964f22317c90956, type: 2}
   m_IsPrefabParent: 0
@@ -14429,6 +14437,10 @@ Prefab:
       propertyPath: partCounterObj
       value: 
       objectReference: {fileID: 2046087897}
+    - target: {fileID: 11474964, guid: 5f913c4d4bb62a447bb525f57e8ecb44, type: 2}
+      propertyPath: autoDelete
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5f913c4d4bb62a447bb525f57e8ecb44, type: 2}
   m_IsPrefabParent: 0
@@ -31054,6 +31066,10 @@ Prefab:
       propertyPath: partCounterObj
       value: 
       objectReference: {fileID: 2046087897}
+    - target: {fileID: 11420204, guid: ff56a7adcd9f00649a3e13ce01ff65f9, type: 2}
+      propertyPath: autoDelete
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ff56a7adcd9f00649a3e13ce01ff65f9, type: 2}
   m_IsPrefabParent: 0
@@ -33720,6 +33736,10 @@ Prefab:
       propertyPath: partCounterObj
       value: 
       objectReference: {fileID: 2046087897}
+    - target: {fileID: 11434722, guid: 0c074bab64edcba40929404f49b2a890, type: 2}
+      propertyPath: autoDelete
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c074bab64edcba40929404f49b2a890, type: 2}
   m_IsPrefabParent: 0
@@ -34436,6 +34456,10 @@ Prefab:
       propertyPath: partCounterObj
       value: 
       objectReference: {fileID: 2046087897}
+    - target: {fileID: 11472900, guid: f24127071708ca244a4f0a24ef8d7d74, type: 2}
+      propertyPath: autoDelete
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f24127071708ca244a4f0a24ef8d7d74, type: 2}
   m_IsPrefabParent: 0
@@ -42705,6 +42729,10 @@ Prefab:
       propertyPath: partCounterObj
       value: 
       objectReference: {fileID: 2046087897}
+    - target: {fileID: 11441704, guid: 203e3682ca283da4fad6c8ee8e200e48, type: 2}
+      propertyPath: autoDelete
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 203e3682ca283da4fad6c8ee8e200e48, type: 2}
   m_IsPrefabParent: 0

@@ -19,7 +19,8 @@ public class Timer : MonoBehaviour {
     private bool sinisterMusicstarted = false;
     public UnityEvent isTimedLevel;
     // For data collection
-    public ConstructionDataManager dataManager;
+    public ConstructionDataManager constructDataManager;
+    public ExplorationDataManager exploreDataManager;
 
     void Awake()
     {
@@ -38,9 +39,13 @@ public class Timer : MonoBehaviour {
         MusicSource.Play();
 
         // For data collection
-        if (!dataManager)
+        if (constructDataManager == null)
         {
-            dataManager = GameObject.Find("DataCollectionManager").GetComponent<ConstructionDataManager>();
+            constructDataManager = GameObject.Find("DataCollectionManager").GetComponent<ConstructionDataManager>();
+        }
+        if(exploreDataManager == null)
+        {
+            exploreDataManager = GameObject.Find("DataCollectionManager").GetComponent<ExplorationDataManager>();
         }
     }
 
@@ -115,7 +120,16 @@ public class Timer : MonoBehaviour {
                 MusicSource.Stop();
                 // For data collection
                 numRanOutOfTime++;
-                dataManager.SetFailType("OutOfTime");
+                if (constructDataManager != null)
+                {
+                    constructDataManager.SetOutcome("OutOfTime");
+                } else if (exploreDataManager != null)
+                {
+                    exploreDataManager.setOutcomeAndSave("OutOfTime");
+                } else
+                {
+                    Debug.Log("WARNING: Neither construction data manager nor exploration data manager found.");
+                }
 
                 minutes = 0;
                 seconds = 0;
