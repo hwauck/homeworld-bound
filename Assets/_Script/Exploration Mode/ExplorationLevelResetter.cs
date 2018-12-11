@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 
 public class ExplorationLevelResetter : MonoBehaviour {
 
+    private ExplorationDataManager expDataManager;
     public Timer timer;
     private bool taggedFirstPart;
     private bool resetDueToPowerFailure;
@@ -133,6 +134,13 @@ public class ExplorationLevelResetter : MonoBehaviour {
     // when player reaches highlands level with rocket boots, fade out to DEMO FINISHED words
     public void doFadeToDemoFinished(float seconds, bool playerInitiated)
     {
+        if(playerInitiated)
+        {
+            expDataManager.setOutcome("quit");
+        } else
+        {
+            expDataManager.setOutcome("finishedDemo");
+        }
         gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
         disablePlayerControl();
         StopAllCoroutines();
@@ -154,11 +162,12 @@ public class ExplorationLevelResetter : MonoBehaviour {
             demoFinishedAltText.enabled = true;
             yield return new WaitForSeconds(3f);
             // load next page, however that's done
-            Hello();
+            //Hello();
 
         } else
         {
             demoFinishedText.enabled = true;
+            // load next page, however that's done
         }
     }
 

@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class ExplorationDataManager : MonoBehaviour {
 
-    private static ExplorationDataManager instance;
-
     private float total_time;
     private float total_standTime;
     private float total_jumpTime;
@@ -24,6 +22,7 @@ public class ExplorationDataManager : MonoBehaviour {
 
     public class Attempt
     {
+        public int attemptNum;
         public string level;
         public float playTime;
         public float standTime;
@@ -33,43 +32,28 @@ public class ExplorationDataManager : MonoBehaviour {
         public string partCollectionOrder;
         public string outcome;
 
-        public Attempt(string levelName)
+        public Attempt(string levelName, int currentAttemptNum)
         {
+            attemptNum = currentAttemptNum;
             level = levelName;
             playTime = 0;
             standTime = 0;
             jumpTime = 0;
             runTime = 0;
             walkTime = 0;
-            partCollectionOrder = "";
+            partCollectionOrder = ":";
             outcome = "None"; // will be either "time" (ran out of time), "victory", "quit" (ended game), or "finishedDemo"
         }
 
         public string toString()
         {
-            return ";playTime:" + playTime + ";standTime:" + standTime + ";jumpTime:" + jumpTime + ";runTime:"+ runTime 
+            return "Attempt" + attemptNum + ";level:" + level + ";playTime:" + playTime + ";standTime:" + standTime + ";jumpTime:" + jumpTime + ";runTime:"+ runTime 
                 + ";walkTime:" + walkTime + ";partCollOrder:" + partCollectionOrder + ";outcome:" + outcome + "\n";
         }
 
     }
 
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-            return;
-        }
-
-        //makes the GameObject with this script attached to it persist across game levels
-        DontDestroyOnLoad(transform.gameObject);
-    }
-
-    private void Start()
+    public void initializeDataVars()
     {
         total_time = 0;
         total_standTime = 0;
@@ -107,9 +91,9 @@ public class ExplorationDataManager : MonoBehaviour {
     // Is automatically called each time Canyon2 scene is entered via OnEnable()
     public void AddNewAttempt(string sceneName)
     {
-        Attempt newAttempt = new Attempt(sceneName);
-        attempts.Add(newAttempt);
         attemptIndex++;
+        Attempt newAttempt = new Attempt(sceneName, attemptIndex);
+        attempts.Add(newAttempt);
     }
 
     // called every time player collects a part in exploration mode
@@ -121,11 +105,9 @@ public class ExplorationDataManager : MonoBehaviour {
     // set to "victory" when player collects all parts (within the time limit if there is one) - or if they complete the whole demo
     // set to "quit" if player ends game
     // set to "time" if player runs out of time on timed levels
-    // save current aggregated data for this level
-    public void setOutcomeAndSave(string outcome)
+    public void setOutcome(string outcome)
     {
         GetCurrAttempt().outcome = outcome;
-
     }
 
     public Attempt GetCurrAttempt()
@@ -186,9 +168,9 @@ public class ExplorationDataManager : MonoBehaviour {
         //header
         //string allData = "totalTime,total_standTime,total_jumpTime,total_runTime,total_walkTime,totalAttempts,numLevelsCompleted,numRanOutOfTime";
 
-        string allData = "BEGIN_EXPLORATION\n";
+        string allData = "BEGIN_EXPLORATION,";
         allData += total_time + "," + total_standTime + "," + total_jumpTime + "," + total_runTime + "," + total_walkTime + "," + attemptIndex + ",";
-        allData += numLevelsCompleted + "," + numRanOutOfTime + "\n";
+        allData += numLevelsCompleted + "," + numRanOutOfTime + ",";
 
         //attempts data
         for (int i = 0; i < attempts.Count; i++)
@@ -196,7 +178,7 @@ public class ExplorationDataManager : MonoBehaviour {
             allData += attempts[i].toString();
         }
 
-        allData += "END_EXPLORATION";
+        allData += "END_EXPLORATION,";
 
         Debug.Log(allData);
         return allData;

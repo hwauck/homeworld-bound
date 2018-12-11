@@ -9,8 +9,8 @@ using System.Runtime.InteropServices;
 public class DataAggregator : MonoBehaviour {
 
     private static DataAggregator instance;
-    public ExplorationDataManager expDataManager;
-    public ConstructionDataManager constDataManager;
+    private ExplorationDataManager expDataManager;
+    private ConstructionDataManager constDataManager;
 
     [DllImport("__Internal")]
     private static extern void sendToDB(string playerData);
@@ -29,6 +29,11 @@ public class DataAggregator : MonoBehaviour {
 
         //makes the GameObject with this script attached to it persist across game levels
         DontDestroyOnLoad(transform.gameObject);
+
+        expDataManager = GetComponent<ExplorationDataManager>();
+        constDataManager = GetComponent<ConstructionDataManager>();
+        expDataManager.initializeDataVars();
+        constDataManager.initializeDataVars();
     }
 
     private void OnEnable()
@@ -43,11 +48,10 @@ public class DataAggregator : MonoBehaviour {
 
     private void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        Scene currentScene = SceneManager.GetActiveScene();
-        if (!currentScene.name.Equals("Canyon2"))
+        if (!scene.name.Equals("Canyon2"))
         {
-            GameObject.Find("ExplorationDataManager").SetActive(false);
-            GameObject.Find("ConstructionDataManager").SetActive(true);
+            expDataManager.enabled = false;
+            constDataManager.enabled = true;
             constDataManager.AddNewAttempt(scene.name);
             Debug.Log("Finished Loading Scene " + scene.name + ", ExplorationDataManager active");
 
@@ -55,8 +59,8 @@ public class DataAggregator : MonoBehaviour {
         }
         else
         {
-            GameObject.Find("ConstructionDataManager").SetActive(false);
-            GameObject.Find("ExplorationDataManager").SetActive(true);
+            constDataManager.enabled = false;
+            expDataManager.enabled = true;
             expDataManager.AddNewAttempt(scene.name);
             Debug.Log("Finished Loading Scene " + scene.name + ", ConstructionDataManager active");
 
@@ -67,6 +71,16 @@ public class DataAggregator : MonoBehaviour {
     void Start () {
 		
 	}
+
+    public void saveAndSendToServer()
+    {
+        string allData = "BEGIN_HB_PLAYERDATA,";
+        allData += expDataManager.saveAllData();
+        allData += constDataManager.saveAllData();
+        allData += "END_HB_PLAYERDATA";
+        Debug.Log("SENDING TO SERVER: " + allData);
+        sendToDB(allData);
+    }
 	
 	// Update is called once per frame
 	void Update () {

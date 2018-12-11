@@ -125,7 +125,7 @@ public class Timer : MonoBehaviour {
                     constructDataManager.SetOutcome("OutOfTime");
                 } else if (exploreDataManager != null)
                 {
-                    exploreDataManager.setOutcomeAndSave("OutOfTime");
+                    exploreDataManager.setOutcome("OutOfTime");
                 } else
                 {
                     Debug.Log("WARNING: Neither construction data manager nor exploration data manager found.");

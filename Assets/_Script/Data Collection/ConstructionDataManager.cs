@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class ConstructionDataManager : MonoBehaviour {
 
-    private int attemptCount;
+    protected int attemptCount;
     private float total_const_time;
     private int total_const_errors;
     private int total_face_errors;
@@ -23,6 +23,7 @@ public class ConstructionDataManager : MonoBehaviour {
 
     public class Attempt
     {
+        public int attemptNum;
         public string level;
         public float playTime;
         public int rotateErrors;
@@ -35,8 +36,9 @@ public class ConstructionDataManager : MonoBehaviour {
         public string partFuseOrder;
         public string outcome; // "victory" or "rotation" or "time" or "quit"
 
-        public Attempt(string levelName)
+        public Attempt(string levelName, int currentAttemptNum)
         {
+            attemptNum = currentAttemptNum;
             level = levelName;
             playTime = 0;
             rotateErrors = 0;
@@ -45,21 +47,21 @@ public class ConstructionDataManager : MonoBehaviour {
             timeRotatingCamera = 0;
             numPartsFused = 0;
             numPartsSelected = 0;
-            partSelectionOrder = "";
-            partFuseOrder = "";
+            partSelectionOrder = ":";
+            partFuseOrder = ":";
             outcome = "None"; // either "quit" (ended game), "time" (ran out of time on timed levels), "rotation" (ran out of rotations), or "victory"
         }
 
         public string toString()
         {
-            return "Level:" + level + ";playTime:" + playTime + ";rotateErrors:" + rotateErrors + ";faceErrors:" + faceErrors + ";rotationCount:" + rotationCount
+            return "Attempt" + attemptNum + ";level:" + level + ";playTime:" + playTime + ";rotateErrors:" + rotateErrors + ";faceErrors:" + faceErrors + ";rotationCount:" + rotationCount
                 + ";timeRotatingCamera:" + timeRotatingCamera + ";numPartsFused:" + numPartsFused + ";numPartsSelected:" + numPartsSelected + ";partSelectionOrder:" 
                 + partSelectionOrder + ";partFuseOrder:" + partFuseOrder + ";outcome:" + outcome + "\n";
         }
 
     }
 
-    void Start()
+    public void initializeDataVars()
     {
         total_const_time = 0;
         total_const_errors = 0;
@@ -84,9 +86,9 @@ public class ConstructionDataManager : MonoBehaviour {
 
     public void AddNewAttempt(string sceneName)
     {
-        Attempt newAttempt = new Attempt(sceneName);
-        attempts.Add(newAttempt);
         attemptCount++;
+        Attempt newAttempt = new Attempt(sceneName, attemptCount);
+        attempts.Add(newAttempt);
     }
 
     public Attempt GetCurrAttempt()
@@ -214,9 +216,9 @@ public class ConstructionDataManager : MonoBehaviour {
 
         }
 
-        string allData = "BEGIN_CONSTRUCTION\n";
+        string allData = "BEGIN_CONSTRUCTION,";
         allData += total_const_time + "," + total_const_errors + "," + total_face_errors + "," + total_rotate_errors + "," + total_rotations + "," 
-            + total_cameraRotate_time + ","+ const_levels_completed + "," + const_numOutOfTime + "," + const_numOutOfRotations + "," + total_parts_selected + "\n";
+            + total_cameraRotate_time + ","+ const_levels_completed + "," + const_numOutOfTime + "," + const_numOutOfRotations + "," + total_parts_selected + ",";
 
         //attempts data
         for (int i = 0; i < attempts.Count; i++)
@@ -224,7 +226,7 @@ public class ConstructionDataManager : MonoBehaviour {
             allData += attempts[i].toString();
         }
 
-        allData += "END_CONSTRUCTION";
+        allData += "END_CONSTRUCTION,";
 
         Debug.Log(allData);
         return allData;
