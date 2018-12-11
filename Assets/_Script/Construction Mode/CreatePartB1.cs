@@ -19,6 +19,7 @@ public class CreatePartB1 : MonoBehaviour
     private GameObject startObject;
 
     public RotationGizmo rotateGizmo;
+    private ConstructionDataManager dataManager;
 
     private const float MOVEMENT_SPEED = 100;
     private float step;
@@ -44,6 +45,13 @@ public class CreatePartB1 : MonoBehaviour
         startObject = GameObject.Find("bb1Start");
 
         rotateGizmo = GameObject.FindGameObjectWithTag("RotationGizmo").GetComponent<RotationGizmo>();
+
+        // For data collection.
+        GameObject dataManagerObject = GameObject.Find("DataCollectionManager");
+        if (dataManagerObject != null)
+        {
+            dataManager = dataManagerObject.GetComponent<ConstructionDataManager>();
+        }
 
     }
 
@@ -221,6 +229,7 @@ public class CreatePartB1 : MonoBehaviour
             partButtons[0].interactable = false;
 
             selectionManager.newPartCreated("b1p1Prefab(Clone)");
+            dataManager.AddPartSelected("b1p1");
 
         }
     }
@@ -268,6 +277,7 @@ public class CreatePartB1 : MonoBehaviour
             partButtons[1].interactable = false;
 
             selectionManager.newPartCreated("b1p2Prefab(Clone)");
+            dataManager.AddPartSelected("b1p2");
 
 
         }
@@ -304,6 +314,7 @@ public class CreatePartB1 : MonoBehaviour
             partButtons[2].interactable = false;
 
             selectionManager.newPartCreated("b1p3Prefab(Clone)");
+            dataManager.AddPartSelected("b1p3");
 
 
         }

@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class ConstructionDataManager : MonoBehaviour {
 
+    private bool isPaused; // should gameplay time be incremented (unpaused) or not (paused)?
     protected int attemptCount;
     private float total_const_time;
     private int total_const_errors;
@@ -63,6 +64,7 @@ public class ConstructionDataManager : MonoBehaviour {
 
     public void initializeDataVars()
     {
+        isPaused = false;
         total_const_time = 0;
         total_const_errors = 0;
         total_face_errors = 0;
@@ -78,10 +80,18 @@ public class ConstructionDataManager : MonoBehaviour {
         attempts = new List<Attempt>();
     }
 
+    private void OnEnable()
+    {
+        isPaused = false;
+    }
+
     void Update()
     {
         // Update playtime for current attempt
-        GetCurrAttempt().playTime += Time.deltaTime;
+        if(!isPaused)
+        {
+            GetCurrAttempt().playTime += Time.deltaTime;
+        }
     }
 
     public void AddNewAttempt(string sceneName)
@@ -136,6 +146,11 @@ public class ConstructionDataManager : MonoBehaviour {
         GetCurrAttempt().timeRotatingCamera = rotateTime;
     }
 
+    public void setPauseGameplay(bool isPaused)
+    {
+        this.isPaused = isPaused;
+    }
+
     public void UpdateRotateTime()
     {
         GetCurrAttempt().timeRotatingCamera += Time.deltaTime;
@@ -148,22 +163,6 @@ public class ConstructionDataManager : MonoBehaviour {
     public void SetOutcome(string outcome)
     {
         GetCurrAttempt().outcome = outcome;
-    }
-
-    // Get info of each attempt
-    public override string ToString()
-    {
-        string retval = "Attempts:" + (attemptCount + 1).ToString() + ",";
-        foreach (Attempt attempt in attempts)
-        {
-            retval += ("Playtime:" + attempt.playTime.ToString() + ",");
-            retval += ("RotationErrors:" + attempt.rotateErrors.ToString() + ",");
-            retval += ("FaceErrors:" + attempt.faceErrors.ToString() + ",");
-            retval += ("Rotations:" + attempt.rotationCount.ToString() + ",");
-            retval += ("CameraRotationTime:" + attempt.timeRotatingCamera.ToString() + ",");
-            retval += ("FailType:" + attempt.outcome + "\n");
-        }
-        return retval;
     }
 
     public string saveAllData()
@@ -233,28 +232,4 @@ public class ConstructionDataManager : MonoBehaviour {
         // This is where we send data to the server - use Javascript library added to project
     }
 
-    // Get accumulated attempts info
-    public string GetAllAttemptsInfo()
-    {
-        string retval = "attempts:" + (attemptCount + 1).ToString() + ",";
-        float totalPlaytime = 0;
-        int totalRotateErrors = 0;
-        int totalFaceErrors = 0;
-        int totalRotationCount = 0;
-        float totalTimeRotatingCamera = 0;
-        foreach (Attempt attempt in attempts)
-        {
-            totalPlaytime += attempt.playTime;
-            totalRotateErrors += attempt.rotateErrors;
-            totalFaceErrors += attempt.faceErrors;
-            totalRotationCount += attempt.rotationCount;
-            totalTimeRotatingCamera += attempt.timeRotatingCamera;
-        }
-        retval += ("TotalPlaytime:" + totalPlaytime.ToString() + ",");
-        retval += ("TotalRotationErrors:" + totalRotateErrors.ToString() + ",");
-        retval += ("TotalFaceErrors:" + totalFaceErrors.ToString() + ",");
-        retval += ("TotalRotations:" + totalRotationCount.ToString() + ",");
-        retval += ("TotalCameraRotationTime:" + totalTimeRotatingCamera.ToString() + "\n");
-        return retval;
-    }
 }

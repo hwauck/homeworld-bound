@@ -18,6 +18,7 @@ public class CreatePartRB : MonoBehaviour {
 	private GameObject startObject;
 
 	public RotationGizmo rotateGizmo;
+    private ConstructionDataManager dataManager;
 
     private const float MOVEMENT_SPEED = 100;
     private float step;
@@ -44,7 +45,13 @@ public class CreatePartRB : MonoBehaviour {
 
         rotateGizmo = GameObject.FindGameObjectWithTag("RotationGizmo").GetComponent<RotationGizmo>();
 
-	}
+        // For data collection.
+        GameObject dataManagerObject = GameObject.Find("DataCollectionManager");
+        if (dataManagerObject != null)
+        {
+            dataManager = dataManagerObject.GetComponent<ConstructionDataManager>();
+        }
+    }
 
 	// y+ = up, y- = down
 	// z+ = back, z- = front
@@ -302,7 +309,7 @@ public class CreatePartRB : MonoBehaviour {
             partButtons[0].interactable = false;
 
             selectionManager.newPartCreated("ballfootPrefab(Clone)");
-
+            dataManager.AddPartSelected("ballfoot");
 
 		}
 	}
@@ -345,10 +352,11 @@ public class CreatePartRB : MonoBehaviour {
             partButtons[1].interactable = false;
 
             selectionManager.newPartCreated("calf_harderPrefab(Clone)");
+            dataManager.AddPartSelected("calf");
 
 
-		}
-	}
+        }
+    }
 
 	public void createMidfoot() {
 		if(!partCreated[2]){
@@ -388,10 +396,11 @@ public class CreatePartRB : MonoBehaviour {
             partButtons[2].interactable = false;
 
             selectionManager.newPartCreated("midfootPrefab(Clone)");
+            dataManager.AddPartSelected("midfoot");
 
 
-		}
-	}
+        }
+    }
 
 	public void createToe() {
 		if(!partCreated[3]){
@@ -421,10 +430,11 @@ public class CreatePartRB : MonoBehaviour {
             partButtons[3].interactable = false;
 
             selectionManager.newPartCreated("toe_harderPrefab(Clone)");
+            dataManager.AddPartSelected("toe");
 
 
-		}
-	}
+        }
+    }
 
 	public void createTrim() {
 		if(!partCreated[4]){
@@ -453,10 +463,11 @@ public class CreatePartRB : MonoBehaviour {
             partButtons[4].interactable = false;
 
             selectionManager.newPartCreated("trim_harderPrefab(Clone)");
+            dataManager.AddPartSelected("trim");
 
 
-		}
-	}
+        }
+    }
 
 	public void createWidening() {
 		if(!partCreated[5]){
@@ -496,10 +507,11 @@ public class CreatePartRB : MonoBehaviour {
             partButtons[5].interactable = false;
 
             selectionManager.newPartCreated("wideningPrefab(Clone)");
+            dataManager.AddPartSelected("widening");
 
 
-		}
-	}
+        }
+    }
 
 	//checks to see if an object has been fused already
 	public bool alreadyFused(string part) {

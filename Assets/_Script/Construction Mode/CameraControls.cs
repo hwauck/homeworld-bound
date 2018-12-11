@@ -71,7 +71,9 @@ public class CameraControls : MonoBehaviour
                 if (rot_x != 0 || rot_y != 0)
                 {
                     if (dataManager)
+                    {
                         dataManager.UpdateRotateTime();
+                    }
                 }
             }
 

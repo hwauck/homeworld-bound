@@ -36,7 +36,9 @@ public class RotationCounter : MonoBehaviour {
         {
             // For data collection
             if (dataManager)
-                dataManager.SetOutcome("OutOfRotations");
+            {
+                dataManager.SetOutcome("rotation");
+            }
             powerFailure.Invoke();
         }
         else

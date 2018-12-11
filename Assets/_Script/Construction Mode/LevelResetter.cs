@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.Events;
 
 // This script is used to keep track of when the player has run out of battery power.
 // Once this happens, a warning saying that the system is shutting down due to low power should appear
@@ -64,6 +64,7 @@ public class LevelResetter : MonoBehaviour {
     public Image fadeOutScreen;
     public Image map;
     public Text howToQuitText;
+    public Text howToQuitLLText;
     public Text demoFinishedText;
     public FadeScreen screenFader;
     private AudioClip fullyChargedSound;
@@ -77,6 +78,8 @@ public class LevelResetter : MonoBehaviour {
 
     // Data collection
     public ConstructionDataManager dataManager;
+
+    public UnityEvent gameQuit;
 
     private void Awake()
     {
@@ -105,8 +108,11 @@ public class LevelResetter : MonoBehaviour {
         // For data collection.
         if (!dataManager)
         {
-            if (GameObject.Find("DataCollectionManager"))
-                dataManager = GameObject.Find("DataCollectionManager").GetComponent<ConstructionDataManager>();
+            GameObject dataManagerObject = GameObject.Find("DataCollectionManager");
+            if (dataManagerObject != null) {
+                dataManager = dataManagerObject.GetComponent<ConstructionDataManager>();
+                gameQuit.AddListener(dataManagerObject.GetComponent<DataAggregator>().saveAndSendToServer);
+            }
         }
 
     }
@@ -145,7 +151,10 @@ public class LevelResetter : MonoBehaviour {
     {
         claimButton.gameObject.SetActive(false);
         disablePlayerControls();
+        dataManager.setPauseGameplay(true);
         screenFader.fadeOut(1f);
+        howToQuitText.enabled = false;
+        howToQuitLLText.enabled = true;
         yield return new WaitForSeconds(1f);
 
         rechargingText.enabled = true;
@@ -268,6 +277,7 @@ public class LevelResetter : MonoBehaviour {
     public void resetLevel()
     {
         Debug.Log("RESETTING LEVEL!");
+        dataManager.setPauseGameplay(true);
         fuseEvent.stopMusic();
         powerFailureText.enabled = true;
         errorPanel.alpha = 1;
@@ -588,6 +598,7 @@ public class LevelResetter : MonoBehaviour {
             timeRemainingPanel.GetComponent<Timer>().startTimer();
         }
         enablePlayerControls();
+        dataManager.setPauseGameplay(false);
         fuseEvent.startMusic();
 
     }
@@ -603,8 +614,13 @@ public class LevelResetter : MonoBehaviour {
     // when player presses P key, call this method to end game
     public void doFadeToDemoFinished(float seconds)
     {
-        //gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
+        if (dataManager != null)
+        {
+            dataManager.SetOutcome("quit");
+        }
+        gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
         // might need to tell new tutorial level coroutines to stop too
+
         disablePlayerControls();
         StopAllCoroutines();
         if(timeRemainingPanel != null)

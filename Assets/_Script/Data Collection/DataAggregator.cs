@@ -72,6 +72,7 @@ public class DataAggregator : MonoBehaviour {
 		
 	}
 
+    // called when P is pressed during Exploration or Construction Mode via events
     public void saveAndSendToServer()
     {
         string allData = "BEGIN_HB_PLAYERDATA,";

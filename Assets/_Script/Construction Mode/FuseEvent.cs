@@ -300,6 +300,11 @@ public class FuseEvent : MonoBehaviour {
     // re-instantiates the victoryPrefab to avoid weird rotation behavior on level completion after power failure
     public void resetVictoryPrefab()
     {
+        GameObject prevVictoryPrefab = GameObject.Find("victoryPrefab(Clone)");
+        if (prevVictoryPrefab != null)
+        {
+            Destroy(prevVictoryPrefab);
+        }
         group = Instantiate(victoryPrefab, new Vector3(-100, 30, 100), new Quaternion());
     }
 
@@ -1237,8 +1242,6 @@ public class FuseEvent : MonoBehaviour {
 	}
 
 	public void initiateFuse() {
-		string data_fuseStatus = "Success";
-		string data_failureType = "";
         //TODO: if tutorial is on, don't increment fuse attempts
 		numFuseAttempts++;
 		//print ("Fusing: " + GetComponent<SelectPart>().getSelectedObject() + " to " + GetComponent<SelectPart>().getSelectedFuseTo());
@@ -1255,19 +1258,23 @@ public class FuseEvent : MonoBehaviour {
 		if(selectedObject == null) {
 			//player tries to connect when there is no active part (only at beginning)
 			//print ("Select the black regions you want to join together!");
+            //UPDATE: this can't happen if the Fuse button is disabled until two faces are selected
 			source.PlayOneShot (failure);
 
 		} else if (!fuseMapping.ContainsKey (selectedObject.name)){
+            // this should only happen if the fuseMapping wasn't properly assigned at the beginning of the level
 			print ("Invalid fuse: Cannot fuse " + selectedObject.name + " to " + selectedFuseTo.name);
 			//display error on screen for 1 sec
 			StartCoroutine(errorWrongFace());
-			data_fuseStatus = "Failure";
-			data_failureType = "Wrong_Face";
 
 		} else if(fuseMapping[selectedObject.name].Contains(selectedFuseTo.name) && positionMatches (selectedObject, selectedFuseTo)) {
 	
 			print ("Successful fuse!");
 			fuseStatus="success";
+            if(dataManager)
+            {
+                dataManager.AddPartFused(selectedObject.transform.parent.gameObject.name);
+            }
 			source.PlayOneShot (success);
 
             //Check if FaceSelector is still adjusting part location. If so, abort adjustment and then just fuse
@@ -1293,7 +1300,7 @@ public class FuseEvent : MonoBehaviour {
 			if(done ()) {
 				stopLevelTimer();
 
-                //dataManager.SetPlaytime(levelTimer);
+                dataManager.SetOutcome("victory");
 
                 if(GameObject.Find("TimeRemainingPanel") != null)
                 {
@@ -1345,34 +1352,24 @@ public class FuseEvent : MonoBehaviour {
         } else if (!fuseMapping[selectedObject.name].Contains (selectedFuseTo.name)) {
 			print ("Invalid fuse: Cannot fuse " + selectedObject.name + " to " + selectedFuseTo.name);
 			StartCoroutine(errorWrongFace());
-			data_fuseStatus = "Failure";
-			data_failureType = "Wrong_Face";
             if (dataManager)
+            {
                 dataManager.AddFaceError();
-
+            }
 		} else if (fuseMapping[selectedObject.name].Contains (selectedFuseTo.name) && !positionMatches (selectedObject, selectedFuseTo)){
 			//rotation isn't right - tell player this or let them figure it out themselves?
 			StartCoroutine(errorWrongRotation());
-			data_fuseStatus = "Failure";
-			data_failureType = "Wrong_Rotation";
 			print ("Invalid fuse: Correct fuse selection, but the orientation isn't right!");
             if (dataManager)
+            {
                 dataManager.AddRotateError();
+            }
 		} else {
 			//this shouldn't happen
 			print ("MYSTERIOUS FUSE ERROR");
 		}
 
-        Debug.Log("selectedObject: " + selectedObject);
-        Debug.Log("selectedObject parent: " + selectedObject.transform.parent);
-        Debug.Log("data_failureType: " + data_failureType);
-        Debug.Log("data_fuseStatus: " + data_fuseStatus);
-        if (dataManager)
-        {
-            Debug.Log(dataManager.ToString());
-            Debug.Log(dataManager.GetAllAttemptsInfo());
-        }
-        SimpleData.WriteDataPoint("Fuse_Attempt", selectedObject.transform.parent.name, data_failureType, "", "", data_fuseStatus);
+        //SimpleData.WriteDataPoint("Fuse_Attempt", selectedObject.transform.parent.name, data_failureType, "", "", data_fuseStatus);
 	}
 
     // combines the BoxColliders of GameObjects starting and added and replaces

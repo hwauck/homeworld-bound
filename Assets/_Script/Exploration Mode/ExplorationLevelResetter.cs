@@ -114,6 +114,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             screenFader.fadeIn(1f);
 
             map.doIntroMap(); // when this is done, it triggers startCountdown() and beginning of timed level
+            expDataManager.setPauseGameplay(true);
         } else if (ConversationTrigger.GetToken("finished_RB"))
         {
             screenFader.fadeIn(1f);
@@ -149,6 +150,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         ConversationController.Disable();
         errorPanel.alpha = 0;
         countdownPanel.alpha = 0;
+        expDataManager.setPauseGameplay(true);
         StartCoroutine(fadeToDemoFinished(seconds, playerInitiated));
     }
 
@@ -322,6 +324,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         }
 
         disablePlayerControl();
+        expDataManager.setPauseGameplay(true);
 
         screenFader.fadeOut(0.2f);
 
@@ -377,6 +380,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     {
         //disable player controls
         disablePlayerControl();
+        expDataManager.setPauseGameplay(true);
         //flash warning: power failure!
         powerFailureText.enabled = true;
         errorPanel.alpha = 1;
@@ -531,6 +535,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
         enablePlayerControl();
 
+        expDataManager.setPauseGameplay(false);
         timer.startTimer();
     }
 

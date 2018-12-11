@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class ExplorationDataManager : MonoBehaviour {
 
+    private bool pauseGameplay;
     private float total_time;
     private float total_standTime;
     private float total_jumpTime;
@@ -55,6 +56,7 @@ public class ExplorationDataManager : MonoBehaviour {
 
     public void initializeDataVars()
     {
+        pauseGameplay = false;
         total_time = 0;
         total_standTime = 0;
         total_jumpTime = 0;
@@ -66,9 +68,17 @@ public class ExplorationDataManager : MonoBehaviour {
         attempts = new List<Attempt>();
     }
 
+    private void OnEnable()
+    {
+        pauseGameplay = false;
+    }
 
     void Update () {
-        GetCurrAttempt().playTime += Time.deltaTime;
+        if(!pauseGameplay)
+        {
+            GetCurrAttempt().playTime += Time.deltaTime;
+        }
+
         if (playerController.Velocity.Equals(new Vector3(0, 0, 0)))
         {
             GetCurrAttempt().standTime += Time.deltaTime;
@@ -86,6 +96,20 @@ public class ExplorationDataManager : MonoBehaviour {
             GetCurrAttempt().walkTime += Time.deltaTime;
         }
 	}
+
+    // other scripts can tell this one when playtime should not be incremented - when gameplay is "paused"
+    // e.g. when the player is in Fuser mode
+    public void setPauseGameplay(bool currentlyPaused)
+    {
+        pauseGameplay = currentlyPaused;
+        if (currentlyPaused)
+        {
+            Debug.Log("PAUSED PLAYTIME COLLECTION");
+        } else
+        {
+            Debug.Log("UNPAUSED PLAYTIME COLLECTION");
+        }
+    }
 
     // needs to be called every time player runs of out of time (so only on timed levels). 
     // Is automatically called each time Canyon2 scene is entered via OnEnable()
