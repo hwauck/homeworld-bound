@@ -13,7 +13,8 @@ public class ExplorationDataManager : MonoBehaviour {
     private float total_jumpTime;
     private float total_runTime;
     private float total_walkTime;
-    private int attemptIndex;
+    private int attemptIndex; // total attempt count across all exploration mode levels/tasks/areas
+    private int attemptCount; // attempt count, level-specific - starts over in each new collection task/area. 
     private int numLevelsCompleted;
     private int numRanOutOfTime;
 
@@ -23,7 +24,9 @@ public class ExplorationDataManager : MonoBehaviour {
 
     public class Attempt
     {
-        public int attemptNum;
+        // starts over every time "level" value changes - so every time exploration mode is entered/exited, but not when
+        // player runs out of time on a timed level
+        public int attemptNum; 
         public string level;
         public float playTime;
         public float standTime;
@@ -66,6 +69,7 @@ public class ExplorationDataManager : MonoBehaviour {
         numLevelsCompleted = 0;
         numRanOutOfTime = 0;
         attempts = new List<Attempt>();
+        attemptCount = 0;
     }
 
     private void OnEnable()
@@ -77,24 +81,25 @@ public class ExplorationDataManager : MonoBehaviour {
         if(!pauseGameplay)
         {
             GetCurrAttempt().playTime += Time.deltaTime;
+            if (playerController.Velocity.Equals(new Vector3(0, 0, 0)))
+            {
+                GetCurrAttempt().standTime += Time.deltaTime;
+            }
+            else if (playerController.Jumping)
+            {
+                GetCurrAttempt().jumpTime += Time.deltaTime;
+            }
+            else if (playerController.Running)
+            {
+                GetCurrAttempt().runTime += Time.deltaTime;
+            }
+            else
+            {
+                GetCurrAttempt().walkTime += Time.deltaTime;
+            }
         }
 
-        if (playerController.Velocity.Equals(new Vector3(0, 0, 0)))
-        {
-            GetCurrAttempt().standTime += Time.deltaTime;
-        }
-        else if (playerController.Jumping)
-        {
-            GetCurrAttempt().jumpTime += Time.deltaTime;
-        }
-        else if (playerController.Running)
-        {
-            GetCurrAttempt().runTime += Time.deltaTime;
-        }
-        else
-        {
-            GetCurrAttempt().walkTime += Time.deltaTime;
-        }
+
 	}
 
     // other scripts can tell this one when playtime should not be incremented - when gameplay is "paused"
@@ -112,11 +117,18 @@ public class ExplorationDataManager : MonoBehaviour {
     }
 
     // needs to be called every time player runs of out of time (so only on timed levels). 
-    // Is automatically called each time Canyon2 scene is entered via OnEnable()
-    public void AddNewAttempt(string sceneName)
+    // Is automatically called each time Canyon2 scene is entered via DataAggregator
+    public void AddNewAttempt(string sceneName, bool restartAttemptCount)
     {
+        if(restartAttemptCount)
+        {
+            attemptCount = 0;
+        } else
+        {
+            attemptCount++;
+        }
         attemptIndex++;
-        Attempt newAttempt = new Attempt(sceneName, attemptIndex);
+        Attempt newAttempt = new Attempt(sceneName, attemptCount);
         attempts.Add(newAttempt);
     }
 
@@ -134,22 +146,16 @@ public class ExplorationDataManager : MonoBehaviour {
         GetCurrAttempt().outcome = outcome;
     }
 
+    public void setLevelSuffix(string suffix)
+    {
+        GetCurrAttempt().level += "_" + suffix;
+    }
+
     public Attempt GetCurrAttempt()
     {
         return attempts[attemptIndex];
     }
 
-    public string GetDataString()
-    {
-        string retval = "Playtime:" + total_time.ToString() + ",";
-        retval += "StandingTime:" + total_standTime.ToString() + ",";
-        retval += "JumpTime:" + total_jumpTime.ToString() + ",";
-        retval += "RunningTime:" + total_runTime.ToString() + ",";
-        retval += "WalkingTime:" + total_walkTime.ToString() + "\n";
-        return retval;
-    }
-
-    // call this
     public string saveAllData()
     {
         // setting these to zero again so this can recalculate and save totals multiple times during a game
@@ -190,10 +196,9 @@ public class ExplorationDataManager : MonoBehaviour {
         }
 
         //header
-        //string allData = "totalTime,total_standTime,total_jumpTime,total_runTime,total_walkTime,totalAttempts,numLevelsCompleted,numRanOutOfTime";
 
         string allData = "BEGIN_EXPLORATION,";
-        allData += total_time + "," + total_standTime + "," + total_jumpTime + "," + total_runTime + "," + total_walkTime + "," + attemptIndex + ",";
+        allData += total_time + "," + total_standTime + "," + total_jumpTime + "," + total_runTime + "," + total_walkTime + "," + (attemptIndex+1) + ",";
         allData += numLevelsCompleted + "," + numRanOutOfTime + ",";
 
         //attempts data

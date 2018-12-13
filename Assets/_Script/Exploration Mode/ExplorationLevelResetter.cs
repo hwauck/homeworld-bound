@@ -76,6 +76,11 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
     private void Awake()
     {
+        GameObject expDataManagerObj = GameObject.Find("DataCollectionManager");
+        if(expDataManagerObj != null)
+        {
+            expDataManager = expDataManagerObj.GetComponent<ExplorationDataManager>();
+        }
         taggedFirstPart = false;
         resetDueToPowerFailure = false;
         powerFailureSound = Resources.Load<AudioClip>("Audio/BothModes/msfx_chrono_latency_hammer");
@@ -102,6 +107,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         if(ConversationTrigger.GetToken("finished_b4") && !ConversationTrigger.GetToken("finished_RB"))
         {
             disablePlayerControl();
+            expDataManager.setPauseGameplay(true);
 
             //reveal all rocket boots parts so player can collect them
             //Debug.Log("Activating Rocket Boots parts!");
@@ -114,7 +120,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
             screenFader.fadeIn(1f);
 
             map.doIntroMap(); // when this is done, it triggers startCountdown() and beginning of timed level
-            expDataManager.setPauseGameplay(true);
         } else if (ConversationTrigger.GetToken("finished_RB"))
         {
             screenFader.fadeIn(1f);
@@ -131,6 +136,12 @@ public class ExplorationLevelResetter : MonoBehaviour {
     void Start () {
 		
 	}
+
+    // this function is called when SceneTimer's Entered Highlands event is invoked
+    public void demoFinished()
+    {
+        doFadeToDemoFinished(3f, false);
+    }
 
     // when player reaches highlands level with rocket boots, fade out to DEMO FINISHED words
     public void doFadeToDemoFinished(float seconds, bool playerInitiated)
@@ -206,25 +217,42 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
     }
 
-    private void setWhatToBuild()
+    public void setFirstBatteryConvo()
     {
         // CHANGE this every time a new battery level is added
-        if(!ConversationTrigger.GetToken("finished_b1"))
+        if (!ConversationTrigger.GetToken("finished_b1"))
         {
-            whatToBuild = "b1";
             Exp_firstBattery_b2.enabled = true;
 
         }
         else if (!ConversationTrigger.GetToken("finished_b2"))
         {
-            whatToBuild = "b2";
             Exp_firstBattery_b3.enabled = true;
 
         }
         else if (!ConversationTrigger.GetToken("finished_b3"))
         {
-            whatToBuild = "b3";
             Exp_firstBattery_b4.enabled = true;
+
+        }
+    }
+
+    public void setWhatToBuild()
+    {
+        // CHANGE this every time a new battery level is added
+        if(!ConversationTrigger.GetToken("finished_b1"))
+        {
+            whatToBuild = "b1";
+
+        }
+        else if (!ConversationTrigger.GetToken("finished_b2"))
+        {
+            whatToBuild = "b2";
+
+        }
+        else if (!ConversationTrigger.GetToken("finished_b3"))
+        {
+            whatToBuild = "b3";
 
         }
         else if (!ConversationTrigger.GetToken("finished_b4"))
@@ -259,12 +287,22 @@ public class ExplorationLevelResetter : MonoBehaviour {
         {
             whatToBuild = "rocketBoots";
         }
+
+        // in case this script's Awake() method hasn't been called yet
+        GameObject expDataManagerObj = GameObject.Find("DataCollectionManager");
+        if (expDataManagerObj != null)
+        {
+            expDataManager = expDataManagerObj.GetComponent<ExplorationDataManager>();
+        }
+        expDataManager.setLevelSuffix(whatToBuild);
+
+
     }
 
     //invoke this method from PartCounter/BatteryCounter whenever all parts are collected (batteries) within time limit (items)
     public void prepareNextLevel()
     {
-        setWhatToBuild();
+        setFirstBatteryConvo();
 
         if (batteryPartCounter.allPartsCollected())
         {
@@ -292,6 +330,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             itemPartCounter.resetCounter();
             timer.stopTimer();
             timer.resetTimer();
+            expDataManager.setOutcome("victory");
 
             //remembers which Exploration Mode we were in so we can get back
             InventoryController.levelName = SceneManager.GetActiveScene().name;
@@ -381,6 +420,17 @@ public class ExplorationLevelResetter : MonoBehaviour {
         //disable player controls
         disablePlayerControl();
         expDataManager.setPauseGameplay(true);
+
+        string currentScene;
+        if (LoadUtils.loadedScenes.Count < 2)
+        {
+            currentScene = SceneManager.GetActiveScene().name;
+        }
+        else
+        {
+            currentScene = LoadUtils.currentSceneName;
+        }
+        expDataManager.AddNewAttempt(currentScene, false);
         //flash warning: power failure!
         powerFailureText.enabled = true;
         errorPanel.alpha = 1;

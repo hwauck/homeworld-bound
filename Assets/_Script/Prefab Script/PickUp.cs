@@ -86,6 +86,8 @@ public class PickUp : MonoBehaviour
             //SimpleData.WriteStringToFile("pickups.txt", Time.time + ",PICKUP," + pickupName);
             ParticleSystem ps = GetComponent<ParticleSystem>();
             ParticleSystem.MainModule psMain = GetComponent<ParticleSystem>().main;
+            GameObject expDataManagerObj = GameObject.Find("DataCollectionManager");
+
             switch (type)
 			{
 
@@ -93,6 +95,10 @@ public class PickUp : MonoBehaviour
 					// Add the item and update the tokens.
 					InventoryController.Add(this, 1);
 					InventoryController.ConvertInventoryToTokens();
+                    if(expDataManagerObj != null)
+                    {
+                        expDataManagerObj.GetComponent<ExplorationDataManager>().AddPartCollected(gameObject.name);
+                    }
 
                     PartCounter partCounter = partCounterObj.GetComponent<PartCounter>();
 
@@ -142,6 +148,10 @@ public class PickUp : MonoBehaviour
 				case PickupType.Battery:
 
                     ConversationTrigger.AddToken("picked_up_a_battery");
+                    if (expDataManagerObj != null)
+                    {
+                        expDataManagerObj.GetComponent<ExplorationDataManager>().AddPartCollected(gameObject.name);
+                    }
 
                     // inc count of battery parts and check if done collecting
                     // make sure battery parts UI elements are enabled (won't be for every first battery part pickup)

@@ -154,9 +154,9 @@ public class LevelResetter : MonoBehaviour {
         dataManager.setPauseGameplay(true);
         screenFader.fadeOut(1f);
         howToQuitText.enabled = false;
-        howToQuitLLText.enabled = true;
         yield return new WaitForSeconds(1f);
 
+        howToQuitLLText.enabled = true;
         rechargingText.enabled = true;
         rechargingText.text = "Fuser is now fully charged!";
         audioSource.PlayOneShot(fullyChargedSound);
@@ -488,9 +488,9 @@ public class LevelResetter : MonoBehaviour {
 
         StartCoroutine(startingPartZoomUp());
 
-        //Dresha talks and part zooms up
+        //part zooms up
         yield return new WaitForSeconds(1f);
-        ConversationTrigger.AddToken("letsRestart");
+        ConversationTrigger.AddToken("doneRestarting");
     }
 
     //triggered by click of the tryAgainButton
@@ -507,7 +507,7 @@ public class LevelResetter : MonoBehaviour {
             {
                 currentLevel = LoadUtils.currentSceneName;
             }
-            dataManager.AddNewAttempt(currentLevel);
+            dataManager.AddNewAttempt(currentLevel,false);
         }
         StartCoroutine(resetConstruction());
     }
@@ -598,7 +598,10 @@ public class LevelResetter : MonoBehaviour {
             timeRemainingPanel.GetComponent<Timer>().startTimer();
         }
         enablePlayerControls();
-        dataManager.setPauseGameplay(false);
+        if (dataManager != null)
+        {
+            dataManager.setPauseGameplay(false);
+        }
         fuseEvent.startMusic();
 
     }
@@ -684,7 +687,6 @@ public class LevelResetter : MonoBehaviour {
         // when Dresha has finished the restart message, reenable controls and start level again with countdown
         else if (ConversationTrigger.GetToken("doneRestarting"))
         { 
-            ConversationTrigger.RemoveToken("letsRestart");
             ConversationTrigger.RemoveToken("doneRestarting");
             StartCoroutine(doCountdownAndEnableControls());
         } 

@@ -43399,7 +43399,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11420312, guid: 54df1ff1f28f721439257bd433cdb007, type: 2}
       propertyPath: enteredHighland.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11420312, guid: 54df1ff1f28f721439257bd433cdb007, type: 2}
       propertyPath: enteredHighland.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -43411,7 +43411,7 @@ Prefab:
       objectReference: {fileID: 122197088}
     - target: {fileID: 11420312, guid: 54df1ff1f28f721439257bd433cdb007, type: 2}
       propertyPath: enteredHighland.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: doFadeToDemoFinished
+      value: demoFinished
       objectReference: {fileID: 0}
     - target: {fileID: 11420312, guid: 54df1ff1f28f721439257bd433cdb007, type: 2}
       propertyPath: enteredHighland.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -43650,7 +43650,7 @@ GameObject:
   - component: {fileID: 2127992327}
   m_Layer: 0
   m_Name: DataCollectionManager
-  m_TagString: Untagged
+  m_TagString: DataCollector
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

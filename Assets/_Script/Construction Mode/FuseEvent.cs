@@ -288,8 +288,12 @@ public class FuseEvent : MonoBehaviour {
 
 		selectedObject = GetComponent<SelectPart>().getSelectedObject();
 		selectedFuseTo = GetComponent<SelectPart>().getSelectedFuseTo();
+        Debug.Log("Instantiating group in Awake() for FuseEvent in scene " + LoadUtils.currentSceneName);
 		group = Instantiate(victoryPrefab, new Vector3(-100, 30, 100), new Quaternion());
-		NUM_FUSES = 0;
+        //to make sure it's created as part of the current construction mode scene
+        LoadUtils.InstantiateParenter(group);
+
+        NUM_FUSES = 0;
 		for(int i = 0; i < partButtons.Length; i++) {
 			NUM_FUSES += partButtons[i].GetComponent<Uses>().numUses;
 		}
@@ -306,6 +310,9 @@ public class FuseEvent : MonoBehaviour {
             Destroy(prevVictoryPrefab);
         }
         group = Instantiate(victoryPrefab, new Vector3(-100, 30, 100), new Quaternion());
+
+        //to make sure it's created as part of the current construction mode scene
+        LoadUtils.InstantiateParenter(group);
     }
 
     // used by level resetter to reset the fuse count every time level is reset

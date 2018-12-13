@@ -19,6 +19,7 @@ public class Timer : MonoBehaviour {
     private bool sinisterMusicstarted = false;
     public UnityEvent isTimedLevel;
     // For data collection
+    public bool isConstructionTimer; // is this timer for construction mode levels or exploration mode levels?
     public ConstructionDataManager constructDataManager;
     public ExplorationDataManager exploreDataManager;
 
@@ -39,11 +40,10 @@ public class Timer : MonoBehaviour {
         MusicSource.Play();
 
         // For data collection
-        if (constructDataManager == null)
+        if (isConstructionTimer)
         {
             constructDataManager = GameObject.Find("DataCollectionManager").GetComponent<ConstructionDataManager>();
-        }
-        if(exploreDataManager == null)
+        } else
         {
             exploreDataManager = GameObject.Find("DataCollectionManager").GetComponent<ExplorationDataManager>();
         }
@@ -90,6 +90,7 @@ public class Timer : MonoBehaviour {
     {
         if (timerStarted)
         {
+
             if (timeRemaining >= 0)
             {
                 timeRemaining -= Time.deltaTime;
@@ -120,15 +121,12 @@ public class Timer : MonoBehaviour {
                 MusicSource.Stop();
                 // For data collection
                 numRanOutOfTime++;
-                if (constructDataManager != null)
+                if (isConstructionTimer)
                 {
                     constructDataManager.SetOutcome("time");
-                } else if (exploreDataManager != null)
-                {
-                    exploreDataManager.setOutcome("time");
                 } else
                 {
-                    Debug.Log("WARNING: Neither construction data manager nor exploration data manager found.");
+                    exploreDataManager.setOutcome("time");
                 }
 
                 minutes = 0;

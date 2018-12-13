@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class Fuser : ItemBase {
     public GameObject fuser;
+    private ExplorationDataManager expDataManager;
 
     static bool fuserActive = false;
     static GameObject fuserStatic;
@@ -38,8 +39,14 @@ public class Fuser : ItemBase {
         bootingUpSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-03");
         lowPowerSound = Resources.Load<AudioClip>("Audio/BothModes/Denied3");
         powerUpSound = Resources.Load<AudioClip>("Audio/BothModes/Slider3");
+        GameObject expDataManagerObj = GameObject.Find("DataCollectionManager");
+        if (expDataManagerObj != null)
+        {
+            expDataManager = expDataManagerObj.GetComponent<ExplorationDataManager>();
+        }
 
         fuserStatic.SetActive(false);
+
     }
 
     // activate the fuser and then run the Fuser interface 
@@ -131,6 +138,10 @@ public class Fuser : ItemBase {
         }
 
         disablePlayerControl();
+        if(expDataManager != null)
+        {
+            expDataManager.setPauseGameplay(true);
+        }
 
         screenFader.fadeOut(0.2f);
 
@@ -190,6 +201,10 @@ public class Fuser : ItemBase {
         //disable mouse cursor
         ConversationController.LockMouse();
         enablePlayerControl();
+        if (expDataManager != null)
+        {
+            expDataManager.setPauseGameplay(false);
+        }
 
         screenFader.fadeIn(0.2f);
         ConversationTrigger.AddToken("findBatteries");

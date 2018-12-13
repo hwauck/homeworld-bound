@@ -47,7 +47,7 @@ public class LoadUtils : MonoBehaviour
 		{
 			GameObject gg = (GameObject)ii;
 			Transform tt = gg.transform;
-			if (tt.parent == null && gg.tag != "SceneBundle" && gg.tag != "SceneManager")
+			if (tt.parent == null && gg.tag != "SceneBundle" && gg.tag != "SceneManager" && gg.tag != "DataCollector")
 			{
 				tt.SetParent(sceneBundle.transform);
 			}

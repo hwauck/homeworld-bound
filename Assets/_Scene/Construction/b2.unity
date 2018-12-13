@@ -2047,7 +2047,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0.00012207031, y: 0}
-  m_SizeDelta: {x: 376, y: 418}
+  m_SizeDelta: {x: 376, y: 370}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1232480375
 MonoBehaviour:
@@ -2601,6 +2601,11 @@ MonoBehaviour:
   showMapText: {fileID: 0}
   controller: {fileID: 0}
   dataManager: {fileID: 0}
+  gameQuit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &1321869688
 MonoBehaviour:
   m_ObjectHideFlags: 0

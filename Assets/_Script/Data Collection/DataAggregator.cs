@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 // both the ExplorationDataManager and ConstructionDataManager. 
 public class DataAggregator : MonoBehaviour {
 
-    private static DataAggregator instance;
+    //private static DataAggregator instance;
     private ExplorationDataManager expDataManager;
     private ConstructionDataManager constDataManager;
 
@@ -17,18 +17,18 @@ public class DataAggregator : MonoBehaviour {
 
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-            return;
-        }
+        //if (instance == null)
+        //{
+        //    instance = this;
+        //}
+        //else
+        //{
+        //    Destroy(this.gameObject);
+        //    return;
+        //}
 
         //makes the GameObject with this script attached to it persist across game levels
-        DontDestroyOnLoad(transform.gameObject);
+        //DontDestroyOnLoad(transform.gameObject);
 
         expDataManager = GetComponent<ExplorationDataManager>();
         constDataManager = GetComponent<ConstructionDataManager>();
@@ -48,21 +48,51 @@ public class DataAggregator : MonoBehaviour {
 
     private void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
+        initializeDataCollection(scene);
+    }
+
+    // here, "loading" refers to both the act of loading a new scene (e.g. a Construction mode level) 
+    // and switching to an already loaded scene (e.g. the current Exploration Mode scene after finishing a Construction Mode level)
+    private void initializeDataCollection(Scene scene)
+    {
+        //if(LoadUtils.loadedScenes.Count > 0)
+        //{
+        //    while (!LoadUtils.isSceneLoaded)
+        //    {
+        //        yield return null;
+        //    }
+        //}
+ 
+        ////reset isSceneLoaded for next level load
+        //LoadUtils.isSceneLoaded = false;
+
+        string currentScene;
+
+        if (LoadUtils.loadedScenes.Count < 2)
+        {
+            currentScene = SceneManager.GetActiveScene().name;
+        }
+        else
+        {
+            currentScene = LoadUtils.currentSceneName;
+        }
+
         if (!scene.name.Equals("Canyon2"))
         {
             expDataManager.enabled = false;
             constDataManager.enabled = true;
-            constDataManager.AddNewAttempt(scene.name);
-            Debug.Log("Finished Loading Scene " + scene.name + ", ExplorationDataManager active");
-
+            constDataManager.AddNewAttempt(scene.name, true);
+            Debug.Log("Finished Loading Scene " + scene.name + ", ConstructionDataManager active");
 
         }
         else
         {
             constDataManager.enabled = false;
             expDataManager.enabled = true;
-            expDataManager.AddNewAttempt(scene.name);
-            Debug.Log("Finished Loading Scene " + scene.name + ", ConstructionDataManager active");
+            ExplorationLevelResetter expLevelResetter = GameObject.Find("EventSystem").GetComponent<ExplorationLevelResetter>();
+            expDataManager.AddNewAttempt(scene.name, true);
+            expLevelResetter.setWhatToBuild();
+            Debug.Log("Finished Loading Scene " + scene.name + ", ExplorationDataManager active");
 
         }
     }

@@ -9,7 +9,8 @@ using UnityEngine.SceneManagement;
 public class ConstructionDataManager : MonoBehaviour {
 
     private bool isPaused; // should gameplay time be incremented (unpaused) or not (paused)?
-    protected int attemptCount;
+    protected int attemptIndex; // across Construction Mode, how many total attempts were there? (attemptIndex+1)
+    private int attemptCount; // for each Construction Mode level, how many attempts were there? Starts over for each new level.
     private float total_const_time;
     private int total_const_errors;
     private int total_face_errors;
@@ -75,7 +76,8 @@ public class ConstructionDataManager : MonoBehaviour {
         total_parts_selected = 0;
         const_numOutOfTime = 0;
         const_numOutOfRotations = 0;
-        attemptCount = -1;
+        attemptIndex = -1;
+        attemptCount = 0;
 
         attempts = new List<Attempt>();
     }
@@ -94,16 +96,24 @@ public class ConstructionDataManager : MonoBehaviour {
         }
     }
 
-    public void AddNewAttempt(string sceneName)
+    public void AddNewAttempt(string sceneName, bool restartAttemptCount)
     {
-        attemptCount++;
+        if (restartAttemptCount)
+        {
+            attemptCount = 0;
+        }
+        else
+        {
+            attemptCount++;
+        }
+        attemptIndex++;
         Attempt newAttempt = new Attempt(sceneName, attemptCount);
         attempts.Add(newAttempt);
     }
 
     public Attempt GetCurrAttempt()
     {
-        return attempts[attemptCount];
+        return attempts[attemptIndex];
     }
 
     public void AddFaceError()
