@@ -48,11 +48,14 @@ public class DataAggregator : MonoBehaviour {
 
     private void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log("Finished Loading Scene " + scene.name);
         initializeDataCollection(scene);
     }
-
-    // here, "loading" refers to both the act of loading a new scene (e.g. a Construction mode level) 
-    // and switching to an already loaded scene (e.g. the current Exploration Mode scene after finishing a Construction Mode level)
+ 
+    // this is called in three cases:
+    // 1. new level loaded
+    // 2. switch level back to already loaded level (Construction -> Exploration)
+    // 3. Current level reset due to running out of time or rotations
     private void initializeDataCollection(Scene scene)
     {
         //if(LoadUtils.loadedScenes.Count > 0)
@@ -62,27 +65,19 @@ public class DataAggregator : MonoBehaviour {
         //        yield return null;
         //    }
         //}
- 
+
         ////reset isSceneLoaded for next level load
         //LoadUtils.isSceneLoaded = false;
 
-        string currentScene;
-
-        if (LoadUtils.loadedScenes.Count < 2)
-        {
-            currentScene = SceneManager.GetActiveScene().name;
-        }
-        else
-        {
-            currentScene = LoadUtils.currentSceneName;
-        }
+        // stop any conversation controller's reading text data collection in case scene switched before conversation ended
+        expDataManager.setIsReadingText(false);
+        constDataManager.setIsReadingText(false);
 
         if (!scene.name.Equals("Canyon2"))
         {
             expDataManager.enabled = false;
             constDataManager.enabled = true;
             constDataManager.AddNewAttempt(scene.name, true);
-            Debug.Log("Finished Loading Scene " + scene.name + ", ConstructionDataManager active");
 
         }
         else
@@ -92,8 +87,7 @@ public class DataAggregator : MonoBehaviour {
             ExplorationLevelResetter expLevelResetter = GameObject.Find("EventSystem").GetComponent<ExplorationLevelResetter>();
             expDataManager.AddNewAttempt(scene.name, true);
             expLevelResetter.setWhatToBuild();
-            Debug.Log("Finished Loading Scene " + scene.name + ", ExplorationDataManager active");
-
+            Debug.Log("New attempt for level " + expDataManager.GetCurrAttempt().level + " added!");
         }
     }
 
@@ -115,6 +109,26 @@ public class DataAggregator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+        // can't figure out a way to set up an event listener for this kind of event, so I'll just do it the clunky way
+		if(LoadUtils.sceneSwitched)
+        {
+            LoadUtils.sceneSwitched = false;
+
+            // we went back to an already loaded exploration mode scene from a finished Construction Mode
+            // scene, so add a new attempt
+            Scene currentScene;
+
+            if (LoadUtils.loadedScenes.Count < 2)
+            {
+                currentScene = SceneManager.GetActiveScene();
+            }
+            else
+            {
+                string sceneName = LoadUtils.currentSceneName;
+                currentScene = SceneManager.GetSceneByName(sceneName);
+            }
+            initializeDataCollection(currentScene);
+        }
 	}
 }

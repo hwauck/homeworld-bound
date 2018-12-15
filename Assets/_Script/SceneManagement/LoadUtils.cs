@@ -20,7 +20,7 @@ public class LoadUtils : MonoBehaviour
 	public static string currentSceneName = "";
 
     public static bool isSceneLoaded = false;
-
+    public static bool sceneSwitched = false;
 
     void Awake()
 	{
@@ -142,6 +142,7 @@ public class LoadUtils : MonoBehaviour
 		loadedScenes[sceneName].SetActive(true);
 		currentSceneObject = loadedScenes[sceneName];
 		currentSceneName = sceneName;
+        sceneSwitched = true;
 	}
 
 	// This can be a good idea to save memory. Sometimes it may be worth unloading a scene completely,

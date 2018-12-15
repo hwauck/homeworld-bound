@@ -1,5 +1,7 @@
-Click and drag with the mouse to move the camera.
-Use the scroll wheel on the mouse to zoom in and out.
-Move over the interface with the cursor to learn how to build things with the Fuser!
+Now, you'll build a battery for the Fuser!
+Sometimes you may need to [color]880change your view[color] while building.
+[color]880Click and drag[color] with the mouse to move the camera.
+Use the [color]880scroll wheel[color] on the mouse to zoom in and out.
+Good luck!
 [CHOOSE]
 |nowhere|finished_cameraControls

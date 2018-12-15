@@ -35,6 +35,9 @@ public class TutorialManager : MonoBehaviour
     private float canvasWidth;
     private float canvasHeight;
 
+    //data collection
+    private ConstructionDataManager dataManager;
+
     void Start()
     {
         step = 1;
@@ -44,26 +47,41 @@ public class TutorialManager : MonoBehaviour
         arrowTransform.localRotation = Quaternion.Euler(0, 0, -180);
         arrowTransform.anchoredPosition = new Vector2(-150f, 287f);
         conversationTransform = conversation.GetComponent<RectTransform>();
-        conversationTransform.anchoredPosition = new Vector2(0, 0);
+        conversationTransform.anchoredPosition = new Vector2(0, -25);
         cam = Camera.main;
         partsGroup.transform.position = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth / 2f, cam.pixelHeight / 2f, 72));
-        
+
+        GameObject dataCollectionObj = GameObject.Find("DataCollectionManager");
+        if (dataCollectionObj != null)
+        {
+            dataManager = dataCollectionObj.GetComponent<ConstructionDataManager>();
+        }
+
     }
 
     void Update()
     {
         canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
         canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
+
+        // Ensure mouse works...
+        if (!Cursor.visible || Cursor.lockState != CursorLockMode.None)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
         if (step == 1)
         {
-            tutorialText.text = "This is the target object";
+            tutorialText.text = "This is the target object.";
             Highlighter.Highlight(finishedPic);
             arrow.transform.SetParent(finishedPic.transform);
             arrowTransform.anchoredPosition = finishedPic.GetComponent<RectTransform>().anchoredPosition + new Vector2(280, 160);
+            GameObject.Find("tutorialStart").transform.SetPositionAndRotation(new Vector3(100, 36.8f, -100), new Quaternion());
         }
         else if (step == 2)
         {
-            tutorialText.text = "This is the part you have";
+            tutorialText.text = "This is the part you start with.";
 
             part1.SetActive(true);
             p1s1.SetActive(true);
@@ -76,7 +94,7 @@ public class TutorialManager : MonoBehaviour
         }
         else if (step == 3)
         {
-            tutorialText.text = "CLICK to select new parts from the bottom panel";
+            tutorialText.text = "CLICK to select new parts from the bottom panel.";
 
             part2Button.SetActive(true);
             nextButton.SetActive(false);
@@ -90,11 +108,15 @@ public class TutorialManager : MonoBehaviour
         }
         else if (step == 4)
         {
+            if(dataManager != null)
+            {
+                dataManager.AddPartSelected("part2");
+            }
             part2.SetActive(true);
             p2s2.SetActive(true);
             rotationGizmo.SetActive(true);
             Highlighter.Highlight(zDownArrow);
-            tutorialText.text = "CLICK on arrow to rotate the object";
+            tutorialText.text = "CLICK on the arrow to rotate the part.";
             part2Button.GetComponent<Button>().interactable = false;
             arrowTransform.localRotation = Quaternion.Euler(0, 0, 0);
             //arrowTransform.anchoredPosition = new Vector2(-31, 78);
@@ -103,6 +125,10 @@ public class TutorialManager : MonoBehaviour
         }
         else if (step == 5)
         {
+            if(dataManager != null)
+            {
+                dataManager.AddRotation();
+            }
             part2.transform.localRotation = Quaternion.Euler(0, 0, 180);
             p2s2.transform.localRotation = Quaternion.Euler(45, 90, -180);
             zDownArrow.GetComponent<TutorialArrowClick>().enabled = false;
@@ -118,7 +144,7 @@ public class TutorialManager : MonoBehaviour
         else if (step == 6)
         {
             nextButton.SetActive(false);
-            tutorialText.text = "CLICK on the black surface to select it";
+            tutorialText.text = "CLICK on the black surface to select it.";
             p2s2.GetComponent<TutorialSelect>().enabled = true;
             Highlighter.Unhighlight(rotationRemain);
             arrowTransform.localRotation = Quaternion.Euler(0, 0, 45);
@@ -128,7 +154,7 @@ public class TutorialManager : MonoBehaviour
         }
         else if (step == 7)
         {
-            tutorialText.text = "CLICK on another part's black surface to select it";
+            tutorialText.text = "CLICK on another part's black surface to select it.";
             p1s1.GetComponent<TutorialBlackSurfaceMove>().enabled = true;
             arrowTransform.localRotation = Quaternion.Euler(0, 0, -135);
             //arrowTransform.anchoredPosition = new Vector2(-47, 217);
@@ -142,7 +168,7 @@ public class TutorialManager : MonoBehaviour
             rotationGizmo.transform.localPosition = new Vector3(1.26f, -0.67f, -1.03f);
             FuzeButton.SetActive(true);
             Highlighter.Highlight(FuzeButton);
-            tutorialText.text = "CLICK on Fuze button to fuze two parts";
+            tutorialText.text = "CLICK on the Fuse button to fuse two parts.";
             arrowTransform.localRotation = Quaternion.Euler(0, 0, -90);
             arrowTransform.anchoredPosition = new Vector2(-90, 126);
             conversationTransform.anchoredPosition = new Vector2(-44, -81);
@@ -150,6 +176,10 @@ public class TutorialManager : MonoBehaviour
         }
         else if (step == 9)
         {
+            if(dataManager != null)
+            {
+                dataManager.AddPartFused("part2");
+            }
             part2.SetActive(false);
             p2s2.SetActive(false);
             part1.SetActive(false);
@@ -157,7 +187,10 @@ public class TutorialManager : MonoBehaviour
             rotationGizmo.SetActive(false);
             correct.SetActive(true);
             Highlighter.Unhighlight(FuzeButton);
-            tutorialText.text = "Congratulations! You have successfully fuzed two parts. Click NEXT to end the tutorial!";
+            tutorialText.text = "Congratulations! You have successfully fused two parts. Click NEXT to end the tutorial!";
+            if(dataManager != null) {
+                dataManager.SetOutcome("victory");
+            }
             arrow.SetActive(false);
             FuzeButton.SetActive(false);
             nextButton.SetActive(true);
@@ -166,7 +199,7 @@ public class TutorialManager : MonoBehaviour
         }
         else if (step == 10)
         {
-            tutorialText.text = "Note that if two parts don't match, you cannot fuze them. Rotate one part to make it match the other part.";
+            tutorialText.text = "If two parts don't match, you cannot fuse them. Rotate one part to make it match the other part.";
             cameraRig.GetComponent<CameraControls>().enabled = true;
         }
     }

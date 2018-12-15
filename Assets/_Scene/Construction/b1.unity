@@ -2664,7 +2664,7 @@ MonoBehaviour:
   trigger: 2
   keyRequired: 0
   tokenWhitelist:
-  - doneRestarting
+  - startCameraControls
   tokenBlacklist: []
 --- !u!4 &1095966173
 Transform:

@@ -249,6 +249,7 @@ public class LevelResetter : MonoBehaviour {
         // ConversationTrigger.AddToken("doneRestarting")
         yield return new WaitForSeconds(seconds);
         ConversationTrigger.AddToken(token);
+        Debug.Log("Added token " + token);
     }
 
     private IEnumerator waitAndThenZoomUpPart(float seconds)
@@ -332,9 +333,6 @@ public class LevelResetter : MonoBehaviour {
 
             explosionPosition = new Vector3(rbPos.x + xExpOffset, rbPos.y + yExpOffset, rbPos.z + zExpOffset);
 
-            //TODO: use this to figure out why some explosions look bad/jerky.
-            // I suspect it's because the explosion is too close to the center of the object
-            Debug.Log("Explosion Position for " + parts[i] + ": " + explosionPosition);
             parts[i].GetComponent<Rigidbody>().AddExplosionForce(1000f, explosionPosition, 20f, 0f);
 
         }
@@ -354,6 +352,7 @@ public class LevelResetter : MonoBehaviour {
         //           yield return new WaitForSeconds(flickerLength);
         //       }
         //      fadeOutScreen.enabled = true;
+        fadeOutScreen.enabled = true;
         screenFader.fadeOut(0.5f);
         powerFailureText.enabled = false;
         errorPanel.alpha = 0;

@@ -25,6 +25,11 @@ public class ConversationController : MonoBehaviour
 	public static string currentConversationName = "";
 	public static bool currentEscRule = true;
 
+    //data collection
+    public bool isConstMode = true; // are we in Construction mode or Exploration Mode?
+    private ExplorationDataManager expDataManager;
+    private ConstructionDataManager constDataManager;
+
 	void Start ()
 	{
 		// Grab references.
@@ -52,6 +57,19 @@ public class ConversationController : MonoBehaviour
         {
             FakeActive(gameObject, true);
         }
+
+        GameObject dataCollectionObj = GameObject.Find("DataCollectionManager");
+        if (dataCollectionObj != null && isConstMode)
+        {
+            constDataManager = dataCollectionObj.GetComponent<ConstructionDataManager>();
+        }
+        else if(dataCollectionObj != null && !isConstMode)
+        {
+            expDataManager = dataCollectionObj.GetComponent<ExplorationDataManager>();
+
+        }
+
+
     }
 
 	void OnEnable()
@@ -75,7 +93,35 @@ public class ConversationController : MonoBehaviour
 		{
 			ConversationTrigger.AddToken("hardInstantTest");
 		}
-	}
+
+        // This counts the amount of time spent reading and makes sure that this is also counted as playTime,
+        // even if the data collection object has gameplay data collection "paused"
+        if(constDataManager != null || expDataManager != null)
+        {
+            if (currentlyEnabled && isConstMode)
+            {
+                constDataManager.setIsReadingText(true);
+            }
+            else if (currentlyEnabled && !isConstMode)
+            {
+                expDataManager.setIsReadingText(true);
+            }
+            else if (!currentlyEnabled && isConstMode)
+            {
+                constDataManager.setIsReadingText(false);
+            }
+            else if (!currentlyEnabled && !isConstMode)
+            {
+                expDataManager.setIsReadingText(false);
+            }
+            else
+            {
+                Debug.LogError("ERROR: invalid combination of currentlyEnabled and isConstMode");
+            }
+        }
+  
+
+    }
 
 
 	// Disable the text box by applying the nowhere conversation and pushing it really far away.

@@ -10,7 +10,7 @@ public class TutorialClick : MonoBehaviour {
         // Goes to next scene if tutorial has ended
         if (TutorialManager.step == 9)
         {
-            SceneManager.LoadScene("b1");
+            LoadUtils.LoadScene("b1");
         }
         else 
             TutorialManager.step++;

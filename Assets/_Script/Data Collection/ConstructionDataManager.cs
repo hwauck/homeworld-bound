@@ -9,9 +9,11 @@ using UnityEngine.SceneManagement;
 public class ConstructionDataManager : MonoBehaviour {
 
     private bool isPaused; // should gameplay time be incremented (unpaused) or not (paused)?
+    private bool isReadingText;
     protected int attemptIndex; // across Construction Mode, how many total attempts were there? (attemptIndex+1)
     private int attemptCount; // for each Construction Mode level, how many attempts were there? Starts over for each new level.
     private float total_const_time;
+    private float total_readTime;
     private int total_const_errors;
     private int total_face_errors;
     private int total_rotate_errors;
@@ -28,6 +30,7 @@ public class ConstructionDataManager : MonoBehaviour {
         public int attemptNum;
         public string level;
         public float playTime;
+        public float readTime;
         public int rotateErrors;
         public int faceErrors;
         public int rotationCount;
@@ -43,6 +46,7 @@ public class ConstructionDataManager : MonoBehaviour {
             attemptNum = currentAttemptNum;
             level = levelName;
             playTime = 0;
+            readTime = 0;
             rotateErrors = 0;
             faceErrors = 0;
             rotationCount = 0;
@@ -56,7 +60,7 @@ public class ConstructionDataManager : MonoBehaviour {
 
         public string toString()
         {
-            return "Attempt" + attemptNum + ";level:" + level + ";playTime:" + playTime + ";rotateErrors:" + rotateErrors + ";faceErrors:" + faceErrors + ";rotationCount:" + rotationCount
+            return "Attempt" + attemptNum + ";level:" + level + ";playTime:" + playTime + ";readTime:" + readTime + ";rotateErrors:" + rotateErrors + ";faceErrors:" + faceErrors + ";rotationCount:" + rotationCount
                 + ";timeRotatingCamera:" + timeRotatingCamera + ";numPartsFused:" + numPartsFused + ";numPartsSelected:" + numPartsSelected + ";partSelectionOrder:" 
                 + partSelectionOrder + ";partFuseOrder:" + partFuseOrder + ";outcome:" + outcome + "\n";
         }
@@ -66,7 +70,9 @@ public class ConstructionDataManager : MonoBehaviour {
     public void initializeDataVars()
     {
         isPaused = false;
+        isReadingText = false;
         total_const_time = 0;
+        total_readTime = 0;
         total_const_errors = 0;
         total_face_errors = 0;
         total_rotate_errors = 0;
@@ -77,7 +83,7 @@ public class ConstructionDataManager : MonoBehaviour {
         const_numOutOfTime = 0;
         const_numOutOfRotations = 0;
         attemptIndex = -1;
-        attemptCount = 0;
+        attemptCount = 1;
 
         attempts = new List<Attempt>();
     }
@@ -94,13 +100,23 @@ public class ConstructionDataManager : MonoBehaviour {
         {
             GetCurrAttempt().playTime += Time.deltaTime;
         }
+
+        if(isReadingText)
+        {
+            GetCurrAttempt().readTime += Time.deltaTime;
+            Debug.Log("READING: " + GetCurrAttempt().readTime);
+            if(isPaused)
+            {
+                GetCurrAttempt().playTime += Time.deltaTime;
+            }
+        }
     }
 
     public void AddNewAttempt(string sceneName, bool restartAttemptCount)
     {
         if (restartAttemptCount)
         {
-            attemptCount = 0;
+            attemptCount = 1;
         }
         else
         {
@@ -145,6 +161,11 @@ public class ConstructionDataManager : MonoBehaviour {
         GetCurrAttempt().partSelectionOrder += partName + ":";
     }
 
+    public void setIsReadingText(bool isReadingText)
+    {
+        this.isReadingText = isReadingText;
+    }
+
     // Set playtime to be the value assigned by developer
     public void SetPlaytime(float playtime)
     {
@@ -159,6 +180,11 @@ public class ConstructionDataManager : MonoBehaviour {
     public void setPauseGameplay(bool isPaused)
     {
         this.isPaused = isPaused;
+    }
+
+    public bool getPauseGameplay()
+    {
+        return isPaused;
     }
 
     public void UpdateRotateTime()
@@ -187,6 +213,7 @@ public class ConstructionDataManager : MonoBehaviour {
         const_levels_completed = 0;
         const_numOutOfTime = 0;
         const_numOutOfRotations = 0;
+        total_readTime = 0;
         total_parts_selected = 0;
 
         // calculate totals across levels/attempts
@@ -199,6 +226,7 @@ public class ConstructionDataManager : MonoBehaviour {
             total_rotations += attempts[i].rotationCount;
             total_cameraRotate_time += attempts[i].timeRotatingCamera;
             total_parts_selected += attempts[i].numPartsSelected;
+            total_readTime += attempts[i].readTime;
 
             string thisAttemptPartSelectionOrder = attempts[i].partSelectionOrder;
             attempts[i].partSelectionOrder = thisAttemptPartSelectionOrder.Substring(0, thisAttemptPartSelectionOrder.Length - 1); // get rid of extra colon at end
@@ -226,7 +254,7 @@ public class ConstructionDataManager : MonoBehaviour {
         }
 
         string allData = "BEGIN_CONSTRUCTION,";
-        allData += total_const_time + "," + total_const_errors + "," + total_face_errors + "," + total_rotate_errors + "," + total_rotations + "," 
+        allData += total_const_time + "," + total_readTime + "," + total_const_errors + "," + total_face_errors + "," + total_rotate_errors + "," + total_rotations + "," 
             + total_cameraRotate_time + ","+ const_levels_completed + "," + const_numOutOfTime + "," + const_numOutOfRotations + "," + total_parts_selected + ",";
 
         //attempts data

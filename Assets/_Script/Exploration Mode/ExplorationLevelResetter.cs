@@ -99,6 +99,9 @@ public class ExplorationLevelResetter : MonoBehaviour {
     }
 
     //reset fadeOutPanel from last scene transition if needed
+    // it seems this will actually be called every time we switch back to already loaded Canyon2
+    // maybe because EventSystems have to be manually disabled when switching scenes under our current
+    // scheme, and this script is attached to an EventSystem.
     private void OnEnable()
     {
         lowPowerText.enabled = false;
@@ -124,9 +127,12 @@ public class ExplorationLevelResetter : MonoBehaviour {
         {
             screenFader.fadeIn(1f);
             enablePlayerControl();
-        } else
+            expDataManager.setPauseGameplay(false);
+        }
+        else
         {
             enablePlayerControl();
+            expDataManager.setPauseGameplay(false);
         }
 
 
@@ -282,11 +288,14 @@ public class ExplorationLevelResetter : MonoBehaviour {
         }
 
         //TESTING ONLY
-        whatToBuild = "b4";
-        if(ConversationTrigger.GetToken("finished_b4"))
-        {
-            whatToBuild = "rocketBoots";
-        }
+        //whatToBuild = "b4";
+        //if(ConversationTrigger.GetToken("finished_b4"))
+        //{
+        //    whatToBuild = "rocketBoots";
+        //} else if (ConversationTrigger.GetToken("finished_RB"))
+        //{
+        //    whatToBuild = "b5";
+        //}
 
         // in case this script's Awake() method hasn't been called yet
         GameObject expDataManagerObj = GameObject.Find("DataCollectionManager");
@@ -303,6 +312,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     public void prepareNextLevel()
     {
         setFirstBatteryConvo();
+        expDataManager.setOutcome("victory");
 
         if (batteryPartCounter.allPartsCollected())
         {
@@ -386,11 +396,12 @@ public class ExplorationLevelResetter : MonoBehaviour {
         if(whatToBuild.Equals("b1"))
         {   // first battery level only
             lowPowerText.enabled = true;
-            lowPowerText.text = "Welcome to the Fuser X7000 - the premier technology for constructing and crafting!";
+            lowPowerText.text = "Welcome to the Fuser X7000!";
             audioSource.PlayOneShot(powerUpSound);
             yield return new WaitForSeconds(4f);
-            lowPowerText.text = "Fuser battery parts detected. Activating low power construction mode!";
+            lowPowerText.text = "Fuser battery parts detected. Activating fusing tutorial!";
             audioSource.PlayOneShot(powerUpSound);
+            whatToBuild = "newTutorial";
 
         } else if (whatToBuild.StartsWith("b") && whatToBuild.Length == 2)
         {   // all battery levels except first one
@@ -398,7 +409,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             lowPowerText.text = "Welcome to the Fuser X7000!";
             audioSource.PlayOneShot(powerUpSound);
             yield return new WaitForSeconds(2f);
-            lowPowerText.text = "Fuser battery parts detected. Activating low power construction mode!";
+            lowPowerText.text = "Fuser battery parts detected. Activating battery construction mode!";
             audioSource.PlayOneShot(powerUpSound);
         }
             else
@@ -431,6 +442,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
             currentScene = LoadUtils.currentSceneName;
         }
         expDataManager.AddNewAttempt(currentScene, false);
+        setWhatToBuild(); // add current level prefix to level name
+
         //flash warning: power failure!
         powerFailureText.enabled = true;
         errorPanel.alpha = 1;

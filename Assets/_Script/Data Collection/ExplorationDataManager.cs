@@ -8,15 +8,18 @@ using UnityEngine.SceneManagement;
 public class ExplorationDataManager : MonoBehaviour {
 
     private bool pauseGameplay;
+    private bool isReadingText;
     private float total_time;
     private float total_standTime;
     private float total_jumpTime;
     private float total_runTime;
     private float total_walkTime;
+    private float total_readTime;
     private int attemptIndex; // total attempt count across all exploration mode levels/tasks/areas
     private int attemptCount; // attempt count, level-specific - starts over in each new collection task/area. 
     private int numLevelsCompleted;
     private int numRanOutOfTime;
+    private int total_jumps;
 
     public RigidbodyFirstPersonController playerController;
 
@@ -33,6 +36,8 @@ public class ExplorationDataManager : MonoBehaviour {
         public float jumpTime;
         public float runTime;
         public float walkTime;
+        public float readTime;
+        public int jumps;
         public string partCollectionOrder;
         public string outcome;
 
@@ -45,6 +50,8 @@ public class ExplorationDataManager : MonoBehaviour {
             jumpTime = 0;
             runTime = 0;
             walkTime = 0;
+            readTime = 0;
+            jumps = 0;
             partCollectionOrder = ":";
             outcome = "None"; // will be either "time" (ran out of time), "victory", "quit" (ended game), or "finishedDemo"
         }
@@ -52,11 +59,12 @@ public class ExplorationDataManager : MonoBehaviour {
         public string toString()
         {
             return "Attempt" + attemptNum + ";level:" + level + ";playTime:" + playTime + ";standTime:" + standTime + ";jumpTime:" + jumpTime + ";runTime:"+ runTime 
-                + ";walkTime:" + walkTime + ";partCollOrder:" + partCollectionOrder + ";outcome:" + outcome + "\n";
+                + ";walkTime:" + walkTime + ";readTime:" + readTime + ";jumps:" + jumps + ";partCollOrder:" + partCollectionOrder + ";outcome:" + outcome + "\n";
         }
 
     }
 
+    // should happen only once during the game, in DataAggregator
     public void initializeDataVars()
     {
         pauseGameplay = false;
@@ -65,11 +73,13 @@ public class ExplorationDataManager : MonoBehaviour {
         total_jumpTime = 0;
         total_runTime = 0;
         total_walkTime = 0;
+        total_readTime = 0;
+        total_jumps = 0;
         attemptIndex = -1;
         numLevelsCompleted = 0;
         numRanOutOfTime = 0;
         attempts = new List<Attempt>();
-        attemptCount = 0;
+        attemptCount = 1;
     }
 
     private void OnEnable()
@@ -81,9 +91,16 @@ public class ExplorationDataManager : MonoBehaviour {
         if(!pauseGameplay)
         {
             GetCurrAttempt().playTime += Time.deltaTime;
-            if (playerController.Velocity.Equals(new Vector3(0, 0, 0)))
+            
+            if(isReadingText)
+            {
+                GetCurrAttempt().readTime += Time.deltaTime;
+                Debug.Log("READING: " + GetCurrAttempt().readTime);
+            }
+            else if (playerController.Velocity.Equals(new Vector3(0, 0, 0)))
             {
                 GetCurrAttempt().standTime += Time.deltaTime;
+                Debug.Log("STANDING: " + GetCurrAttempt().standTime);
             }
             else if (playerController.Jumping)
             {
@@ -96,6 +113,11 @@ public class ExplorationDataManager : MonoBehaviour {
             else
             {
                 GetCurrAttempt().walkTime += Time.deltaTime;
+            }
+
+            if(Input.GetKeyUp(KeyCode.Space))
+            {
+                GetCurrAttempt().jumps++;
             }
         }
 
@@ -116,13 +138,24 @@ public class ExplorationDataManager : MonoBehaviour {
         }
     }
 
+    public bool getPauseGameplay()
+    {
+        return pauseGameplay;
+    }
+
+    public void setIsReadingText(bool readingText)
+    {
+        isReadingText = readingText;
+ 
+    }
+
     // needs to be called every time player runs of out of time (so only on timed levels). 
     // Is automatically called each time Canyon2 scene is entered via DataAggregator
     public void AddNewAttempt(string sceneName, bool restartAttemptCount)
     {
         if(restartAttemptCount)
         {
-            attemptCount = 0;
+            attemptCount = 1;
         } else
         {
             attemptCount++;
@@ -164,6 +197,8 @@ public class ExplorationDataManager : MonoBehaviour {
         total_jumpTime = 0;
         total_runTime = 0;
         total_walkTime = 0;
+        total_readTime = 0;
+        total_jumps = 0;
         numLevelsCompleted = 0;
         numRanOutOfTime = 0;
 
@@ -175,6 +210,8 @@ public class ExplorationDataManager : MonoBehaviour {
             total_jumpTime += attempts[i].jumpTime;
             total_runTime += attempts[i].runTime;
             total_walkTime += attempts[i].walkTime;
+            total_readTime += attempts[i].readTime;
+            total_jumps += attempts[i].jumps;
 
             string thisAttemptPartOrder = attempts[i].partCollectionOrder;
             attempts[i].partCollectionOrder = thisAttemptPartOrder.Substring(0,thisAttemptPartOrder.Length-1); // get rid of extra colon at end
@@ -189,7 +226,7 @@ public class ExplorationDataManager : MonoBehaviour {
             }
             else if (!attempts[i].outcome.Equals("quit"))
             {
-                Debug.Log("ERROR: invalid outcome code in attempt " + i + " in level " + attempts[i].level + ": " + attempts[i].outcome);
+                Debug.Log("ERROR: invalid outcome code in attempt " + (i+1) + " in level " + attempts[i].level + ": " + attempts[i].outcome);
             }
 
 
@@ -198,8 +235,8 @@ public class ExplorationDataManager : MonoBehaviour {
         //header
 
         string allData = "BEGIN_EXPLORATION,";
-        allData += total_time + "," + total_standTime + "," + total_jumpTime + "," + total_runTime + "," + total_walkTime + "," + (attemptIndex+1) + ",";
-        allData += numLevelsCompleted + "," + numRanOutOfTime + ",";
+        allData += total_time + "," + total_standTime + "," + total_jumpTime + "," + total_runTime + "," + total_walkTime + "," + total_readTime + "," + total_jumps 
+            + "," + (attemptIndex+1) + "," + numLevelsCompleted + "," + numRanOutOfTime + ",";
 
         //attempts data
         for (int i = 0; i < attempts.Count; i++)

@@ -32,7 +32,7 @@ public class RotationCounter : MonoBehaviour {
     public void decrementRotations()
     {
         numRemaining--;
-        if (numRemaining < 0)
+        if (numRemaining <= 0)
         {
             // For data collection
             if (dataManager)

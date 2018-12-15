@@ -79,6 +79,7 @@ public class Timer : MonoBehaviour {
     public void stopMusic()
     {
         MusicSource.Stop();
+        sinisterMusicstarted = false;
     }
 
     public void startMusic()
@@ -99,7 +100,7 @@ public class Timer : MonoBehaviour {
             if (timeRemaining < 60)
 
             {
-                if (sinisterMusicstarted == false)
+                if (!sinisterMusicstarted)
                 {
                     sinisterMusicstarted = true;
 
@@ -118,7 +119,7 @@ public class Timer : MonoBehaviour {
             {
                 stopTimer();
                 powerFailure.Invoke();
-                MusicSource.Stop();
+                stopMusic();
                 // For data collection
                 numRanOutOfTime++;
                 if (isConstructionTimer)

@@ -63,6 +63,7 @@ public class Tutorial1 : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        ConversationTrigger.AddToken("startCameraControls");
 
 
     }
@@ -145,16 +146,16 @@ public class Tutorial1 : MonoBehaviour {
         //bb1Start.transform.position = Vector3.MoveTowards(bb1Start.transform.position, baseStartPosition, step);
         // Wait till intro text is done, then enable Tooltip scripts on each of the objects that have them
         // Also after intro text is done, change ScrollingText's enableScroll to false
-        if (!tooltipsEnabled && ConversationTrigger.GetToken("finished_cameraControls"))
-        {
-            tooltipsEnabled = true;
-            scrollingText.enableScroll = false;
-            for (int i = 0; i < allTooltips.Length; i++)
-            {
-                allTooltips[i].enabled = true;
-            }
+        //if (!tooltipsEnabled && ConversationTrigger.GetToken("finished_cameraControls"))
+        //{
+        //    tooltipsEnabled = true;
+        //    scrollingText.enableScroll = false;
+        //    for (int i = 0; i < allTooltips.Length; i++)
+        //    {
+        //        allTooltips[i].enabled = true;
+        //    }
 
-        }
+        //}
 
 
         //if (!disableTutorial)

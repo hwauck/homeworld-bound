@@ -16618,6 +16618,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  isConstructionTimer: 0
   constructDataManager: {fileID: 0}
   exploreDataManager: {fileID: 0}
 --- !u!225 &846083760
@@ -32815,6 +32816,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   starterNameRef: {fileID: 1759291668}
   nameBoxRef: {fileID: 69232684}
+  isConstMode: 0
 --- !u!114 &1657021803
 MonoBehaviour:
   m_ObjectHideFlags: 0
