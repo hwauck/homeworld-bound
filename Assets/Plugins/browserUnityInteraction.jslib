@@ -31,7 +31,7 @@ mergeInto(LibraryManager.library, {
   
   sendToDB: function (playerData) {
 		var pathname = window.location.pathname;
-		var log = {"path": pathname, "action": "HB_PLAYERDATA", "msg": JSON.stringify(playerData)};
+		var log = {"path": pathname, "action": "HB_PLAYERDATA", "msg": Pointer_stringify(playerData)};
 		console.log("SAVING GAME DATA TO DB");
 		console.log("LOG: ");
 		console.log(log);
@@ -41,11 +41,15 @@ mergeInto(LibraryManager.library, {
 			data: log,
 			success: function(response) {
 				console.log("success!");
-				var currGame = {{ currentGame }};
-				if(currGame == "game1") {
-					document.location.href = '/imiSurveyGame1';
-				} else {
+				//var currGame = "{{ currentGame }}";
+				//alert("currGame: " + currGame);
+				var game1Name = document.getElementById('game1Div').textContent;
+				var game2Name = document.getElementById('game2Div').textContent;
+				alert("game2Name: " + game2Name)
+				if(game2Name != "none") {
 					document.location.href = '/imiSurveyGame2';
+				} else {
+					document.location.href = '/imiSurveyGame1';
 				}
 			},
 			error: function(xhr, status, error) {
