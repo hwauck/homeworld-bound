@@ -151,7 +151,10 @@ public class LevelResetter : MonoBehaviour {
     {
         claimButton.gameObject.SetActive(false);
         disablePlayerControls();
-        dataManager.setPauseGameplay(true);
+        if(dataManager)
+        {
+            dataManager.setPauseGameplay(true);
+        }
         screenFader.fadeOut(1f);
         howToQuitText.enabled = false;
         yield return new WaitForSeconds(1f);
@@ -278,7 +281,10 @@ public class LevelResetter : MonoBehaviour {
     public void resetLevel()
     {
         Debug.Log("RESETTING LEVEL!");
-        dataManager.setPauseGameplay(true);
+        if(dataManager)
+        {
+            dataManager.setPauseGameplay(true);
+        }
         fuseEvent.stopMusic();
         powerFailureText.enabled = true;
         errorPanel.alpha = 1;

@@ -1307,9 +1307,12 @@ public class FuseEvent : MonoBehaviour {
 			if(done ()) {
 				stopLevelTimer();
 
-                dataManager.SetOutcome("victory");
+                if(dataManager != null)
+                {
+                    dataManager.SetOutcome("victory");
+                }
 
-                if(GameObject.Find("TimeRemainingPanel") != null)
+                if (GameObject.Find("TimeRemainingPanel") != null)
                 {
                     GameObject.Find("TimeRemainingPanel").GetComponent<Timer>().stopTimer();
                 }
