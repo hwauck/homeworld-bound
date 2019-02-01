@@ -1482,6 +1482,7 @@ public class FuseEvent : MonoBehaviour {
         for(int i = 0; i < allParts.Length; i++)
         {
            allParts[i].transform.SetParent(group.transform, true);
+            Debug.Log("Setting " + group + " as parent of " + allParts[i]);
         }
 
 		group.transform.Rotate (0,50*Time.deltaTime,0);
