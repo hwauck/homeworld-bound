@@ -77,7 +77,7 @@ public class TutorialManager : MonoBehaviour
             Highlighter.Highlight(finishedPic);
             arrow.transform.SetParent(finishedPic.transform);
             arrowTransform.anchoredPosition = finishedPic.GetComponent<RectTransform>().anchoredPosition + new Vector2(280, 160);
-            //GameObject.Find("tutorialStart").transform.SetPositionAndRotation(new Vector3(-100, 36.8f, 100), new Quaternion());
+            GameObject.Find("tutorialStart").transform.SetPositionAndRotation(new Vector3(-100, 36.8f, 100), new Quaternion());
         }
         else if (step == 2)
         {
