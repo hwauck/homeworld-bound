@@ -309,8 +309,10 @@ public class CreatePartRB : MonoBehaviour {
             partButtons[0].interactable = false;
 
             selectionManager.newPartCreated("ballfootPrefab(Clone)");
-            dataManager.AddPartSelected("ballfoot");
-
+            if (dataManager != null)
+            {
+                dataManager.AddPartSelected("ballfoot");
+            }
 		}
 	}
 
@@ -352,8 +354,10 @@ public class CreatePartRB : MonoBehaviour {
             partButtons[1].interactable = false;
 
             selectionManager.newPartCreated("calf_harderPrefab(Clone)");
-            dataManager.AddPartSelected("calf");
-
+            if (dataManager != null)
+            {
+                dataManager.AddPartSelected("calf");
+            }
 
         }
     }
@@ -396,8 +400,10 @@ public class CreatePartRB : MonoBehaviour {
             partButtons[2].interactable = false;
 
             selectionManager.newPartCreated("midfootPrefab(Clone)");
-            dataManager.AddPartSelected("midfoot");
-
+            if (dataManager != null)
+            {
+                dataManager.AddPartSelected("midfoot");
+            }
 
         }
     }
@@ -430,8 +436,10 @@ public class CreatePartRB : MonoBehaviour {
             partButtons[3].interactable = false;
 
             selectionManager.newPartCreated("toe_harderPrefab(Clone)");
-            dataManager.AddPartSelected("toe");
-
+            if (dataManager != null)
+            {
+                dataManager.AddPartSelected("toe");
+            }
 
         }
     }
@@ -463,8 +471,10 @@ public class CreatePartRB : MonoBehaviour {
             partButtons[4].interactable = false;
 
             selectionManager.newPartCreated("trim_harderPrefab(Clone)");
-            dataManager.AddPartSelected("trim");
-
+            if (dataManager != null)
+            {
+                dataManager.AddPartSelected("trim");
+            }
 
         }
     }
@@ -507,8 +517,10 @@ public class CreatePartRB : MonoBehaviour {
             partButtons[5].interactable = false;
 
             selectionManager.newPartCreated("wideningPrefab(Clone)");
-            dataManager.AddPartSelected("widening");
-
+            if (dataManager != null)
+            {
+                dataManager.AddPartSelected("widening");
+            }
 
         }
     }

@@ -286,7 +286,10 @@ public class CreatePartB2 : MonoBehaviour
             partButtons[0].interactable = false;
 
             selectionManager.newPartCreated("b2p1Prefab(Clone)");
-            dataManager.AddPartSelected("b2p1");
+            if(dataManager != null)
+            {
+                dataManager.AddPartSelected("b2p1");
+            }
 
         }
     }
@@ -364,8 +367,10 @@ public class CreatePartB2 : MonoBehaviour
             partButtons[1].interactable = false;
 
             selectionManager.newPartCreated("b2p2Prefab(Clone)");
-            dataManager.AddPartSelected("b2p2");
-
+            if (dataManager != null)
+            {
+                dataManager.AddPartSelected("b2p2");
+            }
         }
     }
 

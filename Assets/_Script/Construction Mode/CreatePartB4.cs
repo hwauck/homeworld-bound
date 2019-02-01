@@ -302,7 +302,10 @@ public class CreatePartB4 : MonoBehaviour
             partButtons[0].interactable = false;
 
             selectionManager.newPartCreated("b4p1Prefab(Clone)");
-            dataManager.AddPartSelected("b4p1");
+            if (dataManager != null)
+            {
+                dataManager.AddPartSelected("b4p1");
+            }
         }
     }
 
@@ -379,8 +382,10 @@ public class CreatePartB4 : MonoBehaviour
             partButtons[1].interactable = false;
 
             selectionManager.newPartCreated("b4p2Prefab(Clone)");
-            dataManager.AddPartSelected("b4p2");
-
+            if (dataManager != null)
+            {
+                dataManager.AddPartSelected("b4p2");
+            }
         }
     }
 
@@ -481,8 +486,10 @@ public class CreatePartB4 : MonoBehaviour
             partButtons[2].interactable = false;
 
             selectionManager.newPartCreated("b4p3Prefab(Clone)");
-            dataManager.AddPartSelected("b4p3");
-
+            if (dataManager != null)
+            {
+                dataManager.AddPartSelected("b4p3");
+            }
         }
     }
 

@@ -3527,7 +3527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91309dd515171064dbf48d0fd4c9ef6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorial: {fileID: 1321869687}
+  tutorial: {fileID: 0}
   errorPanel: {fileID: 1405330834}
   powerFailureText: {fileID: 1630593130}
   audioSource: {fileID: 369571929}
