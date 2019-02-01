@@ -80,13 +80,19 @@ public class RotationCounter : MonoBehaviour {
         // show Rotations Remaining Panel
         GetComponent<CanvasGroup>().alpha = 1;
 
-        // temporarily disable tooltips so player sees rotations remaining explanation
-        tutorial.disableTooltips();
-        conversationText.enableScroll = true;
+        if (tutorial != null)
+        {
+            // temporarily disable tooltips so player sees rotations remaining explanation
+            tutorial.disableTooltips();
+            conversationText.enableScroll = true;
+        }
 
         // show explanation of rotations remaining
         ConversationTrigger.AddToken("intro_rr");
-        StartCoroutine(waitThenReenableTooltips());
+        if (tutorial != null)
+        {
+            StartCoroutine(waitThenReenableTooltips());
+        }
         Highlighter.Highlight(this.gameObject);
         yield return new WaitForSeconds(4f);
         Highlighter.Unhighlight(this.gameObject);

@@ -5549,7 +5549,7 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   audioSource: {fileID: 369571929}
   conversationText: {fileID: 1308713701}
-  tutorial: {fileID: 1321869687}
+  tutorial: {fileID: 0}
   dataManager: {fileID: 0}
 --- !u!225 &1716405246
 CanvasGroup:

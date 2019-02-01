@@ -208,8 +208,8 @@ public class CreatePartB1 : MonoBehaviour
 
             Transform b1p1_bb1_a1 = newB1p1.transform.Find("b1p1_bb1_a1");
             Transform b1p1 = newB1p1.transform.Find("b1p1");
-            b1p1.GetComponent<Tooltip>().enabled = true;
-            b1p1_bb1_a1.GetComponent<Tooltip>().enabled = true;
+            //b1p1.GetComponent<Tooltip>().enabled = true;
+            //b1p1_bb1_a1.GetComponent<Tooltip>().enabled = true;
 
 
             FuseAttributes fuseAtts = b1p1Fuses();
@@ -250,9 +250,9 @@ public class CreatePartB1 : MonoBehaviour
             Transform b1p2 = newB1p2.transform.Find("b1p2");
             Transform b1p2_bb1_a1 = newB1p2.transform.Find("b1p2_bb1_a1");
             Transform b1p2_bb1_a2 = newB1p2.transform.Find("b1p2_bb1_a2");
-            b1p2.GetComponent<Tooltip>().enabled = true;
-            b1p2_bb1_a1.GetComponent<Tooltip>().enabled = true;
-            b1p2_bb1_a2.GetComponent<Tooltip>().enabled = true;
+            //b1p2.GetComponent<Tooltip>().enabled = true;
+            //b1p2_bb1_a1.GetComponent<Tooltip>().enabled = true;
+            //b1p2_bb1_a2.GetComponent<Tooltip>().enabled = true;
 
             FuseAttributes fuseAtts = b1p2Fuses();
 
@@ -301,8 +301,8 @@ public class CreatePartB1 : MonoBehaviour
 
             Transform b1p3 = newB1p3.transform.Find("b1p3");
             Transform b1p3_bb1_a1 = newB1p3.transform.Find("b1p3_bb1_a1");
-            b1p3.GetComponent<Tooltip>().enabled = true;
-            b1p3_bb1_a1.GetComponent<Tooltip>().enabled = true;
+            //b1p3.GetComponent<Tooltip>().enabled = true;
+            //b1p3_bb1_a1.GetComponent<Tooltip>().enabled = true;
 
             FuseAttributes fuseAtts = b1p3Fuses();
 
