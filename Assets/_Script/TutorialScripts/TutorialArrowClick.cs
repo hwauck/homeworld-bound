@@ -97,6 +97,9 @@ public class TutorialArrowClick : MonoBehaviour, IPointerClickHandler
     void Update()
     {
         if (hasRotated)
+        {
             TutorialManager.step++;
+            TutorialManager.triggerStep = true;
+        }
     }
 }

@@ -12,8 +12,11 @@ public class TutorialClick : MonoBehaviour {
         {
             LoadUtils.LoadScene("b1");
         }
-        else 
+        else
+        {
             TutorialManager.step++;
+            TutorialManager.triggerStep = true;
+        }
     }
 
 }

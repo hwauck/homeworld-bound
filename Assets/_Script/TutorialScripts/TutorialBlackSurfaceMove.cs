@@ -40,11 +40,12 @@ public class TutorialBlackSurfaceMove : MonoBehaviour, IPointerClickHandler
     {
         if (!isSelected && !hasMoved)
         {
-            //TutorialManager.step++;
             origPos1 = partToMove1.transform.position;
             origPos2 = partToMove2.transform.position;
             distSurfanceObj = origPos1 - origPos2;
-            StartCoroutine(Move(destination));
+            //StartCoroutine(Move(destination));
+            TutorialManager.step++;
+            TutorialManager.triggerStep = true;
             isSelected = true;
         }
     }
@@ -98,6 +99,7 @@ public class TutorialBlackSurfaceMove : MonoBehaviour, IPointerClickHandler
             {
                 partToMove1.transform.position += movePath / ((float)moveFrame);
                 partToMove2.transform.position = partToMove1.transform.position - distSurfanceObj;
+                Debug.Log(partToMove1.transform.position);
                 yield return null;
             }
             hasMoved = true;

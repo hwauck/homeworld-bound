@@ -29,6 +29,7 @@ public class TutorialSelect : MonoBehaviour, IPointerClickHandler
         if (!isSelected)
         {
             TutorialManager.step++;
+            TutorialManager.triggerStep = true;
             isSelected = true;
         }
     }
