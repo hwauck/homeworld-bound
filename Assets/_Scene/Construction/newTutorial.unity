@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44374567, g: 0.49309093, b: 0.5726241, a: 1}
+  m_IndirectSpecularColor: {r: 0.44374594, g: 0.4930914, b: 0.5726248, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -546,6 +546,7 @@ MonoBehaviour:
   partToMove1: {fileID: 2082579479}
   partToMove2: {fileID: 602084658}
   destination: {x: -77.4, y: 38.3, z: 58.3}
+  audioSource: {fileID: 0}
 --- !u!1 &193313397
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,6 +1287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   normal: {x: -1, y: -1, z: 0}
+  audioSource: {fileID: 0}
 --- !u!64 &602084661
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2584,6 +2586,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 369571929}
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: a61d15240ed326441bf4344af20ea9fc,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1084233118
@@ -3518,6 +3532,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 369571929}
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: ed11dd02408e71d449dc26ca499ba513,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

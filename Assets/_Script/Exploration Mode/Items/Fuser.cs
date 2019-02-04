@@ -37,7 +37,7 @@ public class Fuser : ItemBase {
     void Start () {
         fuserStatic = fuser;
         bootingUpSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-03");
-        lowPowerSound = Resources.Load<AudioClip>("Audio/BothModes/Denied3");
+        lowPowerSound = Resources.Load<AudioClip>("Audio/BothModes/LowBattery");
         powerUpSound = Resources.Load<AudioClip>("Audio/BothModes/Slider3");
         GameObject expDataManagerObj = GameObject.Find("DataCollectionManager");
         if (expDataManagerObj != null)

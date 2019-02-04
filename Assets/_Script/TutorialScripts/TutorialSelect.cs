@@ -15,6 +15,9 @@ public class TutorialSelect : MonoBehaviour, IPointerClickHandler
     public Vector3 normal;
     GameObject instance;
 
+    public AudioSource audioSource;
+    private AudioClip audioClip;
+
     void Start()
     {
         // Set selected effect normal's default value
@@ -22,12 +25,15 @@ public class TutorialSelect : MonoBehaviour, IPointerClickHandler
         {
             normal = new Vector3(1f, 0, 0);
         }
+        audioSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
+        audioClip = Resources.Load<AudioClip>("Audio/ConstModeMusic/SelectSurface");
     }
 
     public void OnPointerClick(PointerEventData data)
     {
         if (!isSelected)
         {
+            audioSource.PlayOneShot(audioClip);
             TutorialManager.step++;
             TutorialManager.triggerStep = true;
             isSelected = true;

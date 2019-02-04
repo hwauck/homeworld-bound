@@ -14,14 +14,15 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
     private Coroutine currentlyActiveCoroutine;
     public Vector3 selectedNormal;
 
-    public AudioSource surfaceClick;
+    public AudioSource audioSource;
+    private AudioClip surfaceClick;
 
     // Use this for initialization
     void Start () {
         isFusedComponent = this.transform.parent.gameObject.GetComponent<IsFused>();
         currentlyActiveCoroutine = null;
-        surfaceClick = gameObject.AddComponent<AudioSource>();
-        surfaceClick.clip = Resources.Load<AudioClip>("Audio/ConstModeMusic/SelectSurface");
+        audioSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
+        surfaceClick = Resources.Load<AudioClip>("Audio/ConstModeMusic/SelectSurface");
     }
 	
 	// Update is called once per frame
@@ -145,7 +146,7 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
     // so it won't fire if UI element is clicked and object is behind it, yay
     public void OnPointerClick(PointerEventData data)
     {
-        surfaceClick.Play();
+        audioSource.PlayOneShot(surfaceClick);
         if (!selectPart.controlsDisabled)
         {
             //print("OnPointerClick on " + gameObject + "!");

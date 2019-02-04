@@ -26,6 +26,9 @@ public class TutorialBlackSurfaceMove : MonoBehaviour, IPointerClickHandler
     public Vector3 destination;
     private Vector3 distSurfanceObj;
 
+    public AudioSource audioSource;
+    private AudioClip audioClip;
+
     void Start()
     {
         // Set selected effect normal's default value
@@ -34,12 +37,16 @@ public class TutorialBlackSurfaceMove : MonoBehaviour, IPointerClickHandler
             normal = new Vector3(1f, 0, 0);
         }
         //destination = partToMove1.transform.TransformPoint(destination);
+
+        audioSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
+        audioClip = Resources.Load<AudioClip>("Audio/ConstModeMusic/SelectSurface");
     }
 
     public void OnPointerClick(PointerEventData data)
     {
         if (!isSelected && !hasMoved)
         {
+            audioSource.PlayOneShot(audioClip);
             origPos1 = partToMove1.transform.position;
             origPos2 = partToMove2.transform.position;
             distSurfanceObj = origPos1 - origPos2;

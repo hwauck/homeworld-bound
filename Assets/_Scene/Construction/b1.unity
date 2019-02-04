@@ -1990,6 +1990,46 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4642906672919470, guid: 8856ae325d5eea44ca83145dacc533a6, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642906672919470, guid: 8856ae325d5eea44ca83145dacc533a6, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642906672919470, guid: 8856ae325d5eea44ca83145dacc533a6, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642906672919470, guid: 8856ae325d5eea44ca83145dacc533a6, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642906672919470, guid: 8856ae325d5eea44ca83145dacc533a6, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642906672919470, guid: 8856ae325d5eea44ca83145dacc533a6, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642906672919470, guid: 8856ae325d5eea44ca83145dacc533a6, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4097485853436226, guid: 8856ae325d5eea44ca83145dacc533a6, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4097485853436226, guid: 8856ae325d5eea44ca83145dacc533a6, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4097485853436226, guid: 8856ae325d5eea44ca83145dacc533a6, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8856ae325d5eea44ca83145dacc533a6, type: 2}
   m_IsPrefabParent: 0
@@ -3479,7 +3519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 369571929}
   musicsource: {fileID: 1406899348}
-  success: {fileID: 8300000, guid: ae9e829741082eb4093adf3c61753e96, type: 3}
+  success: {fileID: 8300000, guid: ed11dd02408e71d449dc26ca499ba513, type: 3}
   failure: {fileID: 8300000, guid: 2118b5e5eb34176439a93b8f7238193a, type: 3}
   music: {fileID: 8300000, guid: 6576744e20f897442acc40ef6694fd34, type: 3}
   victorymusic: {fileID: 8300000, guid: 636c5f6b0dc39b7428e8c44a9d0821ad, type: 3}
@@ -5902,7 +5942,7 @@ MonoBehaviour:
   selectPart: {fileID: 1321869683}
   fuseButton: {fileID: 1418366674}
   selectedNormal: {x: 1, y: 0, z: 0}
-  surfaceClick: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!114 &1730035254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5917,7 +5957,7 @@ MonoBehaviour:
   selectPart: {fileID: 1321869683}
   fuseButton: {fileID: 1418366674}
   selectedNormal: {x: 1, y: 0, z: 0}
-  surfaceClick: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!114 &1730035255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5932,7 +5972,7 @@ MonoBehaviour:
   selectPart: {fileID: 1321869683}
   fuseButton: {fileID: 1418366674}
   selectedNormal: {x: 0, y: 0, z: -1}
-  surfaceClick: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!114 &1730035256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5947,7 +5987,7 @@ MonoBehaviour:
   selectPart: {fileID: 1321869683}
   fuseButton: {fileID: 1418366674}
   selectedNormal: {x: -1, y: 0, z: 0}
-  surfaceClick: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!65 &1730035257
 BoxCollider:
   m_ObjectHideFlags: 0

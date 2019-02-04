@@ -89,7 +89,7 @@ public class LevelResetter : MonoBehaviour {
         rechargingSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-03");
         fullyChargedSound = Resources.Load<AudioClip>("Audio/ConstModeMusic/sfx_shield");
         logMessageSound = Resources.Load<AudioClip>("Audio/BothModes/Denied3");
-        hiddenMaterialsFoundSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-26");
+        hiddenMaterialsFoundSound = Resources.Load<AudioClip>("Audio/ConstModeMusic/StartMap");
         originalColliderCenter = startingPart.GetComponent<BoxCollider>().center;
         originalColliderSize = startingPart.GetComponent<BoxCollider>().size;
         startingPartRotation = startingPart.transform.rotation;
