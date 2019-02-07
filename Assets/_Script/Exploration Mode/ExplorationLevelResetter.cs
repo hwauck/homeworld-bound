@@ -34,6 +34,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     private AudioClip finalCountSound;
     private AudioClip rechargingSound;
     private AudioClip powerUpSound;
+    private AudioClip welcomeSound;
 
     public RigidbodyFirstPersonController controller;
     public PartCounter itemPartCounter;
@@ -88,6 +89,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         finalCountSound = Resources.Load<AudioClip>("Audio/BothModes/Select04");
         rechargingSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-03");
         powerUpSound = Resources.Load<AudioClip>("Audio/BothModes/Slider3");
+        welcomeSound = Resources.Load<AudioClip>("Audio/BothModes/welcome");
 
         // save original values of all player control variables in RigidBodyFirstPersonController
         forwardSpeed = controller.movementSettings.ForwardSpeed;
@@ -397,7 +399,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         {   // first battery level only
             lowPowerText.enabled = true;
             lowPowerText.text = "Welcome to the Fuser X7000!";
-            audioSource.PlayOneShot(powerUpSound);
+            audioSource.PlayOneShot(welcomeSound);
             yield return new WaitForSeconds(4f);
             lowPowerText.text = "Fuser battery parts detected. Activating fusing tutorial!";
             audioSource.PlayOneShot(powerUpSound);
