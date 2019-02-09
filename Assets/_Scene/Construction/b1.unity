@@ -3519,7 +3519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 369571929}
   musicsource: {fileID: 1406899348}
-  success: {fileID: 8300000, guid: ed11dd02408e71d449dc26ca499ba513, type: 3}
+  success: {fileID: 8300000, guid: 5039ebad815c08d43bd55f5ea6f36564, type: 3}
   failure: {fileID: 8300000, guid: 2118b5e5eb34176439a93b8f7238193a, type: 3}
   music: {fileID: 8300000, guid: 6576744e20f897442acc40ef6694fd34, type: 3}
   victorymusic: {fileID: 8300000, guid: 636c5f6b0dc39b7428e8c44a9d0821ad, type: 3}
