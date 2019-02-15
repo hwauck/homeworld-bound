@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
+
 
 /// <summary>
 /// Handles everything in newTutorial scene.
@@ -36,8 +38,40 @@ public class TutorialManager : MonoBehaviour
     private float canvasWidth;
     private float canvasHeight;
 
+    public Text demoFinishedText;
+    public FadeScreen screenFader;
+    public Text howToQuitText;
+    public CanvasGroup bottomPanel;
+
+    public UnityEvent gameQuit;
+    private bool runningJustConstructionMode = false;
+
+
     //data collection
     private ConstructionDataManager dataManager;
+
+    private void Awake()
+    {
+        if (InventoryController.levelName == "")
+        {
+            runningJustConstructionMode = true;
+            //string currentLevel = SceneManager.GetActiveScene().name;
+            //if(currentLevel == "b1" || currentLevel == "b2" || currentLevel == "b3" ||)
+            //InventoryController.levelName = 
+        }
+
+        // For data collection.
+        if (!dataManager)
+        {
+            GameObject dataManagerObject = GameObject.Find("DataCollectionManager");
+            if (dataManagerObject != null)
+            {
+                dataManager = dataManagerObject.GetComponent<ConstructionDataManager>();
+                gameQuit.AddListener(dataManagerObject.GetComponent<DataAggregator>().saveAndSendToServer);
+            }
+        }
+
+    }
 
     void Start()
     {
@@ -59,12 +93,46 @@ public class TutorialManager : MonoBehaviour
             dataManager = dataCollectionObj.GetComponent<ConstructionDataManager>();
         }
         triggerStep = true;
-    }
-
-    void Update()
-    {
         canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
         canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
+    }
+
+    // when player presses P key, call this method to end game
+    public void doFadeToDemoFinished(float seconds)
+    {
+        if (dataManager != null)
+        {
+            dataManager.SetOutcome("quit");
+        }
+        gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
+        // might need to tell new tutorial level coroutines to stop too
+
+        bottomPanel.blocksRaycasts = false;
+        StopAllCoroutines();
+
+        howToQuitText.enabled = false;
+        StartCoroutine(fadeToDemoFinished(seconds));
+    }
+
+    private IEnumerator fadeToDemoFinished(float seconds)
+    {
+        screenFader.fadeOut(seconds);
+        yield return new WaitForSeconds(seconds);
+
+        demoFinishedText.enabled = true;
+        yield return new WaitForSeconds(3f);
+        // load next page, however that's done
+
+    }
+
+  
+    void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            doFadeToDemoFinished(3f);
+        }
+
 
         // Ensure mouse works...
         if (!Cursor.visible || Cursor.lockState != CursorLockMode.None)
@@ -108,7 +176,7 @@ public class TutorialManager : MonoBehaviour
             Highlighter.Highlight(part2Button);
 
             arrowTransform.localRotation = Quaternion.Euler(0, 0, -90);
-            arrowTransform.anchoredPosition = new Vector2(-170, 136);
+            arrowTransform.anchoredPosition = new Vector2(-130, 136);
             conversationTransform.anchoredPosition = new Vector2(-28, -81);
         }
         else if (triggerStep && step == 4)
@@ -180,7 +248,7 @@ public class TutorialManager : MonoBehaviour
             Highlighter.Highlight(FuzeButton);
             tutorialText.text = "CLICK on the Fuse button to fuse two parts.";
             arrowTransform.localRotation = Quaternion.Euler(0, 0, -90);
-            arrowTransform.anchoredPosition = new Vector2(-90, 126);
+            arrowTransform.anchoredPosition = new Vector2(-50, 126);
             conversationTransform.anchoredPosition = new Vector2(-44, -81);
             //Debug.Log(part2.transform.position);
         }

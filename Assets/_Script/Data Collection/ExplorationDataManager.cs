@@ -224,7 +224,7 @@ public class ExplorationDataManager : MonoBehaviour {
             {
                 numRanOutOfTime++;
             }
-            else if (!attempts[i].outcome.Equals("quit"))
+            else if (!attempts[i].outcome.Equals("quit") && attempts[i].outcome.Equals("finishedDemo"))
             {
                 Debug.Log("ERROR: invalid outcome code in attempt " + (i+1) + " in level " + attempts[i].level + ": " + attempts[i].outcome);
             }

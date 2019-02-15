@@ -133,6 +133,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         }
         else
         {
+            screenFader.fadeIn(1f);
             enablePlayerControl();
             expDataManager.setPauseGameplay(false);
         }
@@ -154,10 +155,12 @@ public class ExplorationLevelResetter : MonoBehaviour {
     // when player reaches highlands level with rocket boots, fade out to DEMO FINISHED words
     public void doFadeToDemoFinished(float seconds, bool playerInitiated)
     {
-        if(playerInitiated)
+        // if the player quits right after achieving victory in a level but before the next level/attempt loads,
+        // the outcome should remain victory rather than being replaced by "quit"
+        if (playerInitiated && !expDataManager.GetCurrAttempt().outcome.Equals("victory")) 
         {
             expDataManager.setOutcome("quit");
-        } else
+        } else if (!playerInitiated)
         {
             expDataManager.setOutcome("finishedDemo");
         }
