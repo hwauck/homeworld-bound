@@ -145,6 +145,15 @@ public class LoadUtils : MonoBehaviour
         sceneSwitched = true;
 	}
 
+    public static bool sceneCurrentlyLoaded(string sceneName)
+    {
+        if (loadedScenes.ContainsKey(sceneName))
+        {
+            return true;
+        }
+        return false;
+    }
+
 	// This can be a good idea to save memory. Sometimes it may be worth unloading a scene completely,
 	// Losing any progress in that scene since load. For example: Completed Construction-mode stages.
 	public static void UnloadScene(string sceneName)

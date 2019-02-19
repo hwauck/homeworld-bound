@@ -28,7 +28,7 @@ public class ScrollingText : MonoBehaviour
 
     private AudioClip scrollTextSound;
     private AudioClip scrollLetterSound;
-    private AudioSource audioSource;
+    public AudioSource audioSource;
 
 	// Public Variables
 	public float letterDelay = 0.1f; // The time between letters appearing.
@@ -46,7 +46,17 @@ public class ScrollingText : MonoBehaviour
 		choiceButton = Resources.Load<GameObject>("Prefabs/ChoiceButton");
         scrollLetterSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-01");
         scrollTextSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-03");
-        GameObject audioSourceObj = GameObject.Find("Audio Source"); // Construction Mode audio listener
+        GameObject audioSourceObj;
+
+        // so in newTutorial, I need to preassign the audio source since it has a different name
+        if(audioSource == null)
+        {
+            audioSourceObj = GameObject.Find("Audio Source"); // Construction Mode audio listener
+        } else
+        {
+            audioSourceObj = audioSource.gameObject;
+        }
+
         if (audioSourceObj != null)
         {
 

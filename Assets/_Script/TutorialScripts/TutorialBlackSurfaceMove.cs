@@ -38,7 +38,6 @@ public class TutorialBlackSurfaceMove : MonoBehaviour, IPointerClickHandler
         }
         //destination = partToMove1.transform.TransformPoint(destination);
 
-        audioSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
         audioClip = Resources.Load<AudioClip>("Audio/ConstModeMusic/SelectSurface");
     }
 

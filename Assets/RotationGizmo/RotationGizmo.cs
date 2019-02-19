@@ -20,8 +20,6 @@ public class RotationGizmo : MonoBehaviour
     private int yRots = 0;
     private int zRots = 0;
 
-    public RotationCounter rotationCounter;
-
     bool rotating = false;
 
 	void Start ()
@@ -66,10 +64,10 @@ public class RotationGizmo : MonoBehaviour
         // Restarting game while in construction mode.
         // DEMO MODE ONLY.
         // TODO: disable this for the full game version
-        if (Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.R))
-		{
-			InventoryController.RestartGame();
-		}
+       // if (Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.R))
+		//{
+		//	InventoryController.RestartGame();
+		//}
 
 
 		// LookAts.

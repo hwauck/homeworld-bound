@@ -34,7 +34,7 @@ public class TutorialManager : MonoBehaviour
     // RectTransform of the arrow image. The changes are hardcoded. 
     private RectTransform arrowTransform;
     private RectTransform conversationTransform;
-    private Camera cam;
+    public Camera cam;
     private float canvasWidth;
     private float canvasHeight;
 
@@ -84,7 +84,6 @@ public class TutorialManager : MonoBehaviour
         arrowTransform.anchoredPosition = new Vector2(-150f, 287f);
         conversationTransform = conversation.GetComponent<RectTransform>();
         conversationTransform.anchoredPosition = new Vector2(0, -25);
-        cam = Camera.main;
         partsGroup.transform.position = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth / 2f, cam.pixelHeight / 2f, 72));
 
         GameObject dataCollectionObj = GameObject.Find("DataCollectionManager");

@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 9c09ae7c30ffd6d448df20fb1b371a6b
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     100002: b4p1
@@ -9,12 +9,14 @@ ModelImporter:
     100006: b4p1_b4p3_a2
     100008: b4p1_bb4_a1
     100010: b4p1_bb4_a2
+    100012: b4p1_b4p2_a1
     400000: //RootNode
     400002: b4p1
     400004: b4p1_b4p3_a1
     400006: b4p1_b4p3_a2
     400008: b4p1_bb4_a1
     400010: b4p1_bb4_a2
+    400012: b4p1_b4p2_a1
     2100000: black
     2100002: purple
     2300000: b4p1
@@ -22,16 +24,19 @@ ModelImporter:
     2300004: b4p1_b4p3_a2
     2300006: b4p1_bb4_a1
     2300008: b4p1_bb4_a2
+    2300010: b4p1_b4p2_a1
     3300000: b4p1
     3300002: b4p1_b4p3_a1
     3300004: b4p1_b4p3_a2
     3300006: b4p1_bb4_a1
     3300008: b4p1_bb4_a2
+    3300010: b4p1_b4p2_a1
     4300000: b4p1_bb4_a2
     4300002: b4p1_b4p3_a2
     4300004: b4p1_b4p3_a1
     4300006: b4p1_bb4_a1
     4300008: b4p1
+    4300010: b4p1_b4p2_a1
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
@@ -68,6 +73,7 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -85,11 +91,16 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -104,7 +115,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

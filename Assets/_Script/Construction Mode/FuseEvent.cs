@@ -288,10 +288,6 @@ public class FuseEvent : MonoBehaviour {
 
 		selectedObject = GetComponent<SelectPart>().getSelectedObject();
 		selectedFuseTo = GetComponent<SelectPart>().getSelectedFuseTo();
-        Debug.Log("Instantiating group in Awake() for FuseEvent in scene " + LoadUtils.currentSceneName);
-		group = Instantiate(victoryPrefab, new Vector3(-100, 30, 100), new Quaternion());
-        //to make sure it's created as part of the current construction mode scene
-        LoadUtils.InstantiateParenter(group);
 
         NUM_FUSES = 0;
 		for(int i = 0; i < partButtons.Length; i++) {
@@ -1307,7 +1303,19 @@ public class FuseEvent : MonoBehaviour {
 			if(done ()) {
 				stopLevelTimer();
 
-                if(dataManager != null)
+                group = Instantiate(victoryPrefab, new Vector3(-100, 30, 100), new Quaternion());
+                //to make sure it's created as part of the current construction mode scene
+                LoadUtils.InstantiateParenter(group);
+
+                // Make sure every part in each level is tagged "part"
+                GameObject[] allParts = GameObject.FindGameObjectsWithTag("part");
+                for (int i = 0; i < allParts.Length; i++)
+                {
+                    allParts[i].transform.SetParent(group.transform, true);
+                    Debug.Log("Setting " + group + " as parent of " + allParts[i]);
+                }
+
+                if (dataManager != null)
                 {
                     dataManager.SetOutcome("victory");
                 }
@@ -1477,13 +1485,6 @@ public class FuseEvent : MonoBehaviour {
     }
 
 	private void rotateConstruction() {
-        // Make sure every part in each level is tagged "part"
-        GameObject[] allParts = GameObject.FindGameObjectsWithTag("part");
-        for(int i = 0; i < allParts.Length; i++)
-        {
-           allParts[i].transform.SetParent(group.transform, true);
-            Debug.Log("Setting " + group + " as parent of " + allParts[i]);
-        }
 
 		group.transform.Rotate (0,50*Time.deltaTime,0);
 
@@ -1548,8 +1549,9 @@ public class FuseEvent : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if(done ())
+		if(done())
         {
+            
 			rotateConstruction ();
  
         }

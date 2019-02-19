@@ -21,7 +21,11 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
     void Start () {
         isFusedComponent = this.transform.parent.gameObject.GetComponent<IsFused>();
         currentlyActiveCoroutine = null;
-        audioSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
+        if(audioSource == null)
+        {
+            audioSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
+
+        } 
         surfaceClick = Resources.Load<AudioClip>("Audio/ConstModeMusic/SelectSurface");
     }
 	

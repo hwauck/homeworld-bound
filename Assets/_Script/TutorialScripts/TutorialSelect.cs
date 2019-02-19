@@ -25,7 +25,6 @@ public class TutorialSelect : MonoBehaviour, IPointerClickHandler
         {
             normal = new Vector3(1f, 0, 0);
         }
-        audioSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
         audioClip = Resources.Load<AudioClip>("Audio/ConstModeMusic/SelectSurface");
     }
 

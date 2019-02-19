@@ -126,16 +126,21 @@ public class LevelResetter : MonoBehaviour {
     {
         //display Recharging screen while level loads
         //note: fadeOutPanel Image needs to be enabled in Inspector for it to look right
-        if(fadeOutScreen.enabled) 
-        {
-            Debug.Log("OnEnable() method in LevelResetter - starting recharging animation!");
-            StartCoroutine(rechargingAnimation());
-            StartCoroutine(waitAndThenZoomUpPart(4f));
-            StartCoroutine(waitAndThenAddToken(4, "doneRestarting"));
-        } else
-        {
+        //if(fadeOutScreen.enabled) 
+        //{
+        //    Debug.Log("OnEnable() method in LevelResetter - starting recharging animation!");
+       //     StartCoroutine(rechargingAnimation());
+       //     StartCoroutine(waitAndThenZoomUpPart(4f));
+       //     StartCoroutine(waitAndThenAddToken(4, "doneRestarting"));
+       // } else
+       // {
             StartCoroutine(waitAndThenZoomUpPart(1f));
             StartCoroutine(waitAndThenAddToken(1, "doneRestarting"));
+       // }
+
+        if(LoadUtils.sceneCurrentlyLoaded("newTutorial"))
+        {
+            LoadUtils.UnloadScene("newTutorial");
         }
 
     }
