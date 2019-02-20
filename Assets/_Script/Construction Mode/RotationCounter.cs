@@ -44,8 +44,10 @@ public class RotationCounter : MonoBehaviour {
         else
         {
             audioSource.PlayOneShot(decrementRotation);
-            remainingRotationsText.text = "" + numRemaining;
         }
+
+        remainingRotationsText.text = "" + numRemaining;
+
     }
 
     public int getRotationsRemaining()
@@ -71,7 +73,6 @@ public class RotationCounter : MonoBehaviour {
 
     IEnumerator introRotationsRemaining()
     {
-        //TODO: move this to Tutorial1
 
         // move Rotations Remaining Panel to center of screen
         RectTransform rrRect = GetComponent<RectTransform>();

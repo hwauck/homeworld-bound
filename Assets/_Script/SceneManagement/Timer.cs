@@ -42,7 +42,15 @@ public class Timer : MonoBehaviour {
         // For data collection
         if (isConstructionTimer)
         {
-            constructDataManager = GameObject.Find("DataCollectionManager").GetComponent<ConstructionDataManager>();
+            GameObject dataCollectionManager = GameObject.Find("DataCollectionManager");
+            if(dataCollectionManager != null)
+            {
+                constructDataManager = GameObject.Find("DataCollectionManager").GetComponent<ConstructionDataManager>();
+                if(constructDataManager == null)
+                {
+                    Debug.LogError("ERROR: ConstructionDataManager component missing from DataCollectonManager!");
+                }
+            }
         } else
         {
             exploreDataManager = GameObject.Find("DataCollectionManager").GetComponent<ExplorationDataManager>();

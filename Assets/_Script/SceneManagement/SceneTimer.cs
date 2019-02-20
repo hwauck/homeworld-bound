@@ -12,6 +12,8 @@ public class SceneTimer : MonoBehaviour
 	Transform playerPos;
 	public static bool highland = false;
     public UnityEvent enteredHighland;
+
+    private bool demoEnded;
 	void Start(){
 		playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 	}
@@ -21,7 +23,8 @@ public class SceneTimer : MonoBehaviour
 		//enter highland
         // TODO: change this so that separation is more definition
 		if (!highland) {
-			if (sceneName == "Canyon2" && playerPos.position.y >= 33) {
+			if (sceneName == "Canyon2" && playerPos.position.y >= 33 && !demoEnded) {
+                demoEnded = true;
 				Debug.Log("ENTERED HIGHLANDS");
                 enteredHighland.Invoke();
 				SimpleData.WriteDataPoint("Left_Scene", "", "", "", "", "");

@@ -95,12 +95,12 @@ public class ExplorationDataManager : MonoBehaviour {
             if(isReadingText)
             {
                 GetCurrAttempt().readTime += Time.deltaTime;
-                Debug.Log("READING: " + GetCurrAttempt().readTime);
+                //Debug.Log("READING: " + GetCurrAttempt().readTime);
             }
             else if (playerController.Velocity.Equals(new Vector3(0, 0, 0)))
             {
                 GetCurrAttempt().standTime += Time.deltaTime;
-                Debug.Log("STANDING: " + GetCurrAttempt().standTime);
+                //Debug.Log("STANDING: " + GetCurrAttempt().standTime);
             }
             else if (playerController.Jumping)
             {
@@ -213,9 +213,6 @@ public class ExplorationDataManager : MonoBehaviour {
             total_readTime += attempts[i].readTime;
             total_jumps += attempts[i].jumps;
 
-            string thisAttemptPartOrder = attempts[i].partCollectionOrder;
-            attempts[i].partCollectionOrder = thisAttemptPartOrder.Substring(0,thisAttemptPartOrder.Length-1); // get rid of extra colon at end
-
             if (attempts[i].outcome.Equals("victory"))
             {
                 numLevelsCompleted++;
@@ -224,7 +221,7 @@ public class ExplorationDataManager : MonoBehaviour {
             {
                 numRanOutOfTime++;
             }
-            else if (!attempts[i].outcome.Equals("quit") && attempts[i].outcome.Equals("finishedDemo"))
+            else if (!attempts[i].outcome.Equals("quit") && !attempts[i].outcome.Equals("finishedDemo"))
             {
                 Debug.Log("ERROR: invalid outcome code in attempt " + (i+1) + " in level " + attempts[i].level + ": " + attempts[i].outcome);
             }

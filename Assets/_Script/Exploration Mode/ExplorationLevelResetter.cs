@@ -12,6 +12,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     public Timer timer;
     private bool taggedFirstPart;
     private bool resetDueToPowerFailure;
+    private int numBatteriesBuilt;
 
     public FadeScreen screenFader;
     public Text lowPowerText;
@@ -39,6 +40,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     public RigidbodyFirstPersonController controller;
     public PartCounter itemPartCounter;
     public BatteryCounter batteryPartCounter;
+    public GameObject batteriesBuilt;
     public GameObject fuserObject;
 
     private float forwardSpeed;
@@ -98,6 +100,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
         jumpForce = controller.movementSettings.JumpForce;
         XRotSensitivity = controller.mouseLook.XSensitivity;
         YRotSensitivity = controller.mouseLook.YSensitivity;
+
+        numBatteriesBuilt = 0;
     }
 
     //reset fadeOutPanel from last scene transition if needed
@@ -143,8 +147,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
-	}
+
+    }
 
     // this function is called when SceneTimer's Entered Highlands event is invoked
     public void demoFinished()
@@ -394,7 +398,9 @@ public class ExplorationLevelResetter : MonoBehaviour {
         //reset Fuser rotation/position for next time Fuser is used
         fuserObject.gameObject.transform.rotation = startingRotation;
 
+        //reset batterypart counter for next time player returns to Canyon2 level
         batteryPartCounter.resetCounter();
+
         InventoryController.levelName = SceneManager.GetActiveScene().name;
         Debug.Log("whatToBuild: " + whatToBuild);
 
@@ -407,8 +413,11 @@ public class ExplorationLevelResetter : MonoBehaviour {
             lowPowerText.text = "Fuser battery parts detected. Activating fusing tutorial!";
             audioSource.PlayOneShot(powerUpSound);
             whatToBuild = "newTutorial";
+            numBatteriesBuilt++;
+            batteriesBuilt.SetActive(true);
 
-        } else if (whatToBuild.StartsWith("b") && whatToBuild.Length == 2)
+        }
+        else if (whatToBuild.StartsWith("b") && whatToBuild.Length == 2)
         {   // all battery levels except first one
             lowPowerText.enabled = true;
             lowPowerText.text = "Welcome to the Fuser X7000!";
@@ -416,8 +425,9 @@ public class ExplorationLevelResetter : MonoBehaviour {
             yield return new WaitForSeconds(2f);
             lowPowerText.text = "Fuser battery parts detected. Activating battery construction mode!";
             audioSource.PlayOneShot(powerUpSound);
+            numBatteriesBuilt++;
         }
-            else
+        else
         {   //all item levels
             lowPowerText.enabled = true;
             lowPowerText.text = "Welcome to the Fuser X7000!";
@@ -425,8 +435,10 @@ public class ExplorationLevelResetter : MonoBehaviour {
             yield return new WaitForSeconds(2f);
             lowPowerText.text = "New parts detected. Activating full power construction mode!";
             audioSource.PlayOneShot(powerUpSound);
+            numBatteriesBuilt = 0;
         }
 
+        batteriesBuilt.transform.GetComponentInChildren<Text>().text = "Batteries Built: " + numBatteriesBuilt + "/4";
         StartCoroutine(waitThenLoadLevel(seconds, whatToBuild));
     }
 

@@ -859,11 +859,11 @@ RectTransform:
   m_Father: {fileID: 1985057582}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 350, y: 100}
-  m_Pivot: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 15}
+  m_SizeDelta: {x: 350, y: 50}
+  m_Pivot: {x: 1, y: 0}
 --- !u!114 &229959064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -983,8 +983,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 40.00006}
-  m_SizeDelta: {x: 300, y: 150}
+  m_AnchoredPosition: {x: -150, y: 40.00006}
+  m_SizeDelta: {x: 0, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &297973225
 CanvasGroup:
@@ -3258,6 +3258,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11405340, guid: ca95c809c7100f941a716a128503d054, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 22478512, guid: ca95c809c7100f941a716a128503d054, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3437,10 +3441,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11491732, guid: ca95c809c7100f941a716a128503d054, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11405340, guid: ca95c809c7100f941a716a128503d054, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
@@ -6170,6 +6170,26 @@ PrefabInstance:
       propertyPath: fuseButton
       value: 
       objectReference: {fileID: 1418366674}
+    - target: {fileID: 8146693439289659462, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
+        type: 3}
+      propertyPath: tutorialLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8146693439289659462, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
+        type: 3}
+      propertyPath: rotationCounter
+      value: 
+      objectReference: {fileID: 1349615593}
+    - target: {fileID: 8146693439289635484, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
+        type: 3}
+      propertyPath: tutorialLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8146693439289635484, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
+        type: 3}
+      propertyPath: rotationCounter
+      value: 
+      objectReference: {fileID: 1349615593}
     - target: {fileID: 8146693439289682274, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
         type: 3}
       propertyPath: tutorialLevel
@@ -6206,26 +6226,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8146693439289563114, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
-        type: 3}
-      propertyPath: rotationCounter
-      value: 
-      objectReference: {fileID: 1349615593}
-    - target: {fileID: 8146693439289635484, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
-        type: 3}
-      propertyPath: tutorialLevel
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8146693439289635484, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
-        type: 3}
-      propertyPath: rotationCounter
-      value: 
-      objectReference: {fileID: 1349615593}
-    - target: {fileID: 8146693439289659462, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
-        type: 3}
-      propertyPath: tutorialLevel
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8146693439289659462, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
         type: 3}
       propertyPath: rotationCounter
       value: 

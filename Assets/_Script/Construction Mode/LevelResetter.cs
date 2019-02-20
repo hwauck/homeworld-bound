@@ -134,15 +134,14 @@ public class LevelResetter : MonoBehaviour {
        //     StartCoroutine(waitAndThenAddToken(4, "doneRestarting"));
        // } else
        // {
-            StartCoroutine(waitAndThenZoomUpPart(1f));
-            StartCoroutine(waitAndThenAddToken(1, "doneRestarting"));
-       // }
-
-        if(LoadUtils.sceneCurrentlyLoaded("newTutorial"))
+        StartCoroutine(waitAndThenZoomUpPart(1f));
+        StartCoroutine(waitAndThenAddToken(1, "doneRestarting"));
+        if (LoadUtils.currentSceneName.Equals("b1"))
         {
-            LoadUtils.UnloadScene("newTutorial");
+            StartCoroutine(waitAndThenAddToken(1, "startCameraControls"));
         }
 
+       // }
     }
 
     //called by Claim Item button in b4
@@ -302,6 +301,12 @@ public class LevelResetter : MonoBehaviour {
         if (timeRemainingPanel != null)
         {
             timeRemainingPanel.GetComponent<Timer>().stopTimer();
+        }
+
+        RotationArrow[] rotationArrows = rotationScript.gameObject.GetComponentsInChildren<RotationArrow>();
+        foreach(RotationArrow arrow in rotationArrows)
+        {
+            arrow.UnhighlightArrow();
         }
         StartCoroutine(doPowerFailure());
 

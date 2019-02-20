@@ -39,6 +39,12 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public void UnhighlightArrow()
+    {
+        Highlighter.Unhighlight(this.gameObject);
+
+    }
+
     // only executes if this gameobject was the first one hit by mouse's raycast
     // so it won't fire if UI element is clicked and object is behind it, yay
     public void OnPointerClick(PointerEventData data)
@@ -52,7 +58,7 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
             Debug.Log("Tutorial Level? " + tutorialLevel);
             Debug.Log("Rotations remaining: " + rotationCounter.getRotationsRemaining());
             // if first time rotating, display Rotation Counter and warning message
-            if(tutorialLevel && rotationCounter.getRotationsRemaining() == 10)
+            if(tutorialLevel && rotationCounter.getRotationsRemaining() == rotationCounter.numRotations)
             {
 
                 rotationCounter.doIntroRotationsRemaining();
