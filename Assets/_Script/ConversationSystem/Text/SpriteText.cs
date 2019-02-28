@@ -75,7 +75,8 @@ public class SpriteText : MonoBehaviour
 
 	bool firstRun = true;
 	bool initialized = false;
-
+    public bool controlsMenuText; // if this text is part of the controls menu, format it in a special way
+    public bool controlsMenuTitle; // if this text is the controls menu title, format it in a special way
 
     void Awake ()
     {
@@ -124,10 +125,23 @@ public class SpriteText : MonoBehaviour
 			Destroy(this);	// Delete this script for safety.
 		}
 
-		// Prepare the object for sprite text.
+        // Prepare the object for sprite text.
+        Debug.Log("Added GridLayoutGroup component to " + gameObject);
 		layout = gameObject.AddComponent<GridLayoutGroup>();
 		fontMult = txt.fontSize / 14f;
-		layout.cellSize = new Vector2(8 * sizeMultiplierX * kerningMultiplier * fontMult, 16 * sizeMultiplierY * leadingMultiplier * fontMult);
+        float yCellSize;
+        if(controlsMenuText)
+        {
+            yCellSize = 25f;
+            layout.padding = new RectOffset(25, 0, 0, 0);
+        } else if (controlsMenuTitle)
+        {
+            yCellSize = 45f;
+        } else
+        {
+            yCellSize = 16 * sizeMultiplierY * leadingMultiplier * fontMult;
+        }
+		layout.cellSize = new Vector2(8 * sizeMultiplierX * kerningMultiplier * fontMult, yCellSize);
 		layout.spacing = new Vector2(spacingX, spacingY);
 
 		// Use justification rules of base text.
@@ -169,6 +183,7 @@ public class SpriteText : MonoBehaviour
 			recentColor = txt.color;
 			return true;
 		}
+
 		return false;
 	}
 

@@ -176,7 +176,7 @@ public class Fuser : ItemBase {
 
         //Warning: low power animation
         lowPowerText.enabled = true;
-        lowPowerText.text = "Welcome to the Fuser X7000 - the premier technology for constructing and crafting!";
+        lowPowerText.text = "Welcome to the Fuser X7000, the premier technology for constructing and crafting!";
         audioSource.PlayOneShot(powerUpSound);
         yield return new WaitForSeconds(4f);
         lowPowerText.text = "Warning: low power! Please replace batteries.";

@@ -3543,6 +3543,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &189282973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5250,6 +5252,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 2
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &314480541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9848,6 +9852,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &526708374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16853,6 +16859,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &824699332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17253,7 +17261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerLabel: {fileID: 427531887}
-  timeGiven: 100
+  timeGiven: 180
   powerFailure:
     m_PersistentCalls:
       m_Calls:
@@ -22740,6 +22748,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &1117989413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27508,6 +27518,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &1356982433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32234,6 +32246,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &1577479041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32578,6 +32592,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &1591344471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36113,6 +36129,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 2
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &1759291668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41202,6 +41220,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &1966565733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43700,6 +43720,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &2046398656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44302,6 +44324,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &2083268799
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -149,8 +149,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275, y: -250.35416}
-  m_SizeDelta: {x: 520, y: 69.29169}
+  m_AnchoredPosition: {x: 275, y: -248.14362}
+  m_SizeDelta: {x: 520, y: 73.71275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &12924649
 MonoBehaviour:
@@ -187,6 +187,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &12924650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,7 +787,7 @@ RectTransform:
   - {fileID: 874033716}
   - {fileID: 915387903}
   m_Father: {fileID: 1730654016}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -1341,6 +1343,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: RotationGizmoFixed
       objectReference: {fileID: 0}
+    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 108479433}
+    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
+        type: 3}
+      propertyPath: selectPart
+      value: 
+      objectReference: {fileID: 1321869683}
+    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
+        type: 3}
+      propertyPath: fuseButton
+      value: 
+      objectReference: {fileID: 1418366674}
     - target: {fileID: 8146693439289298761, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1396,21 +1413,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
-        type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 108479433}
-    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
-        type: 3}
-      propertyPath: selectPart
-      value: 
-      objectReference: {fileID: 1321869683}
-    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
-        type: 3}
-      propertyPath: fuseButton
-      value: 
-      objectReference: {fileID: 1418366674}
     - target: {fileID: 8146693439289659462, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
         type: 3}
       propertyPath: rotationCounter
@@ -1517,10 +1519,10 @@ RectTransform:
   m_Father: {fileID: 1933335337}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 260, y: -43.385696}
+  m_SizeDelta: {x: 120, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &494752492
 MonoBehaviour:
@@ -1689,8 +1691,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275, y: -34.04695}
-  m_SizeDelta: {x: 520, y: 38.09391}
+  m_AnchoredPosition: {x: 275, y: -33.1398}
+  m_SizeDelta: {x: 520, y: 36.279602}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &528199197
 MonoBehaviour:
@@ -1727,6 +1729,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &528199198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1805,7 +1809,7 @@ RectTransform:
   - {fileID: 791688415}
   - {fileID: 2068511512}
   m_Father: {fileID: 1730654016}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2289,8 +2293,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275, y: -69.35535}
-  m_SizeDelta: {x: 520, y: 32.52288}
+  m_AnchoredPosition: {x: 275, y: -67.280365}
+  m_SizeDelta: {x: 520, y: 32.001526}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &707403131
 MonoBehaviour:
@@ -2327,6 +2331,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &707403132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2408,8 +2414,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275, y: -166.924}
-  m_SizeDelta: {x: 520, y: 32.52288}
+  m_AnchoredPosition: {x: 275, y: -163.28494}
+  m_SizeDelta: {x: 520, y: 32.001526}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &708045543
 MonoBehaviour:
@@ -2446,6 +2452,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &708045544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3090,6 +3098,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &917031704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3306,8 +3316,9 @@ RectTransform:
   - {fileID: 708045542}
   - {fileID: 1822586489}
   - {fileID: 12924648}
+  - {fileID: 1933335337}
   m_Father: {fileID: 1730654016}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3768,7 +3779,7 @@ MonoBehaviour:
   success: {fileID: 8300000, guid: ae9e829741082eb4093adf3c61753e96, type: 3}
   failure: {fileID: 8300000, guid: 2118b5e5eb34176439a93b8f7238193a, type: 3}
   music: {fileID: 8300000, guid: 6576744e20f897442acc40ef6694fd34, type: 3}
-  victorymusic: {fileID: 8300000, guid: 636c5f6b0dc39b7428e8c44a9d0821ad, type: 3}
+  victorymusic: {fileID: 8300000, guid: 5ecacb1d89ff2e940969b46fb071cdda, type: 3}
   partButtons:
   - {fileID: 1759854782}
   - {fileID: 1354454465}
@@ -4480,8 +4491,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275, y: -101.878235}
-  m_SizeDelta: {x: 520, y: 32.52288}
+  m_AnchoredPosition: {x: 275, y: -99.28189}
+  m_SizeDelta: {x: 520, y: 32.001526}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1438953489
 MonoBehaviour:
@@ -4518,6 +4529,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &1438953490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4883,7 +4896,6 @@ RectTransform:
   - {fileID: 1326645210}
   - {fileID: 408984520}
   - {fileID: 1429973765}
-  - {fileID: 1933335337}
   - {fileID: 1043720100}
   - {fileID: 2045693371}
   - {fileID: 297973224}
@@ -5170,7 +5182,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22478512, guid: ca95c809c7100f941a716a128503d054, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 22478512, guid: ca95c809c7100f941a716a128503d054, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -5432,8 +5444,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275, y: -199.44687}
-  m_SizeDelta: {x: 520, y: 32.52288}
+  m_AnchoredPosition: {x: 275, y: -195.28647}
+  m_SizeDelta: {x: 520, y: 32.001526}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1822586490
 MonoBehaviour:
@@ -5470,6 +5482,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &1822586491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6421,6 +6435,7 @@ GameObject:
   - component: {fileID: 1933335336}
   - component: {fileID: 1933335335}
   - component: {fileID: 1933335334}
+  - component: {fileID: 1933335338}
   m_Layer: 5
   m_Name: CloseControls
   m_TagString: Untagged
@@ -6527,17 +6542,41 @@ RectTransform:
   m_GameObject: {fileID: 1933335333}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5002603, y: 0.5002603, z: 0.5002603}
+  m_LocalScale: {x: 0.5002252, y: 0.5002252, z: 0.5002252}
   m_Children:
   - {fileID: 494752491}
-  m_Father: {fileID: 1730654016}
-  m_RootOrder: 6
+  m_Father: {fileID: 1043720100}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400.12363, y: -337.55353}
-  m_SizeDelta: {x: 300, y: 75}
+  m_AnchoredPosition: {x: 275, y: -241.6143}
+  m_SizeDelta: {x: 520, y: 86.77139}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1933335338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933335333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 120, y: 80}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &2045693370
 GameObject:
   m_ObjectHideFlags: 0
@@ -6569,7 +6608,7 @@ RectTransform:
   m_Children:
   - {fileID: 917031702}
   m_Father: {fileID: 1730654016}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -6804,8 +6843,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275, y: -134.40111}
-  m_SizeDelta: {x: 520, y: 32.52288}
+  m_AnchoredPosition: {x: 275, y: -131.28342}
+  m_SizeDelta: {x: 520, y: 32.001526}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2090845047
 MonoBehaviour:
@@ -6842,6 +6881,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &2090845048
 MonoBehaviour:
   m_ObjectHideFlags: 0

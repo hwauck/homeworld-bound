@@ -636,8 +636,7 @@ public class LevelResetter : MonoBehaviour {
         {
             dataManager.SetOutcome("quit");
         }
-        gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
-        // might need to tell new tutorial level coroutines to stop too
+
 
         disablePlayerControls();
         StopAllCoroutines();
@@ -680,7 +679,9 @@ public class LevelResetter : MonoBehaviour {
 
         demoFinishedText.enabled = true;
         yield return new WaitForSeconds(3f);
-            // load next page, however that's done
+        gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
+                           // might need to tell new tutorial level coroutines to stop too
+        // DataAggregator is listening for gameQuit event, triggers sendDataToDB method
 
     }
 

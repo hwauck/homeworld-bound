@@ -348,6 +348,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             itemPartCounter.hideParts();
             itemPartCounter.resetCounter();
             timer.stopTimer();
+            timer.gameObject.GetComponent<CanvasGroup>().alpha = 0; //hide TimeRemainingPanel again
             timer.resetTimer();
             expDataManager.setOutcome("victory");
 
@@ -407,9 +408,9 @@ public class ExplorationLevelResetter : MonoBehaviour {
         if(whatToBuild.Equals("b1"))
         {   // first battery level only
             lowPowerText.enabled = true;
-            lowPowerText.text = "Welcome to the Fuser X7000!";
-            audioSource.PlayOneShot(welcomeSound);
-            yield return new WaitForSeconds(4f);
+            //lowPowerText.text = "Welcome to the Fuser X7000!";
+            //audioSource.PlayOneShot(welcomeSound);
+            //yield return new WaitForSeconds(4f);
             lowPowerText.text = "Fuser battery parts detected. Activating fusing tutorial!";
             audioSource.PlayOneShot(powerUpSound);
             whatToBuild = "newTutorial";
@@ -420,9 +421,9 @@ public class ExplorationLevelResetter : MonoBehaviour {
         else if (whatToBuild.StartsWith("b") && whatToBuild.Length == 2)
         {   // all battery levels except first one
             lowPowerText.enabled = true;
-            lowPowerText.text = "Welcome to the Fuser X7000!";
-            audioSource.PlayOneShot(powerUpSound);
-            yield return new WaitForSeconds(2f);
+            //lowPowerText.text = "Welcome to the Fuser X7000!";
+            //audioSource.PlayOneShot(powerUpSound);
+            //yield return new WaitForSeconds(2f);
             lowPowerText.text = "Fuser battery parts detected. Activating battery construction mode!";
             audioSource.PlayOneShot(powerUpSound);
             numBatteriesBuilt++;
@@ -430,9 +431,9 @@ public class ExplorationLevelResetter : MonoBehaviour {
         else
         {   //all item levels
             lowPowerText.enabled = true;
-            lowPowerText.text = "Welcome to the Fuser X7000!";
-            audioSource.PlayOneShot(powerUpSound);
-            yield return new WaitForSeconds(2f);
+            //lowPowerText.text = "Welcome to the Fuser X7000!";
+            //audioSource.PlayOneShot(powerUpSound);
+            //yield return new WaitForSeconds(2f);
             lowPowerText.text = "New parts detected. Activating full power construction mode!";
             audioSource.PlayOneShot(powerUpSound);
             numBatteriesBuilt = 0;
