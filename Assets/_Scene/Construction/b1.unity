@@ -2662,6 +2662,10 @@ PrefabInstance:
       propertyPath: dataManager
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 11476892, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
+      propertyPath: movementDisabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9290618, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
     - {fileID: 9265814, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
@@ -3359,14 +3363,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 320
       objectReference: {fileID: 0}
-    - target: {fileID: 11493272, guid: ca95c809c7100f941a716a128503d054, type: 3}
-      propertyPath: m_CellSize.x
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 11493272, guid: ca95c809c7100f941a716a128503d054, type: 3}
-      propertyPath: m_CellSize.y
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 11427988, guid: ca95c809c7100f941a716a128503d054, type: 3}
       propertyPath: letterDelay
       value: 0.02
@@ -3425,13 +3421,9 @@ PrefabInstance:
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 194968, guid: ca95c809c7100f941a716a128503d054, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 190052, guid: ca95c809c7100f941a716a128503d054, type: 3}
-      propertyPath: m_Layer
-      value: 5
+    - target: {fileID: 11491732, guid: ca95c809c7100f941a716a128503d054, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 135308, guid: ca95c809c7100f941a716a128503d054, type: 3}
       propertyPath: m_Layer
@@ -3441,9 +3433,21 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 11491732, guid: ca95c809c7100f941a716a128503d054, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
+    - target: {fileID: 190052, guid: ca95c809c7100f941a716a128503d054, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11493272, guid: ca95c809c7100f941a716a128503d054, type: 3}
+      propertyPath: m_CellSize.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 11493272, guid: ca95c809c7100f941a716a128503d054, type: 3}
+      propertyPath: m_CellSize.y
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 194968, guid: ca95c809c7100f941a716a128503d054, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca95c809c7100f941a716a128503d054, type: 3}
@@ -4939,6 +4943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec31cbdae7a4b494aae9d5715daad943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraControls: {fileID: 1079976718}
   camRig: {fileID: 58732405}
   arrows:
   - {fileID: 1546387049}

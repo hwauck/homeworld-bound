@@ -6,6 +6,7 @@ public class TutorialCamera : MonoBehaviour
 {
     private bool cameraMoveTutorialTriggered = false;
     private bool cameraZoomTutorialTriggered = false;
+    public CameraControls cameraControls;
     private Quaternion initialCamRotation;
     private Vector3 initialCamPosition;
     public GameObject camRig;
@@ -32,6 +33,7 @@ public class TutorialCamera : MonoBehaviour
         if (!cameraZoomTutorialTriggered && (camRig.transform.position.y < 190f))
         {
             cameraZoomTutorialTriggered = true;
+            cameraControls.movementDisabled = false;
         }
         if (!cameraMoveTutorialTriggered && cameraZoomTutorialTriggered)
         {
