@@ -182,10 +182,12 @@ public class RotationGizmo : MonoBehaviour
         {
             //Debug.Log("toRotate object: " + toRotate);
             selectPart.getSelectedObject().GetComponent<FaceSelector>().adjustPartAlignment();
+
+            //rotation is done - renable fuse button
+            fuseButton.interactable = true;
         }
 
-        //rotation is done - renable fuse button
-        fuseButton.interactable = true;
+
 
     }
 

@@ -1764,6 +1764,7 @@ MonoBehaviour:
   lowPowerText: {fileID: 1344357868}
   errorPanel: {fileID: 622840168}
   audioSource: {fileID: 998396306}
+  musicSource: {fileID: 1077534242}
   Exp_firstBattery_b2: {fileID: 1263753932}
   Exp_firstBattery_b3: {fileID: 1444987843}
   Exp_firstBattery_b4: {fileID: 1269457560}
@@ -45452,6 +45453,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8203772, guid: 61dfd5f4edda20642978fd59b5d29e73, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8203772, guid: 61dfd5f4edda20642978fd59b5d29e73, type: 3}
+      propertyPath: BypassReverbZones
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8203772, guid: 61dfd5f4edda20642978fd59b5d29e73, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 17555bd2b65e7a94680bee65a09ff4f8, type: 3}
     - target: {fileID: 486412, guid: 61dfd5f4edda20642978fd59b5d29e73, type: 3}
       propertyPath: m_LocalPosition.x
       value: -175.0851

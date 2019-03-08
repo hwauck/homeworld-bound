@@ -18,6 +18,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     public Text lowPowerText;
     public CanvasGroup errorPanel;
     public AudioSource audioSource;
+    public AudioSource musicSource;
     public ConversationTrigger Exp_firstBattery_b2;
     public ConversationTrigger Exp_firstBattery_b3;
     public ConversationTrigger Exp_firstBattery_b4;
@@ -131,12 +132,14 @@ public class ExplorationLevelResetter : MonoBehaviour {
             map.doIntroMap(); // when this is done, it triggers startCountdown() and beginning of timed level
         } else if (ConversationTrigger.GetToken("finished_RB"))
         {
+            musicSource.Play();
             screenFader.fadeIn(1f);
             enablePlayerControl();
             expDataManager.setPauseGameplay(false);
         }
         else
         {
+            musicSource.Play();
             screenFader.fadeIn(1f);
             enablePlayerControl();
             expDataManager.setPauseGameplay(false);
