@@ -30,6 +30,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     public Text demoFinishedText;
     public Text demoFinishedAltText;
     public Map map;
+    public GameObject controlsMenu;
 
     private AudioClip powerFailureSound;
     private AudioClip countdownSound;
@@ -640,6 +641,18 @@ public class ExplorationLevelResetter : MonoBehaviour {
             doFadeToDemoFinished(3f, true);
             
         }
+
+        //else if(Input.GetKeyDown(KeyCode.C))
+        //{
+        //    if (controlsMenu.activeSelf && !expDataManager.getPauseGameplay())
+        //    {
+        //        controlsMenu.SetActive(false);
+        //    }
+        //    else if (!expDataManager.getPauseGameplay())
+        //    {
+        //        controlsMenu.SetActive(true);
+        //    }
+        //}
 
         //Debug.Log(ConversationTrigger.GetToken("firstPickup"));
         // finished recharging after power failure

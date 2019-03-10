@@ -1,3 +1,4 @@
-You've crash-landed on an alien planet! How will you get back home? [color]880Click with the mouse[color] or press the [color]880spacebar[color] to advance this text.
-The [color]880WASD Keys[color] will move you around, and the [color]880spacebar[color] will make you jump.
+You've crash-landed on an alien planet! How will you get back home? [color]880Click with the mouse[color] to advance this text.
+The [color]880W, A, S, and D Keys[color] will move you around, and moving the [color]880mouse[color] will change the direction in which you're looking.
+Press and hold the [color]880C key[color] to review these controls at any time.
 Have fun exploring!

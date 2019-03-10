@@ -1,1 +1,1 @@
-Press Spacebar to jump. Use the [color]880WASD[color] keys to control the direction of the jump.
+Press Spacebar to jump. Use the [color]880W, A, S, and D[color] keys to control the direction of the jump.
