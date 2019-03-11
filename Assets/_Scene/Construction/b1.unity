@@ -4950,6 +4950,11 @@ MonoBehaviour:
   - {fileID: 1268321484}
   - {fileID: 1864437868}
   - {fileID: 292597164}
+  partButtons:
+  - {fileID: 1759854786}
+  - {fileID: 1354454469}
+  - {fileID: 1649524229}
+  controlsButton: {fileID: 766781728}
 --- !u!1 &1566945147
 GameObject:
   m_ObjectHideFlags: 0

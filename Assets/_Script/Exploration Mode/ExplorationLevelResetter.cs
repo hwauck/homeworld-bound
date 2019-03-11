@@ -172,7 +172,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
         {
             expDataManager.setOutcome("finishedDemo");
         }
-        gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
+
+
         disablePlayerControl();
         StopAllCoroutines();
         timer.stopTimer();
@@ -193,12 +194,16 @@ public class ExplorationLevelResetter : MonoBehaviour {
         {
             demoFinishedAltText.enabled = true;
             yield return new WaitForSeconds(3f);
+            gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
             // load next page, however that's done
             //Hello();
 
         } else
         {
+
             demoFinishedText.enabled = true;
+            yield return new WaitForSeconds(3f);
+            gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
             // load next page, however that's done
         }
     }

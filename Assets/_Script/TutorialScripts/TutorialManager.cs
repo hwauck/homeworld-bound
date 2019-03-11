@@ -103,8 +103,7 @@ public class TutorialManager : MonoBehaviour
         {
             dataManager.SetOutcome("quit");
         }
-        gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
-        // might need to tell new tutorial level coroutines to stop too
+
 
         bottomPanel.blocksRaycasts = false;
         StopAllCoroutines();
@@ -120,11 +119,12 @@ public class TutorialManager : MonoBehaviour
 
         demoFinishedText.enabled = true;
         yield return new WaitForSeconds(3f);
-        // load next page, however that's done
+        gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
+        // might need to tell new tutorial level coroutines to stop too
 
     }
 
-  
+
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.P))
@@ -189,7 +189,7 @@ public class TutorialManager : MonoBehaviour
             p2s2.SetActive(true);
             rotationGizmo.SetActive(true);
             Highlighter.Highlight(zDownArrow);
-            tutorialText.text = "CLICK on the arrow to rotate the part.";
+            tutorialText.text = "CLICK on the flashing arrow to rotate the part.";
             part2Button.GetComponent<Button>().interactable = false;
             arrowTransform.localRotation = Quaternion.Euler(0, 0, 0);
             //arrowTransform.anchoredPosition = new Vector2(-31, 78);

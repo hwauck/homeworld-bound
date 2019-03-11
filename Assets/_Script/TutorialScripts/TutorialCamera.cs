@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TutorialCamera : MonoBehaviour
 {
@@ -11,11 +12,20 @@ public class TutorialCamera : MonoBehaviour
     private Vector3 initialCamPosition;
     public GameObject camRig;
     public GameObject[] arrows = new GameObject[4];
+
+    public Button[] partButtons;
+    public Button controlsButton;
+
     // Start is called before the first frame update
     void Start()
     {
         foreach (GameObject arrow in arrows)
             arrow.SetActive(false);
+        foreach (Button partButton in partButtons)
+        {
+            partButton.interactable = false;
+        }
+
         initialCamRotation = camRig.transform.rotation;
         initialCamPosition = camRig.transform.position;
         ConversationTrigger.AddToken("camera_zoom");
@@ -27,6 +37,10 @@ public class TutorialCamera : MonoBehaviour
         if (camRig.transform.rotation != initialCamRotation)
         {
             cameraMoveTutorialTriggered = true;
+            foreach (Button partButton in partButtons)
+            {
+                partButton.interactable = true;
+            }
             foreach (GameObject arrow in arrows)
                 arrow.SetActive(false);
         }
