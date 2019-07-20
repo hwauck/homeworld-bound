@@ -16,6 +16,8 @@ public class TutorialCamera : MonoBehaviour
     public Button[] partButtons;
     public Button controlsButton;
 
+    private bool buttonsEnabled = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +27,6 @@ public class TutorialCamera : MonoBehaviour
         {
             partButton.interactable = false;
         }
-
         initialCamRotation = camRig.transform.rotation;
         initialCamPosition = camRig.transform.position;
         ConversationTrigger.AddToken("camera_zoom");
@@ -36,14 +37,22 @@ public class TutorialCamera : MonoBehaviour
     {
         if (camRig.transform.rotation != initialCamRotation)
         {
+
             cameraMoveTutorialTriggered = true;
-            foreach (Button partButton in partButtons)
-            {
-                partButton.interactable = true;
+
+
+            if (!buttonsEnabled) {
+                foreach (Button partButton in partButtons)
+                {
+                    partButton.interactable = true;
+                }
+                foreach (GameObject arrow in arrows)
+                    arrow.SetActive(false);
+                buttonsEnabled = true;
+
             }
-            foreach (GameObject arrow in arrows)
-                arrow.SetActive(false);
         }
+
         if (!cameraZoomTutorialTriggered && (camRig.transform.position.y < 190f))
         {
             cameraZoomTutorialTriggered = true;

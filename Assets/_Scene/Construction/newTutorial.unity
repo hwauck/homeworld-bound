@@ -1057,6 +1057,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &309804594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1958,6 +1960,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &898739788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2082,6 +2086,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 11476892, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11476892, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
+      propertyPath: tutorialMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 426536, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -90
@@ -2113,14 +2125,6 @@ PrefabInstance:
     - target: {fileID: 426536, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11476892, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11476892, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
-      propertyPath: tutorialMode
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9290618, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
@@ -2456,7 +2460,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1147093686}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -2716,6 +2720,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 11405340, guid: ca95c809c7100f941a716a128503d054, type: 3}
+      propertyPath: m_Text
+      value: Test test
+      objectReference: {fileID: 0}
     - target: {fileID: 22478512, guid: ca95c809c7100f941a716a128503d054, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2898,14 +2906,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 194968, guid: ca95c809c7100f941a716a128503d054, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 190052, guid: ca95c809c7100f941a716a128503d054, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 135308, guid: ca95c809c7100f941a716a128503d054, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -2918,13 +2918,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 11405340, guid: ca95c809c7100f941a716a128503d054, type: 3}
-      propertyPath: m_Text
-      value: Test test
+    - target: {fileID: 190052, guid: ca95c809c7100f941a716a128503d054, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11493520, guid: ca95c809c7100f941a716a128503d054, type: 3}
       propertyPath: m_Text
       value: Tutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 194968, guid: ca95c809c7100f941a716a128503d054, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11489256, guid: ca95c809c7100f941a716a128503d054, type: 3}
@@ -3610,6 +3614,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &1605823888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4083,6 +4089,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &1663419684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4808,6 +4816,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &1834598606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5152,6 +5162,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &1902088137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5641,6 +5653,8 @@ MonoBehaviour:
   rbowWaveTimeOffset: 0.1
   rbowWaveSpeed: 4
   unprocessedText: 
+  controlsMenuText: 0
+  controlsMenuTitle: 0
 --- !u!114 &2085232939
 MonoBehaviour:
   m_ObjectHideFlags: 0

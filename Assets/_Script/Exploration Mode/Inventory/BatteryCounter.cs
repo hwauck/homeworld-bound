@@ -24,7 +24,9 @@ public class BatteryCounter : MonoBehaviour {
     // Use this for initialization
     void Start () {
         partsFound = 0;
-        batteriesBuilt = 0;
+        // for testing only!
+        //batteriesBuilt = 0;
+        batteriesBuilt = 3;
         setCounterMaximums();
 
     }

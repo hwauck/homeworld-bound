@@ -99,12 +99,12 @@ public class DataAggregator : MonoBehaviour {
     // called when P is pressed during Exploration or Construction Mode via events
     public void saveAndSendToServer()
     {
-        string allData = "BEGIN_HB_PLAYERDATA,";
-        allData += expDataManager.saveAllData();
-        allData += constDataManager.saveAllData();
-        allData += "END_HB_PLAYERDATA";
-        Debug.Log("SENDING TO SERVER: " + allData);
-        sendToDB(allData);
+        //string allData = "BEGIN_HB_PLAYERDATA,";
+        //allData += expDataManager.saveAllData();
+        //allData += constDataManager.saveAllData();
+        //allData += "END_HB_PLAYERDATA";
+        //Debug.Log("SENDING TO SERVER: " + allData);
+        //sendToDB(allData);
     }
 	
 	// Update is called once per frame

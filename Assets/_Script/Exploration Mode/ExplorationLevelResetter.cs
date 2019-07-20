@@ -201,7 +201,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         } else
         {
 
-            demoFinishedText.enabled = true;
+            demoFinishedAltText.enabled = true;
             yield return new WaitForSeconds(3f);
             gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
             // load next page, however that's done
