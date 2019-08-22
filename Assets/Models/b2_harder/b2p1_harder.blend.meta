@@ -11,6 +11,14 @@ ModelImporter:
     100010: b1p1_bb1_a3
     100012: b1p1_bb1_a4
     100014: //RootNode
+    100016: b2p1
+    100018: b2p1_b2p2_a1
+    100020: b2p1_b2p2_a2
+    100022: b2p1_b2p3_a1
+    100024: b2p1_bb2_a1
+    100026: b2p1_bb2_a2
+    100028: b2p1_bb2_a3
+    100030: b2p1_bb2_a4
     400000: b1p1
     400002: b1p1_b1p2_a1
     400004: b1p1_b1p2_a2
@@ -19,6 +27,14 @@ ModelImporter:
     400010: b1p1_bb1_a3
     400012: b1p1_bb1_a4
     400014: //RootNode
+    400016: b2p1
+    400018: b2p1_b2p2_a1
+    400020: b2p1_b2p2_a2
+    400022: b2p1_b2p3_a1
+    400024: b2p1_bb2_a1
+    400026: b2p1_bb2_a2
+    400028: b2p1_bb2_a3
+    400030: b2p1_bb2_a4
     2100000: black
     2100002: purple
     2300000: b1p1
@@ -28,6 +44,14 @@ ModelImporter:
     2300008: b1p1_bb1_a2
     2300010: b1p1_bb1_a3
     2300012: b1p1_bb1_a4
+    2300014: b2p1
+    2300016: b2p1_b2p2_a1
+    2300018: b2p1_b2p2_a2
+    2300020: b2p1_b2p3_a1
+    2300022: b2p1_bb2_a1
+    2300024: b2p1_bb2_a2
+    2300026: b2p1_bb2_a3
+    2300028: b2p1_bb2_a4
     3300000: b1p1
     3300002: b1p1_b1p2_a1
     3300004: b1p1_b1p2_a2
@@ -35,6 +59,14 @@ ModelImporter:
     3300008: b1p1_bb1_a2
     3300010: b1p1_bb1_a3
     3300012: b1p1_bb1_a4
+    3300014: b2p1
+    3300016: b2p1_b2p2_a1
+    3300018: b2p1_b2p2_a2
+    3300020: b2p1_b2p3_a1
+    3300022: b2p1_bb2_a1
+    3300024: b2p1_bb2_a2
+    3300026: b2p1_bb2_a3
+    3300028: b2p1_bb2_a4
     4300000: b1p1_b1p2_a2
     4300002: b1p1_b1p2_a1
     4300004: b1p1_bb1_a3
@@ -42,6 +74,14 @@ ModelImporter:
     4300008: b1p1_bb1_a4
     4300010: b1p1_bb1_a1
     4300012: b1p1
+    4300014: b2p1_b2p3_a1
+    4300016: b2p1_b2p2_a2
+    4300018: b2p1_b2p2_a1
+    4300020: b2p1_bb2_a3
+    4300022: b2p1_bb2_a2
+    4300024: b2p1_bb2_a4
+    4300026: b2p1_bb2_a1
+    4300028: b2p1
     7400000: Default Take
     9500000: //RootNode
   externalObjects:
@@ -54,7 +94,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: purple
-    second: {fileID: 2100000, guid: 7a9527e576733c842b40aafeca0d8216, type: 2}
+    second: {fileID: 2100000, guid: 2de69e919d170b74eba91db6c1dbb2cb, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

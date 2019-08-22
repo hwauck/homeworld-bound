@@ -423,7 +423,7 @@ public class LevelResetter : MonoBehaviour {
                 eventSystem.GetComponent<CreatePartB1>().destroyAllCreatedParts();
                 break;
             case "b2":
-                eventSystem.GetComponent<CreatePartB2>().destroyAllCreatedParts();
+                eventSystem.GetComponent<CreatePartB2_harder>().destroyAllCreatedParts();
                 break;
             case "b3":
                 eventSystem.GetComponent<CreatePartB3>().destroyAllCreatedParts();
