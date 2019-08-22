@@ -68,7 +68,7 @@ public class CreatePartB3_harder : MonoBehaviour
         Dictionary<string, Quaternion[]> fusePositions = new Dictionary<string, Quaternion[]>();
 
         Vector3 bb3Pos = bb3.transform.position;
-        Vector3 fuseLocation = new Vector3(bb3Pos.x, bb3Pos.y, bb3Pos.z);
+        Vector3 fuseLocation = new Vector3(bb3Pos.x, bb3Pos.y, bb3Pos.z + 16.1f);
         fuseLocations.Add("bb3_b3p1_a1", fuseLocation);
         fuseLocations.Add("bb3_b3p1_a2", fuseLocation);
         fuseLocations.Add("b3p3_b3p1_a1", fuseLocation);
@@ -76,14 +76,14 @@ public class CreatePartB3_harder : MonoBehaviour
         fuseLocations.Add("b3p2_b3p1_a1", fuseLocation);
 
 
-        Quaternion fuseRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        Quaternion fuseRotation = Quaternion.Euler(new Vector3(180, 0, 0));
         fuseRotations.Add("bb3_b3p1_a1", fuseRotation);
         fuseRotations.Add("bb3_b3p1_a2", fuseRotation);
         fuseRotations.Add("b3p3_b3p1_a1", fuseRotation);
         fuseRotations.Add("b3p3_b3p1_a2", fuseRotation);
         fuseRotations.Add("b3p2_b3p1_a1", fuseRotation);
 
-        Quaternion acceptableRotation1 = Quaternion.Euler(270, 0, 0);
+        Quaternion acceptableRotation1 = Quaternion.Euler(270, 180, 0);
         //Quaternion acceptableRotation2 = Quaternion.Euler(0, 90, 270);
         //Quaternion acceptableRotation3 = Quaternion.Euler(90, 180, 0);
         //Quaternion acceptableRotation4 = Quaternion.Euler(0, 270, 90);
@@ -109,20 +109,21 @@ public class CreatePartB3_harder : MonoBehaviour
 
 
         Vector3 bb3Pos = bb3.transform.position;
-        Vector3 fuseLocation = new Vector3(bb3Pos.x, bb3Pos.y, bb3Pos.z);
+        Vector3 fuseLocation = new Vector3(bb3Pos.x, bb3Pos.y + 7.6f, bb3Pos.z + 5);
         fuseLocations.Add("bb3_b3p2_a1", fuseLocation);
         fuseLocations.Add("bb3_b3p2_a2", fuseLocation);
         fuseLocations.Add("b3p3_b3p2_a1", fuseLocation);
         fuseLocations.Add("b3p3_b3p2_a2", fuseLocation);
         fuseLocations.Add("b3p1_b3p2_a1", fuseLocation);
-        Quaternion fuseRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+
+        Quaternion fuseRotation = Quaternion.Euler(new Vector3(0, 180, 0));
         fuseRotations.Add("bb3_b3p2_a1", fuseRotation);
         fuseRotations.Add("bb3_b3p2_a2", fuseRotation);
         fuseRotations.Add("b3p3_b3p2_a1", fuseRotation);
         fuseRotations.Add("b3p3_b3p2_a2", fuseRotation);
         fuseRotations.Add("b3p1_b3p2_a1", fuseRotation);
 
-        Quaternion acceptableRotation1 = Quaternion.Euler(270, 0, 0);
+        Quaternion acceptableRotation1 = Quaternion.Euler(270, 180, 0);
         Quaternion[] acceptableRotations = { acceptableRotation1};
         fusePositions = new Dictionary<string, Quaternion[]>();
         fusePositions.Add("bb3_b3p2_a1", acceptableRotations);
@@ -146,7 +147,7 @@ public class CreatePartB3_harder : MonoBehaviour
 
 
         Vector3 bb3Pos = bb3.transform.position;
-        Vector3 fuseLocation = new Vector3(bb3Pos.x, bb3Pos.y, bb3Pos.z);
+        Vector3 fuseLocation = new Vector3(bb3Pos.x, bb3Pos.y, bb3Pos.z + 15.7f);
         fuseLocations.Add("b3p1_b3p3_a1", fuseLocation);
         fuseLocations.Add("b3p1_b3p3_a2", fuseLocation);
         fuseLocations.Add("b3p2_b3p3_a1", fuseLocation);
@@ -156,7 +157,8 @@ public class CreatePartB3_harder : MonoBehaviour
         fuseLocations.Add("b3p4_b3p3_a3", fuseLocation);
         fuseLocations.Add("b3p4_b3p3_a4", fuseLocation);
         fuseLocations.Add("bb3_b3p3_a1", fuseLocation);
-        Quaternion fuseRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+
+        Quaternion fuseRotation = Quaternion.Euler(new Vector3(0, 180, 0));
         fuseRotations.Add("b3p1_b3p3_a1", fuseRotation);
         fuseRotations.Add("b3p1_b3p3_a2", fuseRotation);
         fuseRotations.Add("b3p2_b3p3_a1", fuseRotation);
@@ -167,7 +169,7 @@ public class CreatePartB3_harder : MonoBehaviour
         fuseRotations.Add("b3p4_b3p3_a4", fuseRotation);
         fuseRotations.Add("bb3_b3p3_a1", fuseRotation);
 
-        Quaternion acceptableRotation1 = Quaternion.Euler(270, 0, 0);
+        Quaternion acceptableRotation1 = Quaternion.Euler(270, 180, 0);
         Quaternion[] acceptableRotations = { acceptableRotation1 };
         fusePositions = new Dictionary<string, Quaternion[]>();
         fusePositions.Add("b3p1_b3p3_a1", acceptableRotations);
@@ -195,7 +197,7 @@ public class CreatePartB3_harder : MonoBehaviour
 
 
         Vector3 bb3Pos = bb3.transform.position;
-        Vector3 fuseLocation = new Vector3(bb3Pos.x, bb3Pos.y, bb3Pos.z);
+        Vector3 fuseLocation = new Vector3(bb3Pos.x, bb3Pos.y, bb3Pos.z + 35);
         fuseLocations.Add("b3p3_b3p4_a1", fuseLocation);
         fuseLocations.Add("b3p3_b3p4_a2", fuseLocation);
         fuseLocations.Add("b3p3_b3p4_a3", fuseLocation);
@@ -203,7 +205,8 @@ public class CreatePartB3_harder : MonoBehaviour
         fuseLocations.Add("b3p5_b3p4_a1", fuseLocation);
         fuseLocations.Add("b3p5_b3p4_a2", fuseLocation);
         fuseLocations.Add("b3p5_b3p4_a3", fuseLocation);
-        Quaternion fuseRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+
+        Quaternion fuseRotation = Quaternion.Euler(new Vector3(0, 180, 0));
         fuseRotations.Add("b3p3_b3p4_a1", fuseRotation);
         fuseRotations.Add("b3p3_b3p4_a2", fuseRotation);
         fuseRotations.Add("b3p3_b3p4_a3", fuseRotation);
@@ -212,7 +215,7 @@ public class CreatePartB3_harder : MonoBehaviour
         fuseRotations.Add("b3p5_b3p4_a2", fuseRotation);
         fuseRotations.Add("b3p5_b3p4_a3", fuseRotation);
 
-        Quaternion acceptableRotation1 = Quaternion.Euler(270, 0, 0);
+        Quaternion acceptableRotation1 = Quaternion.Euler(270, 180, 0);
         Quaternion[] acceptableRotations = { acceptableRotation1 };
         fusePositions = new Dictionary<string, Quaternion[]>();
         fusePositions.Add("b3p3_b3p4_a1", acceptableRotations);
@@ -238,17 +241,17 @@ public class CreatePartB3_harder : MonoBehaviour
 
 
         Vector3 bb3Pos = bb3.transform.position;
-        Vector3 fuseLocation = new Vector3(bb3Pos.x, bb3Pos.y, bb3Pos.z + 25);
+        Vector3 fuseLocation = new Vector3(bb3Pos.x + 4.85f, bb3Pos.y - 4.9f, bb3Pos.z + 39.9f);
         fuseLocations.Add("b3p4_b3p5_a1", fuseLocation);
         fuseLocations.Add("b3p4_b3p5_a2", fuseLocation);
         fuseLocations.Add("b3p4_b3p5_a3", fuseLocation);
 
-        Quaternion fuseRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        Quaternion fuseRotation = Quaternion.Euler(new Vector3(0, 180, 0));
         fuseRotations.Add("b3p4_b3p5_a1", fuseRotation);
         fuseRotations.Add("b3p4_b3p5_a2", fuseRotation);
         fuseRotations.Add("b3p4_b3p5_a3", fuseRotation);
 
-        Quaternion acceptableRotation1 = Quaternion.Euler(270, 0, 0);
+        Quaternion acceptableRotation1 = Quaternion.Euler(0, 180, 90);
         Quaternion[] acceptableRotations = { acceptableRotation1 };
         fusePositions = new Dictionary<string, Quaternion[]>();
         fusePositions.Add("b3p4_b3p5_a1", acceptableRotations);
@@ -270,13 +273,16 @@ public class CreatePartB3_harder : MonoBehaviour
 
 
         Vector3 bb3Pos = bb3.transform.position;
-        Vector3 fuseLocation = new Vector3(bb3Pos.x, bb3Pos.y, bb3Pos.z);
+        Vector3 fuseLocation = new Vector3(bb3Pos.x, bb3Pos.y, bb3Pos.z - 7.5f);
         fuseLocations.Add("bb3_bb3_gray_a1", fuseLocation);
   
         Quaternion fuseRotation = Quaternion.Euler(new Vector3(0, 180, 0));
         fuseRotations.Add("bb3_bb3_gray_a1", fuseRotation);
 
-        Quaternion acceptableRotation1 = Quaternion.Euler(270, 180, 0);
+        Quaternion acceptableRotation1 = Quaternion.Euler(90, 0, 0);
+        Quaternion acceptableRotation2 = Quaternion.Euler(0, 270, 270);
+        Quaternion acceptableRotation3 = Quaternion.Euler(270, 180, 0);
+        Quaternion acceptableRotation4 = Quaternion.Euler(0, 90, 90);
         Quaternion[] acceptableRotations = { acceptableRotation1 };
         fusePositions = new Dictionary<string, Quaternion[]>();
         fusePositions.Add("bb3_bb3_gray_a1", acceptableRotations);
@@ -400,7 +406,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p1_bb3_a2.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p1"));
 
             b3p1_bb3_a2.gameObject.AddComponent<FaceSelector>();
-            b3p1_bb3_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            b3p1_bb3_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
             b3p1_bb3_a2.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p1_bb3_a2.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -440,7 +446,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p2_bb3_a1.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p2"));
 
             b3p2_bb3_a1.gameObject.AddComponent<FaceSelector>();
-            b3p2_bb3_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.forward;
+            b3p2_bb3_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
             b3p2_bb3_a1.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p2_bb3_a1.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -470,7 +476,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p2_b3p3_a1.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p2"));
 
             b3p2_b3p3_a1.gameObject.AddComponent<FaceSelector>();
-            b3p2_b3p3_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            b3p2_b3p3_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
             b3p2_b3p3_a1.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p2_b3p3_a1.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -480,7 +486,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p2_b3p3_a2.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p2"));
 
             b3p2_b3p3_a2.gameObject.AddComponent<FaceSelector>();
-            b3p2_b3p3_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            b3p2_b3p3_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.forward;
             b3p2_b3p3_a2.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p2_b3p3_a2.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -527,7 +533,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p3_bb3_a1.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p3"));
 
             b3p3_bb3_a1.gameObject.AddComponent<FaceSelector>();
-            b3p3_bb3_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.forward;
+            b3p3_bb3_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
             b3p3_bb3_a1.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p3_bb3_a1.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -537,7 +543,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p3_b3p1_a1.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p3"));
 
             b3p3_b3p1_a1.gameObject.AddComponent<FaceSelector>();
-            b3p3_b3p1_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            b3p3_b3p1_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
             b3p3_b3p1_a1.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p3_b3p1_a1.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -547,7 +553,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p3_b3p1_a2.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p3"));
 
             b3p3_b3p1_a2.gameObject.AddComponent<FaceSelector>();
-            b3p3_b3p1_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.back;
+            b3p3_b3p1_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.forward;
             b3p3_b3p1_a2.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p3_b3p1_a2.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -557,7 +563,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p3_b3p2_a1.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p3"));
 
             b3p3_b3p2_a1.gameObject.AddComponent<FaceSelector>();
-            b3p3_b3p2_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            b3p3_b3p2_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
             b3p3_b3p2_a1.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p3_b3p2_a1.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -577,7 +583,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p3_b3p4_a1.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p3"));
 
             b3p3_b3p4_a1.gameObject.AddComponent<FaceSelector>();
-            b3p3_b3p4_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            b3p3_b3p4_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.up;
             b3p3_b3p4_a1.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p3_b3p4_a1.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -587,7 +593,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p3_b3p4_a2.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p3"));
 
             b3p3_b3p4_a2.gameObject.AddComponent<FaceSelector>();
-            b3p3_b3p4_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            b3p3_b3p4_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.back;
             b3p3_b3p4_a2.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p3_b3p4_a2.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -597,7 +603,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p3_b3p4_a3.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p3"));
 
             b3p3_b3p4_a3.gameObject.AddComponent<FaceSelector>();
-            b3p3_b3p4_a3.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            b3p3_b3p4_a3.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
             b3p3_b3p4_a3.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p3_b3p4_a3.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -607,7 +613,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p3_b3p4_a4.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p3"));
 
             b3p3_b3p4_a4.gameObject.AddComponent<FaceSelector>();
-            b3p3_b3p4_a4.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            b3p3_b3p4_a4.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.up;
             b3p3_b3p4_a4.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p3_b3p4_a4.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -661,7 +667,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p4_b3p5_a2.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p4"));
 
             b3p4_b3p5_a2.gameObject.AddComponent<FaceSelector>();
-            b3p4_b3p5_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.back;
+            b3p4_b3p5_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.up;
             b3p4_b3p5_a2.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p4_b3p5_a2.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -671,7 +677,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p4_b3p5_a3.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p4"));
 
             b3p4_b3p5_a3.gameObject.AddComponent<FaceSelector>();
-            b3p4_b3p5_a3.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            b3p4_b3p5_a3.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.back;
             b3p4_b3p5_a3.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p4_b3p5_a3.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -681,7 +687,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p4_b3p3_a1.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p4"));
 
             b3p4_b3p3_a1.gameObject.AddComponent<FaceSelector>();
-            b3p4_b3p3_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            b3p4_b3p3_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
             b3p4_b3p3_a1.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p4_b3p3_a1.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -691,7 +697,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p4_b3p3_a2.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p4"));
 
             b3p4_b3p3_a2.gameObject.AddComponent<FaceSelector>();
-            b3p4_b3p3_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            b3p4_b3p3_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
             b3p4_b3p3_a2.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p4_b3p3_a2.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -701,7 +707,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p4_b3p3_a3.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p4"));
 
             b3p4_b3p3_a3.gameObject.AddComponent<FaceSelector>();
-            b3p4_b3p3_a3.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            b3p4_b3p3_a3.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.forward;
             b3p4_b3p3_a3.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p4_b3p3_a3.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -711,7 +717,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p4_b3p3_a4.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p4"));
 
             b3p4_b3p3_a4.gameObject.AddComponent<FaceSelector>();
-            b3p4_b3p3_a4.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            b3p4_b3p3_a4.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
             b3p4_b3p3_a4.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p4_b3p3_a4.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -723,6 +729,100 @@ public class CreatePartB3_harder : MonoBehaviour
             if (dataManager != null)
             {
                 dataManager.AddPartSelected("b3p4");
+            }
+        }
+    }
+
+    public void createB3p5()
+    {
+        if (!partCreated[4])
+        {
+            clearPartsCreated();
+            Vector3 pos = offscreenCreateLoc; // this is where the object will appear when it's instantiated
+            Quaternion fuseToRotation = Quaternion.Euler(0, 90, 180);
+            GameObject newB3p5 = rotateGizmo.Enable(LoadUtils.InstantiateParenter((GameObject)Instantiate(parts[4], pos, fuseToRotation)));
+            StartCoroutine(moveToStartingPosition(newB3p5)); // this creates the zooming up from the ground effect
+
+            Transform b3p5_b3p4_a1 = newB3p5.transform.Find("b3p5_b3p4_a1");
+            Transform b3p5_b3p4_a2 = newB3p5.transform.Find("b3p5_b3p4_a2");
+            Transform b3p5_b3p4_a3 = newB3p5.transform.Find("b3p5_b3p4_a3");
+
+            FuseAttributes fuseAtts = b3p5Fuses();
+
+            //b3p5_b3p4_a1
+            b3p5_b3p4_a1.gameObject.AddComponent<FuseBehavior>();
+            b3p5_b3p4_a1.gameObject.GetComponent<FuseBehavior>().setFuseTo(fuseAtts);
+            b3p5_b3p4_a1.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p5"));
+
+            b3p5_b3p4_a1.gameObject.AddComponent<FaceSelector>();
+            b3p5_b3p4_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
+            b3p5_b3p4_a1.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
+            b3p5_b3p4_a1.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
+
+            //b3p5_b3p4_a2
+            b3p5_b3p4_a2.gameObject.AddComponent<FuseBehavior>();
+            b3p5_b3p4_a2.gameObject.GetComponent<FuseBehavior>().setFuseTo(fuseAtts);
+            b3p5_b3p4_a2.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p5"));
+
+            b3p5_b3p4_a2.gameObject.AddComponent<FaceSelector>();
+            b3p5_b3p4_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            b3p5_b3p4_a2.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
+            b3p5_b3p4_a2.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
+
+            //b3p5_b3p4_a3
+            b3p5_b3p4_a3.gameObject.AddComponent<FuseBehavior>();
+            b3p5_b3p4_a3.gameObject.GetComponent<FuseBehavior>().setFuseTo(fuseAtts);
+            b3p5_b3p4_a3.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p5"));
+
+            b3p5_b3p4_a3.gameObject.AddComponent<FaceSelector>();
+            b3p5_b3p4_a3.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.forward;
+            b3p5_b3p4_a3.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
+            b3p5_b3p4_a3.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
+
+            instantiated[4] = newB3p5;
+            partCreated[4] = true;
+            partButtons[4].interactable = false;
+
+            selectionManager.newPartCreated("b3p5_harderPrefab(Clone)");
+            if (dataManager != null)
+            {
+                dataManager.AddPartSelected("b3p5");
+            }
+        }
+    }
+
+    public void createBb3_harder_gray()
+    {
+        if (!partCreated[5])
+        {
+            clearPartsCreated();
+            Vector3 pos = offscreenCreateLoc; // this is where the object will appear when it's instantiated
+            Quaternion fuseToRotation = Quaternion.Euler(180, 90, 0);
+            GameObject newBb3_harder_gray = rotateGizmo.Enable(LoadUtils.InstantiateParenter((GameObject)Instantiate(parts[5], pos, fuseToRotation)));
+            StartCoroutine(moveToStartingPosition(newBb3_harder_gray)); // this creates the zooming up from the ground effect
+
+            Transform bb3_gray_bb3_a1 = newBb3_harder_gray.transform.Find("bb3_gray_bb3_a1");
+
+            FuseAttributes fuseAtts = bb3_harder_grayFuses();
+
+            //bb3_gray_bb3_a1
+            bb3_gray_bb3_a1.gameObject.AddComponent<FuseBehavior>();
+            bb3_gray_bb3_a1.gameObject.GetComponent<FuseBehavior>().setFuseTo(fuseAtts);
+            bb3_gray_bb3_a1.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3gray"));
+
+            bb3_gray_bb3_a1.gameObject.AddComponent<FaceSelector>();
+            bb3_gray_bb3_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            bb3_gray_bb3_a1.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
+            bb3_gray_bb3_a1.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
+
+            instantiated[5] = newBb3_harder_gray;
+            partCreated[5] = true;
+            partButtons[5].interactable = false;
+
+            selectionManager.newPartCreated("bb3_harder_grayPrefab(Clone)");
+            if (dataManager != null)
+            {
+                dataManager.AddPartSelected("bb3_harder_gray");
             }
         }
     }
