@@ -480,43 +480,47 @@ public class FuseEvent : MonoBehaviour {
             fuseMapping.Add("bb3_gray_bb3_a1", "bb3_bb3_gray_a1");
 
         }
-        else if (currentScene.Equals("b4"))
+        else if (currentScene.Equals("b4")) // for b4_harder
         {
-            //b4p1 to bb4
-            fuseMapping.Add("b4p1_bb4_a1", "bb4_b4p1_a1");
-            fuseMapping.Add("b4p1_bb4_a2", "bb4_b4p1_a2");
-
             //b4p1 to b4p2
             fuseMapping.Add("b4p1_b4p2_a1", "b4p2_b4p1_a1");
 
             //b4p1 to b4p3
             fuseMapping.Add("b4p1_b4p3_a1", "b4p3_b4p1_a1");
-            fuseMapping.Add("b4p1_b4p3_a2", "b4p3_b4p1_a2");
-
-            //b4p2 to bb4
-            fuseMapping.Add("b4p2_bb4_a1", "bb4_b4p2_a1");
-            fuseMapping.Add("b4p2_bb4_a2", "bb4_b4p2_a2");
 
             //b4p2 to b4p1
             fuseMapping.Add("b4p2_b4p1_a1", "b4p1_b4p2_a1");
 
-            //b4p2 to b4p3
-            fuseMapping.Add("b4p2_b4p3_a1", "b4p3_b4p2_a1");
-            fuseMapping.Add("b4p2_b4p3_a2", "b4p3_b4p2_a2");
+            //b4p2 to b4p4
+            fuseMapping.Add("b4p2_b4p4_a1", "b4p4_b4p2_a1");
 
             //b4p3 to bb4
             fuseMapping.Add("b4p3_bb4_a1", "bb4_b4p3_a1");
             fuseMapping.Add("b4p3_bb4_a2", "bb4_b4p3_a2");
-            fuseMapping.Add("b4p3_bb4_a3", "bb4_b4p3_a3");
 
             //b4p3 to b4p1
             fuseMapping.Add("b4p3_b4p1_a1", "b4p1_b4p3_a1");
-            fuseMapping.Add("b4p3_b4p1_a2", "b4p1_b4p3_a2");
 
-            //b4p3 to b4p2
-            fuseMapping.Add("b4p3_b4p2_a1", "b4p2_b4p3_a1");
-            fuseMapping.Add("b4p3_b4p2_a2", "b4p2_b4p3_a2");
+            //b4p3 to b4p4
+            fuseMapping.Add("b4p3_b4p4_a1", "b4p4_b4p3_a1");
+            fuseMapping.Add("b4p3_b4p4_a2", "b4p4_b4p3_a2");
 
+            //b4p4 to b4p2
+            fuseMapping.Add("b4p4_b4p2_a1", "b4p2_b4p4_a1");
+
+            //b4p4 to b4p3
+            fuseMapping.Add("b4p4_b4p3_a1", "b4p3_b4p4_a1");
+            fuseMapping.Add("b4p4_b4p3_a2", "b4p3_b4p4_a2");
+
+            //b4p4 to b4p5
+            fuseMapping.Add("b4p4_b4p5_a1", "b4p5_b4p4_a1");
+
+            //b4p5 to bb4
+            fuseMapping.Add("b4p5_bb4_a1", "bb4_b4p5_a1");
+            fuseMapping.Add("b4p5_bb4_a2", "bb4_b4p5_a2");
+
+            //b4p5 to b4p4
+            fuseMapping.Add("b4p5_b4p4_a1", "b4p4_b4p5_a1");
         }
         else if (currentScene.Equals("rocketBoots"))
         {

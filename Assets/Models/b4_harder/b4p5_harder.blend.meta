@@ -8,28 +8,58 @@ ModelImporter:
     100004: b3p5_bb3_a1
     100006: b3p5_bb3_a2
     100008: //RootNode
+    100010: b4p5
+    100012: b4p5_b4p4_a1
+    100014: b4p5_bb4_a1
+    100016: b4p5_bb4_a2
     400000: b3p5
     400002: b3p5_b3p4_a1
     400004: b3p5_bb3_a1
     400006: b3p5_bb3_a2
     400008: //RootNode
+    400010: b4p5
+    400012: b4p5_b4p4_a1
+    400014: b4p5_bb4_a1
+    400016: b4p5_bb4_a2
     2100000: black
     2100002: purple
     2300000: b3p5
     2300002: b3p5_b3p4_a1
     2300004: b3p5_bb3_a1
     2300006: b3p5_bb3_a2
+    2300008: b4p5
+    2300010: b4p5_b4p4_a1
+    2300012: b4p5_bb4_a1
+    2300014: b4p5_bb4_a2
     3300000: b3p5
     3300002: b3p5_b3p4_a1
     3300004: b3p5_bb3_a1
     3300006: b3p5_bb3_a2
+    3300008: b4p5
+    3300010: b4p5_b4p4_a1
+    3300012: b4p5_bb4_a1
+    3300014: b4p5_bb4_a2
     4300000: b3p5_b3p4_a1
     4300002: b3p5_bb3_a1
     4300004: b3p5_bb3_a2
     4300006: b3p5
+    4300008: b4p5_b4p4_a1
+    4300010: b4p5_bb4_a1
+    4300012: b4p5_bb4_a2
+    4300014: b4p5
     7400000: Default Take
     9500000: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: black
+    second: {fileID: 2100000, guid: 5f9ed160832fde842a816ff6b51340a9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: purple
+    second: {fileID: 2100000, guid: 2de69e919d170b74eba91db6c1dbb2cb, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

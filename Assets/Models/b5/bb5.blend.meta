@@ -55,7 +55,22 @@ ModelImporter:
     4300016: bb5_b5p3_a1
     7400000: Default Take
     9500000: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: black
+    second: {fileID: 2100000, guid: 5f9ed160832fde842a816ff6b51340a9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gray
+    second: {fileID: 2100000, guid: 1347ea8cd7954c743a6df63efe8ccccf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: orange
+    second: {fileID: 2100000, guid: 27f0a548ca0336d489020be4947b10e1, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
