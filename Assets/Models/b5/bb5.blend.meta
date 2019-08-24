@@ -70,7 +70,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: orange
-    second: {fileID: 2100000, guid: 27f0a548ca0336d489020be4947b10e1, type: 2}
+    second: {fileID: 2100000, guid: 866028bd201a9da4491e1e78e7995858, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

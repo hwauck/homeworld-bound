@@ -3649,8 +3649,8 @@ MonoBehaviour:
   - {fileID: 1759854782}
   - {fileID: 1354454465}
   - {fileID: 71396051}
-  - {fileID: 71396051}
-  - {fileID: 71396051}
+  - {fileID: 972902918}
+  - {fileID: 830822612}
   connectButton: {fileID: 1418366674}
   claimItem: {fileID: 13824565}
   shapesWrong: {fileID: 1972374894}
