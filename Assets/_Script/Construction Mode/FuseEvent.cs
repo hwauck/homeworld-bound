@@ -581,6 +581,100 @@ public class FuseEvent : MonoBehaviour {
             fuseMapping.Add("b5p5_b5p4_a1", "b5p4_b5p5_a1");
             fuseMapping.Add("b5p5_b5p4_a2", "b5p4_b5p5_a2");
 
+        }
+        else if (currentScene.Equals("b6"))
+        {
+            // b6p1 to b6p2
+            fuseMapping.Add("b6p1_b6p2_a1", "b6p2_b6p1_a1");
+
+            // b6p1 to b6p4
+            fuseMapping.Add("b6p1_b6p4_a1", "b6p4_b6p1_a1");
+            fuseMapping.Add("b6p1_b6p4_a2", "b6p4_b6p1_a2");
+            fuseMapping.Add("b6p1_b6p4_a3", "b6p4_b6p1_a3");
+            fuseMapping.Add("b6p1_b6p4_a4", "b6p4_b6p1_a4");
+
+            // b6p1 to b6p6
+            fuseMapping.Add("b6p1_b6p6_a1", "b6p6_b6p1_a1");
+
+            // b6p2 to b6p1
+            fuseMapping.Add("b6p2_b6p1_a1", "b6p1_b6p2_a1");
+
+            // b6p2 to b6p3
+            fuseMapping.Add("b6p2_b6p3_a1", "b6p3_b6p2_a1");
+            fuseMapping.Add("b6p2_b6p3_a2", "b6p3_b6p2_a2");
+            fuseMapping.Add("b6p2_b6p3_a3", "b6p3_b6p2_a3");
+            fuseMapping.Add("b6p2_b6p3_a4", "b6p3_b6p2_a4");
+
+            // b6p2 to b6p5
+            fuseMapping.Add("b6p2_b6p5_a1", "b6p5_b6p2_a1");
+
+            // b6p3 to b6p2
+            fuseMapping.Add("b6p3_b6p2_a1", "b6p2_b6p3_a1");
+            fuseMapping.Add("b6p3_b6p2_a2", "b6p2_b6p3_a2");
+            fuseMapping.Add("b6p3_b6p2_a3", "b6p2_b6p3_a3");
+            fuseMapping.Add("b6p3_b6p2_a4", "b6p2_b6p3_a4");
+
+            // b6p3 to b6p4
+            fuseMapping.Add("b6p3_b6p4_a1", "b6p4_b6p3_a1");
+
+            // b6p3 to b6p5
+            fuseMapping.Add("b6p3_b6p5_a1", "b6p5_b6p3_a1");
+            fuseMapping.Add("b6p3_b6p5_a2", "b6p5_b6p3_a2");
+            fuseMapping.Add("b6p3_b6p5_a3", "b6p5_b6p3_a3");
+            fuseMapping.Add("b6p3_b6p5_a4", "b6p5_b6p3_a4");
+            fuseMapping.Add("b6p3_b6p5_a5", "b6p5_b6p3_a5");
+
+            // b6p4 to b6p1
+            fuseMapping.Add("b6p4_b6p1_a1", "b6p1_b6p4_a1");
+            fuseMapping.Add("b6p4_b6p1_a2", "b6p1_b6p4_a2");
+            fuseMapping.Add("b6p4_b6p1_a3", "b6p1_b6p4_a3");
+            fuseMapping.Add("b6p4_b6p1_a4", "b6p1_b6p4_a4");
+
+            // b6p4 to b6p3
+            fuseMapping.Add("b6p4_b6p3_a1", "b6p3_b6p4_a1");
+
+            // b6p4 to b6p6
+            fuseMapping.Add("b6p4_b6p6_a1", "b6p6_b6p4_a1");
+            fuseMapping.Add("b6p4_b6p6_a2", "b6p6_b6p4_a2");
+            fuseMapping.Add("b6p4_b6p6_a3", "b6p6_b6p4_a3");
+            fuseMapping.Add("b6p4_b6p6_a4", "b6p6_b6p4_a4");
+            fuseMapping.Add("b6p4_b6p6_a5", "b6p6_b6p4_a5");
+
+            // b6p5 to b6p2
+            fuseMapping.Add("b6p5_b6p2_a1", "b6p2_b6p5_a1");
+
+            // b6p5 to b6p3
+            fuseMapping.Add("b6p5_b6p3_a1", "b6p3_b6p5_a1");
+            fuseMapping.Add("b6p5_b6p3_a2", "b6p3_b6p5_a2");
+            fuseMapping.Add("b6p5_b6p3_a3", "b6p3_b6p5_a3");
+            fuseMapping.Add("b6p5_b6p3_a4", "b6p3_b6p5_a4");
+            fuseMapping.Add("b6p5_b6p3_a5", "b6p3_b6p5_a5");
+
+            // b6p5 to b6p6
+            fuseMapping.Add("b6p5_b6p6_a1", "b6p6_b6p5_a1");
+            fuseMapping.Add("b6p5_b6p6_a2", "b6p6_b6p5_a2");
+
+            // b6p5 to bb6
+            fuseMapping.Add("b6p5_bb6_a1", "bb6_b6p5_a1");
+            fuseMapping.Add("b6p5_bb6_a2", "bb6_b6p5_a2");
+
+            // b6p6 to b6p1
+            fuseMapping.Add("b6p6_b6p1_a1", "b6p1_b6p6_a1");
+
+            // b6p6 to b6p4
+            fuseMapping.Add("b6p6_b6p4_a1", "b6p4_b6p6_a1");
+            fuseMapping.Add("b6p6_b6p4_a2", "b6p4_b6p6_a2");
+            fuseMapping.Add("b6p6_b6p4_a3", "b6p4_b6p6_a3");
+            fuseMapping.Add("b6p6_b6p4_a4", "b6p4_b6p6_a4");
+            fuseMapping.Add("b6p6_b6p4_a5", "b6p4_b6p6_a5");
+
+            // b6p6 to b6p5
+            fuseMapping.Add("b6p6_b6p5_a1", "b6p5_b6p6_a1");
+            fuseMapping.Add("b6p6_b6p5_a2", "b6p5_b6p6_a2");
+
+            // b6p6 to bb6
+            fuseMapping.Add("b6p6_bb6_a1", "bb6_b6p6_a1");
+            fuseMapping.Add("b6p6_bb6_a2", "bb6_b6p6_a2");
 
         }
         else if (currentScene.Equals("key1"))

@@ -68,6 +68,12 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
             + (Quaternion.Euler(currentlySelectedFuseTo.transform.eulerAngles)
             * (currentlySelectedFuseTo.transform.parent.localScale.x
             * (currentlySelectedFuseTo.GetComponent<BoxCollider>().center)));
+
+        Debug.Log("properFuseToPos = currentlySelectedFuseTo position(" + currentlySelectedFuseTo.transform.position + ") + (Quaternion.Euler(currentlySelectedFuseTo eulerAngles) ("
+            + Quaternion.Euler(currentlySelectedFuseTo.transform.eulerAngles) + ") * currentlySelectedFuseTo.transform.parent.localScale.x ("
+            + currentlySelectedFuseTo.transform.parent.localScale.x + ") * currentlySelectedFuseTo.GetComponent<BoxCollider>().center ("
+            + currentlySelectedFuseTo.GetComponent<BoxCollider>().center + "))");
+
         // The actual offset of the object face from the object parent... Also wow.
         Vector3 properOffset = Quaternion.Euler(this.gameObject.transform.parent.localEulerAngles)
             * (this.gameObject.transform.parent.localScale.x
@@ -80,8 +86,8 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
 
        // Vector3 targetPosition = properFuseToPos - properOffset + (OFFSET * selectPart.getFuseToNormal());
         Vector3 targetPosition = properFuseToPos + (OFFSET * selectPart.getFuseToNormal());
-        //Debug.Log("properFuseToPos: " + properFuseToPos + ", OFFSET: " + OFFSET + ", fuseToNormal: " + selectPart.getFuseToNormal());
-        //Debug.Log("targetPosition: " + targetPosition);
+        Debug.Log("properFuseToPos: " + properFuseToPos + ", OFFSET: " + OFFSET + ", fuseToNormal: " + selectPart.getFuseToNormal());
+        Debug.Log("targetPosition: " + targetPosition);
 
         //Set currently active coroutine variable so FuseEvent can check it and stop it if it needs to perform a fuse
         currentlyActiveCoroutine = StartCoroutine(SweepPosition(this.gameObject.transform.parent.gameObject, targetPosition, 10));
@@ -243,25 +249,25 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
                 }
 
                 // The actual location of the selected fuse marker... Wow.
-                Vector3 properFuseToPos = currentlySelectedFuseTo.transform.position
-                    + (Quaternion.Euler(currentlySelectedFuseTo.transform.eulerAngles)
-                    * (currentlySelectedFuseTo.transform.parent.localScale.x
-                    * (currentlySelectedFuseTo.GetComponent<BoxCollider>().center)));
+                //Vector3 properFuseToPos = currentlySelectedFuseTo.transform.position
+                //    + (Quaternion.Euler(currentlySelectedFuseTo.transform.eulerAngles)
+                //    * (currentlySelectedFuseTo.transform.parent.localScale.x
+                //    * (currentlySelectedFuseTo.GetComponent<BoxCollider>().center)));
                 // The actual offset of the object face from the object parent... Also wow.
-                Vector3 properOffset = Quaternion.Euler(this.gameObject.transform.parent.localEulerAngles)
-                    * (currentlySelectedObject.transform.parent.localScale.x
-                    * (currentlySelectedObject.transform.localPosition
-                    + Quaternion.Euler(this.gameObject.transform.localEulerAngles)
-                    * (currentlySelectedObject.GetComponent<BoxCollider>().center)));
+                //Vector3 properOffset = Quaternion.Euler(this.gameObject.transform.parent.localEulerAngles)
+                //    * (currentlySelectedObject.transform.parent.localScale.x
+                //    * (currentlySelectedObject.transform.localPosition
+                //    + Quaternion.Euler(this.gameObject.transform.localEulerAngles)
+                 //   * (currentlySelectedObject.GetComponent<BoxCollider>().center)));
 
                 //Debug.DrawLine(selectedObject.transform.parent.position, selectedObject.transform.parent.position + properOffset, Color.red, 25f, false);
                 //Debug.DrawLine(selectedFuseTo.transform.parent.position, properFuseToPos, Color.red, 25f, false);
 
                 //Vector3 targetPosition = properFuseToPos + (OFFSET * selectPart.getFuseToNormal());
-                Vector3 targetPosition = properFuseToPos - properOffset + (OFFSET * selectPart.getFuseToNormal());
+                //Vector3 targetPosition = properFuseToPos - properOffset + (OFFSET * selectPart.getFuseToNormal());
 
                 //Set currently active coroutine variable so FuseEvent can check it and stop it if it needs to perform a fuse
-                currentlyActiveCoroutine = StartCoroutine(SweepPosition(currentlySelectedObject.transform.parent.gameObject, targetPosition, 10));
+                //currentlyActiveCoroutine = StartCoroutine(SweepPosition(currentlySelectedObject.transform.parent.gameObject, targetPosition, 10));
 
             }
         }

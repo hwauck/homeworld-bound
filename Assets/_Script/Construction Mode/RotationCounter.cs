@@ -106,7 +106,7 @@ public class RotationCounter : MonoBehaviour {
 
         while (Vector3.Distance(rrRect.anchoredPosition, endPosition) > 2)
         {
-            Debug.Log(rrRect.anchoredPosition);
+            //Debug.Log(rrRect.anchoredPosition);
             rrRect.anchoredPosition = Vector3.Lerp(startPosition, endPosition, currentLerpTime / lerpTime);
             currentLerpTime += Time.deltaTime;
             yield return new WaitForFixedUpdate();

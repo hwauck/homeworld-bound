@@ -301,7 +301,7 @@ public class SelectPart : MonoBehaviour {
         //print("Currently Selected FuseTo: " + selectedFuseTo);
 
         FaceSelector currentFaceSelector = selectedObject.GetComponent<FaceSelector>();
-        currentFaceSelector.adjustPartAlignment();
+        //currentFaceSelector.adjustPartAlignment();
 
         //! CODE FOR ADDING MARKER TO SELECTED PART. selectedFuseTo
         if (selectedObject.GetComponent<SelectedEffect>() == null)

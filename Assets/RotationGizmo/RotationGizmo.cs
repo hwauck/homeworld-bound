@@ -181,7 +181,7 @@ public class RotationGizmo : MonoBehaviour
         if(selectPart.getSelectedObject() != null && selectPart.getSelectedFuseTo() != null)
         {
             //Debug.Log("toRotate object: " + toRotate);
-            selectPart.getSelectedObject().GetComponent<FaceSelector>().adjustPartAlignment();
+            //selectPart.getSelectedObject().GetComponent<FaceSelector>().adjustPartAlignment();
 
             //rotation is done - renable fuse button
             fuseButton.interactable = true;
@@ -228,13 +228,14 @@ public class RotationGizmo : MonoBehaviour
 
     public void Disable()
 	{
-		toRotate = null;
+        Debug.Log("Disabled the rotation gizmo.");
+        toRotate = null;
 		transform.position = new Vector3(-1000f, -1000f, -1000f);
 	}
 
 	public GameObject Enable(GameObject objectToRotate)
 	{
-		//Debug.Log("Enabled the rotation gizmo.");
+		Debug.Log("Enabled the rotation gizmo.");
 		toRotate = objectToRotate;
 		transform.position = toRotate.transform.position;
 		return objectToRotate;
