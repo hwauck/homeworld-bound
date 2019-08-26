@@ -677,6 +677,99 @@ public class FuseEvent : MonoBehaviour {
             fuseMapping.Add("b6p6_bb6_a2", "bb6_b6p6_a2");
 
         }
+        else if (currentScene.Equals("b7"))
+        {
+            // b7p1 to bb7
+            fuseMapping.Add("b7p1_bb7_a1", "bb7_b7p1_a1");
+            fuseMapping.Add("b7p1_bb7_a2", "bb7_b7p1_a2");
+            fuseMapping.Add("b7p1_bb7_a3", "bb7_b7p1_a3");
+            fuseMapping.Add("b7p1_bb7_a4", "bb7_b7p1_a4");
+
+            // b7p1 to b7p2
+            fuseMapping.Add("b7p1_b7p2_a1", "b7p2_b7p1_a1");
+            fuseMapping.Add("b7p1_b7p2_a2", "b7p2_b7p1_a2");
+
+            // b7p1 to b7p3
+            fuseMapping.Add("b7p1_b7p3_a1", "b7p3_b7p1_a1");
+
+            // b7p1 to b7p4
+            fuseMapping.Add("b7p1_b7p4_a1", "b7p4_b7p1_a1");
+
+            // b7p1 to b7p5
+            fuseMapping.Add("b7p1_b7p5_a1", "b7p5_b7p1_a1");
+
+            // b7p1 to b7p6
+            fuseMapping.Add("b7p1_b7p6_a1", "b7p6_b7p1_a1");
+
+            // b7p2 to bb7
+            fuseMapping.Add("b7p2_bb7_a1", "bb7_b7p2_a1");
+            fuseMapping.Add("b7p2_bb7_a2", "bb7_b7p2_a2");
+            fuseMapping.Add("b7p2_bb7_a3", "bb7_b7p2_a3");
+
+            // b7p2 to b7p1
+            fuseMapping.Add("b7p2_b7p1_a1", "b7p1_b7p2_a1");
+            fuseMapping.Add("b7p2_b7p1_a2", "b7p1_b7p2_a2");
+
+            // b7p2 to b7p4
+            fuseMapping.Add("b7p2_b7p4_a1", "b7p4_b7p2_a1");
+
+            // b7p2 to b7p6
+            fuseMapping.Add("b7p2_b7p6_a1", "b7p6_b7p2_a1");
+
+            // b7p3 to bb7
+            fuseMapping.Add("b7p3_bb7_a1", "bb7_b7p3_a1");
+            fuseMapping.Add("b7p3_bb7_a2", "bb7_b7p3_a2");
+
+            // b7p3 to b7p1
+            fuseMapping.Add("b7p3_b7p1_a1", "b7p1_b7p3_a1");
+
+            // b7p3 to b7p4
+            fuseMapping.Add("b7p3_b7p4_a1", "b7p4_b7p3_a1");
+
+            // b7p4 to bb7
+            fuseMapping.Add("b7p4_bb7_a1", "bb7_b7p4_a1");
+
+            // b7p4 to b7p1
+            fuseMapping.Add("b7p4_b7p1_a1", "b7p1_b7p4_a1");
+            fuseMapping.Add("b7p4_b7p1_a2", "b7p1_b7p4_a2");
+
+            // b7p4 to b7p2
+            fuseMapping.Add("b7p4_b7p2_a1", "b7p2_b7p4_a1");
+
+            // b7p4 to b7p3
+            fuseMapping.Add("b7p4_b7p3_a1", "b7p3_b7p4_a1");
+
+            // b7p4 to b7p5
+            fuseMapping.Add("b7p4_b7p5_a1", "b7p5_b7p4_a1");
+
+            // b7p4 to b7p6
+            fuseMapping.Add("b7p4_b7p6_a1", "b7p6_b7p4_a1");
+
+            // b7p5 to bb7
+            fuseMapping.Add("b7p5_bb7_a1", "bb7_b7p5_a1");
+
+            // b7p5 to b7p1
+            fuseMapping.Add("b7p5_b7p1_a1", "b7p1_b7p5_a1");
+
+            // b7p5 to b7p4
+            fuseMapping.Add("b7p5_b7p4_a1", "b7p4_b7p5_a1");
+
+            // b7p5 to b7p6
+            fuseMapping.Add("b7p5_b7p6_a1", "b7p6_b7p5_a1");
+
+            // b7p6 to b7p1
+            fuseMapping.Add("b7p6_b7p1_a1", "b7p1_b7p6_a1");
+
+            // b7p6 to b7p2
+            fuseMapping.Add("b7p6_b7p2_a1", "b7p2_b7p6_a1");
+
+            // b7p6 to b7p4
+            fuseMapping.Add("b7p6_b7p4_a1", "b7p4_b7p6_a1");
+
+            // b7p6 to b7p5
+            fuseMapping.Add("b7p6_b7p5_a1", "b7p5_b7p6_a1");
+
+        }
         else if (currentScene.Equals("key1"))
         {
             /*	HashSet<string> ULDTSet = new HashSet<string>();

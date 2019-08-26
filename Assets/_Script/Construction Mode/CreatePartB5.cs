@@ -39,8 +39,8 @@ public class CreatePartB5 : MonoBehaviour
         {
             instantiated[i] = null;
         }
-        createLoc = new Vector3(-40, 25, 100);
-        offscreenCreateLoc = new Vector3(-40, -60, 100);
+        createLoc = new Vector3(-60, 30, 100);
+        offscreenCreateLoc = new Vector3(-60, -60, 100);
         selectionManager = eventSystem.GetComponent<SelectPart>();
         startObject = GameObject.Find("bb5Start");
 
