@@ -7,29 +7,50 @@ ModelImporter:
     100002: b8p5
     100004: b8p5_b8p1_a1
     100006: b8p5_b8p1_a2
-    100008: b8p5_bb8_a1
+    100008: b8p5_b8p1_a3
+    100010: b8p5_b8p1_a4
+    100012: b8p5_bb8_a1
     400000: //RootNode
     400002: b8p5
     400004: b8p5_b8p1_a1
     400006: b8p5_b8p1_a2
-    400008: b8p5_bb8_a1
+    400008: b8p5_b8p1_a3
+    400010: b8p5_b8p1_a4
+    400012: b8p5_bb8_a1
     2100000: black
     2100002: orange
     2300000: b8p5
     2300002: b8p5_b8p1_a1
     2300004: b8p5_b8p1_a2
-    2300006: b8p5_bb8_a1
+    2300006: b8p5_b8p1_a3
+    2300008: b8p5_b8p1_a4
+    2300010: b8p5_bb8_a1
     3300000: b8p5
     3300002: b8p5_b8p1_a1
     3300004: b8p5_b8p1_a2
-    3300006: b8p5_bb8_a1
-    4300000: b8p5_bb8_a1
-    4300002: b8p5_b8p1_a2
-    4300004: b8p5_b8p1_a1
-    4300006: b8p5
+    3300006: b8p5_b8p1_a3
+    3300008: b8p5_b8p1_a4
+    3300010: b8p5_bb8_a1
+    4300000: b8p5_b8p1_a4
+    4300002: b8p5_b8p1_a1
+    4300004: b8p5_b8p1_a3
+    4300006: b8p5_b8p1_a2
+    4300008: b8p5_bb8_a1
+    4300010: b8p5
     7400000: Default Take
     9500000: //RootNode
-  externalObjects: {}
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: black
+    second: {fileID: 2100000, guid: 5f9ed160832fde842a816ff6b51340a9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: orange
+    second: {fileID: 2100000, guid: 866028bd201a9da4491e1e78e7995858, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

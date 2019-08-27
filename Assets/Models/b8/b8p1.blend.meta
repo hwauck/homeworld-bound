@@ -11,7 +11,8 @@ ModelImporter:
     100010: b8p1_b8p2_a4
     100012: b8p1_b8p5_a1
     100014: b8p1_b8p5_a2
-    100016: b8p1_bb8_a1
+    100016: b8p1_b8p5_a3
+    100018: b8p1_bb8_a1
     400000: //RootNode
     400002: b8p1
     400004: b8p1_b8p2_a1
@@ -20,7 +21,8 @@ ModelImporter:
     400010: b8p1_b8p2_a4
     400012: b8p1_b8p5_a1
     400014: b8p1_b8p5_a2
-    400016: b8p1_bb8_a1
+    400016: b8p1_b8p5_a3
+    400018: b8p1_bb8_a1
     2100000: black
     2100002: orange
     2100004: gray
@@ -31,7 +33,8 @@ ModelImporter:
     2300008: b8p1_b8p2_a4
     2300010: b8p1_b8p5_a1
     2300012: b8p1_b8p5_a2
-    2300014: b8p1_bb8_a1
+    2300014: b8p1_b8p5_a3
+    2300016: b8p1_bb8_a1
     3300000: b8p1
     3300002: b8p1_b8p2_a1
     3300004: b8p1_b8p2_a2
@@ -39,18 +42,35 @@ ModelImporter:
     3300008: b8p1_b8p2_a4
     3300010: b8p1_b8p5_a1
     3300012: b8p1_b8p5_a2
-    3300014: b8p1_bb8_a1
-    4300000: b8p1_b8p5_a2
+    3300014: b8p1_b8p5_a3
+    3300016: b8p1_bb8_a1
+    4300000: b8p1_b8p5_a3
     4300002: b8p1_b8p5_a1
-    4300004: b8p1_bb8_a1
-    4300006: b8p1_b8p2_a2
-    4300008: b8p1_b8p2_a3
-    4300010: b8p1_b8p2_a1
-    4300012: b8p1_b8p2_a4
-    4300014: b8p1
+    4300004: b8p1_b8p5_a2
+    4300006: b8p1_bb8_a1
+    4300008: b8p1_b8p2_a2
+    4300010: b8p1_b8p2_a3
+    4300012: b8p1_b8p2_a1
+    4300014: b8p1_b8p2_a4
+    4300016: b8p1
     7400000: Default Take
     9500000: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: black
+    second: {fileID: 2100000, guid: 5f9ed160832fde842a816ff6b51340a9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gray
+    second: {fileID: 2100000, guid: 1347ea8cd7954c743a6df63efe8ccccf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: orange
+    second: {fileID: 2100000, guid: 866028bd201a9da4491e1e78e7995858, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

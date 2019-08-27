@@ -561,7 +561,7 @@ public class CreatePartB7 : MonoBehaviour
             b7p2_b7p6_a1.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B7p2"));
 
             b7p2_b7p6_a1.gameObject.AddComponent<FaceSelector>();
-            b7p2_b7p6_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.forward;
+            b7p2_b7p6_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.up;
             b7p2_b7p6_a1.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b7p2_b7p6_a1.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
