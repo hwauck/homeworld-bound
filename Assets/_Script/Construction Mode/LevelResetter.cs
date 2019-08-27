@@ -434,6 +434,18 @@ public class LevelResetter : MonoBehaviour {
             case "rocketBoots":
                 eventSystem.GetComponent<CreatePartRB>().destroyAllCreatedParts();
                 break;
+            case "b5":
+                eventSystem.GetComponent<CreatePartB5>().destroyAllCreatedParts();
+                break;
+            case "b6":
+                eventSystem.GetComponent<CreatePartB6>().destroyAllCreatedParts();
+                break;
+            case "b7":
+                eventSystem.GetComponent<CreatePartB7>().destroyAllCreatedParts();
+                break;
+            case "b8":
+                eventSystem.GetComponent<CreatePartB8>().destroyAllCreatedParts();
+                break;
             case "sledgehammer":
                 eventSystem.GetComponent<CreatePartSledge>().destroyAllCreatedParts();
                 break;

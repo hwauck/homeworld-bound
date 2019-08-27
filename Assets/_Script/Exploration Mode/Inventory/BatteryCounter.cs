@@ -43,19 +43,40 @@ public class BatteryCounter : MonoBehaviour {
         }
         else if (!ConversationTrigger.GetToken("finished_b2"))
         {
-            partsNeeded = 3;
+            partsNeeded = 4;
             batteriesNeeded = 4;
         }
         else if (!ConversationTrigger.GetToken("finished_b3"))
         {
-            partsNeeded = 3;
+            partsNeeded = 7;
             batteriesNeeded = 4;
         }
         else if (!ConversationTrigger.GetToken("finished_b4"))
         {
-            partsNeeded = 4;
+            partsNeeded = 6;
             batteriesNeeded = 4;
-        } else
+        }
+        else if (!ConversationTrigger.GetToken("finished_b5"))
+        {
+            partsNeeded = 5;
+            batteriesNeeded = 4;
+        }
+        else if (!ConversationTrigger.GetToken("finished_b6"))
+        {
+            partsNeeded = 7;
+            batteriesNeeded = 4;
+        }
+        else if (!ConversationTrigger.GetToken("finished_b7"))
+        {
+            partsNeeded = 7;
+            batteriesNeeded = 4;
+        }
+        else if (!ConversationTrigger.GetToken("finished_b8"))
+        {
+            partsNeeded = 7;
+            batteriesNeeded = 4;
+        }
+        else
         {
             partsNeeded = 0;
             batteriesNeeded = 0;

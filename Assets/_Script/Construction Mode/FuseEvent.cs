@@ -784,6 +784,7 @@ public class FuseEvent : MonoBehaviour {
             // b8p1 to b8p5
             fuseMapping.Add("b8p1_b8p5_a1", "b8p5_b8p1_a1");
             fuseMapping.Add("b8p1_b8p5_a2", "b8p5_b8p1_a2");
+            fuseMapping.Add("b8p1_b8p5_a3", "b8p5_b8p1_a3");
 
             // b8p2 to bb8
             fuseMapping.Add("b8p2_bb8_a1", "bb8_b8p2_a1");
@@ -820,10 +821,11 @@ public class FuseEvent : MonoBehaviour {
 
             // b8p5 to bb8
             fuseMapping.Add("b8p5_bb8_a1", "bb8_b8p5_a1");
-            fuseMapping.Add("b8p5_b8p1_a2", "bb8_b8p5_a1");
 
             // b8p5 to b8p1
             fuseMapping.Add("b8p5_b8p1_a1", "b8p1_b8p5_a1");
+            fuseMapping.Add("b8p5_b8p1_a2", "b8p1_b8p5_a2");
+            fuseMapping.Add("b8p5_b8p1_a3", "b8p1_b8p5_a3");
 
             // b8p6 to b8p4
             fuseMapping.Add("b8p6_b8p4_a1", "b8p4_b8p6_a1");
