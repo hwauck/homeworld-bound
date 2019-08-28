@@ -23,6 +23,9 @@ TagManager:
   - rocketBoots
   - sledgehammer
   - DataCollector
+  - b5
+  - b7
+  - b6
   layers:
   - Default
   - TransparentFX
