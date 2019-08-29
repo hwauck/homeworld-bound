@@ -26,6 +26,7 @@ TagManager:
   - b5
   - b7
   - b6
+  - b8
   layers:
   - Default
   - TransparentFX
