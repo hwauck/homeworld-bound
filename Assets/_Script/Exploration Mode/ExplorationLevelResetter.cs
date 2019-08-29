@@ -27,8 +27,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     public CanvasGroup countdownPanel;
     public Text countdownText;
     public Text rechargingText;
-    public Text demoFinishedText;
-    public Text demoFinishedAltText;
+    public Text gameFinishedText;
     public Map map;
     public GameObject controlsMenu;
 
@@ -38,6 +37,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     private AudioClip rechargingSound;
     private AudioClip powerUpSound;
     private AudioClip welcomeSound;
+    private Sprite highlandsMap;
 
     public RigidbodyFirstPersonController controller;
     public PartCounter itemPartCounter;
@@ -55,6 +55,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
     private string whatToBuild;
 
     public GameObject[] rocketBootParts;
+    public GameObject[] sledgehammerParts;
+    private GameObject[] sledgeBatteryParts;
 
     public UnityEvent gameQuit;
 
@@ -94,6 +96,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         rechargingSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-03");
         powerUpSound = Resources.Load<AudioClip>("Audio/BothModes/Slider3");
         welcomeSound = Resources.Load<AudioClip>("Audio/BothModes/welcome");
+        highlandsMap = Resources.Load<Sprite>("Clues/HighlandsMap");
 
         // save original values of all player control variables in RigidBodyFirstPersonController
         forwardSpeed = controller.movementSettings.ForwardSpeed;
@@ -102,6 +105,12 @@ public class ExplorationLevelResetter : MonoBehaviour {
         jumpForce = controller.movementSettings.JumpForce;
         XRotSensitivity = controller.mouseLook.XSensitivity;
         YRotSensitivity = controller.mouseLook.YSensitivity;
+
+        sledgeBatteryParts = GameObject.FindGameObjectsWithTag("sledgehammer_battery");
+        for (int i = 0; i < sledgeBatteryParts.Length; i++)
+        {
+            sledgeBatteryParts[i].SetActive(false);
+        }
 
         numBatteriesBuilt = 0;
     }
@@ -131,12 +140,23 @@ public class ExplorationLevelResetter : MonoBehaviour {
             screenFader.fadeIn(1f);
 
             map.doIntroMap(); // when this is done, it triggers startCountdown() and beginning of timed level
-        } else if (ConversationTrigger.GetToken("finished_RB"))
+        } else if (ConversationTrigger.GetToken("finished_b8") && !ConversationTrigger.GetToken("finished_sledgehammer"))
         {
-            musicSource.Play();
+            disablePlayerControl();
+            expDataManager.setPauseGameplay(true);
+            map.GetComponent<Image>().sprite = highlandsMap;
+
+            //reveal all sledgehammer parts so player can collect them
+            //Debug.Log("Activating Sledgehammer parts!");
+            for (int i = 0; i < sledgehammerParts.Length; i++)
+            {
+                //Debug.Log("Activating part " + i + ": " + sledgehammerParts[i]);
+                sledgehammerParts[i].SetActive(true);
+            }
+
             screenFader.fadeIn(1f);
-            enablePlayerControl();
-            expDataManager.setPauseGameplay(false);
+
+            map.doIntroMap(); // when this is done, it triggers startCountdown() and beginning of timed level
         }
         else
         {
@@ -154,23 +174,24 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
     }
 
-    // this function is called when SceneTimer's Entered Highlands event is invoked
-    public void demoFinished()
+    // this function is called when the player finishes all game content (TBD)
+    public void gameFinished()
     {
-        doFadeToDemoFinished(3f, false);
+        doFadeToGameFinished(2f, false);
     }
 
-    // when player reaches highlands level with rocket boots, fade out to DEMO FINISHED words
-    public void doFadeToDemoFinished(float seconds, bool playerInitiated)
+    // old code used to end demo session
+    public void doFadeToGameFinished(float seconds, bool playerInitiated)
     {
         // if the player quits right after achieving victory in a level but before the next level/attempt loads,
         // the outcome should remain victory rather than being replaced by "quit"
-        if (playerInitiated && !expDataManager.GetCurrAttempt().outcome.Equals("victory")) 
+        if (playerInitiated && !expDataManager.GetCurrAttempt().outcome.Equals("victory"))
         {
             expDataManager.setOutcome("quit");
-        } else if (!playerInitiated)
+        }
+        else if (!playerInitiated)
         {
-            expDataManager.setOutcome("finishedDemo");
+            expDataManager.setOutcome("finishedGame");
         }
 
 
@@ -190,21 +211,22 @@ public class ExplorationLevelResetter : MonoBehaviour {
         screenFader.fadeOut(seconds);
         yield return new WaitForSeconds(seconds);
 
-        if(playerInitiated)
+        // TODO: add a confirmation for quitting - "Are you sure you want to quit? All in-game progress will be lost."
+        if (playerInitiated)
         {
-            demoFinishedAltText.enabled = true;
-            yield return new WaitForSeconds(3f);
             gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
-            // load next page, however that's done
-            //Hello();
+            yield return new WaitForSeconds(2f);
+            gameFinishedText.enabled = true;
+            // gameQuit.Invoke() triggers DataAggregator's saveAndSendToServer() method
+            
 
-        } else
+        }
+        else
         {
-
-            demoFinishedAltText.enabled = true;
-            yield return new WaitForSeconds(3f);
             gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
-            // load next page, however that's done
+            yield return new WaitForSeconds(2f);
+            gameFinishedText.enabled = true;
+            // gameQuit.Invoke() triggers DataAggregator's saveAndSendToServer() method
         }
     }
 
@@ -546,10 +568,20 @@ public class ExplorationLevelResetter : MonoBehaviour {
             rechargingText.text = "Recharging   ";
         }
         rechargingText.enabled = false;
-        for(int i = 0; i < rocketBootParts.Length; i++)
+        if(!ConversationTrigger.GetToken("finished_RB"))
         {
-            rocketBootParts[i].SetActive(true);
+            for (int i = 0; i < rocketBootParts.Length; i++)
+            {
+                rocketBootParts[i].SetActive(true);
+            }
+        } else if (!ConversationTrigger.GetToken("finished_sledgehammer"))
+        {
+            for (int i = 0; i < sledgehammerParts.Length; i++)
+            {
+                sledgehammerParts[i].SetActive(true);
+            }
         }
+  
         timer.gameObject.GetComponent<CanvasGroup>().alpha = 0;
         timer.resetTimer();
         screenFader.fadeIn(3f);
@@ -640,10 +672,11 @@ public class ExplorationLevelResetter : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        // player presses P key, game ends and player sees demo finished screen, goes to post-game survey
+        // player presses P key, game ends
+        // add confirmation dialogue -are you sure? You will lose any progress you've made in the game
         if(Input.GetKeyDown(KeyCode.P))
         {
-            doFadeToDemoFinished(3f, true);
+            doFadeToGameFinished(2f, true);
             
         }
 

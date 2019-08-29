@@ -63,9 +63,7 @@ public class LevelResetter : MonoBehaviour {
     // variables for transition to timed Exploration Mode levels
     public Image fadeOutScreen;
     public Image map;
-    public Text howToQuitText;
-    public Text howToQuitLLText;
-    public Text demoFinishedText;
+    public Text gameFinishedText;
     public FadeScreen screenFader;
     private AudioClip fullyChargedSound;
     private AudioClip logMessageSound;
@@ -160,10 +158,8 @@ public class LevelResetter : MonoBehaviour {
             dataManager.setPauseGameplay(true);
         }
         screenFader.fadeOut(1f);
-        howToQuitText.enabled = false;
         yield return new WaitForSeconds(1f);
 
-        howToQuitLLText.enabled = true;
         rechargingText.enabled = true;
         rechargingText.text = "Fuser is now fully charged!";
         audioSource.PlayOneShot(fullyChargedSound);
@@ -680,7 +676,6 @@ public class LevelResetter : MonoBehaviour {
             map.gameObject.SetActive(false);
         }
 
-        howToQuitText.enabled = false;
         StartCoroutine(fadeToDemoFinished(seconds));
     }
 
@@ -689,8 +684,7 @@ public class LevelResetter : MonoBehaviour {
         screenFader.fadeOut(seconds);
         yield return new WaitForSeconds(seconds);
 
-        demoFinishedText.enabled = true;
-        yield return new WaitForSeconds(3f);
+        gameFinishedText.enabled = true;
         gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
                            // might need to tell new tutorial level coroutines to stop too
         // DataAggregator is listening for gameQuit event, triggers sendDataToDB method
@@ -700,9 +694,10 @@ public class LevelResetter : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
+        // TODO: Better yet, add confirmation here
         if (Input.GetKeyUp(KeyCode.P))
         {
-            doFadeToDemoFinished(3f);
+            doFadeToDemoFinished(2f);
             disablePlayerControls();
         }
         //Debug.Log("startBeginningConvo is already here? " + ConversationTrigger.GetToken("startBeginningConvo"));

@@ -97,6 +97,7 @@ public class DataAggregator : MonoBehaviour {
 	}
 
     // called when P is pressed during Exploration or Construction Mode via events
+    // TODO: uncomment when ready for testing on server
     public void saveAndSendToServer()
     {
         //string allData = "BEGIN_HB_PLAYERDATA,";

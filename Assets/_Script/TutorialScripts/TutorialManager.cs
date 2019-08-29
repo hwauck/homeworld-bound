@@ -38,9 +38,8 @@ public class TutorialManager : MonoBehaviour
     private float canvasWidth;
     private float canvasHeight;
 
-    public Text demoFinishedText;
+    public Text gameFinishedText;
     public FadeScreen screenFader;
-    public Text howToQuitText;
     public CanvasGroup bottomPanel;
 
     public UnityEvent gameQuit;
@@ -108,7 +107,6 @@ public class TutorialManager : MonoBehaviour
         bottomPanel.blocksRaycasts = false;
         StopAllCoroutines();
 
-        howToQuitText.enabled = false;
         StartCoroutine(fadeToDemoFinished(seconds));
     }
 
@@ -117,8 +115,8 @@ public class TutorialManager : MonoBehaviour
         screenFader.fadeOut(seconds);
         yield return new WaitForSeconds(seconds);
 
-        demoFinishedText.enabled = true;
-        yield return new WaitForSeconds(3f);
+        gameFinishedText.enabled = true;
+        yield return new WaitForSeconds(2f);
         gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
         // might need to tell new tutorial level coroutines to stop too
 
@@ -127,6 +125,7 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
+        // TODO add a confirmation - "Are you sure you want to quit? All saved progress will be lost.
         if (Input.GetKeyUp(KeyCode.P))
         {
             doFadeToDemoFinished(3f);
@@ -245,7 +244,7 @@ public class TutorialManager : MonoBehaviour
             //rotationGizmo.transform.localPosition = new Vector3(1.26f, -0.67f, -1.03f);
             FuzeButton.SetActive(true);
             Highlighter.Highlight(FuzeButton);
-            tutorialText.text = "CLICK on the Fuse button to fuse two parts.";
+            tutorialText.text = "CLICK on the Fuse button to fuse two parts at the selected surfaces.";
             arrowTransform.localRotation = Quaternion.Euler(0, 0, -90);
             arrowTransform.anchoredPosition = new Vector2(-50, 126);
             conversationTransform.anchoredPosition = new Vector2(-44, -81);

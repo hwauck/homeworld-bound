@@ -49,11 +49,6 @@ public class Map : MonoBehaviour {
         finishedMovingMap.Invoke();
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
-
     public void show()
     {
         gameObject.GetComponent<Image>().enabled = true;

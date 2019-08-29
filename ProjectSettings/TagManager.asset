@@ -27,6 +27,8 @@ TagManager:
   - b7
   - b6
   - b8
+  - sledgehammer_battery
+  - rocketBoots_battery
   layers:
   - Default
   - TransparentFX

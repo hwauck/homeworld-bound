@@ -240,8 +240,4 @@ public class Fuser : ItemBase {
         controller.mouseLook.YSensitivity = YRotSensitivity;
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }
