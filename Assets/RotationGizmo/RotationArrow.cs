@@ -180,8 +180,5 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
         }
     }
 
-        // Update is called once per frame
-        void Update () {
-		
-	}
+        
 }

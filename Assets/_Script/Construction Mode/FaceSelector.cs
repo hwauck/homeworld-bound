@@ -28,10 +28,6 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
         } 
         surfaceClick = Resources.Load<AudioClip>("Audio/ConstModeMusic/SelectSurface");
     }
-	
-	// Update is called once per frame
-	void Update () {
-	}
 
     public void setSelectPartScript(SelectPart selectPart)
     {

@@ -874,10 +874,6 @@ public class CreatePartB8 : MonoBehaviour
             return true;
         }
     }
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+ 
 }
 

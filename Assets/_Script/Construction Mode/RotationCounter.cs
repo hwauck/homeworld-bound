@@ -139,8 +139,4 @@ public class RotationCounter : MonoBehaviour {
         StartCoroutine(introRotationsRemaining());
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }

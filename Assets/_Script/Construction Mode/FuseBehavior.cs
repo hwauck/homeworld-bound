@@ -18,11 +18,6 @@ public class FuseBehavior : MonoBehaviour {
 
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-	}
-
 	public void setFuseTo(FuseAttributes fuseAtts) {
 		fuseInfo = fuseAtts;
 

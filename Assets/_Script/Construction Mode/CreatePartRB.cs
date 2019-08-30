@@ -5,13 +5,12 @@ using UnityEngine.UI;
 
 public class CreatePartRB : MonoBehaviour {
 
-
 	private GameObject[] instantiated;
 	public GameObject[] parts;
-	private bool[] partCreated;
-	private Vector3 createLoc;
-    private Vector3 offscreenCreateLoc;
     public Button[] partButtons;
+    private bool[] partCreated;
+    private Vector3 createLoc;
+    private Vector3 offscreenCreateLoc;
     public GameObject eventSystem;
 	private SelectPart selectionManager;
 	public int NUM_PARTS;
@@ -534,8 +533,5 @@ public class CreatePartRB : MonoBehaviour {
 			return true;
 		}
 	}
-	// Update is called once per frame
-	void Update () {
 
-	}
 }

@@ -840,10 +840,6 @@ public class CreatePartB3_harder : MonoBehaviour
             return true;
         }
     }
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
 }
 

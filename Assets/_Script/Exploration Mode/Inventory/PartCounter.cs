@@ -105,8 +105,4 @@ public class PartCounter : MonoBehaviour {
         gameObject.transform.GetComponentInChildren<Text>().enabled = false;
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }

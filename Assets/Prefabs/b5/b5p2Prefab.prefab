@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 114910834}
   - component: {fileID: 114910833}
   m_Layer: 0
-  m_Name: b5p2
+  m_Name: b5p2Prefab
   m_TagString: part
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,6 +214,7 @@ GameObject:
   - component: {fileID: 1333154508265254494}
   - component: {fileID: 5907661250364936476}
   - component: {fileID: 114910840}
+  - component: {fileID: 825568121497043744}
   m_Layer: 0
   m_Name: b5p2
   m_TagString: Untagged
@@ -294,3 +295,15 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300002, guid: 1667149232c61f94fb136ddd46e3d214, type: 3}
+--- !u!114 &825568121497043744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114910838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 911865f4d0ceb9948901da237be691a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -109,7 +109,7 @@ public class SpriteText : MonoBehaviour
 		scrollController = GetComponent<ScrollingText>();
 
 		// Load each sprite on the sheet so we can reference it with our silly dictionary.
-		sprites = Resources.LoadAll<Sprite>("HUDElements/Font");
+		sprites = Resources.LoadAll<Sprite>("HUDElements/Font_0");
 
 		// Init our letter prefab.
 		letterPrefab = Resources.Load<GameObject>("Prefabs/TextSystem/TextElement");
