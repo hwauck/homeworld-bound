@@ -642,7 +642,7 @@ public class CreatePartSledge : MonoBehaviour {
 		if(!partCreated[4]){
 			clearPartsCreated();
 			Vector3 pos = offscreenCreateLoc; // this is where the object will appear when it's instantiated
-			Quaternion fuseToRotation = Quaternion.Euler (0,180,0);		
+			Quaternion fuseToRotation = Quaternion.Euler (90,0,270);		
 			GameObject newSmallTip = rotateGizmo.Enable(LoadUtils.InstantiateParenter((GameObject)Instantiate (parts[4], pos, fuseToRotation)));
             StartCoroutine(moveToStartingPosition(newSmallTip)); // this creates the zooming up from the ground effect
 
@@ -656,7 +656,7 @@ public class CreatePartSledge : MonoBehaviour {
 			smallTipTrapezoidAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("SmallTip"));
 
             smallTipTrapezoidAttach.gameObject.AddComponent<FaceSelector>();
-            smallTipTrapezoidAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.back;
+            smallTipTrapezoidAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
             smallTipTrapezoidAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             smallTipTrapezoidAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -890,7 +890,7 @@ public class CreatePartSledge : MonoBehaviour {
             tipHeadAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("Tip"));
 
             tipHeadAttach.gameObject.AddComponent<FaceSelector>();
-            tipHeadAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.forward;
+            tipHeadAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.up;
             tipHeadAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             tipHeadAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 

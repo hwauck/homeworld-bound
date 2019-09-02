@@ -24,6 +24,7 @@ public class ConversationController : MonoBehaviour
 	public static bool currentlyEnabled = false;
 	public static string currentConversationName = "";
 	public static bool currentEscRule = true;
+    private static bool mouseCurrentlyAllowed;
 
     //data collection
     public bool isConstMode = true; // are we in Construction mode or Exploration Mode?
@@ -247,12 +248,18 @@ public class ConversationController : MonoBehaviour
 		}
 	}
 
+    public static bool isMouseCurrentlyAllowed()
+    {
+        return mouseCurrentlyAllowed;
+    }
+
 	// Allows you to move your mouse around the screen to select a choice or something.
 	// Also disables player movement.
 	public static void AllowMouse()
 	{
 		if (player != null)
 		{
+            mouseCurrentlyAllowed = true;
 			player.mouseLook.SetCursorLock(false);
 			if (player.mouseLook.XSensitivity != 0)
 			{
@@ -271,6 +278,7 @@ public class ConversationController : MonoBehaviour
 	{
 		if (player != null)
 		{
+            mouseCurrentlyAllowed = false;
 			player.mouseLook.SetCursorLock(true);
 			player.mouseLook.XSensitivity = sensitivityXTemp;
 			player.mouseLook.YSensitivity = sensitivityYTemp;

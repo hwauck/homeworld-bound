@@ -58,6 +58,11 @@ public class ExplorationLevelResetter : MonoBehaviour {
     public GameObject[] sledgehammerParts;
     private GameObject[] sledgeBatteryParts;
 
+    public CanvasGroup confirmQuitPanel;
+    public Button yesQuitButton;
+    public Button noDontQuitButton;
+    private bool mouseCurrentlyAllowed;
+
     public UnityEvent gameQuit;
 
     // Javascript methods imported from browserUnityInteraction.jslib Plugin
@@ -174,13 +179,13 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
     }
 
-    // this function is called when the player finishes all game content (TBD)
-    public void gameFinished()
+    // this function is called when the player finishes all game content (TBD) or selects Yes, Quit on the confirmation dialogue
+    // if player finishes all game content, playerInitiated should be false. Otherwise, playerInitiated should be true.
+    public void gameFinished(bool playerInitiated)
     {
-        doFadeToGameFinished(2f, false);
+        doFadeToGameFinished(2f, playerInitiated);
     }
 
-    // old code used to end demo session
     public void doFadeToGameFinished(float seconds, bool playerInitiated)
     {
         // if the player quits right after achieving victory in a level but before the next level/attempt loads,
@@ -194,6 +199,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
             expDataManager.setOutcome("finishedGame");
         }
 
+        yesQuitButton.gameObject.SetActive(false);
+        noDontQuitButton.gameObject.SetActive(false);
 
         disablePlayerControl();
         StopAllCoroutines();
@@ -202,6 +209,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
         ConversationController.Disable();
         errorPanel.alpha = 0;
         countdownPanel.alpha = 0;
+        confirmQuitPanel.alpha = 0;
+
         expDataManager.setPauseGameplay(true);
         StartCoroutine(fadeToDemoFinished(seconds, playerInitiated));
     }
@@ -669,6 +678,22 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
     }
 
+    // called when player clicks the NoDontQuitButton on the confirmation dialogue
+    public void returnToGame()
+    {
+        confirmQuitPanel.alpha = 0;
+        yesQuitButton.gameObject.SetActive(false);
+        noDontQuitButton.gameObject.SetActive(false);
+        expDataManager.setPauseGameplay(false);
+
+        // if mouse was disabled before this dialogue box popped up, disable it again. If not, keep the mouse enabled 
+        // (e.g. for UI buttons in Fuser intro and possibly other places
+        if(!mouseCurrentlyAllowed)
+        {
+            ConversationController.LockMouse();
+        }
+    }
+
     // Update is called once per frame
     void Update () {
 
@@ -676,8 +701,17 @@ public class ExplorationLevelResetter : MonoBehaviour {
         // add confirmation dialogue -are you sure? You will lose any progress you've made in the game
         if(Input.GetKeyDown(KeyCode.P))
         {
-            doFadeToGameFinished(2f, true);
-            
+            // keep track of whether the mouse was enabled at the time this dialogue box popped up so we can 
+            // remember that later and restore the previous state of the mouse once this dialogue is closed.
+            mouseCurrentlyAllowed = ConversationController.isMouseCurrentlyAllowed();
+            if(!mouseCurrentlyAllowed)
+            {
+                ConversationController.AllowMouse();
+            }
+            yesQuitButton.gameObject.SetActive(true);
+            noDontQuitButton.gameObject.SetActive(true);
+            confirmQuitPanel.alpha = 1;
+            expDataManager.setPauseGameplay(true);
         }
 
         //else if(Input.GetKeyDown(KeyCode.C))
