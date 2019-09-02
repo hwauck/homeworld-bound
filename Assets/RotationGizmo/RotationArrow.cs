@@ -49,6 +49,7 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
     // so it won't fire if UI element is clicked and object is behind it, yay
     public void OnPointerClick(PointerEventData data)
     {
+        Debug.Log("Pointer Click on Rotation Arrow!");
         if (!rotationGizmo.controlsDisabled)
         {
             // Data collection

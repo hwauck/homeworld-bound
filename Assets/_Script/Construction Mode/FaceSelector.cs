@@ -152,6 +152,7 @@ public class FaceSelector : MonoBehaviour, IPointerClickHandler, IPointerDownHan
     // so it won't fire if UI element is clicked and object is behind it, yay
     public void OnPointerClick(PointerEventData data)
     {
+        Debug.Log("Pointer Click on Face Selector!");
         audioSource.PlayOneShot(surfaceClick);
         if (!selectPart.controlsDisabled)
         {

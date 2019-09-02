@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 489004}
   - component: {fileID: 3320604}
   - component: {fileID: 2319842}
-  - component: {fileID: 6579484}
+  - component: {fileID: 188796011854675892}
   m_Layer: 0
   m_Name: small_trapezoid_small_tip_attach
   m_TagString: Untagged
@@ -78,8 +78,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &6579484
-BoxCollider:
+--- !u!64 &188796011854675892
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -88,9 +88,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 0, z: 1.9200004}
-  m_Center: {x: 0, y: 0.23445407, z: 3.4422527e-15}
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300002, guid: 590f09a740e3b9149b4fea9d64986c51, type: 3}
 --- !u!1 &149346
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +199,7 @@ GameObject:
   - component: {fileID: 7604626214750004959}
   m_Layer: 0
   m_Name: small_trapezoidPrefab
-  m_TagString: Untagged
+  m_TagString: part
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -291,8 +292,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 4, y: 6.5, z: 2.5}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 4, y: 8, z: 4}
+  m_Center: {x: 0, y: -0.5, z: -0.7}
 --- !u!1 &196824
 GameObject:
   m_ObjectHideFlags: 0

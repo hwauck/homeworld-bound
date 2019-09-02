@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: 91b57ec0d8f0bbc4595b44cf7ec4a3f1
-timeCreated: 1477773744
-licenseType: Free
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     100002: bottom_point_left
@@ -43,6 +41,8 @@ ModelImporter:
     100070: shaft_dec_bot
     100072: shaft_dec_mid
     100074: shaft_dec_top
+    100076: head_top_point_right_attach_001
+    100078: top_point_left_head_attach_001
     400000: //RootNode
     400002: bottom_point_left
     400004: bottom_point_left_head_attach
@@ -81,6 +81,8 @@ ModelImporter:
     400070: shaft_dec_bot
     400072: shaft_dec_mid
     400074: shaft_dec_top
+    400076: head_top_point_right_attach_001
+    400078: top_point_left_head_attach_001
     2300000: bottom_point_left
     2300002: bottom_point_left_head_attach
     2300004: bottom_point_right
@@ -118,6 +120,8 @@ ModelImporter:
     2300068: shaft_dec_bot
     2300070: shaft_dec_mid
     2300072: shaft_dec_top
+    2300074: head_top_point_right_attach_001
+    2300076: top_point_left_head_attach_001
     3300000: bottom_point_left
     3300002: bottom_point_left_head_attach
     3300004: bottom_point_right
@@ -155,6 +159,8 @@ ModelImporter:
     3300068: shaft_dec_bot
     3300070: shaft_dec_mid
     3300072: shaft_dec_top
+    3300074: head_top_point_right_attach_001
+    3300076: top_point_left_head_attach_001
     4300000: shaft_small_trapezoid_attach
     4300002: small_trapezoid_shaft_attach
     4300004: small_tip_small_trapezoid_attach
@@ -192,28 +198,57 @@ ModelImporter:
     4300068: shaft_dec_bot
     4300070: shaft_dec_mid
     4300072: shaft_dec_top
+    4300074: top_point_left_head_attach_001
+    4300076: head_top_point_right_attach_001
     7400000: Default Take
     9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: attachment
+    second: {fileID: 2100000, guid: 5f9ed160832fde842a816ff6b51340a9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: brown
+    second: {fileID: 2100000, guid: 10a4b80c402e7e64d8fe3f28535f7bc5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gray
+    second: {fileID: 2100000, guid: 4e763391e67464e49a3dbe89126f3dd4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: orange
+    second: {fileID: 2100000, guid: 866028bd201a9da4491e1e78e7995858, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -221,25 +256,38 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
+    serializedVersion: 2
     human: []
     skeleton: []
     armTwist: 0.5
@@ -251,6 +299,8 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
   humanoidOversampling: 1

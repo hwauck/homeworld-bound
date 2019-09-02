@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 474858}
   - component: {fileID: 3399240}
   - component: {fileID: 2334448}
-  - component: {fileID: 6549646}
+  - component: {fileID: 3306457021558188412}
+  - component: {fileID: 3306457021558188413}
   m_Layer: 0
   m_Name: haft
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 109126}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.044944048, z: 0.000000001964567}
+  m_LocalPosition: {x: -0, y: 0.027207851, z: -0.000000001189293}
   m_LocalScale: {x: 3.2162368, y: 3.2162368, z: 2.144158}
   m_Children: []
   m_Father: {fileID: 476976}
@@ -78,8 +79,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &6549646
-BoxCollider:
+--- !u!64 &3306457021558188412
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -88,9 +89,22 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 2.0000017, z: 2.0000005}
-  m_Center: {x: 0, y: -0.00000047683733, z: -0.0000000018626451}
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300002, guid: 05082ea91f47e614dbada1fd09afa1e3, type: 3}
+--- !u!114 &3306457021558188413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 911865f4d0ceb9948901da237be691a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &125108
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,7 +116,7 @@ GameObject:
   - component: {fileID: 414578}
   - component: {fileID: 3384176}
   - component: {fileID: 2398522}
-  - component: {fileID: 6588248}
+  - component: {fileID: 3306457021558188410}
   m_Layer: 0
   m_Name: haft_shaft_attach
   m_TagString: Untagged
@@ -118,8 +132,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 125108}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 8.905516, z: -0.00000038927246}
-  m_LocalScale: {x: 2, y: 2, z: 6}
+  m_LocalPosition: {x: -0, y: 13.463612, z: -0.00000058851316}
+  m_LocalScale: {x: 2, y: 2, z: 11.25}
   m_Children: []
   m_Father: {fileID: 476976}
   m_RootOrder: 1
@@ -169,8 +183,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &6588248
-BoxCollider:
+--- !u!64 &3306457021558188410
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -179,9 +193,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 2.0000005, z: 7.1054274e-15}
-  m_Center: {x: 0, y: 3.2136542e-14, z: -1.1307044}
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 05082ea91f47e614dbada1fd09afa1e3, type: 3}
 --- !u!1 &132850
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +213,7 @@ GameObject:
   - component: {fileID: 6631288806316121384}
   m_Layer: 0
   m_Name: haft_harderPrefab
-  m_TagString: Untagged
+  m_TagString: part
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -290,5 +305,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 6.5, y: 4.5, z: 6.5}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 6.5, y: 5.2, z: 6.5}
+  m_Center: {x: 0, y: 0.5, z: 0}

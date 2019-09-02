@@ -77,7 +77,7 @@ public class CreatePartSledge : MonoBehaviour {
 		if (head != null) {
 
 			Vector3 headPos = head.transform.position;
-			Vector3 fuseLocation = new Vector3 (headPos.x + 6, headPos.y - 18, headPos.z);
+			Vector3 fuseLocation = new Vector3 (headPos.x + 6, headPos.y - 23.9f, headPos.z);
 			fuseLocations.Add ("head_bottom_point_left_attach", fuseLocation);
 			fuseRotations.Add ("head_bottom_point_left_attach", fuseRotation);
 
@@ -107,7 +107,7 @@ public class CreatePartSledge : MonoBehaviour {
 
 		if(head != null) {
 			Vector3 headPos = head.transform.position;
-			Vector3 fuseLocation = new Vector3 (headPos.x - 6, headPos.y - 18, headPos.z);
+			Vector3 fuseLocation = new Vector3 (headPos.x - 6, headPos.y - 23.9f, headPos.z);
 			fuseLocations.Add ("head_bottom_point_right_attach", fuseLocation);
 			Quaternion fuseRotation = Quaternion.Euler (new Vector3(0,180,0));
 			fuseRotations.Add ("head_bottom_point_right_attach", fuseRotation);
@@ -144,12 +144,8 @@ public class CreatePartSledge : MonoBehaviour {
 		Quaternion fuseRotation = Quaternion.Euler (new Vector3(0,180,0));
 		fuseRotations.Add ("shaft_haft_attach", fuseRotation);
 		Quaternion acceptableRotation1 = Quaternion.Euler (270,180,0);
-		Quaternion acceptableRotation2 = Quaternion.Euler (270,90,0);
-		Quaternion acceptableRotation3 = Quaternion.Euler (270,270,0);
-		Quaternion acceptableRotation4 = Quaternion.Euler (270,0,0);
 
-		Quaternion[] acceptableRotations = {acceptableRotation1,acceptableRotation2,
-			acceptableRotation3,acceptableRotation4};
+		Quaternion[] acceptableRotations = {acceptableRotation1};
 
 		fusePositions.Add ("shaft_haft_attach", acceptableRotations);
 
@@ -168,18 +164,14 @@ public class CreatePartSledge : MonoBehaviour {
 
 		if(trapezoid != null) {
 			Vector3 trapezoidPos = trapezoid.transform.position;
-			Vector3 fuseLocation = new Vector3 (trapezoidPos.x, trapezoidPos.y, trapezoidPos.z - 12);
+			Vector3 fuseLocation = new Vector3 (trapezoidPos.x, trapezoidPos.y + 6, trapezoidPos.z - 12);
 			Quaternion fuseRotation = Quaternion.Euler (new Vector3(0,180,0));
 
 			fuseLocations.Add ("trapezoid_head_attach", fuseLocation);
 			fuseRotations.Add ("trapezoid_head_attach", fuseRotation);
 			Quaternion acceptableRotation1 = Quaternion.Euler (270,180,0);
-			Quaternion acceptableRotation3 = Quaternion.Euler (90,0,0);
 
-			Quaternion acceptableRotation4 = Quaternion.Euler (270,0,180);
-			Quaternion acceptableRotation2 = Quaternion.Euler (270,180,180);
-
-			Quaternion[] acceptableRotations = {acceptableRotation1, acceptableRotation2,acceptableRotation3, acceptableRotation4};
+			Quaternion[] acceptableRotations = {acceptableRotation1};
 			fusePositions.Add ("trapezoid_head_attach", acceptableRotations);
 		}
 
@@ -191,7 +183,6 @@ public class CreatePartSledge : MonoBehaviour {
 	}
 
 	public FuseAttributes smallTipFuses() {
-		//can be fused to any strut
 		GameObject smallTrapezoid = GameObject.Find("small_trapezoidPrefab(Clone)");
 
 		Dictionary<string, Vector3> fuseLocations = new Dictionary<string, Vector3>();
@@ -200,15 +191,14 @@ public class CreatePartSledge : MonoBehaviour {
 
 		if(smallTrapezoid != null) {
 			Vector3 smallTrapezoidPos = smallTrapezoid.transform.position;
-			Vector3 fuseLocation = new Vector3(smallTrapezoidPos.x, smallTrapezoidPos.y, smallTrapezoidPos.z + 5.15f);
+			Vector3 fuseLocation = new Vector3(smallTrapezoidPos.x, smallTrapezoidPos.y - 3.8f, smallTrapezoidPos.z + 9.7f);
 			Quaternion fuseRotation = Quaternion.Euler (new Vector3(0,180,0));
 
 			fuseLocations.Add ("small_trapezoid_small_tip_attach", fuseLocation);
 			fuseRotations.Add ("small_trapezoid_small_tip_attach", fuseRotation);
-			Quaternion acceptableRotation1 = Quaternion.Euler (270,180,0);
-			Quaternion acceptableRotation2 = Quaternion.Euler (90,0,0);
+			Quaternion acceptableRotation1 = Quaternion.Euler (270,0,0);
 
-			Quaternion[] acceptableRotations = {acceptableRotation1, acceptableRotation2};
+			Quaternion[] acceptableRotations = {acceptableRotation1};
 			fusePositions.Add ("small_trapezoid_small_tip_attach", acceptableRotations);
 
 		}
@@ -233,9 +223,8 @@ public class CreatePartSledge : MonoBehaviour {
 		fuseLocations.Add ("shaft_small_trapezoid_attach", fuseLocation);
 		fuseRotations.Add ("shaft_small_trapezoid_attach", fuseRotation);
 		Quaternion acceptableRotation1 = Quaternion.Euler (270,180,0);
-		Quaternion acceptableRotation2 = Quaternion.Euler (90,0,0);
 
-		Quaternion[] acceptableRotations = {acceptableRotation1,acceptableRotation2};
+		Quaternion[] acceptableRotations = {acceptableRotation1};
 		fusePositions.Add ("shaft_small_trapezoid_attach", acceptableRotations);
 
 		FuseAttributes newAttributes = new FuseAttributes(fuseLocations, fuseRotations, fusePositions);
@@ -259,12 +248,8 @@ public class CreatePartSledge : MonoBehaviour {
 		fuseLocations.Add ("shaft_spike_attach", fuseLocation);
 		fuseRotations.Add ("shaft_spike_attach", fuseRotation);
 		Quaternion acceptableRotation1 = Quaternion.Euler (270,180,0);
-		Quaternion acceptableRotation2 = Quaternion.Euler (270,90,0);
-		Quaternion acceptableRotation3 = Quaternion.Euler (270,0,0);
-		Quaternion acceptableRotation4 = Quaternion.Euler (270,270,0);
 
-		Quaternion[] acceptableRotations = {acceptableRotation1,acceptableRotation2,
-			acceptableRotation3,acceptableRotation4};
+		Quaternion[] acceptableRotations = {acceptableRotation1};
 		fusePositions.Add ("shaft_spike_attach", acceptableRotations);
 
 		FuseAttributes newAttributes = new FuseAttributes(fuseLocations, fuseRotations, fusePositions);
@@ -274,7 +259,6 @@ public class CreatePartSledge : MonoBehaviour {
 	}
 
 	public FuseAttributes tipFuses() {
-		//can be fused to any strut
 		GameObject head = GameObject.Find("head_harderPrefab(Clone)");
 
 		Dictionary<string, Vector3> fuseLocations = new Dictionary<string, Vector3>();
@@ -283,15 +267,14 @@ public class CreatePartSledge : MonoBehaviour {
 
 		if (head != null) {
 			Vector3 headPos = head.transform.position;
-			Vector3 fuseLocation = new Vector3 (headPos.x, headPos.y, headPos.z - 9);
+			Vector3 fuseLocation = new Vector3 (headPos.x, headPos.y - 5.9f, headPos.z - 9);
 			Quaternion fuseRotation = Quaternion.Euler (new Vector3 (0, 180, 0));
 
 			fuseLocations.Add ("head_tip_attach", fuseLocation);
 			fuseRotations.Add ("head_tip_attach", fuseRotation);
 			Quaternion acceptableRotation1 = Quaternion.Euler (270, 180, 0);
-			Quaternion acceptableRotation2 = Quaternion.Euler (90, 0, 0);
 
-			Quaternion[] acceptableRotations = { acceptableRotation1, acceptableRotation2 };
+            Quaternion[] acceptableRotations = { acceptableRotation1 };
 			fusePositions.Add ("head_tip_attach", acceptableRotations);
 
 		}
@@ -311,7 +294,7 @@ public class CreatePartSledge : MonoBehaviour {
 		if (head != null) {
 
 			Vector3 headPos = head.transform.position;
-			Vector3 fuseLocation = new Vector3 (headPos.x + 6, headPos.y + 15.2f, headPos.z + 4.8f);
+			Vector3 fuseLocation = new Vector3 (headPos.x + 6, headPos.y + 9.3f, headPos.z + 5f);
 			fuseLocations.Add ("head_top_point_left_attach", fuseLocation);
 			fuseRotations.Add ("head_top_point_left_attach", fuseRotation);
 
@@ -342,7 +325,7 @@ public class CreatePartSledge : MonoBehaviour {
 		if (head != null) {
 
 			Vector3 headPos = head.transform.position;
-			Vector3 fuseLocation = new Vector3 (headPos.x - 6, headPos.y + 14.7f, headPos.z + 4.3f);
+			Vector3 fuseLocation = new Vector3 (headPos.x - 6, headPos.y + 8.7f, headPos.z + 4.3f);
 			fuseLocations.Add ("head_top_point_right_attach", fuseLocation);
 			fuseRotations.Add ("head_top_point_right_attach", fuseRotation);
 
@@ -377,13 +360,9 @@ public class CreatePartSledge : MonoBehaviour {
 
 		fuseLocations.Add ("shaft_trapezoid_attach", fuseLocation);
 		fuseRotations.Add ("shaft_trapezoid_attach", fuseRotation);
-		Quaternion acceptableRotation1 = Quaternion.Euler (0,90,90);
-		Quaternion acceptableRotation2 = Quaternion.Euler (90,0,0);
-		Quaternion acceptableRotation3 = Quaternion.Euler (0,270,270);
-		Quaternion acceptableRotation4 = Quaternion.Euler (270,180,0);
+		Quaternion acceptableRotation1 = Quaternion.Euler (270,180,0);
 
-		Quaternion[] acceptableRotations = {acceptableRotation1,acceptableRotation2, 
-			acceptableRotation3, acceptableRotation4};
+		Quaternion[] acceptableRotations = {acceptableRotation1};
 		fusePositions.Add ("shaft_trapezoid_attach", acceptableRotations);
 
 		FuseAttributes newAttributes = new FuseAttributes(fuseLocations, fuseRotations, fusePositions);
@@ -457,7 +436,7 @@ public class CreatePartSledge : MonoBehaviour {
 			bottomPointRightHeadAttach.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("BottomPointRight"));
 
             bottomPointRightHeadAttach.gameObject.AddComponent<FaceSelector>();
-            bottomPointRightHeadAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            bottomPointRightHeadAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.forward;
             bottomPointRightHeadAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             bottomPointRightHeadAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -466,7 +445,7 @@ public class CreatePartSledge : MonoBehaviour {
 			bottomPointRightLeftAttach.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("BottomPointRight"));
 
             bottomPointRightLeftAttach.gameObject.AddComponent<FaceSelector>();
-            bottomPointRightLeftAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            bottomPointRightLeftAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
             bottomPointRightLeftAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             bottomPointRightLeftAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -505,7 +484,7 @@ public class CreatePartSledge : MonoBehaviour {
             bottomPointLeftHeadAttach.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("BottomPointLeft"));
 
             bottomPointLeftHeadAttach.gameObject.AddComponent<FaceSelector>();
-            bottomPointLeftHeadAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            bottomPointLeftHeadAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.up;
             bottomPointLeftHeadAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             bottomPointLeftHeadAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -515,7 +494,7 @@ public class CreatePartSledge : MonoBehaviour {
             bottomPointLeftRightAttach.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("BottomPointLeft"));
 
             bottomPointLeftRightAttach.gameObject.AddComponent<FaceSelector>();
-            bottomPointLeftRightAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            bottomPointLeftRightAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.back;
             bottomPointLeftRightAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             bottomPointLeftRightAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -550,7 +529,7 @@ public class CreatePartSledge : MonoBehaviour {
 			haftShaftAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Haft"));
 
             haftShaftAttach.gameObject.AddComponent<FaceSelector>();
-            haftShaftAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            haftShaftAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
             haftShaftAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             haftShaftAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -591,7 +570,7 @@ public class CreatePartSledge : MonoBehaviour {
 			headTrapezoidAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Head"));
 
             headTrapezoidAttach.gameObject.AddComponent<FaceSelector>();
-            headTrapezoidAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            headTrapezoidAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.up;
             headTrapezoidAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             headTrapezoidAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -601,7 +580,7 @@ public class CreatePartSledge : MonoBehaviour {
 			headTipAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Head"));
 
             headTipAttach.gameObject.AddComponent<FaceSelector>();
-            headTipAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            headTipAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
             headTipAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             headTipAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -611,7 +590,7 @@ public class CreatePartSledge : MonoBehaviour {
 			headBottomPointLeftAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Head"));
 
             headBottomPointLeftAttach.gameObject.AddComponent<FaceSelector>();
-            headBottomPointLeftAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            headBottomPointLeftAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.forward;
             headBottomPointLeftAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             headBottomPointLeftAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -621,7 +600,7 @@ public class CreatePartSledge : MonoBehaviour {
 			headBottomPointRightAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Head"));
 
             headBottomPointRightAttach.gameObject.AddComponent<FaceSelector>();
-            headBottomPointRightAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            headBottomPointRightAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.forward;
             headBottomPointRightAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             headBottomPointRightAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -631,7 +610,7 @@ public class CreatePartSledge : MonoBehaviour {
 			headTopPointLeftAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Head"));
 
             headTopPointLeftAttach.gameObject.AddComponent<FaceSelector>();
-            headTopPointLeftAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            headTopPointLeftAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.back;
             headTopPointLeftAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             headTopPointLeftAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -641,7 +620,7 @@ public class CreatePartSledge : MonoBehaviour {
 			headTopPointRightAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Head"));
 
             headTopPointRightAttach.gameObject.AddComponent<FaceSelector>();
-            headTopPointRightAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            headTopPointRightAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.back;
             headTopPointRightAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             headTopPointRightAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -677,7 +656,7 @@ public class CreatePartSledge : MonoBehaviour {
 			smallTipTrapezoidAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("SmallTip"));
 
             smallTipTrapezoidAttach.gameObject.AddComponent<FaceSelector>();
-            smallTipTrapezoidAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            smallTipTrapezoidAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.back;
             smallTipTrapezoidAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             smallTipTrapezoidAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -726,7 +705,7 @@ public class CreatePartSledge : MonoBehaviour {
             trapezoidHeadAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("Trapezoid"));
 
             trapezoidHeadAttach.gameObject.AddComponent<FaceSelector>();
-            trapezoidHeadAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            trapezoidHeadAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
             trapezoidHeadAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             trapezoidHeadAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -765,7 +744,7 @@ public class CreatePartSledge : MonoBehaviour {
             topPointLeftHeadAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("TopPointLeft"));
 
             topPointLeftHeadAttach.gameObject.AddComponent<FaceSelector>();
-            topPointLeftHeadAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            topPointLeftHeadAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.up;
             topPointLeftHeadAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             topPointLeftHeadAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -824,7 +803,7 @@ public class CreatePartSledge : MonoBehaviour {
             topPointRightLeftAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("TopPointRight"));
 
             topPointRightLeftAttach.gameObject.AddComponent<FaceSelector>();
-            topPointRightLeftAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            topPointRightLeftAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.forward;
             topPointRightLeftAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             topPointRightLeftAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -863,7 +842,7 @@ public class CreatePartSledge : MonoBehaviour {
             smallTrapezoidSmallTipAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("SmallTrapezoid"));
 
             smallTrapezoidSmallTipAttach.gameObject.AddComponent<FaceSelector>();
-            smallTrapezoidSmallTipAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            smallTrapezoidSmallTipAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
             smallTrapezoidSmallTipAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             smallTrapezoidSmallTipAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -873,7 +852,7 @@ public class CreatePartSledge : MonoBehaviour {
             smallTrapezoidShaftAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("SmallTrapezoid"));
 
             smallTrapezoidShaftAttach.gameObject.AddComponent<FaceSelector>();
-            smallTrapezoidShaftAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            smallTrapezoidShaftAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.up;
             smallTrapezoidShaftAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             smallTrapezoidShaftAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -897,7 +876,7 @@ public class CreatePartSledge : MonoBehaviour {
         {
             clearPartsCreated();
             Vector3 pos = offscreenCreateLoc; // this is where the object will appear when it's instantiated
-            Quaternion fuseToRotation = Quaternion.Euler(0, 180, 0);
+            Quaternion fuseToRotation = Quaternion.Euler(90, 0, 90);
             GameObject newTip = rotateGizmo.Enable(LoadUtils.InstantiateParenter((GameObject)Instantiate(parts[9], pos, fuseToRotation)));
             StartCoroutine(moveToStartingPosition(newTip)); // this creates the zooming up from the ground effect
 
@@ -911,7 +890,7 @@ public class CreatePartSledge : MonoBehaviour {
             tipHeadAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("Tip"));
 
             tipHeadAttach.gameObject.AddComponent<FaceSelector>();
-            tipHeadAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            tipHeadAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.forward;
             tipHeadAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             tipHeadAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -947,7 +926,7 @@ public class CreatePartSledge : MonoBehaviour {
 			spikeShaftAttach.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find ("Spike"));
 
             spikeShaftAttach.gameObject.AddComponent<FaceSelector>();
-            spikeShaftAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.left;
+            spikeShaftAttach.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.forward;
             spikeShaftAttach.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             spikeShaftAttach.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 

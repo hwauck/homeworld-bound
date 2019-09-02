@@ -834,6 +834,57 @@ public class FuseEvent : MonoBehaviour {
 
 
         }
+        else if (currentScene.Equals("sledgehammer"))
+        {
+            // bottom_point_left to head
+            fuseMapping.Add("bottom_point_left_head_attach", "head_bottom_point_left_attach");
+
+            // bottom_point left to bottom_point_right
+            fuseMapping.Add("bottom_point_left_right_attach", "bottom_point_right_left_attach");
+
+            // bottom_point_right to head
+            fuseMapping.Add("bottom_point_right_head_attach", "head_bottom_point_right_attach");
+
+            // bottom_point_right to bottom_point_left
+            fuseMapping.Add("bottom_point_right_left_attach", "bottom_point_left_right_attach");
+
+            // haft to shaft
+            fuseMapping.Add("haft_shaft_attach", "shaft_haft_attach");
+
+            // head to trapezoid_harder
+            fuseMapping.Add("head_trapezoid_attach", "trapezoid_head_attach");
+
+            // small_tip to small_trapezoid
+            fuseMapping.Add("small_tip_small_trapezoid_attach", "small_trapezoid_small_tip_attach");
+
+            // small_trapezoid to shaft
+            fuseMapping.Add("small_trapezoid_shaft_attach", "shaft_small_trapezoid_attach");
+
+            // spike to shaft
+            fuseMapping.Add("spike_shaft_attach", "shaft_spike_attach");
+
+            // tip to head
+            fuseMapping.Add("tip_head_attach", "head_tip_attach");
+
+            // top_point_left to head
+            fuseMapping.Add("top_point_left_head_attach", "head_top_point_left_attach");
+
+            // top_point_left to top_point_right
+            fuseMapping.Add("top_point_left_right_attach", "top_point_right_left_attach");
+
+            // top_point_right to head
+            fuseMapping.Add("top_point_right_head_attach", "head_top_point_right_attach");
+
+            // top_point_right to top_point_left
+            fuseMapping.Add("top_point_right_left_attach", "top_point_left_right_attach");
+
+            // trapezoid to head
+            fuseMapping.Add("trapezoid_head_attach", "head_trapezoid_attach");
+
+            // trapezoid to shaft
+            fuseMapping.Add("trapezoid_shaft_attach", "shaft_trapezoid_attach");
+
+        }
         else if (currentScene.Equals("key1"))
         {
             /*	HashSet<string> ULDTSet = new HashSet<string>();
@@ -855,66 +906,6 @@ public class FuseEvent : MonoBehaviour {
                 URWPSet.Add ("walking_pants_upright_rect_attach");
                 fuseMapping.Add ("upright_rect_walking_pants_attach", URWPSet);
             */
-        }
-        else if (currentScene.Equals("axe"))
-        {
-            /*	HashSet<string> fuseToForHaft = new HashSet<string>();
-                fuseToForHaft.Add ("shaft_haft_attach");
-                fuseMapping.Add ("haft_shaft_attach", fuseToForHaft);
-
-                HashSet<string> fuseToForTrapezoid = new HashSet<string>();
-                fuseToForTrapezoid.Add ("shaft_trapezoid_attach");
-                fuseMapping.Add ("trapezoid_shaft_attach", fuseToForTrapezoid);
-
-                HashSet<string> fuseToForHead = new HashSet<string>();
-                fuseToForHead.Add ("trapezoid_head_attach");
-                fuseMapping.Add ("head_trapezoid_attach", fuseToForHead);
-                fuseMapping.Add ("head_tip_attach", fuseToForHead);
-
-                HashSet<string> fuseToForBottomPointLeft1 = new HashSet<string>();
-                HashSet<string> fuseToForBottomPointLeft2 = new HashSet<string>();
-                fuseToForBottomPointLeft1.Add ("head_bottom_point_left_attach");
-                fuseToForBottomPointLeft2.Add ("bottom_point_right_left_attach");
-                fuseMapping.Add ("bottom_point_left_head_attach", fuseToForBottomPointLeft1);
-                fuseMapping.Add ("bottom_point_left_right_attach", fuseToForBottomPointLeft2);
-
-                HashSet<string> fuseToForBottomPointRight1 = new HashSet<string>();
-                HashSet<string> fuseToForBottomPointRight2 = new HashSet<string>();
-                fuseToForBottomPointRight1.Add ("head_bottom_point_right_attach");
-                fuseToForBottomPointRight2.Add ("bottom_point_left_right_attach");
-                fuseMapping.Add ("bottom_point_right_head_attach", fuseToForBottomPointRight1);
-                fuseMapping.Add ("bottom_point_right_left_attach", fuseToForBottomPointRight2);
-
-                HashSet<string> fuseToForTopPointLeft1 = new HashSet<string>();
-                HashSet<string> fuseToForTopPointLeft2 = new HashSet<string>();
-                fuseToForTopPointLeft1.Add ("head_top_point_left_attach");
-                fuseToForTopPointLeft2.Add ("top_point_right_left_attach");
-                fuseMapping.Add ("top_point_left_head_attach", fuseToForTopPointLeft1);
-                fuseMapping.Add ("top_point_left_right_attach", fuseToForTopPointLeft2);
-
-                HashSet<string> fuseToForTopPointRight1 = new HashSet<string>();
-                HashSet<string> fuseToForTopPointRight2 = new HashSet<string>();
-                fuseToForTopPointRight1.Add ("head_top_point_right_attach");
-                fuseToForTopPointRight2.Add ("top_point_left_right_attach");
-                fuseMapping.Add ("top_point_right_head_attach", fuseToForTopPointRight1);
-                fuseMapping.Add ("top_point_right_left_attach", fuseToForTopPointRight2);
-
-                HashSet<string> fuseToForSmallTip = new HashSet<string>();
-                fuseToForSmallTip.Add ("small_trapezoid_small_tip_attach");
-                fuseMapping.Add ("small_tip_small_trapezoid_attach", fuseToForSmallTip);
-
-                HashSet<string> fuseToForSmallTrapezoid = new HashSet<string>();
-                fuseToForSmallTrapezoid.Add ("shaft_small_trapezoid_attach");
-                fuseMapping.Add ("small_trapezoid_shaft_attach", fuseToForSmallTrapezoid);
-
-                HashSet<string> fuseToForSpike = new HashSet<string>();
-                fuseToForSpike.Add ("shaft_spike_attach");
-                fuseMapping.Add ("spike_shaft_attach", fuseToForSpike);
-
-                HashSet<string> fuseToForTip = new HashSet<string>();
-                fuseToForTip.Add ("head_tip_attach");
-                fuseMapping.Add ("tip_head_attach", fuseToForTip);
-                */
         }
         else if (currentScene.Equals("hull"))
         {

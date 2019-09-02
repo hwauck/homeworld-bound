@@ -132,7 +132,9 @@ public class Timer : MonoBehaviour {
                 numRanOutOfTime++;
                 if (isConstructionTimer)
                 {
-                    constructDataManager.SetOutcome("time");
+                    if (constructDataManager != null) { 
+                        constructDataManager.SetOutcome("time");
+                    }
                 } else
                 {
                     exploreDataManager.setOutcome("time");
