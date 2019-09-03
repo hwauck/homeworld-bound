@@ -22,6 +22,10 @@ public class ExplorationLevelResetter : MonoBehaviour {
     public ConversationTrigger Exp_firstBattery_b2;
     public ConversationTrigger Exp_firstBattery_b3;
     public ConversationTrigger Exp_firstBattery_b4;
+    public ConversationTrigger Exp_firstBattery_b5;
+    public ConversationTrigger Exp_firstBattery_b6;
+    public ConversationTrigger Exp_firstBattery_b7;
+    public ConversationTrigger Exp_firstBattery_b8;
 
     public Text powerFailureText;
     public CanvasGroup countdownPanel;
@@ -37,6 +41,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     private AudioClip rechargingSound;
     private AudioClip powerUpSound;
     private AudioClip welcomeSound;
+    private AudioClip canyonMusic;
     private Sprite highlandsMap;
 
     public RigidbodyFirstPersonController controller;
@@ -102,6 +107,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         powerUpSound = Resources.Load<AudioClip>("Audio/BothModes/Slider3");
         welcomeSound = Resources.Load<AudioClip>("Audio/BothModes/welcome");
         highlandsMap = Resources.Load<Sprite>("Clues/HighlandsMap");
+        canyonMusic = Resources.Load<AudioClip>("Audio/ExpModeMusic/DanseMorialta");
 
         // save original values of all player control variables in RigidBodyFirstPersonController
         forwardSpeed = controller.movementSettings.ForwardSpeed;
@@ -163,8 +169,9 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
             map.doIntroMap(); // when this is done, it triggers startCountdown() and beginning of timed level
         }
-        else
+        else if (ConversationTrigger.GetToken("finished_RB") && !ConversationTrigger.GetToken("finished_b8")) // if still in Canyon level, play regular Canyon music
         {
+            musicSource.clip = canyonMusic;
             musicSource.Play();
             screenFader.fadeIn(1f);
             enablePlayerControl();
@@ -278,6 +285,26 @@ public class ExplorationLevelResetter : MonoBehaviour {
             Exp_firstBattery_b4.enabled = true;
 
         }
+        else if (!ConversationTrigger.GetToken("finished_rb"))
+        {
+            Exp_firstBattery_b5.enabled = true;
+
+        }
+        else if (!ConversationTrigger.GetToken("finished_b5"))
+        {
+            Exp_firstBattery_b6.enabled = true;
+
+        }
+        else if (!ConversationTrigger.GetToken("finished_b6"))
+        {
+            Exp_firstBattery_b7.enabled = true;
+
+        }
+        else if (!ConversationTrigger.GetToken("finished_b7"))
+        {
+            Exp_firstBattery_b8.enabled = true;
+
+        }
     }
 
     public void setWhatToBuild()
@@ -376,6 +403,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             itemPartCounter.hideParts();
             itemPartCounter.resetCounter();
             timer.stopTimer();
+            timer.stopMusic();
             timer.gameObject.GetComponent<CanvasGroup>().alpha = 0; //hide TimeRemainingPanel again
             timer.resetTimer();
             expDataManager.setOutcome("victory");
@@ -455,6 +483,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             lowPowerText.text = "Fuser battery parts detected. Activating battery construction mode!";
             audioSource.PlayOneShot(powerUpSound);
             numBatteriesBuilt++;
+            batteriesBuilt.SetActive(true);
         }
         else
         {   //all item levels
@@ -464,6 +493,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             //yield return new WaitForSeconds(2f);
             lowPowerText.text = "New parts detected. Activating full power construction mode!";
             audioSource.PlayOneShot(powerUpSound);
+            batteriesBuilt.SetActive(false);
             numBatteriesBuilt = 0;
         }
 

@@ -116,7 +116,7 @@ public class PickUp : MonoBehaviour
 					{
 						ConversationTrigger.AddToken("picked_up_a_sledge_piece");
                         partCounter.setObjectToBuild("Sledgehammer");
-                        partCounter.setPartsNeeded(11);
+                        partCounter.setPartsNeeded(12);
                         levelResetter.setWhatToBuild("sledgehammer");
                     }
                     if (pickupName.Contains("Key1"))

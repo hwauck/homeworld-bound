@@ -68,6 +68,7 @@ public class Timer : MonoBehaviour {
     public void stopTimer()
     {
         timerStarted = false;
+
     }
 
     public void resetTimer()
