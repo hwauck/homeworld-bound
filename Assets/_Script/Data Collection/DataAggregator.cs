@@ -48,7 +48,7 @@ public class DataAggregator : MonoBehaviour {
 
     private void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Finished Loading Scene " + scene.name);
+        //Debug.Log("Finished Loading Scene " + scene.name);
         initializeDataCollection(scene);
     }
  
@@ -73,7 +73,7 @@ public class DataAggregator : MonoBehaviour {
         expDataManager.setIsReadingText(false);
         constDataManager.setIsReadingText(false);
 
-        if (!scene.name.Equals("Canyon2"))
+        if (!scene.name.Equals("Canyon2") && !scene.name.Equals("RuinedCity"))
         {
             expDataManager.enabled = false;
             constDataManager.enabled = true;
@@ -87,7 +87,7 @@ public class DataAggregator : MonoBehaviour {
             ExplorationLevelResetter expLevelResetter = GameObject.Find("EventSystem").GetComponent<ExplorationLevelResetter>();
             expDataManager.AddNewAttempt(scene.name, true);
             expLevelResetter.setWhatToBuild();
-            Debug.Log("New attempt for level " + expDataManager.GetCurrAttempt().level + " added!");
+            //Debug.Log("New attempt for level " + expDataManager.GetCurrAttempt().level + " added!");
         }
     }
 
@@ -100,12 +100,12 @@ public class DataAggregator : MonoBehaviour {
     // TODO: uncomment when ready for testing on server
     public void saveAndSendToServer()
     {
-        //string allData = "BEGIN_HB_PLAYERDATA,";
-        //allData += expDataManager.saveAllData();
-        //allData += constDataManager.saveAllData();
-        //allData += "END_HB_PLAYERDATA";
+        string allData = "BEGIN_HB_PLAYERDATA,";
+        allData += expDataManager.saveAllData();
+        allData += constDataManager.saveAllData();
+        allData += "END_HB_PLAYERDATA";
         //Debug.Log("SENDING TO SERVER: " + allData);
-        //sendToDB(allData);
+        sendToDB(allData);
     }
 	
 	// Update is called once per frame

@@ -147,7 +147,7 @@ RectTransform:
   - {fileID: 306336390}
   - {fileID: 196045447}
   m_Father: {fileID: 1730654016}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2112,6 +2112,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11476892, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11476892, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
+      propertyPath: tutorialMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 426536, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -90
@@ -2143,14 +2151,6 @@ PrefabInstance:
     - target: {fileID: 426536, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11476892, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11476892, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
-      propertyPath: tutorialMode
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9290618, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
@@ -2906,17 +2906,12 @@ MonoBehaviour:
   rotationWrong: {fileID: 1707600179}
   rotateGizmo: {fileID: 0}
   victoryPrefab: {fileID: 121312, guid: 98faeccb7663b08489d5910c8d37988b, type: 3}
-  bottomPanelGroup: {fileID: 0}
+  bottomPanelGroup: {fileID: 297973225}
   congratsPanelGroup: {fileID: 188299409}
   errorPanelGroup: {fileID: 1405330834}
   congratsPanel: {fileID: 188299407}
   finishedImage: {fileID: 1232480375}
   mainCam: {fileID: 0}
-  levelComplete:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   dataManager: {fileID: 0}
 --- !u!114 &1321869687
 MonoBehaviour:
@@ -4287,8 +4282,8 @@ RectTransform:
   - {fileID: 1232480374}
   - {fileID: 1141979919}
   - {fileID: 1308713700}
-  - {fileID: 5277002}
   - {fileID: 1985057582}
+  - {fileID: 5277002}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5518,7 +5513,7 @@ RectTransform:
   - {fileID: 1251004002}
   - {fileID: 638777534}
   m_Father: {fileID: 1730654016}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

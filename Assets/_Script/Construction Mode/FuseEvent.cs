@@ -401,6 +401,7 @@ public class FuseEvent : MonoBehaviour {
             fuseMapping.Add("b2p2_b2p1_a1", "b2p1_b2p2_a1");
             fuseMapping.Add("b2p2_b2p1_a2", "b2p1_b2p2_a2");
 
+
             //b2p1 to bb2
             fuseMapping.Add("b2p1_bb2_a1", "bb2_b2p1_a1");
             fuseMapping.Add("b2p1_bb2_a2", "bb2_b2p1_a2");
@@ -415,6 +416,9 @@ public class FuseEvent : MonoBehaviour {
             fuseMapping.Add("b2p3_b2p2_a1", "b2p2_b2p3_a1");
             fuseMapping.Add("b2p3_b2p2_a2", "b2p2_b2p3_a2");
 
+            //b2p2 to b2p3
+            fuseMapping.Add("b2p2_b2p3_a1", "b2p3_b2p2_a1");
+            fuseMapping.Add("b2p2_b2p3_a2", "b2p3_b2p2_a2");
 
         }
         else if(currentScene.Equals("b3")) // for b3_harder

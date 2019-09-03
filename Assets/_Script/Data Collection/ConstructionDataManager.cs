@@ -104,7 +104,7 @@ public class ConstructionDataManager : MonoBehaviour {
         if(isReadingText)
         {
             GetCurrAttempt().readTime += Time.deltaTime;
-            Debug.Log("READING: " + GetCurrAttempt().readTime);
+            //Debug.Log("READING: " + GetCurrAttempt().readTime);
             if(isPaused)
             {
                 GetCurrAttempt().playTime += Time.deltaTime;

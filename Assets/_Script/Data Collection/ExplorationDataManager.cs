@@ -131,10 +131,10 @@ public class ExplorationDataManager : MonoBehaviour {
         pauseGameplay = currentlyPaused;
         if (currentlyPaused)
         {
-            Debug.Log("PAUSED PLAYTIME COLLECTION");
+            //Debug.Log("PAUSED PLAYTIME COLLECTION");
         } else
         {
-            Debug.Log("UNPAUSED PLAYTIME COLLECTION");
+            //Debug.Log("UNPAUSED PLAYTIME COLLECTION");
         }
     }
 

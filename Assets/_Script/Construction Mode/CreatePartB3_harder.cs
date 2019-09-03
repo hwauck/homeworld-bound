@@ -251,7 +251,7 @@ public class CreatePartB3_harder : MonoBehaviour
         fuseRotations.Add("b3p4_b3p5_a2", fuseRotation);
         fuseRotations.Add("b3p4_b3p5_a3", fuseRotation);
 
-        Quaternion acceptableRotation1 = Quaternion.Euler(0, 180, 90);
+        Quaternion acceptableRotation1 = Quaternion.Euler(270, 180, 0);
         Quaternion[] acceptableRotations = { acceptableRotation1 };
         fusePositions = new Dictionary<string, Quaternion[]>();
         fusePositions.Add("b3p4_b3p5_a1", acceptableRotations);
@@ -755,7 +755,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p5_b3p4_a1.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p5"));
 
             b3p5_b3p4_a1.gameObject.AddComponent<FaceSelector>();
-            b3p5_b3p4_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.forward;
+            b3p5_b3p4_a1.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
             b3p5_b3p4_a1.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p5_b3p4_a1.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -765,7 +765,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p5_b3p4_a2.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p5"));
 
             b3p5_b3p4_a2.gameObject.AddComponent<FaceSelector>();
-            b3p5_b3p4_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
+            b3p5_b3p4_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
             b3p5_b3p4_a2.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p5_b3p4_a2.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 
@@ -775,7 +775,7 @@ public class CreatePartB3_harder : MonoBehaviour
             b3p5_b3p4_a3.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B3p5"));
 
             b3p5_b3p4_a3.gameObject.AddComponent<FaceSelector>();
-            b3p5_b3p4_a3.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            b3p5_b3p4_a3.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.forward;
             b3p5_b3p4_a3.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b3p5_b3p4_a3.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 

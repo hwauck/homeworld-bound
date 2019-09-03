@@ -17,30 +17,30 @@ public class SceneTimer : MonoBehaviour
 	void Start(){
 		playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 	}
-	void Update()
-	{
-		timer += Time.deltaTime;
-		//enter highland
-        // TODO: change this so that separation is more definition
-		if (!highland) {
-			if (sceneName == "Canyon2" && playerPos.position.y >= 33 && !demoEnded) {
-                demoEnded = true;
-				Debug.Log("ENTERED HIGHLANDS");
-                enteredHighland.Invoke();
-				SimpleData.WriteDataPoint("Left_Scene", "", "", "", "", "");
-				//SimpleData.WriteStringToFile ("TimeSpent.txt", Time.time + ",TIMESPENT_INLEVEL," + sceneName + "," + timer);
-				timer = 0f;
-				highland = true;
-			}
-		}
-	}
+	//void Update()
+	//{
+	//	timer += Time.deltaTime;
+	//	//enter highland
+ //       // TODO: change this so that separation is more definition
+	//	if (!highland) {
+	//		if (sceneName == "Canyon2" && playerPos.position.y >= 33 && !demoEnded) {
+ //               demoEnded = true;
+	//			//Debug.Log("ENTERED HIGHLANDS");
+ //               enteredHighland.Invoke();
+	//			SimpleData.WriteDataPoint("Left_Scene", "", "", "", "", "");
+	//			//SimpleData.WriteStringToFile ("TimeSpent.txt", Time.time + ",TIMESPENT_INLEVEL," + sceneName + "," + timer);
+	//			timer = 0f;
+	//			highland = true;
+	//		}
+	//	}
+	//}
 
 	void OnDisable()
 	{
 		// Must spend at least one second in a level, prevents a bit of log spam from the scene juggling.
 		if (timer > 1f)
 		{
-			SimpleData.WriteDataPoint("Left_Scene", "", "", "", "", "");
+			//SimpleData.WriteDataPoint("Left_Scene", "", "", "", "", "");
 			//SimpleData.WriteStringToFile ("TimeSpent.txt", Time.time + ",TIMESPENT_INLEVEL," + sceneName + "," + timer);
 			// If the next line is commented, system is additive, and will print the
 			// total time spent in a level every time the object is disabled.

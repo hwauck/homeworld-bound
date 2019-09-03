@@ -165,7 +165,17 @@ public class BatteryCounter : MonoBehaviour {
   //          setCounterMaximums();
 
   //      }
-        partsFound = 0;
+        
+        // normally, we reset the counter to 0 every time all parts are collected. But if the player somehow got
+        // 2 batteries at the same time (some battery pairs are close enough together that this might be possible),
+        // keep the extra battery to carry over to the next level
+        if(partsFound > partsNeeded)
+        {
+            partsFound = 1;
+        } else
+        {
+            partsFound = 0;
+        }
         partsDone = false;
 
         partsFoundText.text = "Battery Parts: " + partsFound + "/" + partsNeeded;
