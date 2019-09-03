@@ -77,6 +77,10 @@ public class LevelResetter : MonoBehaviour {
     // Data collection
     public ConstructionDataManager dataManager;
 
+    public CanvasGroup confirmQuitPanel;
+    public Button yesQuitButton;
+    public Button noDontQuitButton;
+
     public UnityEvent gameQuit;
 
     private void Awake()
@@ -658,6 +662,7 @@ public class LevelResetter : MonoBehaviour {
 
         ConversationController.Disable();
         errorPanel.alpha = 0;
+        confirmQuitPanel.alpha = 0;
 
         // only for non-tutorial levels (everything but newTutorial)
         if (rechargingText != null)
@@ -679,15 +684,38 @@ public class LevelResetter : MonoBehaviour {
         StartCoroutine(fadeToDemoFinished(seconds));
     }
 
+    // this function is called when the player selects Yes, Quit on the confirmation dialogue
+    public void gameFinished()
+    {
+        doFadeToDemoFinished(2f);
+    }
+
     private IEnumerator fadeToDemoFinished(float seconds)
     {
+        disablePlayerControls();
         screenFader.fadeOut(seconds);
         yield return new WaitForSeconds(seconds);
 
-        gameFinishedText.enabled = true;
         gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
                            // might need to tell new tutorial level coroutines to stop too
-        // DataAggregator is listening for gameQuit event, triggers sendDataToDB method
+                           // DataAggregator is listening for gameQuit event, triggers sendDataToDB method
+        yield return new WaitForSeconds(2f);
+        gameFinishedText.enabled = true;
+
+    }
+
+
+
+    // called when player clicks the NoDontQuitButton on the confirmation dialogue
+    public void returnToGame()
+    {
+        confirmQuitPanel.alpha = 0;
+        yesQuitButton.gameObject.SetActive(false);
+        noDontQuitButton.gameObject.SetActive(false);
+        if(dataManager != null)
+        {
+            dataManager.setPauseGameplay(false);
+        }
 
     }
 
@@ -697,8 +725,14 @@ public class LevelResetter : MonoBehaviour {
         // TODO: Better yet, add confirmation here
         if (Input.GetKeyUp(KeyCode.P))
         {
-            doFadeToDemoFinished(2f);
-            disablePlayerControls();
+            yesQuitButton.gameObject.SetActive(true);
+            noDontQuitButton.gameObject.SetActive(true);
+            confirmQuitPanel.alpha = 1;
+            if(dataManager != null)
+            {
+                dataManager.setPauseGameplay(true);
+            }
+
         }
         //Debug.Log("startBeginningConvo is already here? " + ConversationTrigger.GetToken("startBeginningConvo"));
         // finished recharging after power failure, show Try Again? button to restart level

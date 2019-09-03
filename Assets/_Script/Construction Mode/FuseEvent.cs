@@ -64,8 +64,6 @@ public class FuseEvent : MonoBehaviour {
 	private int numWrongRotationFails;
 	private int numWrongFacesFails;
 
-    public UnityEvent levelComplete;
-
     // Data collection
     public ConstructionDataManager dataManager;
 
@@ -1535,7 +1533,6 @@ public class FuseEvent : MonoBehaviour {
                 if (isFirstLevel)
                 {
                     ConversationTrigger.AddToken("finishedB1");
-                    levelComplete.Invoke(); // tells Tutorial1 that level is complete, so tooltips should be disabled
                 }
 
                 musicsource.clip = victorymusic;

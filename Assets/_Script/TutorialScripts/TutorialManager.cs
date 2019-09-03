@@ -42,6 +42,10 @@ public class TutorialManager : MonoBehaviour
     public FadeScreen screenFader;
     public CanvasGroup bottomPanel;
 
+    public CanvasGroup confirmQuitPanel;
+    public Button yesQuitButton;
+    public Button noDontQuitButton;
+
     public UnityEvent gameQuit;
     private bool runningJustConstructionMode = false;
 
@@ -115,10 +119,31 @@ public class TutorialManager : MonoBehaviour
         screenFader.fadeOut(seconds);
         yield return new WaitForSeconds(seconds);
 
-        gameFinishedText.enabled = true;
-        yield return new WaitForSeconds(2f);
         gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
         // might need to tell new tutorial level coroutines to stop too
+        yield return new WaitForSeconds(2f);
+        gameFinishedText.enabled = true;
+
+
+    }
+
+    // this function is called when the player selects Yes, Quit on the confirmation dialogue
+    public void gameFinished()
+    {
+        doFadeToDemoFinished(2f);
+
+    }
+
+    // called when player clicks the NoDontQuitButton on the confirmation dialogue
+    public void returnToGame()
+    {
+        confirmQuitPanel.alpha = 0;
+        yesQuitButton.gameObject.SetActive(false);
+        noDontQuitButton.gameObject.SetActive(false);
+        if(dataManager != null)
+        {
+            dataManager.setPauseGameplay(false);
+        }
 
     }
 
@@ -128,7 +153,15 @@ public class TutorialManager : MonoBehaviour
         // TODO add a confirmation - "Are you sure you want to quit? All saved progress will be lost.
         if (Input.GetKeyUp(KeyCode.P))
         {
-            doFadeToDemoFinished(3f);
+            yesQuitButton.gameObject.SetActive(true);
+            noDontQuitButton.gameObject.SetActive(true);
+            confirmQuitPanel.alpha = 1;
+
+            if(dataManager != null)
+            {
+                dataManager.setPauseGameplay(true);
+
+            }
         }
 
 
@@ -159,6 +192,7 @@ public class TutorialManager : MonoBehaviour
             Highlighter.Highlight(p1s1);
             Highlighter.Unhighlight(finishedPic);
             arrow.transform.SetParent(canvas.transform);
+            arrow.transform.SetAsFirstSibling(); // prevent arrow from displaying in front of confirmQuitPanel
             arrowTransform.anchoredPosition = new Vector2(-canvasWidth / 30f, canvasHeight / 2.1f);
             conversationTransform.anchoredPosition = new Vector2(156, -81);
         }

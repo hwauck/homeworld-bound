@@ -219,24 +219,12 @@ public class ExplorationLevelResetter : MonoBehaviour {
     {
         screenFader.fadeOut(seconds);
         yield return new WaitForSeconds(seconds);
+        gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
+        yield return new WaitForSeconds(2f);
 
-        // TODO: add a confirmation for quitting - "Are you sure you want to quit? All in-game progress will be lost."
-        if (playerInitiated)
-        {
-            gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
-            yield return new WaitForSeconds(2f);
-            gameFinishedText.enabled = true;
-            // gameQuit.Invoke() triggers DataAggregator's saveAndSendToServer() method
+        gameFinishedText.enabled = true;
+        // gameQuit.Invoke() triggers DataAggregator's saveAndSendToServer() method
             
-
-        }
-        else
-        {
-            gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
-            yield return new WaitForSeconds(2f);
-            gameFinishedText.enabled = true;
-            // gameQuit.Invoke() triggers DataAggregator's saveAndSendToServer() method
-        }
     }
 
     IEnumerator introTimer()
