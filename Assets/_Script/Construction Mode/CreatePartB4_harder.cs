@@ -403,7 +403,7 @@ public class CreatePartB4_harder : MonoBehaviour
             b4p3_bb4_a2.gameObject.GetComponent<FuseBehavior>().setButtonTo(GameObject.Find("B4p3"));
 
             b4p3_bb4_a2.gameObject.AddComponent<FaceSelector>();
-            b4p3_bb4_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.right;
+            b4p3_bb4_a2.gameObject.GetComponent<FaceSelector>().selectedNormal = Vector3.down;
             b4p3_bb4_a2.gameObject.GetComponent<FaceSelector>().setSelectPartScript(GameObject.Find("EventSystem").GetComponent<SelectPart>());
             b4p3_bb4_a2.gameObject.GetComponent<FaceSelector>().setFuseButton(GameObject.Find("FuseButton").GetComponent<Button>());
 

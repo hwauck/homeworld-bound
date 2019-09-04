@@ -168,15 +168,22 @@ public class ExplorationLevelResetter : MonoBehaviour {
             screenFader.fadeIn(1f);
 
             map.doIntroMap(); // when this is done, it triggers startCountdown() and beginning of timed level
+        } else if (ConversationTrigger.GetToken("finished_RB") && !ConversationTrigger.GetToken("finished_b5")) //activate sledgehammer battery parts once the player reaches Highlands
+        {
+            for (int i = 0; i < sledgeBatteryParts.Length; i++)
+            {
+                sledgeBatteryParts[i].SetActive(true);
+            }
         }
         else if (ConversationTrigger.GetToken("finished_RB") && !ConversationTrigger.GetToken("finished_b8")) // if still in Canyon level, play regular Canyon music
         {
+
             musicSource.clip = canyonMusic;
             musicSource.Play();
             screenFader.fadeIn(1f);
             enablePlayerControl();
             expDataManager.setPauseGameplay(false);
-        }
+        } 
 
 
     }
@@ -730,6 +737,22 @@ public class ExplorationLevelResetter : MonoBehaviour {
             noDontQuitButton.gameObject.SetActive(true);
             confirmQuitPanel.alpha = 1;
             expDataManager.setPauseGameplay(true);
+        } else if (Input.GetKeyDown(KeyCode.B)) // DEBUG ONLY
+        {
+            batteryPartCounter.incParts();
+        } else if (Input.GetKeyDown(KeyCode.I)) // DEBUG ONLY
+        {
+            itemPartCounter.setObjectToBuild("Rocket Boots");
+            itemPartCounter.setPartsNeeded(7);
+            setWhatToBuild("rocketBoots");
+            itemPartCounter.incParts();
+
+        } else if(Input.GetKeyDown(KeyCode.E)) // DEBUG ONLY
+        {
+            enablePlayerControl();
+        } else if (Input.GetKeyDown(KeyCode.F)) // DEBUG ONLY
+        {
+            screenFader.fadeIn(0.5f);
         }
 
         //else if(Input.GetKeyDown(KeyCode.C))
