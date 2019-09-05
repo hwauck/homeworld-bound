@@ -71,7 +71,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scene/Construction/rocketBoots.unity
     guid: 8999d9ca749e3f246a5253637f4fb644
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Scene/Construction/sledgehammer.unity
     guid: d94dc883a06fbad4f98fec2959c391c4
   - enabled: 0
@@ -95,4 +95,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scene/Construction/newTutorial.unity
     guid: 2b1ca8b7e475a5d48b4effb956ce4ac1
+  - enabled: 1
+    path: Assets/_Scene/Construction/b5.unity
+    guid: 9ad0967b0e449e84f89b86587e8c3c03
+  - enabled: 1
+    path: Assets/_Scene/Construction/b6.unity
+    guid: 5f9d9df47f3532248842598af1a7f6e2
+  - enabled: 1
+    path: Assets/_Scene/Construction/b7.unity
+    guid: 6be3a9c649924c74eaf09eb67ff97c9a
+  - enabled: 1
+    path: Assets/_Scene/Construction/b8.unity
+    guid: b085cb237dfa77d4da2e9b7cb1b48298
   m_configObjects: {}

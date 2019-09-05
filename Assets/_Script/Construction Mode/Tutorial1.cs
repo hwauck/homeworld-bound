@@ -414,7 +414,7 @@ public class Tutorial1 : MonoBehaviour {
     IEnumerator waitThenInitiateFuse(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        fuseEvent.initiateFuse();
+        //fuseEvent.initiateFuse();
     }
 
     IEnumerator waitThenSelectObject(GameObject toSelect, float seconds)

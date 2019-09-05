@@ -35,6 +35,10 @@ public class PartCounter : MonoBehaviour {
         if(partsFound==partsNeeded)
         {
             partsDone = true;
+
+            Debug.Log("Setting batteriesBuilt back to 0!");
+            batteryCounter.setBatteriesBuilt(0); // reset batteries built since we used all of the previous ones up building the Rocket Boots
+
             StartCoroutine(waitThenHide(6));
 
             readyForNextLevel.Invoke();

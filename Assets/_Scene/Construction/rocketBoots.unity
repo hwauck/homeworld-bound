@@ -1564,21 +1564,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RotationGizmoFixed
       objectReference: {fileID: 0}
-    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
-        type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 108479433}
-    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
-        type: 3}
-      propertyPath: selectPart
-      value: 
-      objectReference: {fileID: 1321869683}
-    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
-        type: 3}
-      propertyPath: fuseButton
-      value: 
-      objectReference: {fileID: 1418366674}
     - target: {fileID: 8146693439289298761, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1634,6 +1619,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 108479433}
+    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
+        type: 3}
+      propertyPath: selectPart
+      value: 
+      objectReference: {fileID: 1321869683}
+    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
+        type: 3}
+      propertyPath: fuseButton
+      value: 
+      objectReference: {fileID: 1418366674}
     - target: {fileID: 8146693439289659462, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
         type: 3}
       propertyPath: rotationCounter
@@ -4401,7 +4401,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1321869685}
         m_MethodName: initiateFuse
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -76,7 +76,7 @@ public class Fuser : ItemBase {
         if (fuserActive)
         {
             GetRef();
-            // Hide the sledge when deselected, and set a flag.
+            // Hide the fuser when deselected, and set a flag.
             fuserStatic.gameObject.SetActive(false);
             fuserPutAway.Invoke();
 
@@ -87,7 +87,7 @@ public class Fuser : ItemBase {
         if (fuserActive)
         {
             GetRef();
-            // Re-show the sledgewhen selected, and set a flag.
+            // Re-show the fuser when selected, and set a flag.
             fuserStatic.gameObject.SetActive(true);
             fuserLaunched.Invoke();
 

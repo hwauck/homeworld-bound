@@ -212,32 +212,9 @@ public class FuseEvent : MonoBehaviour {
             currentLevel = LoadUtils.currentSceneName;
         }
         Debug.Log("currentLevel: " + currentLevel);
+        // TODO: add new item levels here
         switch (currentLevel)
         {
-            case "b1":
-                BatterySystem.AddPower(2);
-                BatterySystem.PowerToTokens();
-                LoadUtils.LoadScene(InventoryController.levelName);
-                LoadUtils.UnloadScene("b1");
-                break;
-            case "b2":
-                BatterySystem.AddPower(2);
-                BatterySystem.PowerToTokens();
-                LoadUtils.LoadScene(InventoryController.levelName);
-                LoadUtils.UnloadScene("b2");
-                break;
-            case "b3":
-                BatterySystem.AddPower(2);
-                BatterySystem.PowerToTokens();
-                LoadUtils.LoadScene(InventoryController.levelName);
-                LoadUtils.UnloadScene("b3");
-                break;
-            case "b4":
-                BatterySystem.AddPower(2);
-                BatterySystem.PowerToTokens();
-                LoadUtils.LoadScene(InventoryController.levelName);
-                LoadUtils.UnloadScene("b4");
-                break;
             case "rocketBoots":
                 RocketBoots.ActivateBoots();
                 InventoryController.items.Remove("Rocket Boots Body");
@@ -248,11 +225,8 @@ public class FuseEvent : MonoBehaviour {
                 InventoryController.items.Remove("Rocket Boots Trim");
                 InventoryController.items.Remove("Rocket Boots Widening");
                 InventoryController.ConvertInventoryToTokens();
-                //RecipesDB.unlockedRecipes.Remove(RecipesDB.RocketBoots);
-                LoadUtils.LoadScene(InventoryController.levelName);
-                LoadUtils.UnloadScene("rocketBoots");
                 break;
-            case "axe":
+            case "sledgehammer":
                 Sledgehammer.ActivateSledgehammer();
                 InventoryController.items.Remove("Sledgehammer Trapezoid");
                 InventoryController.items.Remove("Sledgehammer Top Point");
@@ -266,10 +240,7 @@ public class FuseEvent : MonoBehaviour {
                 InventoryController.items.Remove("Sledgehammer Small Tip");
                 InventoryController.items.Remove("Sledgehammer Small Trap");
                 InventoryController.items.Remove("Sledgehammer Tip");
-
                 InventoryController.ConvertInventoryToTokens();
-                LoadUtils.LoadScene(InventoryController.levelName);
-                LoadUtils.UnloadScene("sledgehammer");
                 break;
             case "key1":
                 ConversationTrigger.AddToken("player_has_key1");
@@ -280,8 +251,6 @@ public class FuseEvent : MonoBehaviour {
                 InventoryController.items.Remove("Key 1 Walking Pants");
                 InventoryController.items.Remove("Key 1 Waluigi");
                 InventoryController.ConvertInventoryToTokens();
-                LoadUtils.LoadScene(InventoryController.levelName);
-                LoadUtils.UnloadScene("key1");
                 break;
             case "ffa":
                 ConversationTrigger.AddToken("player_has_ffa");
@@ -298,8 +267,6 @@ public class FuseEvent : MonoBehaviour {
                 InventoryController.items.Remove("FFA Ring Small");
                 InventoryController.items.Remove("FFA Scalene");
                 InventoryController.ConvertInventoryToTokens();
-                LoadUtils.LoadScene(InventoryController.levelName);
-                LoadUtils.UnloadScene("ffaHarder");
                 break;
 
             default:
@@ -307,11 +274,10 @@ public class FuseEvent : MonoBehaviour {
                 break;
         }
 
-        if (!runningJustConstructionMode)
-        {
-            // Update the build button based on the now-removed parts.
-            //BuildButton.CheckRecipes();
-        }
+        LoadUtils.LoadScene(InventoryController.levelName);
+        LoadUtils.UnloadScene(currentLevel);
+
+
     }
 
 	public bool done() {
@@ -328,12 +294,14 @@ public class FuseEvent : MonoBehaviour {
     //allows other scripts, such as Tutorial scripts, to start music manually
     public void startMusic()
     {
+        Debug.Log("Playing " + musicsource.clip.name + "!");
         musicsource.Play();
     }
 
     //allows other scripts, such as Tutorial scripts, to start music manually
     public void stopMusic()
     {
+        Debug.Log("Stopping " + musicsource.clip.name + "!");
         musicsource.Stop();
     }
 
@@ -1450,8 +1418,8 @@ public class FuseEvent : MonoBehaviour {
 		connectButton.interactable = false;
 	}
 
-	public void initiateFuse() {
-        //TODO: if tutorial is on, don't increment fuse attempts
+    // if in debug mode, do auto-victory. If not, proceed as usual, checking for fuse errors or successes
+	public void initiateFuse(bool debugMode) {
 		numFuseAttempts++;
 		//print ("Fusing: " + GetComponent<SelectPart>().getSelectedObject() + " to " + GetComponent<SelectPart>().getSelectedFuseTo());
 		selectedObject = GetComponent<SelectPart>().getSelectedObject();
@@ -1464,49 +1432,57 @@ public class FuseEvent : MonoBehaviour {
 		//foreach(string s in fuseMapping[selectedObject.name]) {
 		//	print (s);
 		//}
-		if(selectedObject == null) {
+		if(!debugMode && selectedObject == null) {
 			//player tries to connect when there is no active part (only at beginning)
 			//print ("Select the black regions you want to join together!");
             //UPDATE: this can't happen if the Fuse button is disabled until two faces are selected
 			source.PlayOneShot (failure);
 
-		} else if (!fuseMapping.ContainsKey (selectedObject.name)){
+		} else if (!debugMode && !fuseMapping.ContainsKey (selectedObject.name)){
             // this should only happen if the fuseMapping wasn't properly assigned at the beginning of the level
-			print ("Invalid fuse: Cannot fuse " + selectedObject.name + " to " + selectedFuseTo.name);
+			//print ("Invalid fuse: Cannot fuse " + selectedObject.name + " to " + selectedFuseTo.name);
 			//display error on screen for 1 sec
 			StartCoroutine(errorWrongFace());
 
-		} else if(fuseMapping[selectedObject.name].Contains(selectedFuseTo.name) && positionMatches (selectedObject, selectedFuseTo)) {
+		} else if(debugMode || (!debugMode && fuseMapping[selectedObject.name].Contains(selectedFuseTo.name) && positionMatches (selectedObject, selectedFuseTo))) {
 	
-			print ("Successful fuse!");
+			//print ("Successful fuse!");
 			fuseStatus="success";
-            if(dataManager)
+            if(!debugMode && dataManager)
             {
                 dataManager.AddPartFused(selectedObject.transform.parent.gameObject.name);
             }
 			source.PlayOneShot (success);
 
-            //Check if FaceSelector is still adjusting part location. If so, abort adjustment and then just fuse
-            Coroutine currentlyActiveMovement = selectedObject.GetComponent<FaceSelector>().getCurrentlyActiveCoroutine();
-            if (currentlyActiveMovement != null)
+            if (!debugMode)
             {
-                StopCoroutine(currentlyActiveMovement);
-            }
-			selectedObject.GetComponent<FuseBehavior>().fuse(selectedFuseTo.name);
+                //Check if FaceSelector is still adjusting part location. If so, abort adjustment and then just fuse
+                Coroutine currentlyActiveMovement = selectedObject.GetComponent<FaceSelector>().getCurrentlyActiveCoroutine();
+                if (currentlyActiveMovement != null)
+                {
+                    StopCoroutine(currentlyActiveMovement);
+                }
+                selectedObject.GetComponent<FuseBehavior>().fuse(selectedFuseTo.name);
 
-            // delete starting part's old BoxCollider, replace with a new one combining the old one's bounds with those of 
-            // the part that was just attached
-            extendBoxCollider(GetComponent<SelectPart>().startingPart, selectedObject.transform.parent.gameObject);
+                // delete starting part's old BoxCollider, replace with a new one combining the old one's bounds with those of 
+                // the part that was just attached
+                extendBoxCollider(GetComponent<SelectPart>().startingPart, selectedObject.transform.parent.gameObject);
+            }
+  
 
 			fuseCleanUp();
-			fuseCount++;
 
-            if(isFirstLevel && !firstFuseComplete)
+            if(!debugMode)
+            {
+                fuseCount++;
+            }
+
+            if (!debugMode && isFirstLevel && !firstFuseComplete)
             {
                 firstFuseComplete = true;
                 ConversationTrigger.AddToken("finishedFirstFuse");
             }
-			if(done ()) {
+			if(done()) {
 				stopLevelTimer();
 
                 group = Instantiate(victoryPrefab, new Vector3(-100, 30, 100), new Quaternion());
@@ -1542,6 +1518,8 @@ public class FuseEvent : MonoBehaviour {
                 musicsource.clip = victorymusic;
                 mainCam.transform.position = new Vector3(-90, 80, -3.36f);
                 mainCam.transform.rotation = Quaternion.Euler(new Vector3(15, 0, 0));
+                Debug.Log("Playing " + musicsource.clip.name + "!");
+
                 musicsource.Play();
                 StartCoroutine(FadeAudio(fadeTime, Fade.Out));
 
@@ -1564,6 +1542,21 @@ public class FuseEvent : MonoBehaviour {
                 } else if (currentLevel.Equals("rocketBoots"))
                 {
                     ConversationTrigger.AddToken("finished_RB");
+                } else if (currentLevel.Equals("b5"))
+                {
+                    ConversationTrigger.AddToken("finished_b5");
+                } else if (currentLevel.Equals("b6"))
+                {
+                    ConversationTrigger.AddToken("finished_b6");
+                } else if (currentLevel.Equals("b7"))
+                {
+                    ConversationTrigger.AddToken("finished_b7");
+                } else if (currentLevel.Equals("b8"))
+                {
+                    ConversationTrigger.AddToken("finished_b8");
+                } else if (currentLevel.Equals("sledgehammer"))
+                {
+                    ConversationTrigger.AddToken("finished_sledgehammer");
                 }
 
                 claimItem.gameObject.SetActive(true);
@@ -1759,6 +1752,15 @@ public class FuseEvent : MonoBehaviour {
             
 			rotateConstruction ();
  
+        }
+
+        if(Input.GetKey(KeyCode.LeftShift)) // FOR PROCTOR/DEBUG USE ONLY
+        {
+            if(Input.GetKeyUp(KeyCode.U))
+            {
+                fuseCount = NUM_FUSES;
+                initiateFuse(true); // initiate fuse in debug mode, prompting automatic victory
+            }
         }
 
         // Ensure mouse works...

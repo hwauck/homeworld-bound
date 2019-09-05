@@ -60,8 +60,10 @@ public class Timer : MonoBehaviour {
     public void startTimer()
     {
         timerStarted = true;
+        Debug.Log("Stopping " + MusicSource.clip.name + "!");
         MusicSource.Stop();
         MusicSource.clip = ExploreM;
+        Debug.Log("Playing " + MusicSource.clip.name + "!");
         MusicSource.Play();
     }
 
@@ -87,12 +89,14 @@ public class Timer : MonoBehaviour {
 
     public void stopMusic()
     {
+        Debug.Log("Stopping " + MusicSource.clip.name + "!");
         MusicSource.Stop();
         sinisterMusicstarted = false;
     }
 
     public void startMusic()
     {
+        Debug.Log("Playing " + MusicSource.clip.name + "!");
         MusicSource.Play();
     }
 
@@ -115,10 +119,12 @@ public class Timer : MonoBehaviour {
 
 
                     Debug.Log("setting sinister Musictotrue");
+                    Debug.Log("Stopping " + MusicSource.clip.name + "!");
                     MusicSource.Stop();
 
 
                     MusicSource.clip = ExploreMLOW;
+                    Debug.Log("Playing " + MusicSource.clip.name + "!");
                     MusicSource.Play();
                     Debug.Log("changing clip and playing");
                 }
@@ -128,6 +134,7 @@ public class Timer : MonoBehaviour {
             {
                 stopTimer();
                 powerFailure.Invoke();
+                Debug.Log("Stopping " + MusicSource.clip.name + "!");
                 stopMusic();
                 // For data collection
                 numRanOutOfTime++;

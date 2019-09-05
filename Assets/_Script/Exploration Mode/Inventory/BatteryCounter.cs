@@ -24,9 +24,9 @@ public class BatteryCounter : MonoBehaviour {
     // Use this for initialization
     void Start () {
         partsFound = 0;
+        batteriesBuilt = 0;
         // for testing only!
-        //batteriesBuilt = 0;
-        batteriesBuilt = 3;
+        //batteriesBuilt = 3;
         setCounterMaximums();
 
     }
@@ -60,6 +60,7 @@ public class BatteryCounter : MonoBehaviour {
         {
             partsNeeded = 5;
             batteriesNeeded = 4;
+
         }
         else if (!ConversationTrigger.GetToken("finished_b6"))
         {
@@ -116,6 +117,11 @@ public class BatteryCounter : MonoBehaviour {
         return batteriesBuilt;
     }
 
+    public void setBatteriesBuilt(int num)
+    {
+        batteriesBuilt = num;
+    }
+
     public void incParts()
     {
         if(partsFound == 0)
@@ -129,6 +135,7 @@ public class BatteryCounter : MonoBehaviour {
         if (partsFound == partsNeeded)
         {
             partsDone = true;
+
             // reset battery pickup conversation for next battery level
             ConversationTrigger.RemoveToken("picked_up_a_battery");
             batteriesBuilt++; // technically, they're not built yet. But they will be when the player returns to scene.
@@ -136,6 +143,7 @@ public class BatteryCounter : MonoBehaviour {
             StartCoroutine(waitThenHide(6));
 
             readyForNextLevel.Invoke();
+  
         }           
 
 
@@ -192,6 +200,11 @@ public class BatteryCounter : MonoBehaviour {
     {
         this.whatToBuild = whatToBuild;
 
+    }
+
+    public string getWhatToBuild()
+    {
+        return whatToBuild;
     }
 
     public void setPartsNeeded(int partsNeeded)

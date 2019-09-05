@@ -107,7 +107,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         powerUpSound = Resources.Load<AudioClip>("Audio/BothModes/Slider3");
         welcomeSound = Resources.Load<AudioClip>("Audio/BothModes/welcome");
         highlandsMap = Resources.Load<Sprite>("Clues/HighlandsMap");
-        canyonMusic = Resources.Load<AudioClip>("Audio/ExpModeMusic/DanseMorialta");
+        canyonMusic = Resources.Load<AudioClip>("Audio/ExpModeMusic/Danse-Morialta");
 
         // save original values of all player control variables in RigidBodyFirstPersonController
         forwardSpeed = controller.movementSettings.ForwardSpeed;
@@ -134,7 +134,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     {
         lowPowerText.enabled = false;
 
-        //TODO: add condition for sledgehammer level
+        //TODO: add condition for new levels
         if(ConversationTrigger.GetToken("finished_b4") && !ConversationTrigger.GetToken("finished_RB"))
         {
             disablePlayerControl();
@@ -170,16 +170,25 @@ public class ExplorationLevelResetter : MonoBehaviour {
             map.doIntroMap(); // when this is done, it triggers startCountdown() and beginning of timed level
         } else if (ConversationTrigger.GetToken("finished_RB") && !ConversationTrigger.GetToken("finished_b5")) //activate sledgehammer battery parts once the player reaches Highlands
         {
+            Debug.Log("Stopping " + musicSource.clip.name + "!");
+            musicSource.Stop();
+            musicSource.clip = canyonMusic;
+            musicSource.loop = true;
+            Debug.Log("Playing " + musicSource.clip.name + "!");
+
+            // triggers fuserPutAway event in Fuser, which triggers startMusic() method in Timer
+            controller.GetComponent<Fuser>().Deselect();
+
             for (int i = 0; i < sledgeBatteryParts.Length; i++)
             {
                 sledgeBatteryParts[i].SetActive(true);
             }
+
         }
-        else if (ConversationTrigger.GetToken("finished_RB") && !ConversationTrigger.GetToken("finished_b8")) // if still in Canyon level, play regular Canyon music
+        else
         {
 
-            musicSource.clip = canyonMusic;
-            musicSource.Play();
+            controller.GetComponent<Fuser>().Deselect();
             screenFader.fadeIn(1f);
             enablePlayerControl();
             expDataManager.setPauseGameplay(false);
@@ -292,7 +301,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             Exp_firstBattery_b4.enabled = true;
 
         }
-        else if (!ConversationTrigger.GetToken("finished_rb"))
+        else if (!ConversationTrigger.GetToken("finished_RB"))
         {
             Exp_firstBattery_b5.enabled = true;
 
@@ -409,6 +418,10 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
             itemPartCounter.hideParts();
             itemPartCounter.resetCounter();
+            Debug.Log("SETTING batteriesBuilt back to 0!");
+            numBatteriesBuilt = 0;
+            batteriesBuilt.SetActive(false);
+
             timer.stopTimer();
             timer.stopMusic();
             timer.gameObject.GetComponent<CanvasGroup>().alpha = 0; //hide TimeRemainingPanel again
@@ -492,7 +505,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             numBatteriesBuilt++;
             batteriesBuilt.SetActive(true);
         }
-        else
+        else // I don't think this will ever execute because this function only runs after collecting each set of batteries, not items
         {   //all item levels
             lowPowerText.enabled = true;
             //lowPowerText.text = "Welcome to the Fuser X7000!";
@@ -500,8 +513,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
             //yield return new WaitForSeconds(2f);
             lowPowerText.text = "New parts detected. Activating full power construction mode!";
             audioSource.PlayOneShot(powerUpSound);
+
             batteriesBuilt.SetActive(false);
-            numBatteriesBuilt = 0;
         }
 
         batteriesBuilt.transform.GetComponentInChildren<Text>().text = "Batteries Built: " + numBatteriesBuilt + "/4";
@@ -582,7 +595,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     {
         yield return new WaitForSeconds(seconds);
         map.show();
-        Debug.Log("ADDING CONVO TOKEN " + token + "!");
+        //Debug.Log("ADDING CONVO TOKEN " + token + "!");
         ConversationTrigger.AddToken(token);
     }
 
@@ -737,22 +750,78 @@ public class ExplorationLevelResetter : MonoBehaviour {
             noDontQuitButton.gameObject.SetActive(true);
             confirmQuitPanel.alpha = 1;
             expDataManager.setPauseGameplay(true);
-        } else if (Input.GetKeyDown(KeyCode.B)) // DEBUG ONLY
+        } else if (Input.GetKey(KeyCode.LeftShift)) // PROCTOR/DEBUG USE ONLY
         {
-            batteryPartCounter.incParts();
-        } else if (Input.GetKeyDown(KeyCode.I)) // DEBUG ONLY
-        {
-            itemPartCounter.setObjectToBuild("Rocket Boots");
-            itemPartCounter.setPartsNeeded(7);
-            setWhatToBuild("rocketBoots");
-            itemPartCounter.incParts();
+            if (Input.GetKeyUp(KeyCode.L))
+            { // LEFT SHIFT + L to increment batteries
+                batteryPartCounter.incParts();
 
-        } else if(Input.GetKeyDown(KeyCode.E)) // DEBUG ONLY
-        {
-            enablePlayerControl();
-        } else if (Input.GetKeyDown(KeyCode.F)) // DEBUG ONLY
-        {
-            screenFader.fadeIn(0.5f);
+                // if there are any leftover battery parts, move them out of level so player doesn't accidentally collect them later out of order
+                Debug.Log("Batteries Built: " + batteryPartCounter.getBatteriesBuilt());
+                Debug.Log("whatToBuild = " + whatToBuild);
+                if (batteryPartCounter.getBatteriesBuilt() == 4 && whatToBuild.Equals("b4"))
+                {
+                    GameObject[] rbBatteryParts = GameObject.FindGameObjectsWithTag("rocketBoots_battery");
+                    for(int i = 0; i < rbBatteryParts.Length; i++)
+                    {
+                        Debug.Log("Moving Battery Part " + rbBatteryParts[i] + " away!");
+                        rbBatteryParts[i].transform.position = new Vector3(-1000f, -1000f, -1000f);
+                    }
+                } else if (batteryPartCounter.getBatteriesBuilt() == 4 && whatToBuild.Equals("b8"))
+                {                   
+                    for (int i = 0; i < sledgeBatteryParts.Length; i++)
+                    {
+                        Debug.Log("Moving Battery Part " + sledgeBatteryParts[i] + " away!");
+                        sledgeBatteryParts[i].transform.position = new Vector3(-1000f, -1000f, -1000f);
+                    }
+                } 
+
+
+            }
+            else if (Input.GetKeyUp(KeyCode.I)) // LEFT SHIFT + I to increment Rocket Boots parts
+            {
+                itemPartCounter.setObjectToBuild("Rocket Boots");
+                itemPartCounter.setPartsNeeded(7);
+                setWhatToBuild("rocketBoots");
+                itemPartCounter.incParts();
+
+                // if there are any leftover item parts, move them out of level so player doesn't accidentally collect them later out of order
+                // NOTE: this will remove ALL rocket boot parts as soon as debug increment parts is used even once, so debug increments will have
+                // to be used for the rest of the rocket boot parts too
+                for (int i = 0; i < rocketBootParts.Length; i++)
+                {
+                    Debug.Log("Moving Rocket Boots Part " + rocketBootParts[i] + " away!");
+                    rocketBootParts[i].transform.position = new Vector3(-1000f, -1000f, -1000f);
+                }
+           
+
+            }
+            else if (Input.GetKeyUp(KeyCode.H)) // LEFT SHIFT + H to increment Sledgehammer parts
+            {
+                itemPartCounter.setObjectToBuild("Sledgehammer");
+                itemPartCounter.setPartsNeeded(11);
+                setWhatToBuild("sledgehammer");
+                itemPartCounter.incParts();
+
+                // if there are any leftover item parts, move them out of level so player doesn't accidentally collect them later out of order
+                // NOTE: this will remove ALL rocket boot parts as soon as debug increment parts is used even once, so debug increments will have
+                // to be used for the rest of the rocket boot parts too
+                for (int i = 0; i < sledgehammerParts.Length; i++)
+                {
+                    sledgehammerParts[i].transform.position = new Vector3(-1000f, -1000f, -1000f);
+                }
+             
+
+            }
+            else if (Input.GetKeyUp(KeyCode.K)) // LEFT SHIFT + K to reenable user control if it's disabled
+            {
+                enablePlayerControl();
+
+            }
+            else if (Input.GetKeyUp(KeyCode.J)) // LEFT SHIFT + J to fade in if screen starts faded out
+            {
+                screenFader.fadeIn(0.5f);
+            }
         }
 
         //else if(Input.GetKeyDown(KeyCode.C))

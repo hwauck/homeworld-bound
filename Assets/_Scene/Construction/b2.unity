@@ -2112,14 +2112,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11476892, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11476892, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
-      propertyPath: tutorialMode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 426536, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -90
@@ -2151,6 +2143,14 @@ PrefabInstance:
     - target: {fileID: 426536, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11476892, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11476892, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
+      propertyPath: tutorialMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9290618, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
@@ -2736,10 +2736,6 @@ PrefabInstance:
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11491732, guid: ca95c809c7100f941a716a128503d054, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 11493272, guid: ca95c809c7100f941a716a128503d054, type: 3}
       propertyPath: m_CellSize.x
       value: 200
@@ -2747,6 +2743,10 @@ PrefabInstance:
     - target: {fileID: 11493272, guid: ca95c809c7100f941a716a128503d054, type: 3}
       propertyPath: m_CellSize.y
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 11491732, guid: ca95c809c7100f941a716a128503d054, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca95c809c7100f941a716a128503d054, type: 3}
@@ -3649,7 +3649,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1321869685}
         m_MethodName: initiateFuse
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6432,21 +6432,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RotationGizmoFixed
       objectReference: {fileID: 0}
-    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
-        type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 58732405}
-    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
-        type: 3}
-      propertyPath: selectPart
-      value: 
-      objectReference: {fileID: 1321869683}
-    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
-        type: 3}
-      propertyPath: fuseButton
-      value: 
-      objectReference: {fileID: 1418366674}
     - target: {fileID: 8146693439289298761, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6502,6 +6487,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 58732405}
+    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
+        type: 3}
+      propertyPath: selectPart
+      value: 
+      objectReference: {fileID: 1321869683}
+    - target: {fileID: 8146693439282590295, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
+        type: 3}
+      propertyPath: fuseButton
+      value: 
+      objectReference: {fileID: 1418366674}
     - target: {fileID: 8146693439289659462, guid: 7f7faa0b4071ba14ab61f31a84d66a56,
         type: 3}
       propertyPath: tutorialLevel
