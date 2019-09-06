@@ -46,6 +46,7 @@ public class Fuser : ItemBase {
         }
 
         fuserStatic.SetActive(false);
+        Debug.Log("Reached the end of Fuser's Start() method for " + gameObject.name);
 
     }
 

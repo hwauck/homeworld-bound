@@ -27,6 +27,8 @@ public class Timer : MonoBehaviour {
     {
         isTimedLevel.Invoke(); // prompts LevelResetter to disablePlayerControls()
         numRanOutOfTime = 0;
+        Debug.Log("Reached the end of Timer's Awake() method for " + gameObject.name);
+
     }
 
     // Use this for initialization
@@ -55,6 +57,16 @@ public class Timer : MonoBehaviour {
         {
             exploreDataManager = GameObject.Find("DataCollectionManager").GetComponent<ExplorationDataManager>();
         }
+    }
+
+    public void setTimeGiven(float newTime)
+    {
+        timeGiven = newTime;
+        timeRemaining = timeGiven;
+        minutes = Mathf.FloorToInt(timeRemaining / 60F);
+        seconds = Mathf.FloorToInt(timeRemaining - minutes * 60);
+        timerLabel.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+
     }
 
     public void startTimer()

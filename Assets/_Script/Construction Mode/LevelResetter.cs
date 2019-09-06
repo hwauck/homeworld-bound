@@ -146,14 +146,22 @@ public class LevelResetter : MonoBehaviour {
        // }
     }
 
-    //called by Claim Item button in b4
+    //called by Claim Item button in b4 and b8 (and any battery level that comes right before a timed Exploration Mode level with a map)
     public void doTransitionToFuserLog()
     {
-        StartCoroutine(transitionToFuserLog());
+        if (LoadUtils.currentSceneName.Equals("b4"))
+        {
+            StartCoroutine(transitionToFuserLogFirstTime());
+        }
+        else
+        {
+            StartCoroutine(transitionToFuserLog());
+
+        }
     }
 
-    // only for b4 - RocketBoots part collection transition
-    private IEnumerator transitionToFuserLog()
+    // the first time a timed map Exploration Mode level is introduced
+    private IEnumerator transitionToFuserLogFirstTime()
     {
         claimButton.gameObject.SetActive(false);
         disablePlayerControls();
@@ -171,6 +179,32 @@ public class LevelResetter : MonoBehaviour {
         rechargingText.text = "New log message detected.";
         audioSource.PlayOneShot(logMessageSound);
         readButton.gameObject.SetActive(true);
+        // now wait for player input
+
+
+    }
+
+    // skips the Read Log part of the map intro if this isn't the first timed map Exploration Mode level
+    private IEnumerator transitionToFuserLog()
+    {
+        claimButton.gameObject.SetActive(false);
+        disablePlayerControls();
+        if (dataManager)
+        {
+            dataManager.setPauseGameplay(true);
+        }
+        screenFader.fadeOut(1f);
+        yield return new WaitForSeconds(1f);
+
+        rechargingText.enabled = true;
+        rechargingText.text = "Fuser is now fully charged!";
+        audioSource.PlayOneShot(fullyChargedSound);
+        yield return new WaitForSeconds(3f);
+
+        audioSource.PlayOneShot(logMessageSound);
+        ConversationTrigger.AddToken("read_fuser_log");
+        ConversationTrigger.AddToken("show_locate_button");
+        locateButton.gameObject.SetActive(true);
         // now wait for player input
 
 

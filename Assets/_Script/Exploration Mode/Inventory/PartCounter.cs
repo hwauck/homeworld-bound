@@ -25,7 +25,9 @@ public class PartCounter : MonoBehaviour {
         partsFound = 0;
         partsNeededText = "??";
         objectToBuild = "???";
-	}
+        Debug.Log("Reached the end of PartCounter's Start() method for " + gameObject.name);
+
+    }
 
     public void incParts()
     {

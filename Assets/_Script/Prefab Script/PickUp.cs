@@ -35,6 +35,8 @@ public class PickUp : MonoBehaviour
     void Start()
 
     {
+        Debug.Log("Started Pickup's Start() method for " + gameObject.name);
+
         if (WindChimes != null && PartsSounds != null)
         {
            
@@ -60,6 +62,7 @@ public class PickUp : MonoBehaviour
 			//ii.name = "NAME CHANGED TO PREVENT BUGS";
 			ii.name += "_fix";
 		}
+        Debug.Log("Reached the end of Pickup's Start() method for " + gameObject.name);
 
     }
 
@@ -76,7 +79,7 @@ public class PickUp : MonoBehaviour
                 PartsSounds.Stop();
 
             }
-			SimpleData.WriteDataPoint("Pickup_Item", "", "", "", "", pickupName);
+			//SimpleData.WriteDataPoint("Pickup_Item", "", "", "", "", pickupName);
             //if(!levelResetter.hasTaggedFirstPart())
             //{
             //    levelResetter.setTaggedFirstPart(true);
@@ -84,8 +87,8 @@ public class PickUp : MonoBehaviour
             //    levelResetter.startCountdown();
             //}
             //SimpleData.WriteStringToFile("pickups.txt", Time.time + ",PICKUP," + pickupName);
-            ParticleSystem ps = GetComponent<ParticleSystem>();
-            ParticleSystem.MainModule psMain = GetComponent<ParticleSystem>().main;
+            //ParticleSystem ps = GetComponent<ParticleSystem>();
+            //ParticleSystem.MainModule psMain = GetComponent<ParticleSystem>().main;
             GameObject expDataManagerObj = GameObject.Find("DataCollectionManager");
 
             switch (type)

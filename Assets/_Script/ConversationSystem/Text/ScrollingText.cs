@@ -87,12 +87,16 @@ public class ScrollingText : MonoBehaviour
                 Debug.LogError("ERROR: GameObject Audio Source not found in scene!");
             }
         }
-	}
+        Debug.Log("Reached the end of ScrollingText's Awake() method for " + gameObject.name);
 
-	void Start ()
+    }
+
+    void Start ()
 	{
-		// Get and ensure the existence of the SpriteText controller.
-		textController = GetComponent<SpriteText>();
+        Debug.Log("Starting ScrollingText's Start() method for " + gameObject.name);
+
+        // Get and ensure the existence of the SpriteText controller.
+        textController = GetComponent<SpriteText>();
 		textBase = GetComponent<Text>();
 		if (textController == null || textBase == null)
 		{
@@ -112,13 +116,14 @@ public class ScrollingText : MonoBehaviour
 			textBase.text = conversation[0];		
 		}
 
+        Debug.Log("Reached the end of ScrollingText's Start() method for " + gameObject.name);
 
 
-		// This Start function effectively continues in PrepNextLine to ensure functions are called AFTER the text has been created.
-		// Race conditions, basically. Who knew? Also apparently LateUpdate doesn't work how I thought it did.
-	}
+        // This Start function effectively continues in PrepNextLine to ensure functions are called AFTER the text has been created.
+        // Race conditions, basically. Who knew? Also apparently LateUpdate doesn't work how I thought it did.
+    }
 
-	void Update()
+    void Update()
 	{
 		// Skipping line scrolling or advancing a conversation.
 		if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) || !enableScroll)

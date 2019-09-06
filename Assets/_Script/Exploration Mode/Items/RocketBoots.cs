@@ -25,9 +25,11 @@ public class RocketBoots : ItemBase
 	{
 		playerBody = GetComponent<Rigidbody>();
 		uiElementStatic = uiElement;
-	}
+        Debug.Log("Reached the end of RocketBoots's Awake() method for " + gameObject.name);
 
-	void Start ()
+    }
+
+    void Start ()
 	{
 		// Check tokens to see if boots are active.
 		// Save is loaded somewhere else in an Awake() function.
@@ -43,15 +45,19 @@ public class RocketBoots : ItemBase
 		{
 			uiElement.gameObject.SetActive(false);
 		}
-	}
+        Debug.Log("Reached the end of RocketBoots's Start() method for " + gameObject.name);
 
-	// Restart when re-enabled. Fixes saving bugs.
-	void OnEnable()
+    }
+
+    // Restart when re-enabled. Fixes saving bugs.
+    void OnEnable()
 	{
 		Start();
-	}
-	
-	void FixedUpdate ()
+        Debug.Log("Reached the end of RocketBoots's OnEnable() method for " + gameObject.name);
+
+    }
+
+    void FixedUpdate ()
 	{
 		if (bootsActive && selected && SceneManager.GetActiveScene().name != "CityVault")
 		{

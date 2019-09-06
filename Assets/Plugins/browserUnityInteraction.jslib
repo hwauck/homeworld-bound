@@ -41,13 +41,7 @@ mergeInto(LibraryManager.library, {
 			data: log,
 			success: function(response) {
 				console.log("success!");
-				var game1Name = document.getElementById('game1Div').textContent;
-				var game2Name = document.getElementById('game2Div').textContent;
-				if(game2Name != "none") {
-					document.location.href = '/imiSurveyGame2';
-				} else {
-					document.location.href = '/imiSurveyGame1';
-				}
+	
 			},
 			error: function(xhr, status, error) {
 				alert(xhr.responseText);

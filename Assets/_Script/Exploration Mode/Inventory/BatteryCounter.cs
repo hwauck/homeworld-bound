@@ -28,6 +28,7 @@ public class BatteryCounter : MonoBehaviour {
         // for testing only!
         //batteriesBuilt = 3;
         setCounterMaximums();
+        Debug.Log("Reached the end of BatteryCounter's Start() method for " + gameObject.name);
 
     }
 

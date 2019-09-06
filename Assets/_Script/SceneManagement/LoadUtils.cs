@@ -182,7 +182,7 @@ public class LoadUtils : MonoBehaviour
 		currentSceneName = sceneName;
 
 		// And setup a new position tracking file for the new scene.
-		SimpleData.CreateNewPositionFile(sceneName);
+		//SimpleData.CreateNewPositionFile(sceneName);
 	}
 
 	static void EnsureRefExists()

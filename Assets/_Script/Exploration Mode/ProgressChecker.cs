@@ -28,6 +28,8 @@ public class ProgressChecker : MonoBehaviour
             transform.position = new Vector3(-160, -32, 60);
             Debug.Log("transformierung");
         }
-       
-	}
+        Debug.Log("Reached the end of ProgressChecker's Start() method!");
+
+
+    }
 }

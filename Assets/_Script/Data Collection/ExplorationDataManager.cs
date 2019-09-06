@@ -85,6 +85,8 @@ public class ExplorationDataManager : MonoBehaviour {
     private void OnEnable()
     {
         pauseGameplay = false;
+        Debug.Log("Reached the end of ExplorationDataManager's OnEnable() method!");
+
     }
 
     void Update () {

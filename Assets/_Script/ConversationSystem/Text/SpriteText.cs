@@ -109,7 +109,7 @@ public class SpriteText : MonoBehaviour
 		scrollController = GetComponent<ScrollingText>();
 
 		// Load each sprite on the sheet so we can reference it with our silly dictionary.
-		sprites = Resources.LoadAll<Sprite>("HUDElements/Font_0");
+		sprites = Resources.LoadAll<Sprite>("HUDElements/Font");
 
 		// Init our letter prefab.
 		letterPrefab = Resources.Load<GameObject>("Prefabs/TextSystem/TextElement");
@@ -157,6 +157,8 @@ public class SpriteText : MonoBehaviour
 
 		// Sometimes, Unity likes to run the FixedUpdate function before Start finishes... This is a problem.
 		initialized = true;
+
+        Debug.Log("Reached the end of SpriteText's Awake() method for " + gameObject.name);
 	}
 
 	void Start ()

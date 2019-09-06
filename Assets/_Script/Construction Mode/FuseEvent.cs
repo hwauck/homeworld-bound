@@ -105,7 +105,7 @@ public class FuseEvent : MonoBehaviour {
         {
             // Special stuff happens because we are just running construction mode without exploration mode.
             runningJustConstructionMode = true;
-            SimpleData.CreateInitialFiles();
+            //SimpleData.CreateInitialFiles();
 
             //! Is this a really bad idea?
             SaveController.filename += "_CONSTRUCTION-ONLY";
@@ -200,7 +200,7 @@ public class FuseEvent : MonoBehaviour {
     public void goToNextScene()
     {
 
-        SimpleData.WriteDataPoint("Left_Scene", "Complete_Construction", "", "", "", "");
+        //SimpleData.WriteDataPoint("Left_Scene", "Complete_Construction", "", "", "", "");
         //SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO," + InventoryController.levelName);
 
         string currentLevel;  

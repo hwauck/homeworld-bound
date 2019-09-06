@@ -16,26 +16,28 @@ public class SceneTimer : MonoBehaviour
     private bool demoEnded;
 	void Start(){
 		playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-	}
-	//void Update()
-	//{
-	//	timer += Time.deltaTime;
-	//	//enter highland
- //       // TODO: change this so that separation is more definition
-	//	if (!highland) {
-	//		if (sceneName == "Canyon2" && playerPos.position.y >= 33 && !demoEnded) {
- //               demoEnded = true;
-	//			//Debug.Log("ENTERED HIGHLANDS");
- //               enteredHighland.Invoke();
-	//			SimpleData.WriteDataPoint("Left_Scene", "", "", "", "", "");
-	//			//SimpleData.WriteStringToFile ("TimeSpent.txt", Time.time + ",TIMESPENT_INLEVEL," + sceneName + "," + timer);
-	//			timer = 0f;
-	//			highland = true;
-	//		}
-	//	}
-	//}
+        Debug.Log("Reached the end of SceneTimer's Start() method for " + gameObject.name);
 
-	void OnDisable()
+    }
+    //void Update()
+    //{
+    //	timer += Time.deltaTime;
+    //	//enter highland
+    //       // TODO: change this so that separation is more definition
+    //	if (!highland) {
+    //		if (sceneName == "Canyon2" && playerPos.position.y >= 33 && !demoEnded) {
+    //               demoEnded = true;
+    //			//Debug.Log("ENTERED HIGHLANDS");
+    //               enteredHighland.Invoke();
+    //			SimpleData.WriteDataPoint("Left_Scene", "", "", "", "", "");
+    //			//SimpleData.WriteStringToFile ("TimeSpent.txt", Time.time + ",TIMESPENT_INLEVEL," + sceneName + "," + timer);
+    //			timer = 0f;
+    //			highland = true;
+    //		}
+    //	}
+    //}
+
+    void OnDisable()
 	{
 		// Must spend at least one second in a level, prevents a bit of log spam from the scene juggling.
 		if (timer > 1f)

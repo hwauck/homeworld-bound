@@ -162,7 +162,7 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
                     {
                         rotationCounter.decrementRotations();
                     }
-                    SimpleData.WriteDataPoint("Rotate_Object", rotationGizmo.getObjectToRotate().name, "", "", "", "Z");
+                    //SimpleData.WriteDataPoint("Rotate_Object", rotationGizmo.getObjectToRotate().name, "", "", "", "Z");
                       if (Mathf.Approximately(this.transform.parent.transform.localEulerAngles.y, 270f))
                       {
                          StartCoroutine(rotationGizmo.Rotate(0f, 0f, -90f));

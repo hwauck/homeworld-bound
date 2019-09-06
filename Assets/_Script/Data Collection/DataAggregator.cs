@@ -34,11 +34,15 @@ public class DataAggregator : MonoBehaviour {
         constDataManager = GetComponent<ConstructionDataManager>();
         expDataManager.initializeDataVars();
         constDataManager.initializeDataVars();
+        Debug.Log("Reached the end of DataAggregator's Awake() method!");
+
     }
 
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
+        Debug.Log("Reached the end of DataAggregator's OnEnable() method!");
+
     }
 
     private void OnDisable()
@@ -50,8 +54,10 @@ public class DataAggregator : MonoBehaviour {
     {
         //Debug.Log("Finished Loading Scene " + scene.name);
         initializeDataCollection(scene);
+        Debug.Log("Reached the end of DataAggregator's OnLevelFinishedLoading() method!");
+
     }
- 
+
     // this is called in three cases:
     // 1. new level loaded
     // 2. switch level back to already loaded level (Construction -> Exploration)
@@ -87,7 +93,7 @@ public class DataAggregator : MonoBehaviour {
             ExplorationLevelResetter expLevelResetter = GameObject.Find("EventSystem").GetComponent<ExplorationLevelResetter>();
             expDataManager.AddNewAttempt(scene.name, true);
             expLevelResetter.setWhatToBuild();
-            //Debug.Log("New attempt for level " + expDataManager.GetCurrAttempt().level + " added!");
+            Debug.Log("New attempt for level " + expDataManager.GetCurrAttempt().level + " added!");
         }
     }
 
