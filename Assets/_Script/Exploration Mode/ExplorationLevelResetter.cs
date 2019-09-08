@@ -196,13 +196,17 @@ public class ExplorationLevelResetter : MonoBehaviour {
         }
         else
         {
+            musicSource.Stop();
+            musicSource.clip = canyonMusic;
+            musicSource.loop = true;
+            musicSource.Play();
 
             controller.GetComponent<Fuser>().Deselect();
             screenFader.fadeIn(1f);
             enablePlayerControl();
             expDataManager.setPauseGameplay(false);
         }
-        Debug.Log("Reached the end of ExplorationLevelResetter's OnEnable() method!");
+        //Debug.Log("Reached the end of ExplorationLevelResetter's OnEnable() method!");
 
 
     }
