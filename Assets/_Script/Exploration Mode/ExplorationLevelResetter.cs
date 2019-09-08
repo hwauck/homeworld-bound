@@ -402,7 +402,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     public void prepareNextLevel()
     {
         setFirstBatteryConvo();
-        expDataManager.setOutcome("victory");
+        expDataManager.setOutcome("victory"); // debug skips with keyboard shortcuts will also be recorded as "victory"
 
         if (batteryPartCounter.allPartsCollected())
         {
@@ -411,6 +411,41 @@ public class ExplorationLevelResetter : MonoBehaviour {
             // player gets "All battery parts collected!" message
             ConversationTrigger.AddToken("all_battery_parts_collected");
             ConversationTrigger.RemoveToken("disable_all_battery_parts_collected");
+
+            // if there are any leftover battery parts (because of debug part skipping), 
+            // move them out of level so player doesn't accidentally collect them later out of order
+            if (whatToBuild.Equals("b4"))
+            {
+                GameObject[] rbBatteryParts = GameObject.FindGameObjectsWithTag("rocketBoots_battery");
+                for (int i = 0; i < rbBatteryParts.Length; i++)
+                {
+                    //Debug.Log("Moving Battery Part " + rbBatteryParts[i] + " away!");
+                    rbBatteryParts[i].transform.position = new Vector3(-1000f, -1000f, -1000f);
+                }
+            }
+            else if (whatToBuild.Equals("b8"))
+            {
+                for (int i = 0; i < sledgeBatteryParts.Length; i++)
+                {
+                    //Debug.Log("Moving Battery Part " + sledgeBatteryParts[i] + " away!");
+                    sledgeBatteryParts[i].transform.position = new Vector3(-1000f, -1000f, -1000f);
+                }
+            }
+            else if (whatToBuild.Equals("rocketBoots"))
+            {
+                for (int i = 0; i < rocketBootParts.Length; i++)
+                {
+                    //Debug.Log("Moving Rocket Boots Part " + rocketBootParts[i] + " away!");
+                    rocketBootParts[i].transform.position = new Vector3(-1000f, -1000f, -1000f);
+                }
+            } else if (whatToBuild.Equals("sledgehammer"))
+            {
+                
+                for (int i = 0; i < sledgehammerParts.Length; i++)
+                {
+                    sledgehammerParts[i].transform.position = new Vector3(-1000f, -1000f, -1000f);
+                }
+            }
 
             batteryPartCounter.resetCounter();
 
@@ -774,27 +809,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
             { // LEFT SHIFT + L to increment batteries
                 batteryPartCounter.incParts();
 
-                // if there are any leftover battery parts, move them out of level so player doesn't accidentally collect them later out of order
-                // NOTE: this will remove ALL rocket boot parts as soon as debug increment parts is used even once, so debug increments will have
-                // to be used for the rest of the rocket boot parts too
-                if (whatToBuild.Equals("b1") || whatToBuild.Equals("b2") || whatToBuild.Equals("b3") || whatToBuild.Equals("b3"))
-                {
-                    GameObject[] rbBatteryParts = GameObject.FindGameObjectsWithTag("rocketBoots_battery");
-                    for(int i = 0; i < rbBatteryParts.Length; i++)
-                    {
-                        Debug.Log("Moving Battery Part " + rbBatteryParts[i] + " away!");
-                        rbBatteryParts[i].transform.position = new Vector3(-1000f, -1000f, -1000f);
-                    }
-                } else if (whatToBuild.Equals("b5") || whatToBuild.Equals("b6") || whatToBuild.Equals("b7") || whatToBuild.Equals("b8"))
-                {                   
-                    for (int i = 0; i < sledgeBatteryParts.Length; i++)
-                    {
-                        Debug.Log("Moving Battery Part " + sledgeBatteryParts[i] + " away!");
-                        sledgeBatteryParts[i].transform.position = new Vector3(-1000f, -1000f, -1000f);
-                    }
-                } 
-
-
             }
             else if (Input.GetKeyUp(KeyCode.I)) // LEFT SHIFT + I to increment Rocket Boots parts
             {
@@ -802,15 +816,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
                 itemPartCounter.setPartsNeeded(7);
                 setWhatToBuild("rocketBoots");
                 itemPartCounter.incParts();
-
-                // if there are any leftover item parts, move them out of level so player doesn't accidentally collect them later out of order
-                // NOTE: this will remove ALL rocket boot parts as soon as debug increment parts is used even once, so debug increments will have
-                // to be used for the rest of the rocket boot parts too
-                for (int i = 0; i < rocketBootParts.Length; i++)
-                {
-                    Debug.Log("Moving Rocket Boots Part " + rocketBootParts[i] + " away!");
-                    rocketBootParts[i].transform.position = new Vector3(-1000f, -1000f, -1000f);
-                }
            
 
             }
@@ -820,14 +825,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
                 itemPartCounter.setPartsNeeded(11);
                 setWhatToBuild("sledgehammer");
                 itemPartCounter.incParts();
-
-                // if there are any leftover item parts, move them out of level so player doesn't accidentally collect them later out of order
-                // NOTE: this will remove ALL rocket boot parts as soon as debug increment parts is used even once, so debug increments will have
-                // to be used for the rest of the rocket boot parts too
-                for (int i = 0; i < sledgehammerParts.Length; i++)
-                {
-                    sledgehammerParts[i].transform.position = new Vector3(-1000f, -1000f, -1000f);
-                }
              
 
             }

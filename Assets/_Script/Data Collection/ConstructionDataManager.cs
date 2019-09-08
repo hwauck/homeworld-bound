@@ -192,7 +192,7 @@ public class ConstructionDataManager : MonoBehaviour {
         GetCurrAttempt().timeRotatingCamera += Time.deltaTime;
     }
 
-    // set to "victory" when player fuses all parts in FuseEvent or CreatePart
+    // set to "victory" when player fuses all parts in FuseEvent or CreatePart (or when a levvel had to be skipped for debug reasons)
     // set to "quit" when player presses the key to quit game early
     // set to "time" when timer runs out on timed levels
     // set to "rotation" when rotation counter runs out

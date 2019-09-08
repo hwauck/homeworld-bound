@@ -162,6 +162,18 @@ public class TutorialManager : MonoBehaviour
                 dataManager.setPauseGameplay(true);
 
             }
+        } else if (Input.GetKey(KeyCode.LeftShift)) // FOR PROCTOR/DEBUG USE ONLY
+        {
+
+            if (Input.GetKeyUp(KeyCode.U))
+            {
+                if (dataManager != null)
+                {
+                    dataManager.SetOutcome("victory");
+                }
+                LoadUtils.LoadScene("b1");
+
+            }
         }
 
 
