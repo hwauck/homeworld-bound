@@ -2283,7 +2283,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 18
+  m_Text: 17
 --- !u!222 &641437545
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4447,7 +4447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06c2fc6154604af41a3c55a4f6ddb296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numRotations: 18
+  numRotations: 17
   remainingRotationsText: {fileID: 641437544}
   powerFailure:
     m_PersistentCalls:

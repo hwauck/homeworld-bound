@@ -190,6 +190,9 @@ public class ExplorationLevelResetter : MonoBehaviour {
                 sledgeBatteryParts[i].SetActive(true);
             }
 
+            screenFader.fadeIn(1f);
+
+
         }
         else
         {

@@ -11,8 +11,11 @@ public class TutorialArrowClick : MonoBehaviour, IPointerClickHandler
     public GameObject toRotateSurface;
     public void OnPointerClick(PointerEventData data)
     {
-        Debug.Log("Rotate");
-        StartCoroutine(Rotate(0, 0, 90));
+        if (!hasRotated)
+        {
+            Debug.Log("Rotate");
+            StartCoroutine(Rotate(0, 0, 90));
+        }
     }
 
     public IEnumerator Rotate(float x, float y, float z)

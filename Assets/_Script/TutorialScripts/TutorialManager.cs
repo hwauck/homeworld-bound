@@ -184,7 +184,7 @@ public class TutorialManager : MonoBehaviour
         else if (triggerStep && step == 2)
         {
             triggerStep = false;
-            tutorialText.text = "This is the part you start with.";
+            tutorialText.text = "This is the part you start with. It can't be moved or rotated.";
 
             part1.SetActive(true);
             p1s1.SetActive(true);
@@ -239,7 +239,7 @@ public class TutorialManager : MonoBehaviour
             part2.transform.localRotation = Quaternion.Euler(0, 0, 180);
             p2s2.transform.localRotation = Quaternion.Euler(45, 90, -180);
             zDownArrow.GetComponent<TutorialArrowClick>().enabled = false;
-            tutorialText.text = "This shows how many rotations you can make. GAME OVER when it reaches 0!";
+            tutorialText.text = "This shows how many rotations you can make. If it reaches 0, you'll have to start over!";
             rotationRemain.SetActive(true);
             nextButton.SetActive(true);
             Highlighter.Unhighlight(zDownArrow);

@@ -1735,7 +1735,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 17
+  m_Text: 16
 --- !u!222 &641437545
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2854,14 +2854,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11476892, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11476892, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
-      propertyPath: tutorialMode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 426536, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -90
@@ -2893,6 +2885,14 @@ PrefabInstance:
     - target: {fileID: 426536, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11476892, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11476892, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
+      propertyPath: tutorialMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9290618, guid: ddb395dde3bbfa34a94c77156d1da4d6, type: 3}
@@ -4061,7 +4061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06c2fc6154604af41a3c55a4f6ddb296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numRotations: 17
+  numRotations: 16
   remainingRotationsText: {fileID: 641437544}
   powerFailure:
     m_PersistentCalls:
