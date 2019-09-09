@@ -55,8 +55,8 @@ public class CluePopulator : MonoBehaviour
 			cbb.bigImage = bigImage;
 			cbb.clueSprite = ii.Value;
 
-			// Set parent and internals.
-			instance.transform.SetParent(this.transform, false);
+            // Set parent and internals.
+            instance.transform.SetParent(this.transform, false);
 			instance.GetComponent<Image>().sprite = ii.Value;
 
 			// Check if the clue has already been solved.

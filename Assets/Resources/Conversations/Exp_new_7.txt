@@ -1,1 +1,1 @@
-[color]880Clue[color] - Use these to find parts in the city! Press [color]880I[color] to view them.
+[color]880Clue[color] - Use these to find parts in the city! Press [color]880F[color] to view them.

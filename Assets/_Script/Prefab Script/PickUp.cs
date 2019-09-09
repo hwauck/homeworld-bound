@@ -125,7 +125,10 @@ public class PickUp : MonoBehaviour
                     if (pickupName.Contains("Key1"))
 					{
 						ConversationTrigger.AddToken("picked_up_a_key1_piece");
-					}
+                        partCounter.setObjectToBuild("Ruined City Key");
+                        partCounter.setPartsNeeded(6);
+                        levelResetter.setWhatToBuild("key1");
+                    }
 					if (pickupName.Contains("FFA"))
 					{
 						ConversationTrigger.AddToken("picked_up_a_ffa_piece");
@@ -173,6 +176,7 @@ public class PickUp : MonoBehaviour
 					ConversationTrigger.AddToken("picked_up_a_clue");
                     Debug.Log("Picked up a clue!");
                     transform.position = new Vector3(-1000f, -1000f, -1000f);
+                    levelResetter.inventorySystem.gameObject.SetActive(true);
                     break;
                 case PickupType.Fuser:
                     transform.position = new Vector3(-1000f, -1000f, -1000f);

@@ -34,6 +34,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
     public Text gameFinishedText;
     public Map map;
     public GameObject controlsMenu;
+    public InventoryController inventorySystem;
 
     private AudioClip powerFailureSound;
     private AudioClip countdownSound;
@@ -458,7 +459,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             InventoryController.levelName = SceneManager.GetActiveScene().name;
             StartCoroutine(waitForEndOfConvoThenLoadLevel(3f, whatToBuild));
   
-        } else if (itemPartCounter.allPartsCollected())
+        } else if (itemPartCounter.allPartsCollected() && !whatToBuild.Equals("key1"))
         {
             // play power up noise
             audioSource.PlayOneShot(powerUpSound);
@@ -481,7 +482,11 @@ public class ExplorationLevelResetter : MonoBehaviour {
             //remembers which Exploration Mode we were in so we can get back
             InventoryController.levelName = SceneManager.GetActiveScene().name;
             StartCoroutine(waitThenLoadLevel(3f, whatToBuild));
-        } else
+        } else if (itemPartCounter.allPartsCollected() && whatToBuild.Equals("key1")) // end game - there's no more content!
+        {
+            doFadeToGameFinished(2f, false);
+        }
+        else
         {
             Debug.LogError("Error: prepareNextLevel() should not be called before all item/battery parts have been collected");
         }
@@ -832,6 +837,12 @@ public class ExplorationLevelResetter : MonoBehaviour {
                 itemPartCounter.incParts();
              
 
+            } else if (Input.GetKeyUp(KeyCode.Y))
+            {
+                itemPartCounter.setObjectToBuild("Ruined City Key");
+                itemPartCounter.setPartsNeeded(6);
+                setWhatToBuild("key1");
+                itemPartCounter.incParts();
             }
             else if (Input.GetKeyUp(KeyCode.K)) // LEFT SHIFT + K to reenable user control if it's disabled
             {

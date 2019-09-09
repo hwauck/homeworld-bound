@@ -9,10 +9,13 @@ public class ClueButtonBridge : MonoBehaviour
 
 	void Start()
 	{
+        Debug.Log("Calling Start() method of ClueButtonBridge!");
 		GetComponent<Button>().onClick.AddListener(() =>    // Adds an event to the button
 		{
 			bigImage.sprite = clueSprite;
 			bigImage.color = new Color(1f, 1f, 1f, 1f);
+            Debug.Log("Clicked clue button!");
 		});
 	}
+
 }

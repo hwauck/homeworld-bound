@@ -54,48 +54,71 @@ public class DataAggregator : MonoBehaviour {
     {
         //Debug.Log("Finished Loading Scene " + scene.name);
 
-        // reassign missing variables
-        GameObject eventSystem = GameObject.Find("EventSystem");
-
-        ExplorationLevelResetter resetter = eventSystem.GetComponent<ExplorationLevelResetter>();
-        ScrollingText scrollingText = GameObject.Find("ConversationSystem").GetComponentInChildren<ScrollingText>();
-        GameObject newAudioSourceObj = GameObject.Find("SFX");
-        if (newAudioSourceObj != null)
+        if (scene.name.Equals("RuinedCity"))
         {
-            if (newAudioSourceObj.GetComponent<AudioSource>() != null)
+            // reassign missing variables
+            GameObject eventSystem = GameObject.Find("EventSystem");
+
+            ExplorationLevelResetter resetter = eventSystem.GetComponent<ExplorationLevelResetter>();
+            ScrollingText scrollingText = GameObject.Find("ConversationSystem").GetComponentInChildren<ScrollingText>();
+            Timer timer = GameObject.Find("TimeRemainingPanel").GetComponent<Timer>();
+            GameObject newAudioSourceObj = GameObject.Find("SFX");
+            if (newAudioSourceObj != null)
             {
-                resetter.audioSource = newAudioSourceObj.GetComponent<AudioSource>();
-                scrollingText.audioSource = newAudioSourceObj.GetComponent<AudioSource>();
+                if (newAudioSourceObj.GetComponent<AudioSource>() != null)
+                {
+                    resetter.audioSource = newAudioSourceObj.GetComponent<AudioSource>();
+                    scrollingText.audioSource = newAudioSourceObj.GetComponent<AudioSource>();
+                }
+                else
+                {
+                    Debug.Log("WARNING: No Audio Source found in scene!");
+                }
             }
             else
             {
-                Debug.Log("WARNING: No Audio Source found in scene!");
+                Debug.Log("WARNING: no Audio Source Object found in scene!");
             }
-        }
-        else
-        {
-            Debug.Log("WARNING: no Audio Source Object found in scene!");
-        }
 
-        GameObject newMusicSourceObj = GameObject.Find("Music");
-        if (newMusicSourceObj != null)
-        {
-            if (newMusicSourceObj.GetComponent<AudioSource>() != null)
+            GameObject newMusicSourceObj = GameObject.Find("Music");
+            if (newMusicSourceObj != null)
             {
-                resetter.musicSource = newMusicSourceObj.GetComponent<AudioSource>();
+                if (newMusicSourceObj.GetComponent<AudioSource>() != null)
+                {
+                    resetter.musicSource = newMusicSourceObj.GetComponent<AudioSource>();
+                    timer.MusicSource = newMusicSourceObj.GetComponent<AudioSource>();
+                }
+                else
+                {
+                    Debug.Log("WARNING: No Music Source found!");
+
+                }
             }
             else
             {
-                Debug.Log("WARNING: No Music Source found!");
+                Debug.Log("WARNING: No Music Source Object found!");
+            }
 
+            resetter.gameQuit.AddListener(this.saveAndSendToServer);
+
+
+            GameObject[] clues = GameObject.FindGameObjectsWithTag("clue");
+            //Debug.Log("clues size: " + clues.Length);
+            for (int i = 0; i < clues.Length; i++)
+            {
+                PickUp pickup = clues[i].GetComponent<PickUp>();
+                pickup.levelResetter = resetter;
+            }
+
+            GameObject[] key1Parts = GameObject.FindGameObjectsWithTag("key1");
+            //Debug.Log("key1Parts size: " + key1Parts.Length);
+            for(int i = 0; i < key1Parts.Length; i++)
+            {
+                PickUp pickup = key1Parts[i].GetComponent<PickUp>();
+                pickup.levelResetter = resetter;
+                pickup.partCounterObj = GameObject.Find("PartsFound");
             }
         }
-        else
-        {
-            Debug.Log("WARNING: No Music Source Object found!");
-        }
-
-        resetter.gameQuit.AddListener(this.saveAndSendToServer);
 
         initializeDataCollection(scene);
         Debug.Log("Reached the end of DataAggregator's OnLevelFinishedLoading() method!");

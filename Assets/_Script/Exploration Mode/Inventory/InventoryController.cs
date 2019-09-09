@@ -73,8 +73,8 @@ public class InventoryController : MonoBehaviour
 		// Also ensure everything is populated when initialized.
 		// We do this literally everywhere because script run order is not
 		// defined in Unity... Keeps things interesting, I guess.
-		invPop.Repopulate();
-		recPop.Repopulate();
+		//invPop.Repopulate();
+		//recPop.Repopulate();
 
 		CloseInventory();
 
@@ -144,7 +144,7 @@ public class InventoryController : MonoBehaviour
 
 		// Menus Active.
 		FakeActive(tabs, true);
-		SwitchToInv();
+		SwitchToClue();
 	}
 
 	public void CloseInventory()

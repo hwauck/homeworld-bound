@@ -3927,6 +3927,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1531305055}
     m_Modifications:
+    - target: {fileID: 158772, guid: 6bf9d185aae4a744f9fbec52b4c61bf2, type: 3}
+      propertyPath: m_TagString
+      value: key1
+      objectReference: {fileID: 0}
     - target: {fileID: 418322, guid: 6bf9d185aae4a744f9fbec52b4c61bf2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -60.08257
@@ -4014,21 +4018,22 @@ AudioSource:
   m_GameObject: {fileID: 119234264}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243155752558251740, guid: 123796036d9a93b42af1f0d236b2e717,
+    type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -4061,7 +4066,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -7109,6 +7114,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1531305055}
     m_Modifications:
+    - target: {fileID: 110524, guid: 170d19a3743f53b4d969c6f621d03d1b, type: 3}
+      propertyPath: m_TagString
+      value: key1
+      objectReference: {fileID: 0}
     - target: {fileID: 471742, guid: 170d19a3743f53b4d969c6f621d03d1b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -85.44576
@@ -7196,21 +7205,22 @@ AudioSource:
   m_GameObject: {fileID: 189581315}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243155752558251740, guid: 123796036d9a93b42af1f0d236b2e717,
+    type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -7243,7 +7253,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -16173,6 +16183,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1531305055}
     m_Modifications:
+    - target: {fileID: 176856, guid: cd9146bf94846294e8bc29ef878009ca, type: 3}
+      propertyPath: m_TagString
+      value: key1
+      objectReference: {fileID: 0}
     - target: {fileID: 421588, guid: cd9146bf94846294e8bc29ef878009ca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 24.839584
@@ -16260,21 +16274,22 @@ AudioSource:
   m_GameObject: {fileID: 487351996}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243155752558251740, guid: 123796036d9a93b42af1f0d236b2e717,
+    type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -16307,7 +16322,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -19018,6 +19033,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1531305055}
     m_Modifications:
+    - target: {fileID: 116654, guid: e9ba746c2f8223f44b1333f2d7c2631b, type: 3}
+      propertyPath: m_TagString
+      value: key1
+      objectReference: {fileID: 0}
     - target: {fileID: 464532, guid: e9ba746c2f8223f44b1333f2d7c2631b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 210.35176
@@ -19105,21 +19124,22 @@ AudioSource:
   m_GameObject: {fileID: 541711274}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243155752558251740, guid: 123796036d9a93b42af1f0d236b2e717,
+    type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -19152,7 +19172,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -20492,6 +20512,10 @@ PrefabInstance:
     - target: {fileID: 117896, guid: 12f931464d33e524e9605e142bce3f57, type: 3}
       propertyPath: m_Name
       value: ClueBase (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 117896, guid: 12f931464d33e524e9605e142bce3f57, type: 3}
+      propertyPath: m_TagString
+      value: clue
       objectReference: {fileID: 0}
     - target: {fileID: 430296, guid: 12f931464d33e524e9605e142bce3f57, type: 3}
       propertyPath: m_LocalPosition.x
@@ -30315,6 +30339,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 117896, guid: 12f931464d33e524e9605e142bce3f57, type: 3}
+      propertyPath: m_TagString
+      value: clue
+      objectReference: {fileID: 0}
     - target: {fileID: 430296, guid: 12f931464d33e524e9605e142bce3f57, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.79
@@ -31011,6 +31039,10 @@ PrefabInstance:
     - target: {fileID: 117896, guid: 12f931464d33e524e9605e142bce3f57, type: 3}
       propertyPath: m_Name
       value: ClueBase (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 117896, guid: 12f931464d33e524e9605e142bce3f57, type: 3}
+      propertyPath: m_TagString
+      value: clue
       objectReference: {fileID: 0}
     - target: {fileID: 430296, guid: 12f931464d33e524e9605e142bce3f57, type: 3}
       propertyPath: m_LocalPosition.x
@@ -38770,6 +38802,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1531305055}
     m_Modifications:
+    - target: {fileID: 134600, guid: c96a34d9acc3bb246ac157d8dbf81344, type: 3}
+      propertyPath: m_TagString
+      value: key1
+      objectReference: {fileID: 0}
     - target: {fileID: 467978, guid: c96a34d9acc3bb246ac157d8dbf81344, type: 3}
       propertyPath: m_LocalPosition.x
       value: 161.36986
@@ -38857,21 +38893,22 @@ AudioSource:
   m_GameObject: {fileID: 1077706119}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243155752558251740, guid: 123796036d9a93b42af1f0d236b2e717,
+    type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -38904,7 +38941,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -53943,6 +53980,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1531305055}
     m_Modifications:
+    - target: {fileID: 198732, guid: c8700121860addb4b935163f90bfce4c, type: 3}
+      propertyPath: m_TagString
+      value: key1
+      objectReference: {fileID: 0}
     - target: {fileID: 401088, guid: c8700121860addb4b935163f90bfce4c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 86.42924
@@ -54030,21 +54071,22 @@ AudioSource:
   m_GameObject: {fileID: 1506407395}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243155752558251740, guid: 123796036d9a93b42af1f0d236b2e717,
+    type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -54077,7 +54119,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -55727,6 +55769,10 @@ PrefabInstance:
     - target: {fileID: 117896, guid: 12f931464d33e524e9605e142bce3f57, type: 3}
       propertyPath: m_Name
       value: ClueBase (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 117896, guid: 12f931464d33e524e9605e142bce3f57, type: 3}
+      propertyPath: m_TagString
+      value: clue
       objectReference: {fileID: 0}
     - target: {fileID: 430296, guid: 12f931464d33e524e9605e142bce3f57, type: 3}
       propertyPath: m_LocalPosition.x
@@ -67318,6 +67364,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClueBase (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 117896, guid: 12f931464d33e524e9605e142bce3f57, type: 3}
+      propertyPath: m_TagString
+      value: clue
+      objectReference: {fileID: 0}
     - target: {fileID: 430296, guid: 12f931464d33e524e9605e142bce3f57, type: 3}
       propertyPath: m_LocalPosition.x
       value: 213.2
@@ -70757,6 +70807,10 @@ PrefabInstance:
     - target: {fileID: 117896, guid: 12f931464d33e524e9605e142bce3f57, type: 3}
       propertyPath: m_Name
       value: ClueBase (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 117896, guid: 12f931464d33e524e9605e142bce3f57, type: 3}
+      propertyPath: m_TagString
+      value: clue
       objectReference: {fileID: 0}
     - target: {fileID: 430296, guid: 12f931464d33e524e9605e142bce3f57, type: 3}
       propertyPath: m_LocalPosition.x

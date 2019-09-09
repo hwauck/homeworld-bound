@@ -29,6 +29,8 @@ TagManager:
   - b8
   - sledgehammer_battery
   - rocketBoots_battery
+  - key1
+  - clue
   layers:
   - Default
   - TransparentFX
