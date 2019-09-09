@@ -171,8 +171,9 @@ public class PickUp : MonoBehaviour
 					CluePopulator.AddClue(pickupName, clueSprite);
 					ConversationTrigger.AddToken("clue_" + pickupName);
 					ConversationTrigger.AddToken("picked_up_a_clue");
-					Destroy(gameObject);
-					break;
+                    Debug.Log("Picked up a clue!");
+                    transform.position = new Vector3(-1000f, -1000f, -1000f);
+                    break;
                 case PickupType.Fuser:
                     transform.position = new Vector3(-1000f, -1000f, -1000f);
                     ConversationTrigger.AddToken("pickedUpFuser");

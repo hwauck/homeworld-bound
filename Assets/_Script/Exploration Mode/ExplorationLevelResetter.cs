@@ -339,21 +339,18 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
     public void setWhatToBuild()
     {
-        // CHANGE this every time a new battery level is added
+        // CHANGE this every time a new COnstruction Mode level is added
         if(!ConversationTrigger.GetToken("finished_b1"))
         {
             whatToBuild = "b1";
-
         }
         else if (!ConversationTrigger.GetToken("finished_b2"))
         {
             whatToBuild = "b2";
-
         }
         else if (!ConversationTrigger.GetToken("finished_b3"))
         {
             whatToBuild = "b3";
-
         }
         else if (!ConversationTrigger.GetToken("finished_b4"))
         {
@@ -376,7 +373,11 @@ public class ExplorationLevelResetter : MonoBehaviour {
         } else if (!ConversationTrigger.GetToken("finished_sledgehammer"))
         {
             whatToBuild = "sledgehammer";
-        } else
+        } else if (!ConversationTrigger.GetToken("finished_key1"))
+        {
+            whatToBuild = "key1";
+        }
+        else
         {
             whatToBuild = "none";
         }
@@ -840,6 +841,30 @@ public class ExplorationLevelResetter : MonoBehaviour {
             else if (Input.GetKeyUp(KeyCode.J)) // LEFT SHIFT + J to fade in if screen starts faded out
             {
                 screenFader.fadeIn(0.5f);
+            }
+            else if (Input.GetKeyUp(KeyCode.O)) // LEFT SHIFT + O to skip to start of Ruined City level
+            {
+                ConversationTrigger.AddToken("finished_b1");
+                ConversationTrigger.AddToken("finished_b2");
+                ConversationTrigger.AddToken("finished_b3");
+                ConversationTrigger.AddToken("finished_b4");
+                ConversationTrigger.AddToken("finished_RB");
+                ConversationTrigger.AddToken("finished_b5");
+                ConversationTrigger.AddToken("finished_b6");
+                ConversationTrigger.AddToken("finished_b7");
+                ConversationTrigger.AddToken("finished_b8");
+                ConversationTrigger.AddToken("finished_sledgehammer");
+                ConversationTrigger.GetToken("reachedLevel_RuinedCity"); 
+
+                batteryPartCounter.hideBatteriesBuilt();
+                batteryPartCounter.hideBatteryParts();
+
+                itemPartCounter.setObjectToBuild("???"); // player does not know what they're building until they collect the first key part
+                itemPartCounter.setPartsNeeded(6);
+                setWhatToBuild("???");
+                RocketBoots.ActivateBoots();
+                Sledgehammer.ActivateSledgehammer();
+                LoadUtils.LoadNewExplorationLevel("RuinedCity", new Vector3(0, 5, 0));
             }
         }
 

@@ -87,7 +87,6 @@ public class ScrollingText : MonoBehaviour
                 Debug.LogError("ERROR: GameObject Audio Source not found in scene!");
             }
         }
-        Debug.Log("Reached the end of ScrollingText's Awake() method for " + gameObject.name);
 
     }
 

@@ -1557,6 +1557,9 @@ public class FuseEvent : MonoBehaviour {
                 } else if (currentLevel.Equals("sledgehammer"))
                 {
                     ConversationTrigger.AddToken("finished_sledgehammer");
+                } else if (currentLevel.Equals("key1"))
+                {
+                    ConversationTrigger.AddToken("finished_key1");
                 }
 
                 claimItem.gameObject.SetActive(true);

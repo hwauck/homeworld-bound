@@ -167,25 +167,67 @@ public class LoadUtils : MonoBehaviour
 	// will be finished. Spawn point for the player MUST be pre-determined and passed into this function.
 	public static void LoadNewExplorationLevel(string sceneName, Vector3 spawnPos)
 	{
-		// Grab player objects, bring to scene root, set as nondelete.
+		// Grab player and data collection manager objects, bring to scene root, set as nondelete.
 		GameObject playerRefs = GameObject.Find("Player (Including All Menus)");
 		GameObject player = GameObject.FindGameObjectWithTag("Player");
-		playerRefs.transform.SetParent(null);
-		DontDestroyOnLoad(playerRefs);
+        GameObject dataManager = GameObject.Find("DataCollectionManager");
+        playerRefs.transform.SetParent(null);
+        dataManager.transform.SetParent(null);
+        DontDestroyOnLoad(playerRefs);
+        DontDestroyOnLoad(dataManager);
 
-		// Clear the loadedscenes dictionary.
-		loadedScenes.Clear();
+        // Clear the loadedscenes dictionary.
+        loadedScenes.Clear();
 
 		// Then load the new scene and position the player.
 		SceneManager.LoadScene(sceneName);
 		player.transform.position = spawnPos;
 		currentSceneName = sceneName;
 
-		// And setup a new position tracking file for the new scene.
-		//SimpleData.CreateNewPositionFile(sceneName);
-	}
+        // reassign missing variables
+        ExplorationLevelResetter resetter = playerRefs.GetComponentInChildren<ExplorationLevelResetter>();
+        ScrollingText scrollingText = playerRefs.GetComponentInChildren<ScrollingText>();
+        GameObject newAudioSourceObj = GameObject.Find("SFX");
+        if(newAudioSourceObj != null)
+        {
+            if(newAudioSourceObj.GetComponent<AudioSource>() != null)
+            {
+                resetter.audioSource = newAudioSourceObj.GetComponent<AudioSource>();
+                scrollingText.audioSource = newAudioSourceObj.GetComponent<AudioSource>();
+            } else
+            {
+                Debug.Log("WARNING: No Audio Source found in scene!");
+            }
+        } else
+        {
+            Debug.Log("WARNING: no Audio Source Object found in scene!");
+        }
 
-	static void EnsureRefExists()
+        GameObject newMusicSourceObj = GameObject.Find("Music");
+        if (newMusicSourceObj != null)
+        {
+            if (newMusicSourceObj.GetComponent<AudioSource>() != null)
+            {
+                resetter.musicSource = newMusicSourceObj.GetComponent<AudioSource>();
+            } else
+            {
+                Debug.Log("WARNING: No Music Source found!");
+
+            }
+        } else
+        {
+            Debug.Log("WARNING: No Music Source Object found!");
+        }
+
+        resetter.gameQuit.AddListener(dataManager.GetComponent<DataAggregator>().saveAndSendToServer);
+
+ 
+
+        // And setup a new position tracking file for the new scene.
+        //SimpleData.CreateNewPositionFile(sceneName);
+    }
+
+    static void EnsureRefExists()
 	{
 		if (selfRef == null)
 		{
