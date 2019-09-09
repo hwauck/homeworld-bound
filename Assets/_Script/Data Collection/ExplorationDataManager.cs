@@ -215,7 +215,7 @@ public class ExplorationDataManager : MonoBehaviour {
             total_readTime += attempts[i].readTime;
             total_jumps += attempts[i].jumps;
 
-            if (attempts[i].outcome.Equals("victory"))
+            if (attempts[i].outcome.Equals("victory") || attempts[i].outcome.Equals("finishedGame"))
             {
                 numLevelsCompleted++;
             }
@@ -223,7 +223,7 @@ public class ExplorationDataManager : MonoBehaviour {
             {
                 numRanOutOfTime++;
             }
-            else if (!attempts[i].outcome.Equals("quit") && !attempts[i].outcome.Equals("finishedDemo"))
+            else if (!attempts[i].outcome.Equals("quit"))
             {
                 Debug.Log("ERROR: invalid outcome code in attempt " + (i+1) + " in level " + attempts[i].level + ": " + attempts[i].outcome);
             }

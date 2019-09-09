@@ -437,21 +437,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
                     sledgeBatteryParts[i].transform.position = new Vector3(-1000f, -1000f, -1000f);
                 }
             }
-            else if (whatToBuild.Equals("rocketBoots"))
-            {
-                for (int i = 0; i < rocketBootParts.Length; i++)
-                {
-                    //Debug.Log("Moving Rocket Boots Part " + rocketBootParts[i] + " away!");
-                    rocketBootParts[i].transform.position = new Vector3(-1000f, -1000f, -1000f);
-                }
-            } else if (whatToBuild.Equals("sledgehammer"))
-            {
-                
-                for (int i = 0; i < sledgehammerParts.Length; i++)
-                {
-                    sledgehammerParts[i].transform.position = new Vector3(-1000f, -1000f, -1000f);
-                }
-            }
 
             batteryPartCounter.resetCounter();
 
@@ -473,6 +458,25 @@ public class ExplorationLevelResetter : MonoBehaviour {
             numBatteriesBuilt = 0;
             batteriesBuilt.SetActive(false);
 
+            // if there are any leftover item parts (because of debug part skipping), 
+            // move them out of level so player doesn't accidentally collect them later out of order
+            if (whatToBuild.Equals("rocketBoots"))
+            {
+                for (int i = 0; i < rocketBootParts.Length; i++)
+                {
+                    //Debug.Log("Moving Rocket Boots Part " + rocketBootParts[i] + " away!");
+                    rocketBootParts[i].transform.position = new Vector3(-1000f, -1000f, -1000f);
+                }
+            }
+            else if (whatToBuild.Equals("sledgehammer"))
+            {
+
+                for (int i = 0; i < sledgehammerParts.Length; i++)
+                {
+                    sledgehammerParts[i].transform.position = new Vector3(-1000f, -1000f, -1000f);
+                }
+            }
+
             timer.stopTimer();
             timer.stopMusic();
             timer.gameObject.GetComponent<CanvasGroup>().alpha = 0; //hide TimeRemainingPanel again
@@ -488,7 +492,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         }
         else
         {
-            Debug.LogError("Error: prepareNextLevel() should not be called before all item/battery parts have been collected");
+            //Debug.LogError("Error: prepareNextLevel() should not be called before all item/battery parts have been collected");
         }
     }
 

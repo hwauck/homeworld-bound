@@ -171,6 +171,7 @@ public class LoadUtils : MonoBehaviour
 		GameObject playerRefs = GameObject.Find("Player (Including All Menus)");
 		GameObject player = GameObject.FindGameObjectWithTag("Player");
         GameObject dataManager = GameObject.Find("DataCollectionManager");
+        dataManager.GetComponent<ExplorationDataManager>().setOutcome("victory"); // player gets into the Ruined City/next level, so this section is a victory
         playerRefs.transform.SetParent(null);
         dataManager.transform.SetParent(null);
         DontDestroyOnLoad(playerRefs);
