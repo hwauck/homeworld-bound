@@ -183,44 +183,6 @@ public class LoadUtils : MonoBehaviour
 		SceneManager.LoadScene(sceneName);
 		player.transform.position = spawnPos;
 		currentSceneName = sceneName;
-
-        // reassign missing variables
-        ExplorationLevelResetter resetter = playerRefs.GetComponentInChildren<ExplorationLevelResetter>();
-        ScrollingText scrollingText = playerRefs.GetComponentInChildren<ScrollingText>();
-        GameObject newAudioSourceObj = GameObject.Find("SFX");
-        if(newAudioSourceObj != null)
-        {
-            if(newAudioSourceObj.GetComponent<AudioSource>() != null)
-            {
-                resetter.audioSource = newAudioSourceObj.GetComponent<AudioSource>();
-                scrollingText.audioSource = newAudioSourceObj.GetComponent<AudioSource>();
-            } else
-            {
-                Debug.Log("WARNING: No Audio Source found in scene!");
-            }
-        } else
-        {
-            Debug.Log("WARNING: no Audio Source Object found in scene!");
-        }
-
-        GameObject newMusicSourceObj = GameObject.Find("Music");
-        if (newMusicSourceObj != null)
-        {
-            if (newMusicSourceObj.GetComponent<AudioSource>() != null)
-            {
-                resetter.musicSource = newMusicSourceObj.GetComponent<AudioSource>();
-            } else
-            {
-                Debug.Log("WARNING: No Music Source found!");
-
-            }
-        } else
-        {
-            Debug.Log("WARNING: No Music Source Object found!");
-        }
-
-        resetter.gameQuit.AddListener(dataManager.GetComponent<DataAggregator>().saveAndSendToServer);
-
  
 
         // And setup a new position tracking file for the new scene.

@@ -53,6 +53,50 @@ public class DataAggregator : MonoBehaviour {
     private void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
         //Debug.Log("Finished Loading Scene " + scene.name);
+
+        // reassign missing variables
+        GameObject eventSystem = GameObject.Find("EventSystem");
+
+        ExplorationLevelResetter resetter = eventSystem.GetComponent<ExplorationLevelResetter>();
+        ScrollingText scrollingText = GameObject.Find("ConversationSystem").GetComponentInChildren<ScrollingText>();
+        GameObject newAudioSourceObj = GameObject.Find("SFX");
+        if (newAudioSourceObj != null)
+        {
+            if (newAudioSourceObj.GetComponent<AudioSource>() != null)
+            {
+                resetter.audioSource = newAudioSourceObj.GetComponent<AudioSource>();
+                scrollingText.audioSource = newAudioSourceObj.GetComponent<AudioSource>();
+            }
+            else
+            {
+                Debug.Log("WARNING: No Audio Source found in scene!");
+            }
+        }
+        else
+        {
+            Debug.Log("WARNING: no Audio Source Object found in scene!");
+        }
+
+        GameObject newMusicSourceObj = GameObject.Find("Music");
+        if (newMusicSourceObj != null)
+        {
+            if (newMusicSourceObj.GetComponent<AudioSource>() != null)
+            {
+                resetter.musicSource = newMusicSourceObj.GetComponent<AudioSource>();
+            }
+            else
+            {
+                Debug.Log("WARNING: No Music Source found!");
+
+            }
+        }
+        else
+        {
+            Debug.Log("WARNING: No Music Source Object found!");
+        }
+
+        resetter.gameQuit.AddListener(this.saveAndSendToServer);
+
         initializeDataCollection(scene);
         Debug.Log("Reached the end of DataAggregator's OnLevelFinishedLoading() method!");
 

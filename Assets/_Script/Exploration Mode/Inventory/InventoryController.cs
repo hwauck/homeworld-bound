@@ -105,7 +105,7 @@ public class InventoryController : MonoBehaviour
 	
 	void Update ()
 	{
-		if (Input.GetKeyDown(KeyCode.C))
+		if (Input.GetKeyDown(KeyCode.F))
 		{
 			if (menuOpen)
 				CloseInventory();

@@ -864,6 +864,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
                 setWhatToBuild("???");
                 RocketBoots.ActivateBoots();
                 Sledgehammer.ActivateSledgehammer();
+                ItemManager.SelectGear(1);
                 LoadUtils.LoadNewExplorationLevel("RuinedCity", new Vector3(0, 5, 0));
             }
         }
