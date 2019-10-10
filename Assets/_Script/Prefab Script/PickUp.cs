@@ -35,8 +35,6 @@ public class PickUp : MonoBehaviour
     void Start()
 
     {
-        Debug.Log("Started Pickup's Start() method for " + gameObject.name);
-
         if (WindChimes != null && PartsSounds != null)
         {
            
@@ -62,7 +60,6 @@ public class PickUp : MonoBehaviour
 			//ii.name = "NAME CHANGED TO PREVENT BUGS";
 			ii.name += "_fix";
 		}
-        Debug.Log("Reached the end of Pickup's Start() method for " + gameObject.name);
 
     }
 
@@ -153,7 +150,11 @@ public class PickUp : MonoBehaviour
                 
 				case PickupType.Battery:
 
+
                     ConversationTrigger.AddToken("picked_up_a_battery");
+
+                    InventoryController.Add(this, 1);
+                    InventoryController.ConvertInventoryToTokens();
                     if (expDataManagerObj != null)
                     {
                         expDataManagerObj.GetComponent<ExplorationDataManager>().AddPartCollected(gameObject.name);
@@ -181,6 +182,8 @@ public class PickUp : MonoBehaviour
                 case PickupType.Fuser:
                     transform.position = new Vector3(-1000f, -1000f, -1000f);
                     ConversationTrigger.AddToken("pickedUpFuser");
+                    InventoryController.Add(this, 1);
+                    InventoryController.ConvertInventoryToTokens();
                     // gross might have to fix this at some point
                     GameObject.FindWithTag("Player").GetComponent<Fuser>().ActivateFuserFirstLook();
 

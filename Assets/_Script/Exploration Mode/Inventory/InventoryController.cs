@@ -54,7 +54,8 @@ public class InventoryController : MonoBehaviour
 
 		// Load save when inventory controller activates. Has to happen somewhere!
         // TODO: reenable for final version of game
-		//SaveController.Load();
+		SaveController.Load();
+        Debug.Log("Successfully loaded saved game data");
 	}
 
 
@@ -316,7 +317,7 @@ public class InventoryController : MonoBehaviour
 			ConversationTrigger.AddToken(ii, false);
 		}
         //TODO: reenable for final version of game
-		//SaveController.Save();
+		SaveController.Save();
 	}
 
 	// Only called by SaveController.Load();

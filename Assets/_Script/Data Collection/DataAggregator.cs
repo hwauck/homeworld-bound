@@ -34,14 +34,12 @@ public class DataAggregator : MonoBehaviour {
         constDataManager = GetComponent<ConstructionDataManager>();
         expDataManager.initializeDataVars();
         constDataManager.initializeDataVars();
-        Debug.Log("Reached the end of DataAggregator's Awake() method!");
 
     }
 
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
-        Debug.Log("Reached the end of DataAggregator's OnEnable() method!");
 
     }
 
@@ -121,7 +119,6 @@ public class DataAggregator : MonoBehaviour {
         }
 
         initializeDataCollection(scene);
-        Debug.Log("Reached the end of DataAggregator's OnLevelFinishedLoading() method!");
 
     }
 

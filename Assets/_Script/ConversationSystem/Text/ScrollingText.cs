@@ -92,7 +92,6 @@ public class ScrollingText : MonoBehaviour
 
     void Start ()
 	{
-        Debug.Log("Starting ScrollingText's Start() method for " + gameObject.name);
 
         // Get and ensure the existence of the SpriteText controller.
         textController = GetComponent<SpriteText>();
@@ -114,8 +113,6 @@ public class ScrollingText : MonoBehaviour
 			PrepConversation();
 			textBase.text = conversation[0];		
 		}
-
-        Debug.Log("Reached the end of ScrollingText's Start() method for " + gameObject.name);
 
 
         // This Start function effectively continues in PrepNextLine to ensure functions are called AFTER the text has been created.

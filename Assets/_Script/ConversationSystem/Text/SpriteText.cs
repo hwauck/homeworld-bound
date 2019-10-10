@@ -126,7 +126,6 @@ public class SpriteText : MonoBehaviour
 		}
 
         // Prepare the object for sprite text.
-        Debug.Log("Added GridLayoutGroup component to " + gameObject);
 		layout = gameObject.AddComponent<GridLayoutGroup>();
 		fontMult = txt.fontSize / 14f;
         float yCellSize;
@@ -158,7 +157,6 @@ public class SpriteText : MonoBehaviour
 		// Sometimes, Unity likes to run the FixedUpdate function before Start finishes... This is a problem.
 		initialized = true;
 
-        Debug.Log("Reached the end of SpriteText's Awake() method for " + gameObject.name);
 	}
 
 	void Start ()

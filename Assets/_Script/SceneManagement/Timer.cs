@@ -27,7 +27,6 @@ public class Timer : MonoBehaviour {
     {
         isTimedLevel.Invoke(); // prompts LevelResetter to disablePlayerControls()
         numRanOutOfTime = 0;
-        Debug.Log("Reached the end of Timer's Awake() method for " + gameObject.name);
 
     }
 
@@ -72,10 +71,10 @@ public class Timer : MonoBehaviour {
     public void startTimer()
     {
         timerStarted = true;
-        Debug.Log("Stopping " + MusicSource.clip.name + "!");
+        //Debug.Log("Stopping " + MusicSource.clip.name + "!");
         MusicSource.Stop();
         MusicSource.clip = ExploreM;
-        Debug.Log("Playing " + MusicSource.clip.name + "!");
+        //Debug.Log("Playing " + MusicSource.clip.name + "!");
         MusicSource.Play();
     }
 
@@ -101,14 +100,14 @@ public class Timer : MonoBehaviour {
 
     public void stopMusic()
     {
-        Debug.Log("Stopping " + MusicSource.clip.name + "!");
+        //Debug.Log("Stopping " + MusicSource.clip.name + "!");
         MusicSource.Stop();
         sinisterMusicstarted = false;
     }
 
     public void startMusic()
     {
-        Debug.Log("Playing " + MusicSource.clip.name + "!");
+        //Debug.Log("Playing " + MusicSource.clip.name + "!");
         MusicSource.Play();
     }
 
@@ -130,15 +129,15 @@ public class Timer : MonoBehaviour {
                     sinisterMusicstarted = true;
 
 
-                    Debug.Log("setting sinister Musictotrue");
-                    Debug.Log("Stopping " + MusicSource.clip.name + "!");
+                    //Debug.Log("setting sinister Musictotrue");
+                    //Debug.Log("Stopping " + MusicSource.clip.name + "!");
                     MusicSource.Stop();
 
 
                     MusicSource.clip = ExploreMLOW;
-                    Debug.Log("Playing " + MusicSource.clip.name + "!");
+                    //Debug.Log("Playing " + MusicSource.clip.name + "!");
                     MusicSource.Play();
-                    Debug.Log("changing clip and playing");
+                    //Debug.Log("changing clip and playing");
                 }
             }
 
@@ -146,7 +145,7 @@ public class Timer : MonoBehaviour {
             {
                 stopTimer();
                 powerFailure.Invoke();
-                Debug.Log("Stopping " + MusicSource.clip.name + "!");
+                //Debug.Log("Stopping " + MusicSource.clip.name + "!");
                 stopMusic();
                 // For data collection
                 numRanOutOfTime++;

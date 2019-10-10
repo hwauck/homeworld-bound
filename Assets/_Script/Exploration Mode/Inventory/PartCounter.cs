@@ -25,7 +25,6 @@ public class PartCounter : MonoBehaviour {
         partsFound = 0;
         partsNeededText = "??";
         objectToBuild = "???";
-        Debug.Log("Reached the end of PartCounter's Start() method for " + gameObject.name);
 
     }
 
@@ -38,7 +37,7 @@ public class PartCounter : MonoBehaviour {
         {
             partsDone = true;
 
-            Debug.Log("Setting batteriesBuilt back to 0!");
+            //Debug.Log("Setting batteriesBuilt back to 0!");
             batteryCounter.setBatteriesBuilt(0); // reset batteries built since we used all of the previous ones up building the Rocket Boots
 
             StartCoroutine(waitThenHide(6));

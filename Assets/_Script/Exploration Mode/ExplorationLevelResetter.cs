@@ -125,7 +125,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
         }
 
         numBatteriesBuilt = 0;
-        Debug.Log("Reached the end of ExplorationLevelResetter's Awake() method!");
 
     }
 
@@ -454,7 +453,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
             itemPartCounter.hideParts();
             itemPartCounter.resetCounter();
-            Debug.Log("SETTING batteriesBuilt back to 0!");
+           // Debug.Log("SETTING batteriesBuilt back to 0!");
             numBatteriesBuilt = 0;
             batteriesBuilt.SetActive(false);
 
@@ -900,7 +899,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         // finished recharging after power failure
         if (ConversationTrigger.GetToken("outOfPower") && ConversationTrigger.GetToken("hasPower"))
         {
-            Debug.Log("Finished recharging after power failure!");
+            //Debug.Log("Finished recharging after power failure!");
             ConversationTrigger.RemoveToken("outOfPower");
             ConversationTrigger.RemoveToken("hasPower");
             StartCoroutine(rechargingAndRestart());
@@ -910,7 +909,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         else if (ConversationTrigger.GetToken("doneRestarting"))
         {
             ConversationTrigger.RemoveToken("doneRestarting");
-            Debug.Log("Beginning countdown!");
+            //Debug.Log("Beginning countdown!");
             StartCoroutine(doCountdownAndEnableControls());
         }
         // first time level is started: may want this for as soon as the tutorial before first part is over

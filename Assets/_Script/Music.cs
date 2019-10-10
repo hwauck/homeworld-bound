@@ -8,14 +8,12 @@ public class Music : MonoBehaviour {
 
 	void Awake() {
 		song.clip = myMusic[0] as AudioClip;
-        Debug.Log("Reached the end of Music's Awake() method for " + gameObject.name);
 
     }
 
     // Use this for initialization
     void Start () {
 		song.Play ();
-        Debug.Log("Reached the end of Music's Start() method for " + gameObject.name);
 
     }
 

@@ -16,7 +16,6 @@ public class SceneTimer : MonoBehaviour
     private bool demoEnded;
 	void Start(){
 		playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        Debug.Log("Reached the end of SceneTimer's Start() method for " + gameObject.name);
 
     }
     //void Update()

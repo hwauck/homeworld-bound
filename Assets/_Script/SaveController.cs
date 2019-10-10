@@ -8,6 +8,18 @@ using System.Reflection;
 
 public class SaveController : MonoBehaviour
 {
+
+    // The old save system: saves all conversation tokens to a file and then loads them back, along with inventory items and battery power previously collected
+    // The new system needs to keep track of not just conversation tokens, but also which parts have been picked up (batteries, fuser, item parts, and clues) and 
+    // which mode the player ended in (Construction Mode or Exploration Mode). And keep track of telemetry data from previous attempt (start timed and counted things 
+    // starting from most recent Attempt rather than starting a new Attempt
+
+    // Can I do this all just with conversation tokens? No, will need to ask DataManager object (DataAggregator, ExplorationDataManager, and/or ConstructionDataManager) for info about
+    // which parts have been collected and what Attempt we're currently on
+
+   // Will need to make sure all part pickups have a corresponding and unique prefab associated with them, otherwise the SaveController.Load() method of instantiating a new prefab a
+   // and dropping it on the player's head to start won't work. Or, we could just grab the existing object in the scene and move it on top of the player, hopefully that works. 
+
 	// Filename for save. Allow loading of any string name.
 	public static string filename = "Save";
 
@@ -37,7 +49,7 @@ public class SaveController : MonoBehaviour
 		bf.Serialize(file, data);
 		file.Close();
 
-		//Debug.Log("Saved all options successfully.");
+		Debug.Log("Saved all options successfully.");
 	}
 
 	// Applies all options from the saved file to the locally created variables.

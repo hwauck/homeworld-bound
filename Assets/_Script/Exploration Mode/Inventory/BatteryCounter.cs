@@ -28,7 +28,6 @@ public class BatteryCounter : MonoBehaviour {
         // for testing only!
         //batteriesBuilt = 3;
         setCounterMaximums();
-        Debug.Log("Reached the end of BatteryCounter's Start() method for " + gameObject.name);
 
     }
 
@@ -188,7 +187,6 @@ public class BatteryCounter : MonoBehaviour {
         partsDone = false;
 
         partsFoundText.text = "Battery Parts: " + partsFound + "/" + partsNeeded;
-        Debug.Log("partsFoundText in resetCounter: " + partsFoundText.text);
 
     }
 
@@ -212,7 +210,6 @@ public class BatteryCounter : MonoBehaviour {
     {
         this.partsNeeded = partsNeeded;
         partsFoundText.text = "Battery Parts: " + partsFound + "/" + partsNeeded;
-        Debug.Log("partsFoundText in setPartsNeeded: " + partsFoundText.text);
 
     }
 

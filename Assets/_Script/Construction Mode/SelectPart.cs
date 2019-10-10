@@ -193,7 +193,7 @@ public class SelectPart : MonoBehaviour {
             }
 
             sel.hitInfo = hitInfo;
-            Debug.Log("Normals of hitInfo for " + selectedObject + ": " + hitInfo.worldNormal);
+            //Debug.Log("Normals of hitInfo for " + selectedObject + ": " + hitInfo.worldNormal);
         }
 
         if(selectedObject != null && selectedFuseTo != null)

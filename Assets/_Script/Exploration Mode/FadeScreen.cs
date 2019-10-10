@@ -8,7 +8,6 @@ public class FadeScreen : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Debug.Log("Reached the end of FadeScreen's Start() method!");
 
     }
 

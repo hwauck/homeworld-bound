@@ -33,7 +33,6 @@ public class ConversationController : MonoBehaviour
 
 	void Start ()
 	{
-        Debug.Log("Starting Start() function in ConversationController!");
 		// Grab references.
 		thisObject = gameObject;
 		textBox = GetComponentInChildren<ScrollingText>();
@@ -41,7 +40,6 @@ public class ConversationController : MonoBehaviour
 		{
 			player = GameObject.FindGameObjectWithTag("Player").GetComponent<UnityStandardAssets.Characters.FirstPerson.RigidbodyFirstPersonController>();
 		}
-        Debug.Log("Got player ref in Start() in ConversationController!");
 		starterName = starterNameRef;
 		nameBox = nameBoxRef;
 
@@ -60,7 +58,6 @@ public class ConversationController : MonoBehaviour
         {
             FakeActive(gameObject, true);
         }
-        Debug.Log("Either enabled or disabled gameObject in ConversationController's Start()!");
 
         GameObject dataCollectionObj = GameObject.Find("DataCollectionManager");
         if (dataCollectionObj != null && isConstMode)
@@ -73,7 +70,6 @@ public class ConversationController : MonoBehaviour
 
         }
 
-        Debug.Log("Reached the end of ConversationController's Start() method!");
     }
 
 	void OnEnable()

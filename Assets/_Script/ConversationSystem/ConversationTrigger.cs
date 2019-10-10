@@ -102,7 +102,7 @@ public class ConversationTrigger : MonoBehaviour
 	public static void AddToken(string token)
 	{
 		tokens.Add(token);
-		SaveController.Save();
+		//SaveController.Save();
 	}
 	public static void AddToken(string token, bool save)
 	{

@@ -318,7 +318,7 @@ public class LevelResetter : MonoBehaviour {
 
     public void resetLevel()
     {
-        Debug.Log("RESETTING LEVEL!");
+        //Debug.Log("RESETTING LEVEL!");
         if(dataManager)
         {
             dataManager.setPauseGameplay(true);
@@ -509,7 +509,7 @@ public class LevelResetter : MonoBehaviour {
         StartCoroutine(rechargingAnimation());
 
         // put starting part back to where it was
-        Debug.Log("Setting " + startingPart + " position to " + startingPartOffscreenPos + "!");
+        //Debug.Log("Setting " + startingPart + " position to " + startingPartOffscreenPos + "!");
         startingPart.transform.SetPositionAndRotation(startingPartOffscreenPos, startingPartRotation);
 
         // reset victoryPrefab, otherwise it does weird stuff once level is complete
@@ -545,7 +545,7 @@ public class LevelResetter : MonoBehaviour {
             tutorial.enableTooltips();
         }
         yield return new WaitForSeconds(1f);
-        Debug.Log("Starting zoom up animation!");
+        //Debug.Log("Starting zoom up animation!");
 
         StartCoroutine(startingPartZoomUp());
 

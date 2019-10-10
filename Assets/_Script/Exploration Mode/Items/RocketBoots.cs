@@ -25,7 +25,6 @@ public class RocketBoots : ItemBase
 	{
 		playerBody = GetComponent<Rigidbody>();
 		uiElementStatic = uiElement;
-        Debug.Log("Reached the end of RocketBoots's Awake() method for " + gameObject.name);
 
     }
 
@@ -45,7 +44,6 @@ public class RocketBoots : ItemBase
 		{
 			uiElement.gameObject.SetActive(false);
 		}
-        Debug.Log("Reached the end of RocketBoots's Start() method for " + gameObject.name);
 
     }
 
@@ -53,7 +51,6 @@ public class RocketBoots : ItemBase
     void OnEnable()
 	{
 		Start();
-        Debug.Log("Reached the end of RocketBoots's OnEnable() method for " + gameObject.name);
 
     }
 

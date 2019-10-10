@@ -24,7 +24,7 @@ public class Tooltip : MonoBehaviour {
     void OnEnable () {
         convoController = GameObject.Find("ConversationSystem").GetComponent<ConversationController>();
         selectPart = GameObject.Find("EventSystem").GetComponent<SelectPart>();
-        Debug.Log("setting convoController and selectPart variables for " + gameObject + "!");
+        //Debug.Log("setting convoController and selectPart variables for " + gameObject + "!");
     }
 
     public void OnMouseEnter()

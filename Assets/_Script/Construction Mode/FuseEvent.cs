@@ -105,7 +105,7 @@ public class FuseEvent : MonoBehaviour {
         {
             // Special stuff happens because we are just running construction mode without exploration mode.
             runningJustConstructionMode = true;
-            //SimpleData.CreateInitialFiles();
+            SimpleData.CreateInitialFiles();
 
             //! Is this a really bad idea?
             SaveController.filename += "_CONSTRUCTION-ONLY";
@@ -294,14 +294,14 @@ public class FuseEvent : MonoBehaviour {
     //allows other scripts, such as Tutorial scripts, to start music manually
     public void startMusic()
     {
-        Debug.Log("Playing " + musicsource.clip.name + "!");
+        //Debug.Log("Playing " + musicsource.clip.name + "!");
         musicsource.Play();
     }
 
     //allows other scripts, such as Tutorial scripts, to start music manually
     public void stopMusic()
     {
-        Debug.Log("Stopping " + musicsource.clip.name + "!");
+        //Debug.Log("Stopping " + musicsource.clip.name + "!");
         musicsource.Stop();
     }
 
@@ -1494,7 +1494,7 @@ public class FuseEvent : MonoBehaviour {
                 for (int i = 0; i < allParts.Length; i++)
                 {
                     allParts[i].transform.SetParent(group.transform, true);
-                    Debug.Log("Setting " + group + " as parent of " + allParts[i]);
+                   // Debug.Log("Setting " + group + " as parent of " + allParts[i]);
                 }
 
                 if (dataManager != null)
@@ -1518,7 +1518,7 @@ public class FuseEvent : MonoBehaviour {
                 musicsource.clip = victorymusic;
                 mainCam.transform.position = new Vector3(-90, 80, -3.36f);
                 mainCam.transform.rotation = Quaternion.Euler(new Vector3(15, 0, 0));
-                Debug.Log("Playing " + musicsource.clip.name + "!");
+                //Debug.Log("Playing " + musicsource.clip.name + "!");
 
                 musicsource.Play();
                 StartCoroutine(FadeAudio(fadeTime, Fade.Out));
@@ -1595,8 +1595,8 @@ public class FuseEvent : MonoBehaviour {
     // starting's BoxCollider with the result
     private void extendBoxCollider(GameObject starting, GameObject added)
     {
-        Debug.Log("Starting: " + starting);
-        Debug.Log("added: " + added);
+        //Debug.Log("Starting: " + starting);
+        //Debug.Log("added: " + added);
         BoxCollider startingBoxCollider = starting.GetComponent<BoxCollider>();
         BoxCollider addedBoxCollider = added.GetComponent<BoxCollider>();
         startingBoxCollider.enabled = true;
@@ -1604,8 +1604,8 @@ public class FuseEvent : MonoBehaviour {
         Bounds oldBounds = starting.GetComponent<BoxCollider>().bounds;
         Bounds addedBounds = added.GetComponent<BoxCollider>().bounds;
         addedBoxCollider.enabled = false;
-        Debug.Log("oldBounds: " + oldBounds);
-        Debug.Log("addedBounds: " + addedBounds);
+        //Debug.Log("oldBounds: " + oldBounds);
+        //Debug.Log("addedBounds: " + addedBounds);
 
         Vector3 oldBoundsMax = oldBounds.max;
         Vector3 oldBoundsMin = oldBounds.min;
@@ -1647,12 +1647,12 @@ public class FuseEvent : MonoBehaviour {
         // in +y direction when shapes are added in +y direction
 
         startingBoxCollider.size = new Vector3((newXMax - newXMin) / startingScale.x, (newYMax - newYMin) / startingScale.y, (newZMax - newZMin) / startingScale.z);
-        Debug.Log("New Size: " + startingBoxCollider.size);
+        //Debug.Log("New Size: " + startingBoxCollider.size);
 
         // sum of the volumes times the centers of starting and added, divided by sum of the volumes
         //startingBoxCollider.center = newCenterLocalCoord;
         startingBoxCollider.center = newCenter;
-        Debug.Log("New Center: " + startingBoxCollider.center);
+        //Debug.Log("New Center: " + startingBoxCollider.center);
 
 
         startingBoxCollider.enabled = false;

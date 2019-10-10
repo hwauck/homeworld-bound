@@ -228,14 +228,14 @@ public class RotationGizmo : MonoBehaviour
 
     public void Disable()
 	{
-        Debug.Log("Disabled the rotation gizmo.");
+        //Debug.Log("Disabled the rotation gizmo.");
         toRotate = null;
 		transform.position = new Vector3(-1000f, -1000f, -1000f);
 	}
 
 	public GameObject Enable(GameObject objectToRotate)
 	{
-		Debug.Log("Enabled the rotation gizmo.");
+		//Debug.Log("Enabled the rotation gizmo.");
 		toRotate = objectToRotate;
 		transform.position = toRotate.transform.position;
 		return objectToRotate;
