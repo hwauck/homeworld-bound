@@ -204,7 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PartsSounds: {fileID: 82876672118168274}
   WindChimes: {fileID: 8300000, guid: 6d46d3a3ddbf77e4a8d647a14d6136b5, type: 3}
-  Pickup: {fileID: 0}
+  Pickup: {fileID: 82876672118168274}
   pickupSound: {fileID: 8300000, guid: 1c011066b8292f94392a2b2a1667fc77, type: 3}
   partCounterObj: {fileID: 0}
   levelResetter: {fileID: 0}

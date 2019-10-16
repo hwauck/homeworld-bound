@@ -55,10 +55,14 @@ public class Fuser : ItemBase {
     {
         fuserActive = true;
         fuserStatic.SetActive(true);
-        ConversationTrigger.AddToken("gear_fuser");
-        StartCoroutine(firstLookAtFuser());
-        fuserLaunched.Invoke();
 
+        // if the player already got the fuser the last time they loaded the game, don't make them watch the intro screen again
+        if (!ConversationTrigger.GetToken("gear_fuser"))
+        {
+            ConversationTrigger.AddToken("gear_fuser");
+            StartCoroutine(firstLookAtFuser());
+            fuserLaunched.Invoke();
+        }
     }
 
     // activate the fuser for all subsequent fuser accesses (each time all the parts

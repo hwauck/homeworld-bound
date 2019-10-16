@@ -307,7 +307,8 @@ public class InventoryController : MonoBehaviour
 		foreach (KeyValuePair<string, InvItem> ii in items)
 		{
 			string newToken = "item|";
-			newToken += ii.Value.pickup.GetComponent<PickUp>().prefabPath;
+            //newToken += ii.Value.pickup.GetComponent<PickUp>().prefabPath;
+            newToken += ii.Value.pickup.name;
 			newToken += "|";
 			newToken += ii.Value.quantity;
 			toAdd.Add(newToken);
@@ -330,30 +331,42 @@ public class InventoryController : MonoBehaviour
 		List<string> itemStrings = new List<string>();
 		foreach (string ii in ConversationTrigger.tokens)
 		{
+            Debug.Log("string in ConversationTrigger.tokens: " + ii);
 			if (ii.Contains("item|"))
 				itemStrings.Add(ii);
 		}
 		foreach (string ii in itemStrings)
 		{
+            Debug.Log("string in itemStrings: " + ii);
 			string[] separated = ii.Split(new char[]{ '|' });
 			string path = separated[1];
 			int count = int.Parse(separated[2]);
 
-			// Spawn prefab found at PATH, COUNT times on top of the player.
-			GameObject instantiated = Resources.Load<GameObject>(path);
-			for (int i = 0; i < count; i++)
-			{
-				if (instantiated == null)
-				{
-					Debug.LogError("Path for item was not found! Path was: " + path);
-				}
-				else
-				{
-					GameObject instance = Instantiate(instantiated);
-					instance.GetComponent<PickUp>().autoDelete = false;
-					instance.transform.position = player.position;
-				}
-			}
+            // Spawn prefab found at PATH, COUNT times on top of the player.
+            //GameObject instantiated = Resources.Load<GameObject>(path);
+            //for (int i = 0; i < count; i++)
+            //{
+            //	if (instantiated == null)
+            //	{
+            //		Debug.LogError("Path for item was not found! Path was: " + path);
+            //	}
+            //	else
+            //	{
+            //		GameObject instance = Instantiate(instantiated);
+            //		instance.GetComponent<PickUp>().autoDelete = false;
+            //		instance.transform.position = player.position;
+            //	}
+            //}
+
+            // ALT method - just move the in-game object on top of the player rather than instantiating a new prefab
+            GameObject instance = GameObject.Find(path);
+            if(instance == null)
+            {
+                Debug.LogError("Error: No GameObject with name " + path + " found in scene!");
+            } else
+            {
+                instance.transform.position = player.position;
+            }
 		}
 
 
