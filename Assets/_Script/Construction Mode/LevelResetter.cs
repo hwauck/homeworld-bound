@@ -141,7 +141,7 @@ public class LevelResetter : MonoBehaviour {
         if (LoadUtils.currentSceneName.Equals("b1"))
         {
             StartCoroutine(waitAndThenAddToken(1, "startCameraControls"));
-        }
+        } 
 
        // }
     }
@@ -277,8 +277,9 @@ public class LevelResetter : MonoBehaviour {
         showMapText.gameObject.SetActive(true); // does this make sprite text appear?
         map.gameObject.SetActive(true);
 
-        // and finally show Start button
+        // and finally show Start button and tell save file that const_map_intro has been completed
         yield return new WaitForSeconds(2f);
+        ConversationTrigger.RemoveToken("not_finished_const_map_intro");
         startButton.gameObject.SetActive(true);
     }
 

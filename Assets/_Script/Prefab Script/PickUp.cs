@@ -11,6 +11,7 @@ public class PickUp : MonoBehaviour
     public GameObject partCounterObj;
     public ExplorationLevelResetter levelResetter;
 	public enum PickupType { Item, Battery, Clue, Fuser };
+    private bool fromSave = false; // is this part being picked up from a loaded save file or not? Set by InventoryController.ConvertTokensToInventory()
 
 	[Header("Basic Variables")]
 	public PickupType type = PickupType.Item;
@@ -145,7 +146,7 @@ public class PickUp : MonoBehaviour
 					LoadUtils.IconParenter(this.gameObject);
 
                     // inc count of item parts and check if done collecting
-                    partCounterObj.GetComponent<PartCounter>().incParts();
+                    partCounterObj.GetComponent<PartCounter>().incParts(fromSave);
 
                     break;
                 
@@ -164,7 +165,7 @@ public class PickUp : MonoBehaviour
                     // inc count of battery parts and check if done collecting
                     // make sure battery parts UI elements are enabled (won't be for every first battery part pickup)
 
-                    partCounterObj.GetComponent<BatteryCounter>().incParts();
+                    partCounterObj.GetComponent<BatteryCounter>().incParts(fromSave);
                     transform.position = new Vector3(-1000f, -1000f, -1000f);
 
                     //RespawnBattery();
@@ -195,6 +196,12 @@ public class PickUp : MonoBehaviour
 				ConversationTrigger.AddToken("autodelete_" + pickupName);
 			}
         }
+    }
+
+    // indicate that this Pickup is being loaded into player's inventory from a loaded save file
+    public void setFromSave(bool fromSave)
+    {
+        this.fromSave = fromSave;
     }
 
 

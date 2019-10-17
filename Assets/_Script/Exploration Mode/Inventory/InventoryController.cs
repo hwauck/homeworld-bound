@@ -365,6 +365,7 @@ public class InventoryController : MonoBehaviour
                 Debug.LogError("Error: No GameObject with name " + path + " found in scene!");
             } else
             {
+                instance.GetComponent<PickUp>().setFromSave(true);
                 instance.transform.position = player.position;
             }
 		}

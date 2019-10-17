@@ -1529,35 +1529,66 @@ public class FuseEvent : MonoBehaviour {
                 if (currentLevel.Equals("b1"))
                 {
                     ConversationTrigger.AddToken("finished_b1");
+                    ConversationTrigger.AddToken("not_finished_collecting_b2");
                 }
                 else if (currentLevel.Equals("b2"))
                 {
                     ConversationTrigger.AddToken("finished_b2");
-                } else if (currentLevel.Equals("b3"))
+                    ConversationTrigger.AddToken("not_finished_collecting_b3");
+
+                }
+                else if (currentLevel.Equals("b3"))
                 {
                     ConversationTrigger.AddToken("finished_b3");
-                } else if (currentLevel.Equals("b4"))
+                    ConversationTrigger.AddToken("not_finished_collecting_b4");
+
+                }
+                else if (currentLevel.Equals("b4"))
                 {
                     ConversationTrigger.AddToken("finished_b4");
-                } else if (currentLevel.Equals("rocketBoots"))
+                    ConversationTrigger.AddToken("not_finished_collecting_RB");
+                    ConversationTrigger.AddToken("not_finished_const_map_intro");
+                    // if finished_b4 but this is still here, start game from transitionToFuserLog
+                    // and remove read_fuser_log, show_locate_button tokens
+
+                }
+                else if (currentLevel.Equals("rocketBoots"))
                 {
                     ConversationTrigger.AddToken("finished_RB");
-                } else if (currentLevel.Equals("b5"))
+                    ConversationTrigger.AddToken("not_finished_collecting_b5");
+
+                }
+                else if (currentLevel.Equals("b5"))
                 {
                     ConversationTrigger.AddToken("finished_b5");
-                } else if (currentLevel.Equals("b6"))
+                    ConversationTrigger.AddToken("not_finished_collecting_b6");
+
+                }
+                else if (currentLevel.Equals("b6"))
                 {
                     ConversationTrigger.AddToken("finished_b6");
-                } else if (currentLevel.Equals("b7"))
+                    ConversationTrigger.AddToken("not_finished_collecting_b7");
+
+                }
+                else if (currentLevel.Equals("b7"))
                 {
                     ConversationTrigger.AddToken("finished_b7");
-                } else if (currentLevel.Equals("b8"))
+                    ConversationTrigger.AddToken("not_finished_collecting_b8");
+
+                }
+                else if (currentLevel.Equals("b8"))
                 {
                     ConversationTrigger.AddToken("finished_b8");
-                } else if (currentLevel.Equals("sledgehammer"))
+                    ConversationTrigger.AddToken("not_finished_collecting_sledgehammer");
+
+                }
+                else if (currentLevel.Equals("sledgehammer"))
                 {
                     ConversationTrigger.AddToken("finished_sledgehammer");
-                } else if (currentLevel.Equals("key1"))
+                    ConversationTrigger.AddToken("not_finished_collecting_key1");
+
+                }
+                else if (currentLevel.Equals("key1"))
                 {
                     ConversationTrigger.AddToken("finished_key1");
                 }

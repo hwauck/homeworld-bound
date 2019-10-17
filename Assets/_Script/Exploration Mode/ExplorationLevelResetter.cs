@@ -137,7 +137,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         lowPowerText.enabled = false;
 
         //TODO: add condition for new levels
-        if(ConversationTrigger.GetToken("finished_b4") && !ConversationTrigger.GetToken("finished_RB"))
+        if(ConversationTrigger.GetToken("finished_b4") && !ConversationTrigger.GetToken("not_finished_const_map_intro") && !ConversationTrigger.GetToken("finished_rocketBoots"))
         {
             disablePlayerControl();
             expDataManager.setPauseGameplay(true);
@@ -174,7 +174,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             screenFader.fadeIn(1f);
 
             map.doIntroMap(); // when this is done, it triggers startCountdown() and beginning of timed level
-        } else if (ConversationTrigger.GetToken("finished_RB") && !ConversationTrigger.GetToken("finished_b5")) //activate sledgehammer battery parts once the player reaches Highlands
+        } else if (ConversationTrigger.GetToken("finished_rocketBoots") && !ConversationTrigger.GetToken("finished_b5")) //activate sledgehammer battery parts once the player reaches Highlands
         {
             //Debug.Log("Stopping " + musicSource.clip.name + "!");
             musicSource.Stop();
@@ -315,7 +315,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             Exp_firstBattery_b4.enabled = true;
 
         }
-        else if (!ConversationTrigger.GetToken("finished_RB"))
+        else if (!ConversationTrigger.GetToken("finished_rocketBoots"))
         {
             Exp_firstBattery_b5.enabled = true;
 
@@ -355,7 +355,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         else if (!ConversationTrigger.GetToken("finished_b4"))
         {
             whatToBuild = "b4";
-        } else if (!ConversationTrigger.GetToken("finished_RB"))
+        } else if (!ConversationTrigger.GetToken("finished_rocketBoots"))
         {
             whatToBuild = "rocketBoots";
         } else if (!ConversationTrigger.GetToken("finished_b5"))
@@ -387,7 +387,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         //if(ConversationTrigger.GetToken("finished_b4"))
         //{
         //    whatToBuild = "rocketBoots";
-        //} else if (ConversationTrigger.GetToken("finished_RB"))
+        //} else if (ConversationTrigger.GetToken("finished_rocketBoots"))
         //{
         //    whatToBuild = "b5";
         //}
@@ -399,11 +399,23 @@ public class ExplorationLevelResetter : MonoBehaviour {
             expDataManager = expDataManagerObj.GetComponent<ExplorationDataManager>();
         }
         expDataManager.setLevelSuffix(whatToBuild);
+        batteryPartCounter.setWhatToBuild(whatToBuild);
+        itemPartCounter.setObjectToBuild(whatToBuild);
 
 
     }
 
+    // called by invocation of BatteryCounter's newBatteryBuilt event in special circumstances
+    // (when ExplorationLevelResetter does not automatically increment numBatteriesBuilt)
+    public void incBatteriesBuilt()
+    {
+        numBatteriesBuilt++;
+    }
+
     //invoke this method from PartCounter/BatteryCounter whenever all parts are collected (batteries) within time limit (items)
+    // TODO: add a token after all batteries for each level have been collected but before construction mode level starts
+    // Then, we can stop this method from executing on incParts() from loaded previously acquired parts since finished_bx will be there
+    // but not finishedCollectingbx+1 or finishedbx+1
     public void prepareNextLevel()
     {
         setFirstBatteryConvo();
@@ -491,7 +503,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         }
         else
         {
-            //Debug.LogError("Error: prepareNextLevel() should not be called before all item/battery parts have been collected");
+            Debug.LogError("Error: prepareNextLevel() should not be called before all item/battery parts have been collected");
         }
     }
 
@@ -674,7 +686,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         }
         rechargingText.enabled = false;
         string token = "";
-        if(!ConversationTrigger.GetToken("finished_RB"))
+        if(!ConversationTrigger.GetToken("finished_rocketBoots"))
         {
             token = "letsRestart_RB";
             for (int i = 0; i < rocketBootParts.Length; i++)
@@ -820,7 +832,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         {
             if (Input.GetKeyUp(KeyCode.L))
             { // LEFT SHIFT + L to increment batteries
-                batteryPartCounter.incParts();
+                batteryPartCounter.incParts(false);
 
             }
             else if (Input.GetKeyUp(KeyCode.I)) // LEFT SHIFT + I to increment Rocket Boots parts
@@ -828,7 +840,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
                 itemPartCounter.setObjectToBuild("Rocket Boots");
                 itemPartCounter.setPartsNeeded(7);
                 setWhatToBuild("rocketBoots");
-                itemPartCounter.incParts();
+                itemPartCounter.incParts(false);
            
 
             }
@@ -837,7 +849,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
                 itemPartCounter.setObjectToBuild("Sledgehammer");
                 itemPartCounter.setPartsNeeded(11);
                 setWhatToBuild("sledgehammer");
-                itemPartCounter.incParts();
+                itemPartCounter.incParts(false);
              
 
             } else if (Input.GetKeyUp(KeyCode.Y))
@@ -845,7 +857,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
                 itemPartCounter.setObjectToBuild("Ruined City Key");
                 itemPartCounter.setPartsNeeded(6);
                 setWhatToBuild("key1");
-                itemPartCounter.incParts();
+                itemPartCounter.incParts(false);
             }
             else if (Input.GetKeyUp(KeyCode.K)) // LEFT SHIFT + K to reenable user control if it's disabled
             {
@@ -862,13 +874,24 @@ public class ExplorationLevelResetter : MonoBehaviour {
                 ConversationTrigger.AddToken("finished_b2");
                 ConversationTrigger.AddToken("finished_b3");
                 ConversationTrigger.AddToken("finished_b4");
-                ConversationTrigger.AddToken("finished_RB");
+                ConversationTrigger.AddToken("finished_rocketBoots");
                 ConversationTrigger.AddToken("finished_b5");
                 ConversationTrigger.AddToken("finished_b6");
                 ConversationTrigger.AddToken("finished_b7");
                 ConversationTrigger.AddToken("finished_b8");
                 ConversationTrigger.AddToken("finished_sledgehammer");
-                ConversationTrigger.GetToken("reachedLevel_RuinedCity"); 
+                ConversationTrigger.GetToken("reachedLevel_RuinedCity");
+                ConversationTrigger.RemoveToken("not_finished_const_map_intro");
+                ConversationTrigger.RemoveToken("not_finished_collecting_b2");
+                ConversationTrigger.RemoveToken("not_finished_collecting_b3");
+                ConversationTrigger.RemoveToken("not_finished_collecting_b4");
+                ConversationTrigger.RemoveToken("not_finished_collecting_RB");
+                ConversationTrigger.RemoveToken("not_finished_collecting_b5");
+                ConversationTrigger.RemoveToken("not_finished_collecting_b6");
+                ConversationTrigger.RemoveToken("not_finished_collecting_b7");
+                ConversationTrigger.RemoveToken("not_finished_collecting_b8");
+                ConversationTrigger.RemoveToken("not_finished_collecting_sledgehammer");
+                ConversationTrigger.AddToken("not_finished_collecting_key1");
 
                 batteryPartCounter.hideBatteriesBuilt();
                 batteryPartCounter.hideBatteryParts();

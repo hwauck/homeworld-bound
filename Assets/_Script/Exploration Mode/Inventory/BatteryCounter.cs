@@ -20,6 +20,7 @@ public class BatteryCounter : MonoBehaviour {
     private bool partsDone = false; // has the player collected all the parts they need yet? 
 
     public UnityEvent readyForNextLevel;
+    public UnityEvent newBatteryBuilt; // triggers addition of battery to ExplorationLevelResetter's numBatteriesBuilt variable
 
     // Use this for initialization
     void Start () {
@@ -28,6 +29,7 @@ public class BatteryCounter : MonoBehaviour {
         // for testing only!
         //batteriesBuilt = 3;
         setCounterMaximums();
+        hideBatteryParts();
 
     }
 
@@ -122,7 +124,7 @@ public class BatteryCounter : MonoBehaviour {
         batteriesBuilt = num;
     }
 
-    public void incParts()
+    public void incParts(bool isFromSave)
     {
         if(partsFound == 0)
         {
@@ -132,18 +134,43 @@ public class BatteryCounter : MonoBehaviour {
         partsFoundText.text = "Battery Parts: " + partsFound + "/" + partsNeeded;
         showBatteryParts();
 
-        if (partsFound == partsNeeded)
+        // This condition is only met when loading from a save where a battery level was just completed and the 
+        // player now needs to collect more parts
+        if (partsFound == partsNeeded && isFromSave && !ConversationTrigger.GetToken("finished_" + getWhatToBuild()) && !ConversationTrigger.GetToken("not_finished_const_map_intro"))
         {
+            // do nothing
+            batteriesBuilt++;
+            resetCounter();
+            batteriesBuiltBG.gameObject.SetActive(true); // ExplorationLevelResetter normally triggers this on level load
+            newBatteryBuilt.Invoke();
+
+            // reset battery pickup conversation for next battery level
+            ConversationTrigger.RemoveToken("picked_up_a_battery");
+
+            ConversationTrigger.RemoveToken("not_finished_collecting_" + getWhatToBuild());
+
+
+            Debug.Log("Don't Load Next level: Battery Counter's WhatToBuild: " + getWhatToBuild());
+
+        } else if (partsFound == partsNeeded && isFromSave && ConversationTrigger.GetToken("finished_b4") && ConversationTrigger.GetToken("not_finished_const_map_intro"))
+        {
+            StartCoroutine(waitThenHide(6));
+
+            readyForNextLevel.Invoke();
+        } else if (partsFound == partsNeeded)
+        {
+            Debug.Log("Go to Next Level: Battery Counter's WhatToBuild: " + getWhatToBuild());
             partsDone = true;
 
             // reset battery pickup conversation for next battery level
             ConversationTrigger.RemoveToken("picked_up_a_battery");
+
             batteriesBuilt++; // technically, they're not built yet. But they will be when the player returns to scene.
 
             StartCoroutine(waitThenHide(6));
 
             readyForNextLevel.Invoke();
-  
+
         }           
 
 

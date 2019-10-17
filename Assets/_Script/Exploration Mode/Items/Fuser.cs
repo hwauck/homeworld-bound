@@ -53,12 +53,12 @@ public class Fuser : ItemBase {
     // script for before any batteries have been collected
     public void ActivateFuserFirstLook()
     {
-        fuserActive = true;
-        fuserStatic.SetActive(true);
-
         // if the player already got the fuser the last time they loaded the game, don't make them watch the intro screen again
         if (!ConversationTrigger.GetToken("gear_fuser"))
         {
+            fuserActive = true;
+            fuserStatic.SetActive(true);
+
             ConversationTrigger.AddToken("gear_fuser");
             StartCoroutine(firstLookAtFuser());
             fuserLaunched.Invoke();

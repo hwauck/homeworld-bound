@@ -28,12 +28,24 @@ public class PartCounter : MonoBehaviour {
 
     }
 
-    public void incParts()
+    public void incParts(bool isFromSave)
     {
         partsFound++;
         partsFoundText.text = objectToBuild + " Parts: " + partsFound + "/" + partsNeededText;
         showParts();
-        if(partsFound==partsNeeded)
+
+        // This condition is only met when loading from a save where an item level was just completed and the 
+        // player now needs to collect parts for the next item/battery
+        if (partsFound == partsNeeded && isFromSave)
+        {
+            // do nothing
+            resetCounter();
+
+            ConversationTrigger.RemoveToken("not_finished_collecting_" + whatToBuild);
+
+
+            Debug.Log("Don't Load Next level: Item Counter's WhatToBuild: " + whatToBuild);
+        } else if (partsFound==partsNeeded)
         {
             partsDone = true;
 
