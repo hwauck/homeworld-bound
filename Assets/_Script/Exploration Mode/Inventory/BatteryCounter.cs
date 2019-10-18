@@ -132,14 +132,19 @@ public class BatteryCounter : MonoBehaviour {
         }
         partsFound++;
         partsFoundText.text = "Battery Parts: " + partsFound + "/" + partsNeeded;
+        Debug.Log("Battery parts found: " + partsFound);
+        Debug.Log("Battery parts needed: " + partsNeeded);
         showBatteryParts();
 
         // This condition is only met when loading from a save where a battery level was just completed and the 
         // player now needs to collect more parts
-        if (partsFound == partsNeeded && isFromSave && !ConversationTrigger.GetToken("finished_" + getWhatToBuild()) && !ConversationTrigger.GetToken("not_finished_const_map_intro"))
+        Debug.Log("incParts: What to Build: " + getWhatToBuild());
+        if (partsFound == partsNeeded && isFromSave && ConversationTrigger.GetToken("finished_" + getWhatToBuild()) && !ConversationTrigger.GetToken("not_finished_const_map_intro"))
         {
             // do nothing
             batteriesBuilt++;
+            Debug.Log("Incrementing batteriesBuilt from BatteryCounter.incParts(" + isFromSave + ") - now " + batteriesBuilt);
+
             resetCounter();
             batteriesBuiltBG.gameObject.SetActive(true); // ExplorationLevelResetter normally triggers this on level load
             newBatteryBuilt.Invoke();
@@ -154,6 +159,11 @@ public class BatteryCounter : MonoBehaviour {
 
         } else if (partsFound == partsNeeded && isFromSave && ConversationTrigger.GetToken("finished_b4") && ConversationTrigger.GetToken("not_finished_const_map_intro"))
         {
+            ConversationTrigger.RemoveToken("read_fuser_log");
+            ConversationTrigger.RemoveToken("show_locate_button");
+            ConversationTrigger.RemoveToken("HardInstant_Const_fuserLog");
+            ConversationTrigger.RemoveToken("oneShot_locate_button");
+
             StartCoroutine(waitThenHide(6));
 
             readyForNextLevel.Invoke();
@@ -166,6 +176,7 @@ public class BatteryCounter : MonoBehaviour {
             ConversationTrigger.RemoveToken("picked_up_a_battery");
 
             batteriesBuilt++; // technically, they're not built yet. But they will be when the player returns to scene.
+            Debug.Log("Incrementing batteriesBuilt from BatteryCounter.incParts(" + isFromSave + ") - now " + batteriesBuilt);
 
             StartCoroutine(waitThenHide(6));
 

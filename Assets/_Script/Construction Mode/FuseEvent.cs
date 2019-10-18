@@ -1535,6 +1535,7 @@ public class FuseEvent : MonoBehaviour {
                 {
                     ConversationTrigger.AddToken("finished_b2");
                     ConversationTrigger.AddToken("not_finished_collecting_b3");
+                    Debug.Log("Adding finished_b2 token!");
 
                 }
                 else if (currentLevel.Equals("b3"))
@@ -1546,7 +1547,7 @@ public class FuseEvent : MonoBehaviour {
                 else if (currentLevel.Equals("b4"))
                 {
                     ConversationTrigger.AddToken("finished_b4");
-                    ConversationTrigger.AddToken("not_finished_collecting_RB");
+                    ConversationTrigger.AddToken("not_finished_collecting_rocketBoots");
                     ConversationTrigger.AddToken("not_finished_const_map_intro");
                     // if finished_b4 but this is still here, start game from transitionToFuserLog
                     // and remove read_fuser_log, show_locate_button tokens
@@ -1554,7 +1555,7 @@ public class FuseEvent : MonoBehaviour {
                 }
                 else if (currentLevel.Equals("rocketBoots"))
                 {
-                    ConversationTrigger.AddToken("finished_RB");
+                    ConversationTrigger.AddToken("finished_rocketBoots");
                     ConversationTrigger.AddToken("not_finished_collecting_b5");
 
                 }

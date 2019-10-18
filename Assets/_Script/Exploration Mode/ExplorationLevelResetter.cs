@@ -124,6 +124,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             sledgeBatteryParts[i].SetActive(false);
         }
 
+        Debug.Log("Setting batteriesBuilt to 0");
         numBatteriesBuilt = 0;
 
     }
@@ -137,7 +138,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         lowPowerText.enabled = false;
 
         //TODO: add condition for new levels
-        if(ConversationTrigger.GetToken("finished_b4") && !ConversationTrigger.GetToken("not_finished_const_map_intro") && !ConversationTrigger.GetToken("finished_rocketBoots"))
+        if (ConversationTrigger.GetToken("finished_b4") && !ConversationTrigger.GetToken("not_finished_const_map_intro") && !ConversationTrigger.GetToken("finished_rocketBoots"))
         {
             disablePlayerControl();
             expDataManager.setPauseGameplay(true);
@@ -169,7 +170,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
             // change the time given from what it was for Rocket Boots
             timer.setTimeGiven(300);
-            
+
 
             screenFader.fadeIn(1f);
 
@@ -355,6 +356,9 @@ public class ExplorationLevelResetter : MonoBehaviour {
         else if (!ConversationTrigger.GetToken("finished_b4"))
         {
             whatToBuild = "b4";
+        } else if (ConversationTrigger.GetToken("finished_b4") && ConversationTrigger.GetToken("not_finished_const_map_intro"))
+        {
+            whatToBuild = "b4";
         } else if (!ConversationTrigger.GetToken("finished_rocketBoots"))
         {
             whatToBuild = "rocketBoots";
@@ -410,6 +414,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
     public void incBatteriesBuilt()
     {
         numBatteriesBuilt++;
+        batteriesBuilt.transform.GetComponentInChildren<Text>().text = "Batteries Built: " + numBatteriesBuilt + "/4";
+        Debug.Log("Incrementing numBatteriesBuilt from incBatteriesBuilt() - now " + numBatteriesBuilt);
     }
 
     //invoke this method from PartCounter/BatteryCounter whenever all parts are collected (batteries) within time limit (items)
@@ -465,7 +471,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
             itemPartCounter.hideParts();
             itemPartCounter.resetCounter();
-           // Debug.Log("SETTING batteriesBuilt back to 0!");
+            Debug.Log("SETTING batteriesBuilt back to 0!");
             numBatteriesBuilt = 0;
             batteriesBuilt.SetActive(false);
 
@@ -561,6 +567,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
             audioSource.PlayOneShot(powerUpSound);
             whatToBuild = "newTutorial";
             numBatteriesBuilt++;
+            Debug.Log("Incrementing numBatteriesBuilt from waitForEndOfConvoThenLoadLevel() - now " + numBatteriesBuilt);
+
             batteriesBuilt.SetActive(true);
 
         }
@@ -573,6 +581,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             lowPowerText.text = "Fuser battery parts detected. Activating battery construction mode!";
             audioSource.PlayOneShot(powerUpSound);
             numBatteriesBuilt++;
+            Debug.Log("Incrementing numBatteriesBuilt from waitForEndOfConvoThenLoadLevel() - now " + numBatteriesBuilt);
             batteriesBuilt.SetActive(true);
         }
         else // I don't think this will ever execute because this function only runs after collecting each set of batteries, not items

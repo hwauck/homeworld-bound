@@ -141,7 +141,10 @@ public class LevelResetter : MonoBehaviour {
         if (LoadUtils.currentSceneName.Equals("b1"))
         {
             StartCoroutine(waitAndThenAddToken(1, "startCameraControls"));
-        } 
+        } else if (LoadUtils.currentSceneName.Equals("b4") && ConversationTrigger.GetToken("finished_b4")) // hasn't completed the read fuser log/const intro map section yet
+        {
+            doTransitionToFuserLog();
+        }
 
        // }
     }

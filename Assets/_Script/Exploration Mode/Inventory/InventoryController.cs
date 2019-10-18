@@ -366,7 +366,10 @@ public class InventoryController : MonoBehaviour
             } else
             {
                 instance.GetComponent<PickUp>().setFromSave(true);
-                instance.transform.position = player.position;
+                //instance.transform.position = player.position;
+                //TODO: instead of dropping them on the player's head, compute the total amount first, 
+                //then use that to set batteriesBuilt and batteryParts. WhatToBuild will already be correct.
+                // otherwise it's a mess and partsNeeded gets messed up, and possibly other things as well
             }
 		}
 
