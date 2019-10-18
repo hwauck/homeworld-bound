@@ -56,8 +56,8 @@ public class InventoryController : MonoBehaviour
 		if (!RecipesDB.unlockedRecipes.Contains(RecipesDB.FFA))
 			RecipesDB.unlockedRecipes.Add(RecipesDB.FFA);
 
-        batteryPartCount = 0;
-        itemPartCount = 0;
+        //batteryPartCount = 0;
+        //itemPartCount = 0;
 		// Load save when inventory controller activates. Has to happen somewhere!
         // TODO: reenable for final version of game
 		SaveController.Load();
@@ -372,6 +372,9 @@ public class InventoryController : MonoBehaviour
             //}
 
             // ALT method - just move the in-game object on top of the player rather than instantiating a new prefab
+            batteryPartCount = 0;
+            itemPartCount = 0;
+
             GameObject instance = GameObject.Find(path);
             if(instance == null)
             {
@@ -384,12 +387,15 @@ public class InventoryController : MonoBehaviour
                 if (pickup.type == PickUp.PickupType.Battery)
                 {
                     batteryPartCount++;
+                    Debug.Log("Incremented battery part count! Is now " + batteryPartCount);
                 } else if (pickup.type == PickUp.PickupType.Item)
                 {
                     itemPartCount++;
+                    Debug.Log("Incremented item part count! Is now " + itemPartCount);
+
                 }
-                //TODO: instead of dropping them on the player's head, compute the total amount first, 
-                //then use that to set batteriesBuilt and batteryParts. WhatToBuild will already be correct.
+                // instead of dropping them on the player's head, compute the total amount first, 
+                // then use that to set batteriesBuilt and batteryParts. WhatToBuild will already be correct.
                 // otherwise it's a mess and partsNeeded gets messed up, and possibly other things as well
             }
 		}
@@ -414,6 +420,8 @@ public class InventoryController : MonoBehaviour
             {
                 batteryCounter.setBatteryParts(batteryPartCount);
                 batteryCounter.setBatteriesBuilt(0);
+                Debug.Log("Setting batteries and battery parts to 0!");
+
             }
             else
             {
@@ -422,17 +430,32 @@ public class InventoryController : MonoBehaviour
                 {
                     i++;
                     batteriesBuilt++;
+                    batteryCounter.newBatteryBuilt.Invoke();
                     batteryPartCount -= partsNeeded[i];
-
+                    Debug.Log("Subtracting partsNeeded " + partsNeeded[i] + " from batteryPartCount. BatteryPartCount is now " + batteryPartCount);
                 }
 
-                batteryCounter.setBatteryParts(Mathf.Abs(batteryPartCount));
+                batteryCounter.setBatteryParts(partsNeeded[i] - Mathf.Abs(batteryPartCount));
                 if (batteryPartCount == 0)
                 {
                     batteriesBuilt++;
+                    batteryCounter.newBatteryBuilt.Invoke();
+                } 
+
+                batteryCounter.setBatteriesBuilt(batteriesBuilt);
+                Debug.Log("Setting battery part count to " + Mathf.Abs(batteryPartCount) + "!");
+                Debug.Log("Setting batteries count to " + Mathf.Abs(batteriesBuilt) + "!");
+                if(batteryPartCount > 0 || batteriesBuilt > 0)
+                {
+                    batteryCounter.showBatteryParts();
                 }
-                batteryCounter.setBatteriesBuilt(batteriesBuilt)
+                if(batteriesBuilt > 0)
+                {
+                    batteryCounter.showBatteriesBuilt();
+                }
+                
             }
+    
 
         }
         else
@@ -452,6 +475,8 @@ public class InventoryController : MonoBehaviour
             if (itemPartCount == 0)
             {
                 itemPartCounter.setPartsFound(itemPartCount);
+                Debug.Log("Setting item parts to 0!");
+
             }
             else
             {
@@ -460,11 +485,23 @@ public class InventoryController : MonoBehaviour
                 {
                     i++;
                     itemPartCount -= partsNeeded[i];
+                    Debug.Log("Subtracting partsNeeded " + partsNeeded[i] + " from itemPartCount. ItemPartCount is now " + itemPartCount);
 
                 }
 
-                itemPartCounter.setPartsFound(Mathf.Abs(itemPartCount));
+                itemPartCounter.setPartsFound(partsNeeded[i] - Mathf.Abs(itemPartCount));
+                Debug.Log("Setting item part count to " + Mathf.Abs(itemPartCount) + "!");
+               
+            }
 
+            if (itemPartCount > 0)
+            {
+                itemPartCounter.showParts();
+            }
+
+            if (!ConversationTrigger.GetToken("finished_" + itemPartCounter.getObjectToBuild()))
+            {
+                itemPartCounter.readyForNextLevel.Invoke();
             }
 
         }

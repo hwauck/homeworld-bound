@@ -12,6 +12,7 @@ public class DataAggregator : MonoBehaviour {
     private ExplorationDataManager expDataManager;
     private ConstructionDataManager constDataManager;
 
+
     [DllImport("__Internal")]
     private static extern void sendToDB(string playerData);
 
@@ -157,7 +158,14 @@ public class DataAggregator : MonoBehaviour {
             ExplorationLevelResetter expLevelResetter = GameObject.Find("EventSystem").GetComponent<ExplorationLevelResetter>();
             expDataManager.AddNewAttempt(scene.name, true);
             expLevelResetter.setWhatToBuild();
+            string whatToBuild = expLevelResetter.getWhatToBuild();
             Debug.Log("New attempt for level " + expDataManager.GetCurrAttempt().level + " added!");
+            Debug.Log("Data Aggregator: WhatToBuild = " + whatToBuild);
+
+            if (!ConversationTrigger.GetToken("finished_" + whatToBuild) || (ConversationTrigger.GetToken("finished_b4") && ConversationTrigger.GetToken("not_finished_const_map_intro")))
+            {
+                expLevelResetter.loadConstModeIfConstInProgress();
+            }
         }
     }
 

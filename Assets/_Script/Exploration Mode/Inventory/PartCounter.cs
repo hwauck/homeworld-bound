@@ -24,7 +24,7 @@ public class PartCounter : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        partsFound = 0;
+        //partsFound = 0;
         partsNeededText = "??";
         objectToBuild = "???";
 
@@ -70,6 +70,18 @@ public class PartCounter : MonoBehaviour {
         //}
     }
 
+    public void startItemConstructionLevelFromSave()
+    {
+        partsDone = true;
+
+        //Debug.Log("Setting batteriesBuilt back to 0!");
+        batteryCounter.setBatteriesBuilt(0); // reset batteries built since we used all of the previous ones up building the Rocket Boots
+
+        StartCoroutine(waitThenHide(6));
+
+        readyForNextLevel.Invoke();
+    }
+
     private IEnumerator waitThenHide(float seconds)
     {
         yield return new WaitForSeconds(seconds);
@@ -94,6 +106,12 @@ public class PartCounter : MonoBehaviour {
         partsDone = false;
         partsFoundText.text = objectToBuild + " Parts: " + partsFound + "/" + partsNeededText;
 
+    }
+
+    // need to make sure ExplorationLevelResetter's setWhatToBuild() method has set this value before calling this
+    public string getObjectToBuild()
+    {
+        return objectToBuild;
     }
 
     public void setObjectToBuild(string objectToBuild)
@@ -122,6 +140,11 @@ public class PartCounter : MonoBehaviour {
     {
         gameObject.GetComponent<Image>().enabled = false;
         gameObject.transform.GetComponentInChildren<Text>().enabled = false;
+    }
+
+    public int getPartsFound()
+    {
+        return partsFound;
     }
 
     public void setPartsFound(int partsFound)

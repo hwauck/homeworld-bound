@@ -217,6 +217,21 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
     }
 
+    public void loadConstModeIfConstInProgress()
+    {
+        if (ConversationTrigger.GetToken("battery_const_in_progress"))
+        {
+            Debug.Log("Battery parts found is currently " + batteryPartCounter.getBatteryParts() + ". Loading Construction Mode!");
+            batteryPartCounter.startBatteryConstructionLevelFromSave();
+        } else if (ConversationTrigger.GetToken("item_const_in_progress"))
+        {
+            Debug.Log("Item parts found is currently " + itemPartCounter.getPartsFound() + ". Loading Construction Mode!");
+            itemPartCounter.startItemConstructionLevelFromSave();
+        }
+    }
+
+
+
     // this function is called when the player finishes all game content (TBD) or selects Yes, Quit on the confirmation dialogue
     // if player finishes all game content, playerInitiated should be false. Otherwise, playerInitiated should be true.
     public void gameFinished(bool playerInitiated)
@@ -290,6 +305,11 @@ public class ExplorationLevelResetter : MonoBehaviour {
         }
 
         rrRect.anchoredPosition = endPosition;
+    }
+
+    public string getWhatToBuild()
+    {
+        return whatToBuild;
     }
 
     public void setWhatToBuild(string whatToBuild)
@@ -456,6 +476,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             }
 
             batteryPartCounter.resetCounter();
+            ConversationTrigger.AddToken("battery_const_in_progress");
 
             //remembers which Exploration Mode we were in so we can get back
             InventoryController.levelName = SceneManager.GetActiveScene().name;
@@ -499,6 +520,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
             timer.gameObject.GetComponent<CanvasGroup>().alpha = 0; //hide TimeRemainingPanel again
             timer.resetTimer();
             expDataManager.setOutcome("victory");
+            ConversationTrigger.AddToken("item_const_in_progress");
+
 
             //remembers which Exploration Mode we were in so we can get back
             InventoryController.levelName = SceneManager.GetActiveScene().name;
@@ -571,6 +594,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
             batteriesBuilt.SetActive(true);
 
+
         }
         else if (whatToBuild.StartsWith("b") && whatToBuild.Length == 2)
         {   // all battery levels except first one
@@ -583,6 +607,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             numBatteriesBuilt++;
             Debug.Log("Incrementing numBatteriesBuilt from waitForEndOfConvoThenLoadLevel() - now " + numBatteriesBuilt);
             batteriesBuilt.SetActive(true);
+
         }
         else // I don't think this will ever execute because this function only runs after collecting each set of batteries, not items
         {   //all item levels

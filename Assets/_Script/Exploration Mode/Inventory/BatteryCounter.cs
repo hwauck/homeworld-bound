@@ -27,8 +27,8 @@ public class BatteryCounter : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        partsFound = 0;
-        batteriesBuilt = 0;
+        //partsFound = 0;
+        //batteriesBuilt = 0;
         // for testing only!
         //batteriesBuilt = 3;
         setCounterMaximums();
@@ -37,13 +37,6 @@ public class BatteryCounter : MonoBehaviour {
 
 
 
-    }
-
-    // called when finishedLoad event is invoked by InventoryController
-    public void loadSavedBatteryParts()
-    {
-        // figure out how many batteries player should start with
-        int savedBatteries = InventoryController.getSavedBatteryPartCount();
     }
 
     // sets what partsNeeded and batteriesBuilt should be depending on
@@ -137,6 +130,11 @@ public class BatteryCounter : MonoBehaviour {
         batteriesBuilt = num;
     }
 
+    public int getBatteryParts()
+    {
+        return partsFound;
+    }
+
     public void setBatteryParts(int num)
     {
         partsFound = num;
@@ -212,6 +210,19 @@ public class BatteryCounter : MonoBehaviour {
         //    InventoryController.levelName = SceneManager.GetActiveScene().name;
         //    StartCoroutine(waitThenLoadLevel(3f, whatToBuild));
         //}
+    }
+
+    public void startBatteryConstructionLevelFromSave()
+    {
+        Debug.Log("Go to Next Level: Battery Counter's WhatToBuild: " + getWhatToBuild());
+        partsDone = true;
+
+        // reset battery pickup conversation for next battery level
+        ConversationTrigger.RemoveToken("picked_up_a_battery");
+
+        StartCoroutine(waitThenHide(6));
+
+        readyForNextLevel.Invoke();
     }
 
     private IEnumerator waitThenHide(float seconds)

@@ -1530,18 +1530,22 @@ public class FuseEvent : MonoBehaviour {
                 {
                     ConversationTrigger.AddToken("finished_b1");
                     ConversationTrigger.AddToken("not_finished_collecting_b2");
+                    ConversationTrigger.RemoveToken("battery_const_in_progress");
                 }
                 else if (currentLevel.Equals("b2"))
                 {
                     ConversationTrigger.AddToken("finished_b2");
                     ConversationTrigger.AddToken("not_finished_collecting_b3");
                     Debug.Log("Adding finished_b2 token!");
+                    ConversationTrigger.RemoveToken("battery_const_in_progress");
+
 
                 }
                 else if (currentLevel.Equals("b3"))
                 {
                     ConversationTrigger.AddToken("finished_b3");
                     ConversationTrigger.AddToken("not_finished_collecting_b4");
+                    ConversationTrigger.RemoveToken("battery_const_in_progress");
 
                 }
                 else if (currentLevel.Equals("b4"))
@@ -1551,42 +1555,49 @@ public class FuseEvent : MonoBehaviour {
                     ConversationTrigger.AddToken("not_finished_const_map_intro");
                     // if finished_b4 but this is still here, start game from transitionToFuserLog
                     // and remove read_fuser_log, show_locate_button tokens
+                    ConversationTrigger.RemoveToken("battery_const_in_progress");
 
                 }
                 else if (currentLevel.Equals("rocketBoots"))
                 {
                     ConversationTrigger.AddToken("finished_rocketBoots");
                     ConversationTrigger.AddToken("not_finished_collecting_b5");
+                    ConversationTrigger.RemoveToken("item_const_in_progress");
 
                 }
                 else if (currentLevel.Equals("b5"))
                 {
                     ConversationTrigger.AddToken("finished_b5");
                     ConversationTrigger.AddToken("not_finished_collecting_b6");
+                    ConversationTrigger.RemoveToken("battery_const_in_progress");
 
                 }
                 else if (currentLevel.Equals("b6"))
                 {
                     ConversationTrigger.AddToken("finished_b6");
                     ConversationTrigger.AddToken("not_finished_collecting_b7");
+                    ConversationTrigger.RemoveToken("battery_const_in_progress");
 
                 }
                 else if (currentLevel.Equals("b7"))
                 {
                     ConversationTrigger.AddToken("finished_b7");
                     ConversationTrigger.AddToken("not_finished_collecting_b8");
+                    ConversationTrigger.RemoveToken("battery_const_in_progress");
 
                 }
                 else if (currentLevel.Equals("b8"))
                 {
                     ConversationTrigger.AddToken("finished_b8");
                     ConversationTrigger.AddToken("not_finished_collecting_sledgehammer");
+                    ConversationTrigger.RemoveToken("battery_const_in_progress");
 
                 }
                 else if (currentLevel.Equals("sledgehammer"))
                 {
                     ConversationTrigger.AddToken("finished_sledgehammer");
                     ConversationTrigger.AddToken("not_finished_collecting_key1");
+                    ConversationTrigger.RemoveToken("item_const_in_progress");
 
                 }
                 else if (currentLevel.Equals("key1"))
