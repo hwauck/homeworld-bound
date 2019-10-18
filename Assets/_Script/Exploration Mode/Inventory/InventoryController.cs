@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 
 public class InventoryController : MonoBehaviour
@@ -19,8 +20,11 @@ public class InventoryController : MonoBehaviour
 	public RecipePopulator recPop;      // Where recipes are populated.
 	public CluePopulator cluePop;		// Where clues are populated.
 
-	// Other references, grabbed on Start.
-	UnityStandardAssets.Characters.FirstPerson.RigidbodyFirstPersonController player;
+    private static int batteryPartCount;
+    private static int itemPartCount;
+
+    // Other references, grabbed on Start.
+    UnityStandardAssets.Characters.FirstPerson.RigidbodyFirstPersonController player;
 	
 	float tabButtonY;	// Default Y position of tab buttons, for tab popping.
 
@@ -52,6 +56,8 @@ public class InventoryController : MonoBehaviour
 		if (!RecipesDB.unlockedRecipes.Contains(RecipesDB.FFA))
 			RecipesDB.unlockedRecipes.Add(RecipesDB.FFA);
 
+        batteryPartCount = 0;
+        itemPartCount = 0;
 		// Load save when inventory controller activates. Has to happen somewhere!
         // TODO: reenable for final version of game
 		SaveController.Load();
@@ -102,6 +108,11 @@ public class InventoryController : MonoBehaviour
 		Destroy(GameObject.FindGameObjectWithTag("FullPlayer"));	// Must make sure the old player is properly deleted...
 		UnityEngine.SceneManagement.SceneManager.LoadScene("SimpleMenu");	// Reload, finally.
 	}
+
+    public static int getSavedBatteryPartCount()
+    {
+        return batteryPartCount;
+    }
 
 	
 	void Update ()
@@ -324,6 +335,8 @@ public class InventoryController : MonoBehaviour
 	// Only called by SaveController.Load();
 	public static void ConvertTokensToInventory()
 	{
+        
+
 		// Get the references we will need.
 		Transform player = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -365,16 +378,105 @@ public class InventoryController : MonoBehaviour
                 Debug.LogError("Error: No GameObject with name " + path + " found in scene!");
             } else
             {
-                instance.GetComponent<PickUp>().setFromSave(true);
-                //instance.transform.position = player.position;
+                PickUp pickup = instance.GetComponent<PickUp>();
+                pickup.setFromSave(true);
+                instance.transform.position = new Vector3(-1000f, -1000f, -1000f);
+                if (pickup.type == PickUp.PickupType.Battery)
+                {
+                    batteryPartCount++;
+                } else if (pickup.type == PickUp.PickupType.Item)
+                {
+                    itemPartCount++;
+                }
                 //TODO: instead of dropping them on the player's head, compute the total amount first, 
                 //then use that to set batteriesBuilt and batteryParts. WhatToBuild will already be correct.
                 // otherwise it's a mess and partsNeeded gets messed up, and possibly other things as well
             }
 		}
 
+        calculateBatteryCounts();
+        calculateItemCounts();
 
-	}
+
+    }
+
+
+    private static void calculateBatteryCounts()
+    {
+        GameObject batteryCounterObj = GameObject.Find("BatteryPartsFound");
+        if (batteryCounterObj != null && batteryCounterObj.GetComponent<BatteryCounter>() != null)
+        {
+            BatteryCounter batteryCounter = batteryCounterObj.GetComponent<BatteryCounter>();
+            int[] partsNeeded = batteryCounter.PARTS_NEEDED;
+            int batteriesBuilt = 0;
+            int i = 0;
+            if (batteryPartCount == 0)
+            {
+                batteryCounter.setBatteryParts(batteryPartCount);
+                batteryCounter.setBatteriesBuilt(0);
+            }
+            else
+            {
+                batteryPartCount -= partsNeeded[i];
+                while (batteryPartCount > 0)
+                {
+                    i++;
+                    batteriesBuilt++;
+                    batteryPartCount -= partsNeeded[i];
+
+                }
+
+                batteryCounter.setBatteryParts(Mathf.Abs(batteryPartCount));
+                if (batteryPartCount == 0)
+                {
+                    batteriesBuilt++;
+                }
+                batteryCounter.setBatteriesBuilt(batteriesBuilt)
+            }
+
+        }
+        else
+        {
+            Debug.LogError("Either no BatteryPartsFound object exists in the scene or it has no associated BatteryCounter script");
+        }
+    }
+
+    private static void calculateItemCounts()
+    {
+        GameObject itemCounterObj = GameObject.Find("PartsFound");
+        if (itemCounterObj != null && itemCounterObj.GetComponent<PartCounter>() != null)
+        {
+            PartCounter itemPartCounter = itemCounterObj.GetComponent<PartCounter>();
+            int[] partsNeeded = itemPartCounter.PARTS_NEEDED;
+            int i = 0;
+            if (itemPartCount == 0)
+            {
+                itemPartCounter.setPartsFound(itemPartCount);
+            }
+            else
+            {
+                itemPartCount -= partsNeeded[i];
+                while (itemPartCount > 0)
+                {
+                    i++;
+                    itemPartCount -= partsNeeded[i];
+
+                }
+
+                itemPartCounter.setPartsFound(Mathf.Abs(itemPartCount));
+
+            }
+
+        }
+        else
+        {
+            Debug.LogError("Either no PartsFound object exists in the scene or it has no associated PartCounter script");
+        }
+    }
+
+
+
+
 }
 
 ////////////////////////////////

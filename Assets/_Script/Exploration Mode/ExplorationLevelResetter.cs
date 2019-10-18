@@ -856,7 +856,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
             else if (Input.GetKeyUp(KeyCode.H)) // LEFT SHIFT + H to increment Sledgehammer parts
             {
                 itemPartCounter.setObjectToBuild("Sledgehammer");
-                itemPartCounter.setPartsNeeded(11);
+                itemPartCounter.setPartsNeeded(12);
                 setWhatToBuild("sledgehammer");
                 itemPartCounter.incParts(false);
              

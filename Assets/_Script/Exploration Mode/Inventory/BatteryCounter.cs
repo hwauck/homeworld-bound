@@ -16,6 +16,9 @@ public class BatteryCounter : MonoBehaviour {
     public Timer levelTimer;
     public FadeScreen fadeScreen;
 
+    public readonly int[] PARTS_NEEDED = { 4, 4, 7, 6, 5, 7, 7, 7 };
+
+
     private string whatToBuild;
     private bool partsDone = false; // has the player collected all the parts they need yet? 
 
@@ -31,6 +34,16 @@ public class BatteryCounter : MonoBehaviour {
         setCounterMaximums();
         hideBatteryParts();
 
+
+
+
+    }
+
+    // called when finishedLoad event is invoked by InventoryController
+    public void loadSavedBatteryParts()
+    {
+        // figure out how many batteries player should start with
+        int savedBatteries = InventoryController.getSavedBatteryPartCount();
     }
 
     // sets what partsNeeded and batteriesBuilt should be depending on
@@ -40,43 +53,43 @@ public class BatteryCounter : MonoBehaviour {
         // CHANGE when more levels are added
         if (!ConversationTrigger.GetToken("finished_b1"))
         {
-            partsNeeded = 4;
+            partsNeeded = PARTS_NEEDED[0];
             batteriesNeeded = 4;
         }
         else if (!ConversationTrigger.GetToken("finished_b2"))
         {
-            partsNeeded = 4;
+            partsNeeded = PARTS_NEEDED[1];
             batteriesNeeded = 4;
         }
         else if (!ConversationTrigger.GetToken("finished_b3"))
         {
-            partsNeeded = 7;
+            partsNeeded = PARTS_NEEDED[2];
             batteriesNeeded = 4;
         }
         else if (!ConversationTrigger.GetToken("finished_b4"))
         {
-            partsNeeded = 6;
+            partsNeeded = PARTS_NEEDED[3];
             batteriesNeeded = 4;
         }
         else if (!ConversationTrigger.GetToken("finished_b5"))
         {
-            partsNeeded = 5;
+            partsNeeded = PARTS_NEEDED[4];
             batteriesNeeded = 4;
 
         }
         else if (!ConversationTrigger.GetToken("finished_b6"))
         {
-            partsNeeded = 7;
+            partsNeeded = PARTS_NEEDED[5];
             batteriesNeeded = 4;
         }
         else if (!ConversationTrigger.GetToken("finished_b7"))
         {
-            partsNeeded = 7;
+            partsNeeded = PARTS_NEEDED[6];
             batteriesNeeded = 4;
         }
         else if (!ConversationTrigger.GetToken("finished_b8"))
         {
-            partsNeeded = 7;
+            partsNeeded = PARTS_NEEDED[7];
             batteriesNeeded = 4;
         }
         else
@@ -122,6 +135,11 @@ public class BatteryCounter : MonoBehaviour {
     public void setBatteriesBuilt(int num)
     {
         batteriesBuilt = num;
+    }
+
+    public void setBatteryParts(int num)
+    {
+        partsFound = num;
     }
 
     public void incParts(bool isFromSave)

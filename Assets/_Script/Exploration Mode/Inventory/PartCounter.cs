@@ -17,6 +17,8 @@ public class PartCounter : MonoBehaviour {
     public FadeScreen fadeScreen;
     private bool partsDone = false; // has the player collected all the parts they need yet? 
 
+    public readonly int[] PARTS_NEEDED = { 7, 12, 6 };
+
     public UnityEvent readyForNextLevel;
 
 
@@ -120,6 +122,11 @@ public class PartCounter : MonoBehaviour {
     {
         gameObject.GetComponent<Image>().enabled = false;
         gameObject.transform.GetComponentInChildren<Text>().enabled = false;
+    }
+
+    public void setPartsFound(int partsFound)
+    {
+        this.partsFound = partsFound;
     }
 
 }
