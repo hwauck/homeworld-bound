@@ -32,7 +32,14 @@ public class BatteryCounter : MonoBehaviour {
         // for testing only!
         //batteriesBuilt = 3;
         setCounterMaximums();
-        hideBatteryParts();
+        if(partsFound == 0)
+        {
+            hideBatteryParts();
+        }
+        if(batteriesBuilt > 0)
+        {
+            showBatteriesBuilt();
+        }
 
 
 
