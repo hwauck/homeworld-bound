@@ -23,6 +23,9 @@ public class SaveController : MonoBehaviour
 	// Filename for save. Allow loading of any string name.
 	public static string filename = "Save";
 
+    // set this to true to prevent SaveController.Load() from executing more than once per game session (see DataAggregator's initializeDataCollection() method)
+    public static bool alreadyLoaded = false;
+
 	// Saves a file containing all game options which are in the above. 
 	public static void Save()
 	{

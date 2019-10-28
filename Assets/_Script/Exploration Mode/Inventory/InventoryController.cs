@@ -58,10 +58,7 @@ public class InventoryController : MonoBehaviour
 
         //batteryPartCount = 0;
         //itemPartCount = 0;
-		// Load save when inventory controller activates. Has to happen somewhere!
-        // TODO: reenable for final version of game
-		SaveController.Load();
-        Debug.Log("Successfully loaded saved game data");
+
 	}
 
 
@@ -301,7 +298,7 @@ public class InventoryController : MonoBehaviour
 	public static void ConvertInventoryToTokens()
 	{
 		// Remove all current inventory tokens. (anything containing "item|")
-		List<string> toRemove = new List<string>();	// Need a list because you cannot modify a hashset while iterating over it.
+	/*	List<string> toRemove = new List<string>();	// Need a list because you cannot modify a hashset while iterating over it.
 		foreach (string ii in ConversationTrigger.tokens)
 		{
 			if (ii.Contains("item|"))
@@ -311,7 +308,7 @@ public class InventoryController : MonoBehaviour
 		{
 			ConversationTrigger.RemoveToken(ii, false);
 		}
-
+    */
 		// Create and add the tokens to model the inventory.
 		// "item|PATH|COUNT"
 		List<string> toAdd = new List<string>();	// Need a list because you cannot modify a hashset while iterating over it.
@@ -328,7 +325,6 @@ public class InventoryController : MonoBehaviour
 		{
 			ConversationTrigger.AddToken(ii, false);
 		}
-        //TODO: reenable for final version of game
 		SaveController.Save();
 	}
 
@@ -348,7 +344,11 @@ public class InventoryController : MonoBehaviour
 			if (ii.Contains("item|"))
 				itemStrings.Add(ii);
 		}
-		foreach (string ii in itemStrings)
+
+        batteryPartCount = 0;
+        itemPartCount = 0;
+
+        foreach (string ii in itemStrings)
 		{
             Debug.Log("string in itemStrings: " + ii);
 			string[] separated = ii.Split(new char[]{ '|' });
@@ -372,9 +372,6 @@ public class InventoryController : MonoBehaviour
             //}
 
             // ALT method - just move the in-game object on top of the player rather than instantiating a new prefab
-            batteryPartCount = 0;
-            itemPartCount = 0;
-
             GameObject instance = GameObject.Find(path);
             if(instance == null)
             {
@@ -435,18 +432,23 @@ public class InventoryController : MonoBehaviour
                     Debug.Log("Subtracting partsNeeded " + partsNeeded[i] + " from batteryPartCount. BatteryPartCount is now " + batteryPartCount);
                 }
 
-                batteryCounter.setBatteryParts(partsNeeded[i] - Mathf.Abs(batteryPartCount));
                 if (batteryPartCount == 0)
                 {
                     batteriesBuilt++;
                     batteryCounter.newBatteryBuilt.Invoke();
-                } 
+                    batteryCounter.setBatteryParts(0);
+                } else if (batteryPartCount < 0)
+                {
+                    batteryCounter.setBatteryParts(partsNeeded[i] - Mathf.Abs(batteryPartCount));
+                }
 
                 batteryCounter.setBatteriesBuilt(batteriesBuilt);
+
                 Debug.Log("Setting battery part count to " + Mathf.Abs(batteryPartCount) + "!");
                 Debug.Log("Setting batteries count to " + Mathf.Abs(batteriesBuilt) + "!");
                 if(batteryPartCount > 0 || batteriesBuilt > 0)
                 {
+                    Debug.Log("showing battery parts collected!");
                     batteryCounter.showBatteryParts();
                 }
                 if(batteriesBuilt > 0)
@@ -491,17 +493,15 @@ public class InventoryController : MonoBehaviour
 
                 itemPartCounter.setPartsFound(partsNeeded[i] - Mathf.Abs(itemPartCount));
                 Debug.Log("Setting item part count to " + Mathf.Abs(itemPartCount) + "!");
-               
-            }
 
-            if (itemPartCount > 0)
-            {
                 itemPartCounter.showParts();
-            }
 
-            if (!ConversationTrigger.GetToken("finished_" + itemPartCounter.getObjectToBuild()))
-            {
-                itemPartCounter.readyForNextLevel.Invoke();
+                if (itemPartCount == 0 && !ConversationTrigger.GetToken("finished_" + itemPartCounter.getObjectToBuild()))
+                {
+                    Debug.Log("Current itemPartCounter.getObjectToBuild(): " + itemPartCounter.getObjectToBuild());
+                    itemPartCounter.readyForNextLevel.Invoke();
+                }
+
             }
 
         }

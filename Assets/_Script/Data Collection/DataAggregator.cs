@@ -153,6 +153,15 @@ public class DataAggregator : MonoBehaviour {
         }
         else
         {
+
+            // Load save when inventory controller activates. Has to happen here because we need to wait till the scene is loaded to load the saved data
+            if(!SaveController.alreadyLoaded)
+            {
+                SaveController.Load();
+                SaveController.alreadyLoaded = true;
+                Debug.Log("Successfully loaded saved game data");
+            }
+
             constDataManager.enabled = false;
             expDataManager.enabled = true;
             ExplorationLevelResetter expLevelResetter = GameObject.Find("EventSystem").GetComponent<ExplorationLevelResetter>();
