@@ -110,6 +110,7 @@ public class BatteryCounter : MonoBehaviour {
     {
         batteriesBuiltBG.enabled = false;
         batteriesBuiltText.enabled = false;
+        batteriesBuiltBG.gameObject.SetActive(false);
     }
 
     // make BatteryCounter UI element visible
@@ -125,6 +126,7 @@ public class BatteryCounter : MonoBehaviour {
         batteriesBuiltText.text = "Batteries Built: " + batteriesBuilt + "/" + batteriesNeeded;
         batteriesBuiltBG.enabled = true;
         batteriesBuiltText.enabled = true;
+        batteriesBuiltBG.gameObject.SetActive(true);
     }
 
     public int getBatteriesBuilt()
