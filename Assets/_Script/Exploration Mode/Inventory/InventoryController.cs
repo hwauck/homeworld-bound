@@ -371,11 +371,16 @@ public class InventoryController : MonoBehaviour
             //	}
             //}
 
-            // ALT method - just move the in-game object on top of the player rather than instantiating a new prefab
+            // NEW method - just move the in-game object on top of the player rather than instantiating a new prefab
             GameObject instance = GameObject.Find(path);
             if(instance == null)
             {
-                Debug.LogError("Error: No GameObject with name " + path + " found in scene!");
+                // gross, this needs to be fixed eventually - just a temporary way of avoiding errors when calling GameObject.Find()
+                // on RocketBoots parts that are currently deactivated
+                if(!path.Contains("Pickup_Boots_"))
+                {
+                    Debug.LogError("Error: No GameObject with name " + path + " found in scene!");
+                }
             } else
             {
                 PickUp pickup = instance.GetComponent<PickUp>();

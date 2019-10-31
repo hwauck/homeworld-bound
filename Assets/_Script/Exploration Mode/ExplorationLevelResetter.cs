@@ -119,10 +119,12 @@ public class ExplorationLevelResetter : MonoBehaviour {
         YRotSensitivity = controller.mouseLook.YSensitivity;
 
         sledgeBatteryParts = GameObject.FindGameObjectsWithTag("sledgehammer_battery");
-        for (int i = 0; i < sledgeBatteryParts.Length; i++)
-        {
-            sledgeBatteryParts[i].SetActive(false);
-        }
+
+        // not doing this anymore because then the save system can't find them in the scene
+        //for (int i = 0; i < sledgeBatteryParts.Length; i++)
+        //{
+        //    sledgeBatteryParts[i].SetActive(false);
+        //}
 
         Debug.Log("Setting batteriesBuilt to 0");
         numBatteriesBuilt = 0;
@@ -186,10 +188,11 @@ public class ExplorationLevelResetter : MonoBehaviour {
             // triggers fuserPutAway event in Fuser, which triggers startMusic() method in Timer
             controller.GetComponent<Fuser>().Deselect();
 
-            for (int i = 0; i < sledgeBatteryParts.Length; i++)
-            {
-                sledgeBatteryParts[i].SetActive(true);
-            }
+            // not disabling them anymore due to incompatibility of this with save system, so don't need this anymore
+            //for (int i = 0; i < sledgeBatteryParts.Length; i++)
+            //{
+            //    sledgeBatteryParts[i].SetActive(true);
+            //}
 
             screenFader.fadeIn(1f);
 
