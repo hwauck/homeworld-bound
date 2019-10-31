@@ -146,7 +146,7 @@ public class DataAggregator : MonoBehaviour {
 
         if (!scene.name.Equals("Canyon2") && !scene.name.Equals("RuinedCity"))
         {
-            // we're in Construction Mode 
+            // we're in Construction Mode, not loading from a save
             expDataManager.enabled = false;
             constDataManager.enabled = true;
             constDataManager.AddNewAttempt(scene.name, true);

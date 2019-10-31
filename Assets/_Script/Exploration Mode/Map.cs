@@ -46,7 +46,7 @@ public class Map : MonoBehaviour {
         }
 
         rrRect.anchoredPosition = endPosition;
-        finishedMovingMap.Invoke();
+        finishedMovingMap.Invoke(); // ExplorationLevelResetter.startCountdown() triggered by this event on map object
     }
 
     public void show()

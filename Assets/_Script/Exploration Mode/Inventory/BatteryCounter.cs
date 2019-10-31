@@ -17,7 +17,7 @@ public class BatteryCounter : MonoBehaviour {
     public FadeScreen fadeScreen;
 
     public readonly int[] PARTS_NEEDED = { 4, 4, 7, 6, 5, 7, 7, 7 };
-
+    private const int BATTERIES_NEEDED = 4; // right now it's 4 for every level. But it could be changed to an array to make it variable if necessary
 
     private string whatToBuild;
     private bool partsDone = false; // has the player collected all the parts they need yet? 
@@ -54,43 +54,43 @@ public class BatteryCounter : MonoBehaviour {
         if (!ConversationTrigger.GetToken("finished_b1"))
         {
             partsNeeded = PARTS_NEEDED[0];
-            batteriesNeeded = 4;
+            batteriesNeeded = BATTERIES_NEEDED;
         }
         else if (!ConversationTrigger.GetToken("finished_b2"))
         {
             partsNeeded = PARTS_NEEDED[1];
-            batteriesNeeded = 4;
+            batteriesNeeded = BATTERIES_NEEDED;
         }
         else if (!ConversationTrigger.GetToken("finished_b3"))
         {
             partsNeeded = PARTS_NEEDED[2];
-            batteriesNeeded = 4;
+            batteriesNeeded = BATTERIES_NEEDED;
         }
         else if (!ConversationTrigger.GetToken("finished_b4"))
         {
             partsNeeded = PARTS_NEEDED[3];
-            batteriesNeeded = 4;
+            batteriesNeeded = BATTERIES_NEEDED;
         }
         else if (!ConversationTrigger.GetToken("finished_b5"))
         {
             partsNeeded = PARTS_NEEDED[4];
-            batteriesNeeded = 4;
+            batteriesNeeded = BATTERIES_NEEDED;
 
         }
         else if (!ConversationTrigger.GetToken("finished_b6"))
         {
             partsNeeded = PARTS_NEEDED[5];
-            batteriesNeeded = 4;
+            batteriesNeeded = BATTERIES_NEEDED;
         }
         else if (!ConversationTrigger.GetToken("finished_b7"))
         {
             partsNeeded = PARTS_NEEDED[6];
-            batteriesNeeded = 4;
+            batteriesNeeded = BATTERIES_NEEDED;
         }
         else if (!ConversationTrigger.GetToken("finished_b8"))
         {
             partsNeeded = PARTS_NEEDED[7];
-            batteriesNeeded = 4;
+            batteriesNeeded = BATTERIES_NEEDED;
         }
         else
         {
@@ -114,13 +114,17 @@ public class BatteryCounter : MonoBehaviour {
     }
 
     // make BatteryCounter UI element visible
+    // And update its UI to match the current number of partsFound and partsNeeded
     public void showBatteryParts()
     {
+        partsFoundText.text = "Battery Parts: " + partsFound + "/" + partsNeeded;
         gameObject.GetComponent<Image>().enabled = true;
         gameObject.transform.GetComponentInChildren<Text>().enabled = true;
 
     }
 
+    // make batteries built UI element visible
+    // and update its UI to match the current number of batteriesBuilt and batteriesNeeded
     public void showBatteriesBuilt()
     {
         batteriesBuiltText.text = "Batteries Built: " + batteriesBuilt + "/" + batteriesNeeded;
@@ -144,9 +148,15 @@ public class BatteryCounter : MonoBehaviour {
         return partsFound;
     }
 
+    public int getBatteriesNeeded()
+    {
+        return BATTERIES_NEEDED;
+    }
+
     public void setBatteryParts(int num)
     {
         partsFound = num;
+
     }
 
     public void incParts(bool isFromSave)

@@ -142,6 +142,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         //TODO: add condition for new levels
         if (ConversationTrigger.GetToken("finished_b4") && !ConversationTrigger.GetToken("not_finished_const_map_intro") && !ConversationTrigger.GetToken("finished_rocketBoots"))
         {
+            musicSource.Stop();
             disablePlayerControl();
             expDataManager.setPauseGameplay(true);
 
@@ -225,6 +226,20 @@ public class ExplorationLevelResetter : MonoBehaviour {
         if (ConversationTrigger.GetToken("battery_const_in_progress"))
         {
             Debug.Log("Battery parts found is currently " + batteryPartCounter.getBatteryParts() + ". Loading Construction Mode!");
+            if(whatToBuild.Equals("b1"))
+            {
+                // remove all tutorial text tokens so the tutorial text reappears each time the level is loaded from a save
+                // so that the player knows they must zoom in first and then click and drag to start the level
+                ConversationTrigger.RemoveToken("HardInstant_Const_rotationsRemaining");
+                ConversationTrigger.RemoveToken("oneShot_Const_rotationsRemaining");
+                ConversationTrigger.RemoveToken("intro_rr");
+                ConversationTrigger.RemoveToken("HardInstant_Const_cameraMove");
+                ConversationTrigger.RemoveToken("oneShot_Const_cameraMove");
+                ConversationTrigger.RemoveToken("camera_move");
+                ConversationTrigger.RemoveToken("HardInstant_Const_cameraZoom");
+                ConversationTrigger.RemoveToken("oneShot_Const_cameraZoom");
+
+            }
             batteryPartCounter.startBatteryConstructionLevelFromSave();
         } else if (ConversationTrigger.GetToken("item_const_in_progress"))
         {
