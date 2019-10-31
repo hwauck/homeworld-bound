@@ -130,10 +130,10 @@ public class ExplorationLevelResetter : MonoBehaviour {
     }
 
     //reset fadeOutPanel from last scene transition if needed
-    // it seems this will actually be called every time we switch back to already loaded Canyon2
-    // maybe because EventSystems have to be manually disabled when switching scenes under our current
-    // scheme, and this script is attached to an EventSystem.
-    private void OnEnable()
+    // this will actually be called every time we switch back to already loaded Canyon2
+    // (via DataAggregator's initializeDataCollection() method, which will wait till
+    // OnLevelFinishedLoading to execute
+    public void setUpCurrentLevel()
     {
         lowPowerText.enabled = false;
 

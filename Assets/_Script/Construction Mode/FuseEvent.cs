@@ -1553,6 +1553,7 @@ public class FuseEvent : MonoBehaviour {
                     ConversationTrigger.AddToken("finished_b4");
                     ConversationTrigger.AddToken("not_finished_collecting_rocketBoots");
                     ConversationTrigger.AddToken("not_finished_const_map_intro");
+                    Debug.Log("Added not_finished_const_map_intro token");
                     // if finished_b4 but this is still here, start game from transitionToFuserLog
                     // and remove read_fuser_log, show_locate_button tokens
                     ConversationTrigger.RemoveToken("battery_const_in_progress");

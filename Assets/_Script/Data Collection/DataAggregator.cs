@@ -146,9 +146,11 @@ public class DataAggregator : MonoBehaviour {
 
         if (!scene.name.Equals("Canyon2") && !scene.name.Equals("RuinedCity"))
         {
+            // we're in Construction Mode 
             expDataManager.enabled = false;
             constDataManager.enabled = true;
             constDataManager.AddNewAttempt(scene.name, true);
+            Debug.Log("currently in Construction Mode! Adding new attempt");
 
         }
         else
@@ -171,10 +173,18 @@ public class DataAggregator : MonoBehaviour {
             Debug.Log("New attempt for level " + expDataManager.GetCurrAttempt().level + " added!");
             Debug.Log("Data Aggregator: WhatToBuild = " + whatToBuild);
 
-            if (!ConversationTrigger.GetToken("finished_" + whatToBuild) || (ConversationTrigger.GetToken("finished_b4") && ConversationTrigger.GetToken("not_finished_const_map_intro")))
+            // loaded saves always start in Exploration Mode, so if the player was in the middle of a Construction Mode level,
+            // Construction Mode will start up here from Exploration Mode
+            if (ConversationTrigger.GetToken("battery_const_in_progress") || ConversationTrigger.GetToken("item_const_in_progress") || (ConversationTrigger.GetToken("finished_b4") && ConversationTrigger.GetToken("not_finished_const_map_intro")))
             {
                 expLevelResetter.loadConstModeIfConstInProgress();
+            } else
+            {
+                expLevelResetter.setUpCurrentLevel();
             }
+
+
+
         }
     }
 

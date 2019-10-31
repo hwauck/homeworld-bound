@@ -283,6 +283,7 @@ public class LevelResetter : MonoBehaviour {
         // and finally show Start button and tell save file that const_map_intro has been completed
         yield return new WaitForSeconds(2f);
         ConversationTrigger.RemoveToken("not_finished_const_map_intro");
+        Debug.Log("Removed not_finished_const_map_intro token");
         startButton.gameObject.SetActive(true);
     }
 
