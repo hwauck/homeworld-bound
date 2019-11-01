@@ -448,13 +448,16 @@ public class InventoryController : MonoBehaviour
                 }
 
                 int batteriesNeeded = batteryCounter.getBatteriesNeeded();
+                batteryCounter.setPartsNeeded(partsNeeded[i]);
 
                 batteriesBuilt = batteriesBuilt % batteriesNeeded;
                 batteryCounter.setBatteriesBuilt(batteriesBuilt);
 
                 Debug.Log("Setting battery part count to " + (partsNeeded[i] - Mathf.Abs(batteryPartCount)) + "!");
+                Debug.Log("Setting battery parts needed to " + partsNeeded[i] + "!");
                 Debug.Log("Setting batteries count to " + batteriesBuilt + "!");
-                if(batteryPartCount > 0 || batteriesBuilt > 0)
+
+                if (batteryPartCount > 0 || batteriesBuilt > 0)
                 {
                     Debug.Log("showing battery parts collected!");
                     batteryCounter.showBatteryParts();

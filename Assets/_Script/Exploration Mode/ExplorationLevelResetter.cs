@@ -239,6 +239,18 @@ public class ExplorationLevelResetter : MonoBehaviour {
                 ConversationTrigger.RemoveToken("HardInstant_Const_cameraZoom");
                 ConversationTrigger.RemoveToken("oneShot_Const_cameraZoom");
 
+            } else if (whatToBuild.Equals("b4") && ConversationTrigger.GetToken("not_finished_const_map_intro"))
+            {
+                // this keeps all the conversations triggering so the player can go through the entire
+                // map intro again
+                ConversationTrigger.RemoveToken("read_fuser_log");
+                ConversationTrigger.RemoveToken("show_locate_button");
+                ConversationTrigger.RemoveToken("HardInstant_Const_fuserLog");
+                ConversationTrigger.RemoveToken("oneShot_Const_fuserLog");
+                ConversationTrigger.RemoveToken("oneShot_locate_button");
+
+                Debug.Log("loadConstModeIfConstInProgress(): Removed fuserLog conversation tokens for b4 level!");
+
             }
             batteryPartCounter.startBatteryConstructionLevelFromSave();
         } else if (ConversationTrigger.GetToken("item_const_in_progress"))

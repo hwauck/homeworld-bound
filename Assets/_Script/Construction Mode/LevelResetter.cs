@@ -13,7 +13,7 @@ using UnityEngine.Events;
 // message from "SYSTEM" says "Recharging..." for a couple seconds
 // Button appears: Restart Construction
 // then, level is reset: starting part rigidbody removed, correctly rotated
-// interface reappears, Dresha says stuff (Const_restart)
+// interface reappears, says stuff (Const_restart)
 // starting part zooms up into place again
 // Countdown begins again
 public class LevelResetter : MonoBehaviour {
@@ -126,27 +126,32 @@ public class LevelResetter : MonoBehaviour {
 
     void OnEnable()
     {
-        //display Recharging screen while level loads
-        //note: fadeOutPanel Image needs to be enabled in Inspector for it to look right
-        //if(fadeOutScreen.enabled) 
-        //{
-        //    Debug.Log("OnEnable() method in LevelResetter - starting recharging animation!");
-       //     StartCoroutine(rechargingAnimation());
-       //     StartCoroutine(waitAndThenZoomUpPart(4f));
-       //     StartCoroutine(waitAndThenAddToken(4, "doneRestarting"));
-       // } else
-       // {
+        StartCoroutine(setUpCurrentLevel());
+    }
+
+    private IEnumerator setUpCurrentLevel()
+    {
+        // for some reason, LoadUtils.isSceneLoaded seems to complete at a different time than
+        // OnLevelFinishedLoading event in DataAggregator. So we wait until new level is active 
+        // before getting the scene name and acting based on it
+        while (!LoadUtils.isSceneLoaded) 
+        {
+            yield return null;
+        }
         StartCoroutine(waitAndThenZoomUpPart(1f));
         StartCoroutine(waitAndThenAddToken(1, "doneRestarting"));
         if (LoadUtils.currentSceneName.Equals("b1"))
         {
             StartCoroutine(waitAndThenAddToken(1, "startCameraControls"));
-        } else if (LoadUtils.currentSceneName.Equals("b4") && ConversationTrigger.GetToken("finished_b4")) // hasn't completed the read fuser log/const intro map section yet
+        }
+        else if (LoadUtils.currentSceneName.Equals("b4") && ConversationTrigger.GetToken("finished_b4")) // hasn't completed the read fuser log/const intro map section yet
         {
             doTransitionToFuserLog();
-        }
+        } else if (LoadUtils.currentSceneName.Equals("b8") && ConversationTrigger.GetToken("finished_b8"))
+        {
+            doTransitionToFuserLog();
 
-       // }
+        }
     }
 
     //called by Claim Item button in b4 and b8 (and any battery level that comes right before a timed Exploration Mode level with a map)
@@ -234,6 +239,7 @@ public class LevelResetter : MonoBehaviour {
     {
         // start log display
         ConversationTrigger.AddToken("read_fuser_log");
+        Debug.Log("Added read_fuser_log token - should trigger Const_fuserlog convo");
 
         // wait till conversation finishes
         while (!ConversationTrigger.GetToken("show_locate_button"))
@@ -283,6 +289,9 @@ public class LevelResetter : MonoBehaviour {
         // and finally show Start button and tell save file that const_map_intro has been completed
         yield return new WaitForSeconds(2f);
         ConversationTrigger.RemoveToken("not_finished_const_map_intro");
+
+        // wait until b4's map intro is complete before declaring the construction mode level "finished"
+        ConversationTrigger.RemoveToken("battery_const_in_progress");
         Debug.Log("Removed not_finished_const_map_intro token");
         startButton.gameObject.SetActive(true);
     }

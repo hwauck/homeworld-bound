@@ -1554,9 +1554,6 @@ public class FuseEvent : MonoBehaviour {
                     ConversationTrigger.AddToken("not_finished_collecting_rocketBoots");
                     ConversationTrigger.AddToken("not_finished_const_map_intro");
                     Debug.Log("Added not_finished_const_map_intro token");
-                    // if finished_b4 but this is still here, start game from transitionToFuserLog
-                    // and remove read_fuser_log, show_locate_button tokens
-                    ConversationTrigger.RemoveToken("battery_const_in_progress");
 
                 }
                 else if (currentLevel.Equals("rocketBoots"))
@@ -1591,8 +1588,8 @@ public class FuseEvent : MonoBehaviour {
                 {
                     ConversationTrigger.AddToken("finished_b8");
                     ConversationTrigger.AddToken("not_finished_collecting_sledgehammer");
-                    ConversationTrigger.RemoveToken("battery_const_in_progress");
-
+                    // we don't remove the battery_const_in_progress token here since the map intro
+                    // in this level still has to be completed in order for this level to be "finished"
                 }
                 else if (currentLevel.Equals("sledgehammer"))
                 {

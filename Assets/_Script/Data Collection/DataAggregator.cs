@@ -117,7 +117,7 @@ public class DataAggregator : MonoBehaviour {
                 pickup.levelResetter = resetter;
                 pickup.partCounterObj = GameObject.Find("PartsFound");
             }
-        }
+        } 
 
         initializeDataCollection(scene);
 
@@ -146,11 +146,12 @@ public class DataAggregator : MonoBehaviour {
 
         if (!scene.name.Equals("Canyon2") && !scene.name.Equals("RuinedCity"))
         {
-            // we're in Construction Mode, not loading from a save
+            // we're in Construction Mode, not loading from a save (or was loaded from Exploration Mode upon loading a save
             expDataManager.enabled = false;
             constDataManager.enabled = true;
             constDataManager.AddNewAttempt(scene.name, true);
             Debug.Log("currently in Construction Mode! Adding new attempt");
+
 
         }
         else

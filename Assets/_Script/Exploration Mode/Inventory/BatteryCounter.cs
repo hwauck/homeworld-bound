@@ -32,6 +32,7 @@ public class BatteryCounter : MonoBehaviour {
         // for testing only!
         //batteriesBuilt = 3;
         setCounterMaximums();
+        Debug.Log("Set counter maximum from BatteryCounter.Start() to " + partsNeeded + " partsNeeded!");
         if(partsFound == 0)
         {
             hideBatteryParts();
@@ -96,6 +97,16 @@ public class BatteryCounter : MonoBehaviour {
         {
             partsNeeded = 0;
             batteriesNeeded = 0;
+            Debug.Log("Set partsNeeded to " + partsNeeded + " in setCounterMaximums!");
+            Debug.Log("ConversationTrigger.GetToken(finished_b1)? " + ConversationTrigger.GetToken("finished_b1"));
+            Debug.Log("ConversationTrigger.GetToken(finished_b2)? " + ConversationTrigger.GetToken("finished_b2"));
+            Debug.Log("ConversationTrigger.GetToken(finished_b3)? " + ConversationTrigger.GetToken("finished_b3"));
+            Debug.Log("ConversationTrigger.GetToken(finished_b4)? " + ConversationTrigger.GetToken("finished_b4"));
+            Debug.Log("ConversationTrigger.GetToken(finished_b5)? " + ConversationTrigger.GetToken("finished_b5"));
+            Debug.Log("ConversationTrigger.GetToken(finished_b6)? " + ConversationTrigger.GetToken("finished_b6"));
+            Debug.Log("ConversationTrigger.GetToken(finished_b7)? " + ConversationTrigger.GetToken("finished_b7"));
+            Debug.Log("ConversationTrigger.GetToken(finished_b8)? " + ConversationTrigger.GetToken("finished_b8"));
+
         }
     }
 
@@ -164,6 +175,8 @@ public class BatteryCounter : MonoBehaviour {
         if(partsFound == 0)
         {
             setCounterMaximums(); // figure out how many batteries are needed for next Construction level
+            Debug.Log("Set counter maximum from BatteryCounter.incParts() to " + partsNeeded + " partsNeeded!");
+
         }
         partsFound++;
         partsFoundText.text = "Battery Parts: " + partsFound + "/" + partsNeeded;
@@ -192,18 +205,23 @@ public class BatteryCounter : MonoBehaviour {
 
             Debug.Log("Don't Load Next level: Battery Counter's WhatToBuild: " + getWhatToBuild());
 
-        } else if (partsFound == partsNeeded && isFromSave && ConversationTrigger.GetToken("finished_b4") && ConversationTrigger.GetToken("not_finished_const_map_intro"))
+        } else if (partsFound == partsNeeded && ConversationTrigger.GetToken("finished_b4") && ConversationTrigger.GetToken("not_finished_const_map_intro"))
         {
             ConversationTrigger.RemoveToken("read_fuser_log");
             ConversationTrigger.RemoveToken("show_locate_button");
             ConversationTrigger.RemoveToken("HardInstant_Const_fuserLog");
+            ConversationTrigger.RemoveToken("oneShot_Const_fuserLog");
             ConversationTrigger.RemoveToken("oneShot_locate_button");
+
+            Debug.Log("Removed fuserLog conversation tokens for b4 level!");
 
             StartCoroutine(waitThenHide(6));
 
             readyForNextLevel.Invoke();
         } else if (partsFound == partsNeeded)
         {
+            Debug.Log("ConversationTrigger.GetToken(finished_b4)? " + ConversationTrigger.GetToken("finished_b4"));
+            Debug.Log("ConversationTrigger.GetToken(not_finished_const_map_intro)? " + ConversationTrigger.GetToken("not_finished_const_map_intro"));
             Debug.Log("Go to Next Level: Battery Counter's WhatToBuild: " + getWhatToBuild());
             partsDone = true;
 
@@ -233,11 +251,13 @@ public class BatteryCounter : MonoBehaviour {
 
     public void startBatteryConstructionLevelFromSave()
     {
-        Debug.Log("Go to Next Level: Battery Counter's WhatToBuild: " + getWhatToBuild());
+        Debug.Log("in startBatteryConstructionlevelFromSave(): Go to Next Level: Battery Counter's WhatToBuild: " + getWhatToBuild());
         partsDone = true;
 
         // reset battery pickup conversation for next battery level
         ConversationTrigger.RemoveToken("picked_up_a_battery");
+
+
 
         StartCoroutine(waitThenHide(6));
 
@@ -252,13 +272,6 @@ public class BatteryCounter : MonoBehaviour {
 
     public void resetCounter()
     {
-        // if this reset is due to completing the level, reset object text to ???
-        // if this reset is due to power failure (running out of time), keep object text
- //       if (partsDone)
-  //      {
-  //          setCounterMaximums();
-
-  //      }
         
         // normally, we reset the counter to 0 every time all parts are collected. But if the player somehow got
         // 2 batteries at the same time (some battery pairs are close enough together that this might be possible),
