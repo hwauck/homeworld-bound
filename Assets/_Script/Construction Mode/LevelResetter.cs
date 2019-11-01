@@ -121,23 +121,11 @@ public class LevelResetter : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        
     }
 
-    void OnEnable()
+    public void setUpCurrentLevel()
     {
-        StartCoroutine(setUpCurrentLevel());
-    }
-
-    private IEnumerator setUpCurrentLevel()
-    {
-        // for some reason, LoadUtils.isSceneLoaded seems to complete at a different time than
-        // OnLevelFinishedLoading event in DataAggregator. So we wait until new level is active 
-        // before getting the scene name and acting based on it
-        while (!LoadUtils.isSceneLoaded) 
-        {
-            yield return null;
-        }
         StartCoroutine(waitAndThenZoomUpPart(1f));
         StartCoroutine(waitAndThenAddToken(1, "doneRestarting"));
         if (LoadUtils.currentSceneName.Equals("b1"))
@@ -147,7 +135,8 @@ public class LevelResetter : MonoBehaviour {
         else if (LoadUtils.currentSceneName.Equals("b4") && ConversationTrigger.GetToken("finished_b4")) // hasn't completed the read fuser log/const intro map section yet
         {
             doTransitionToFuserLog();
-        } else if (LoadUtils.currentSceneName.Equals("b8") && ConversationTrigger.GetToken("finished_b8"))
+        }
+        else if (LoadUtils.currentSceneName.Equals("b8") && ConversationTrigger.GetToken("finished_b8")) // hasn't completed the read fuser log/const intro map section yet
         {
             doTransitionToFuserLog();
 

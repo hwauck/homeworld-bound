@@ -67,6 +67,8 @@ public class FuseEvent : MonoBehaviour {
     // Data collection
     public ConstructionDataManager dataManager;
 
+    public UnityEvent finishedLoadingLevel;
+
 	void OnEnable()
 	{
         // For data collection.
@@ -318,6 +320,9 @@ public class FuseEvent : MonoBehaviour {
             }
         }
         loadedLevels++;
+
+        finishedLoadingLevel.Invoke(); // this triggers levelResetter's setUpCurrentLevel() method
+
         //reset isSceneLoaded for next level load
         LoadUtils.isSceneLoaded = false;
 
