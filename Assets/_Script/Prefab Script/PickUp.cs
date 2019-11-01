@@ -174,7 +174,11 @@ public class PickUp : MonoBehaviour
                     break;
 
 				case PickupType.Clue:
-					CluePopulator.AddClue(pickupName, clueSprite);
+                    //save clue 
+                    InventoryController.Add(this, 1);
+                    InventoryController.ConvertInventoryToTokens();
+
+                    CluePopulator.AddClue(pickupName, clueSprite);
 					ConversationTrigger.AddToken("clue_" + pickupName);
 					ConversationTrigger.AddToken("picked_up_a_clue");
                     Debug.Log("Picked up a clue!");

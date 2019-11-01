@@ -198,6 +198,9 @@ public class ExplorationLevelResetter : MonoBehaviour {
             screenFader.fadeIn(1f);
 
 
+        } else if (ConversationTrigger.GetToken("reachedLevel_RuinedCity")) {
+            
+            LoadUtils.LoadNewExplorationLevel("RuinedCity", new Vector3(0, 5, 0));
         }
         else
         {
