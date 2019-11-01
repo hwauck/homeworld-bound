@@ -176,7 +176,10 @@ public class DataAggregator : MonoBehaviour {
 
             // loaded saves always start in Exploration Mode, so if the player was in the middle of a Construction Mode level,
             // Construction Mode will start up here from Exploration Mode
-            if (ConversationTrigger.GetToken("battery_const_in_progress") || ConversationTrigger.GetToken("item_const_in_progress") || (ConversationTrigger.GetToken("finished_b4") && ConversationTrigger.GetToken("not_finished_const_map_intro")))
+            if (ConversationTrigger.GetToken("battery_const_in_progress") 
+                || ConversationTrigger.GetToken("item_const_in_progress") 
+                || (ConversationTrigger.GetToken("finished_b4") && ConversationTrigger.GetToken("not_finished_const_map_intro"))
+                || (ConversationTrigger.GetToken("finished_b8") && ConversationTrigger.GetToken("not_finished_const_map_intro")))
             {
                 expLevelResetter.loadConstModeIfConstInProgress();
             } else

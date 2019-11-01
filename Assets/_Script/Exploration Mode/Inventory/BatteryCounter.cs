@@ -24,6 +24,7 @@ public class BatteryCounter : MonoBehaviour {
 
     public UnityEvent readyForNextLevel;
     public UnityEvent newBatteryBuilt; // triggers addition of battery to ExplorationLevelResetter's numBatteriesBuilt variable
+    public UnityEvent batteryCountChanged; // triggers reset of ExplorationLevelResetter's numBatteriesBuilt variable to zero
 
     // Use this for initialization
     void Start () {
@@ -152,6 +153,7 @@ public class BatteryCounter : MonoBehaviour {
     public void setBatteriesBuilt(int num)
     {
         batteriesBuilt = num;
+        batteryCountChanged.Invoke();
     }
 
     public int getBatteryParts()
@@ -230,6 +232,7 @@ public class BatteryCounter : MonoBehaviour {
 
             batteriesBuilt++; // technically, they're not built yet. But they will be when the player returns to scene.
             Debug.Log("Incrementing batteriesBuilt from BatteryCounter.incParts(" + isFromSave + ") - now " + batteriesBuilt);
+            newBatteryBuilt.Invoke();
 
             StartCoroutine(waitThenHide(6));
 

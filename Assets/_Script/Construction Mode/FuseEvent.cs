@@ -1593,6 +1593,7 @@ public class FuseEvent : MonoBehaviour {
                 {
                     ConversationTrigger.AddToken("finished_b8");
                     ConversationTrigger.AddToken("not_finished_collecting_sledgehammer");
+                    ConversationTrigger.AddToken("not_finished_const_map_intro");
                     // we don't remove the battery_const_in_progress token here since the map intro
                     // in this level still has to be completed in order for this level to be "finished"
                 }

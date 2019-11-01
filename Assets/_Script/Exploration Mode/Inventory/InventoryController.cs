@@ -422,6 +422,7 @@ public class InventoryController : MonoBehaviour
             {
                 batteryCounter.setBatteryParts(batteryPartCount);
                 batteryCounter.setBatteriesBuilt(0);
+                
                 Debug.Log("Setting batteries and battery parts to 0!");
 
             }

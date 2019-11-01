@@ -239,7 +239,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
                 ConversationTrigger.RemoveToken("HardInstant_Const_cameraZoom");
                 ConversationTrigger.RemoveToken("oneShot_Const_cameraZoom");
 
-            } else if (whatToBuild.Equals("b4") && ConversationTrigger.GetToken("not_finished_const_map_intro"))
+            } else if ((whatToBuild.Equals("b4") || whatToBuild.Equals("b8")) && ConversationTrigger.GetToken("not_finished_const_map_intro"))
             {
                 // this keeps all the conversations triggering so the player can go through the entire
                 // map intro again
@@ -252,7 +252,9 @@ public class ExplorationLevelResetter : MonoBehaviour {
                 Debug.Log("loadConstModeIfConstInProgress(): Removed fuserLog conversation tokens for b4 level!");
 
             }
+
             batteryPartCounter.startBatteryConstructionLevelFromSave();
+
         } else if (ConversationTrigger.GetToken("item_const_in_progress"))
         {
             Debug.Log("Item parts found is currently " + itemPartCounter.getPartsFound() + ". Loading Construction Mode!");
@@ -391,7 +393,11 @@ public class ExplorationLevelResetter : MonoBehaviour {
     public void setWhatToBuild()
     {
         // CHANGE this every time a new COnstruction Mode level is added
-        if(!ConversationTrigger.GetToken("finished_b1"))
+        Debug.Log("in ExplorationLevelResetter.setWhatToBuild(): ");
+        Debug.Log("ConversationTrigger.GetToken(finished_b8)?" + ConversationTrigger.GetToken("finished_b8"));
+        Debug.Log("ConversationTrigger.GetToken(not_finished_const_map_intro)?" + ConversationTrigger.GetToken("not_finished_const_map_intro"));
+
+        if (!ConversationTrigger.GetToken("finished_b1"))
         {
             whatToBuild = "b1";
         }
@@ -422,6 +428,10 @@ public class ExplorationLevelResetter : MonoBehaviour {
         {
             whatToBuild = "b7";
         } else if (!ConversationTrigger.GetToken("finished_b8"))
+        {
+            whatToBuild = "b8";
+        }
+        else if (ConversationTrigger.GetToken("finished_b8") && ConversationTrigger.GetToken("not_finished_const_map_intro"))
         {
             whatToBuild = "b8";
         } else if (!ConversationTrigger.GetToken("finished_sledgehammer"))
@@ -457,6 +467,12 @@ public class ExplorationLevelResetter : MonoBehaviour {
         itemPartCounter.setObjectToBuild(whatToBuild);
 
 
+    }
+
+    // sets numBatteriesBuilt to whatever BatteryCounter's number is - triggered by Event invoked by BatteryCounter
+    public void setBatteriesBuilt()
+    {
+        numBatteriesBuilt = batteryPartCounter.getBatteriesBuilt();
     }
 
     // called by invocation of BatteryCounter's newBatteryBuilt event in special circumstances
