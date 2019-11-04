@@ -167,6 +167,7 @@ public class LoadUtils : MonoBehaviour
 	// will be finished. Spawn point for the player MUST be pre-determined and passed into this function.
 	public static void LoadNewExplorationLevel(string sceneName, Vector3 spawnPos)
 	{
+
 		// Grab player and data collection manager objects, bring to scene root, set as nondelete.
 		GameObject playerRefs = GameObject.Find("Player (Including All Menus)");
 		GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -177,14 +178,16 @@ public class LoadUtils : MonoBehaviour
         DontDestroyOnLoad(playerRefs);
         DontDestroyOnLoad(dataManager);
 
+
         // Clear the loadedscenes dictionary.
         loadedScenes.Clear();
 
-		// Then load the new scene and position the player.
-		SceneManager.LoadScene(sceneName);
-		player.transform.position = spawnPos;
-		currentSceneName = sceneName;
- 
+        // Then load the new scene and position the player.
+        SceneManager.LoadScene(sceneName);
+
+        player.transform.position = spawnPos;
+        currentSceneName = sceneName;
+
 
         // And setup a new position tracking file for the new scene.
         //SimpleData.CreateNewPositionFile(sceneName);

@@ -113,6 +113,8 @@ public class PickUp : MonoBehaviour
                         partCounter.setObjectToBuild("Rocket Boots");
                         partCounter.setPartsNeeded(7);
                         levelResetter.setWhatToBuild("rocketBoots");
+                        gameObject.SetActive(false);
+
                     }
                     if (gameObject.tag.Equals("sledgehammer"))
 					{
@@ -120,6 +122,8 @@ public class PickUp : MonoBehaviour
                         partCounter.setObjectToBuild("Sledgehammer");
                         partCounter.setPartsNeeded(12);
                         levelResetter.setWhatToBuild("sledgehammer");
+                        gameObject.SetActive(false);
+
                     }
                     if (pickupName.Contains("Key1"))
 					{
@@ -127,8 +131,10 @@ public class PickUp : MonoBehaviour
                         partCounter.setObjectToBuild("Ruined City Key");
                         partCounter.setPartsNeeded(6);
                         levelResetter.setWhatToBuild("key1");
+                        transform.position = new Vector3(-1000f, -1000f, -1000f); // temporary fix for loading save files
+
                     }
-					if (pickupName.Contains("FFA"))
+                    if (pickupName.Contains("FFA"))
 					{
 						ConversationTrigger.AddToken("picked_up_a_ffa_piece");
 					}
@@ -137,7 +143,6 @@ public class PickUp : MonoBehaviour
                     // Silly, but let's just shove it into a corner and forget about it.
                     // Also parents to the scene manager object so it rejects deletion as much as possible.
                     //transform.position = new Vector3(-1000f, -1000f, -1000f);
-                    gameObject.SetActive(false);
 
                     //turn aura green and disable pickup trigger if already picked up
                     //this.GetComponent<Collider>().enabled = false;

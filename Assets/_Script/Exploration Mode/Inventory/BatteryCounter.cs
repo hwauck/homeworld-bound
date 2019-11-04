@@ -192,12 +192,12 @@ public class BatteryCounter : MonoBehaviour {
         if (partsFound == partsNeeded && isFromSave && ConversationTrigger.GetToken("finished_" + getWhatToBuild()) && !ConversationTrigger.GetToken("not_finished_const_map_intro"))
         {
             // do nothing
-            batteriesBuilt++;
-            Debug.Log("Incrementing batteriesBuilt from BatteryCounter.incParts(" + isFromSave + ") - now " + batteriesBuilt);
+            //batteriesBuilt++;
+            //Debug.Log("Incrementing batteriesBuilt from BatteryCounter.incParts(" + isFromSave + ") - now " + batteriesBuilt);
 
             resetCounter();
             batteriesBuiltBG.gameObject.SetActive(true); // ExplorationLevelResetter normally triggers this on level load
-            newBatteryBuilt.Invoke();
+            //newBatteryBuilt.Invoke();
 
             // reset battery pickup conversation for next battery level
             ConversationTrigger.RemoveToken("picked_up_a_battery");

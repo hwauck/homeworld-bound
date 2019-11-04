@@ -376,10 +376,14 @@ public class InventoryController : MonoBehaviour
             if(instance == null)
             {
                 // gross, this needs to be fixed eventually - just a temporary way of avoiding errors when calling GameObject.Find()
-                // on RocketBoots parts that are currently deactivated
-                if(!path.Contains("Pickup_Boots_"))
+                // on RocketBoots and Sledgehammer parts that are currently deactivated
+
+                // Also, currently, saving doesn't work for Key1 parts since apparently LoadUtils' load scene finishes at a different time than the 
+                // OnLevelFinishedLoading event. So for now we just go with it, but this needs to be fixed eventually
+                if (!path.Contains("Pickup_Boots_") && !path.Contains("Pickup_Sledge_") && !path.Contains("Clue") && !path.Contains("Pickup_Key1_"))
                 {
-                    Debug.LogError("Error: No GameObject with name " + path + " found in scene!");
+                    
+                    Debug.LogError("Error: No GameObject with name " + path + " found in scene " + LoadUtils.currentSceneName);
                 }
             } else
             {

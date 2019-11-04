@@ -199,8 +199,9 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
 
         } else if (ConversationTrigger.GetToken("reachedLevel_RuinedCity")) {
-            
-            LoadUtils.LoadNewExplorationLevel("RuinedCity", new Vector3(0, 5, 0));
+
+            //LoadUtils.LoadNewExplorationLevel("RuinedCity", new Vector3(0, 5, 0));
+            // Tried to load RuinedCity here but crashes every time I do 
         }
         else
         {
@@ -415,7 +416,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
         else if (!ConversationTrigger.GetToken("finished_b4"))
         {
             whatToBuild = "b4";
-        } else if (ConversationTrigger.GetToken("finished_b4") && ConversationTrigger.GetToken("not_finished_const_map_intro"))
+        } else if (ConversationTrigger.GetToken("finished_b4") && 
+            !ConversationTrigger.GetToken("finished_b5") && ConversationTrigger.GetToken("not_finished_const_map_intro"))
         {
             whatToBuild = "b4";
         } else if (!ConversationTrigger.GetToken("finished_rocketBoots"))
@@ -434,7 +436,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
         {
             whatToBuild = "b8";
         }
-        else if (ConversationTrigger.GetToken("finished_b8") && ConversationTrigger.GetToken("not_finished_const_map_intro"))
+        else if (ConversationTrigger.GetToken("finished_b8") && 
+            !ConversationTrigger.GetToken("finished_sledgehammer") && ConversationTrigger.GetToken("not_finished_const_map_intro"))
         {
             whatToBuild = "b8";
         } else if (!ConversationTrigger.GetToken("finished_sledgehammer"))
