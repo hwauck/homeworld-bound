@@ -5,6 +5,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.InteropServices;
+
 
 public class SaveController : MonoBehaviour
 {
@@ -17,7 +19,7 @@ public class SaveController : MonoBehaviour
     // Can I do this all just with conversation tokens? No, will need to ask DataManager object (DataAggregator, ExplorationDataManager, and/or ConstructionDataManager) for info about
     // which parts have been collected and what Attempt we're currently on
 
-   // Will need to make sure all part pickups have a corresponding and unique prefab associated with them, otherwise the SaveController.Load() method of instantiating a new prefab a
+   // Will need to make sure all part pickups have a corresponding and unique prefab associated with them, otherwise the SaveController.Load() method of instantiating a new prefab
    // and dropping it on the player's head to start won't work. Or, we could just grab the existing object in the scene and move it on top of the player, hopefully that works. 
 
 	// Filename for save. Allow loading of any string name.
@@ -26,12 +28,20 @@ public class SaveController : MonoBehaviour
     // set this to true to prevent SaveController.Load() from executing more than once per game session (see DataAggregator's initializeDataCollection() method)
     public static bool alreadyLoaded = false;
 
-	// Saves a file containing all game options which are in the above. 
-	public static void Save()
+    [DllImport("__Internal")]
+    private static extern void saveToDB(string saveData);
+
+    [DllImport("__Internal")]
+    private static extern string loadFromDB();
+
+
+
+    // Saves a file containing all game options which are in the above. 
+    public static void Save()
 	{
-		// Prepare for data IO.
-		BinaryFormatter bf = new BinaryFormatter();
-		FileStream file = File.Create(WhereIsData());
+		// Prepare for data IO. (.NET platforms only, local Windows machine saving)
+		//BinaryFormatter bf = new BinaryFormatter();
+		//FileStream file = File.Create(WhereIsData());
 
 		// Create and write to a new container.
 		SaveContainer data = new SaveContainer();
@@ -48,48 +58,72 @@ public class SaveController : MonoBehaviour
 		}
 		data.tokens = new List<string>(tokensTemp);
 
-		// Save and close safely.
-		bf.Serialize(file, data);
-		file.Close();
+        // Save game state to database (online with database only)
+        string jsonSaveState = JsonUtility.ToJson(data, true);
+        saveToDB(jsonSaveState);
 
-		Debug.Log("Saved all options successfully.");
+        // Save and close safely. (.NET platforms only, local Windows machine saving)
+        //bf.Serialize(file, data);
+        //file.Close();
+
+        Debug.Log("Saved all options successfully.");
 	}
 
-	// Applies all options from the saved file to the locally created variables.
+    // Applies all options from the saved file to the locally created variables.
+    // The web version implemented here is very messy. First, on load (or reload of page),
+    // the get() function in HBView in views.py gets the saved data of the current player
+    // and puts it into a div on the page as text. Then, once the game has loaded and calls Load() here,
+    // the browserUnityInteraction.jslib file gets that text when loadFromDB() is called 
+    // and returns it as a string. Lastly, we convert the string to JSON and then SaveContainer.
 	public static void Load()
 	{
 		// Make sure all the strings for conversations are loaded.
 		ConversationsDB.LoadConversationsFromFiles();
 
-		if (File.Exists(WhereIsData()))
-		{
-			// Prepare for data IO.
-			BinaryFormatter bf = new BinaryFormatter();
-			FileStream file = File.Open(WhereIsData(), FileMode.Open);
+        // online loading from database only
+        string loadedData = loadFromDB();
+        SaveContainer data = (SaveContainer)JsonUtility.FromJson<SaveContainer>(loadedData);
 
-			// Deserialize the data.
-			SaveContainer data = (SaveContainer)bf.Deserialize(file);
-			file.Close();
+        ConversationTrigger.tokens = new HashSet<string>(data.tokens);
 
-			//! Fields go here.
-			ConversationTrigger.tokens = new HashSet<string>(data.tokens);
+        // Read inventory-related tokens.
+        InventoryController.ConvertTokensToInventory();
+        BatterySystem.TokensToPower();
 
-			// Read inventory-related tokens.
-			InventoryController.ConvertTokensToInventory();
-			BatterySystem.TokensToPower();
+        Debug.Log("Loaded all options successfully.");
 
-			Debug.Log("Loaded all options successfully.");
-		}
-		else
-		{
-			// No file exists? We should make the default one!
-			Debug.Log("No save found, creating default file.");
-			Save();
-		}
-	}
 
-	// Returns the path to the options file.
-	public static string WhereIsData()
+        // (.NET platforms only, local Windows machine saving)
+        /*        if (File.Exists(WhereIsData()))
+                {
+                    // Prepare for data IO. (.NET platforms only, local Windows machine saving)
+                    BinaryFormatter bf = new BinaryFormatter();
+                    FileStream file = File.Open(WhereIsData(), FileMode.Open);
+
+                    // Deserialize the data. (.NET platforms only, local Windows machine saving)
+                    SaveContainer data = (SaveContainer)bf.Deserialize(file);
+                    file.Close();
+
+                    //! Fields go here.
+                    ConversationTrigger.tokens = new HashSet<string>(data.tokens);
+
+                    // Read inventory-related tokens.
+                    InventoryController.ConvertTokensToInventory();
+                    BatterySystem.TokensToPower();
+
+                    Debug.Log("Loaded all options successfully.");
+                }
+                else
+                {
+                    // No file exists? We should make the default one!
+                    Debug.Log("No save found, creating default file.");
+                    Save();
+                }
+                */
+    }
+
+    // Returns the path to the options file. (.NET platforms only, local Windows machine saving)
+    public static string WhereIsData()
 	{
 		return Application.persistentDataPath + "/" + filename + ".dat";
 	}

@@ -49,5 +49,36 @@ mergeInto(LibraryManager.library, {
 		});
 	
   },
+  
+  // might need to try Pointer_stringify() on saveData to send it in message. Test first.
+  saveToDB: function (saveData) {
+		var pathname = window.location.pathname;
+		var log = {"path": pathname, "action": "SAVE", "msg": saveData};
+		console.log("SAVING GAME STATE TO DB");
+		console.log("LOG: ");
+		console.log(log);
+		$.ajax({
+			type: "POST",
+			url: "/hello/log/",
+			data: log,
+			success: function(response) {
+				console.log("success!");
+	
+			},
+			error: function(xhr, status, error) {
+				alert(xhr.responseText);
+			},
+		});
+	
+  },  
+  
+  // textContent should be a string already. So loadData should be a string too.
+  loadFromDB: function () {
+		var loadDataHTML = document.getElementById('loadGameID');
+		var loadData = loadDataHTML.textContent
+		return loadData;
+	
+  },   
+   
 
 });
