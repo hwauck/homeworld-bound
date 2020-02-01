@@ -50,10 +50,11 @@ mergeInto(LibraryManager.library, {
 	
   },
   
-  // might need to try Pointer_stringify() on saveData to send it in message. Test first.
+  
   saveToDB: function (saveData) {
 		var pathname = window.location.pathname;
-		var log = {"path": pathname, "action": "SAVE", "msg": saveData};
+		//alert("saveData = " + Pointer_stringify(saveData) + "endOfLine");
+		var log = {"path": pathname, "action": "SAVE", "msg": Pointer_stringify(saveData)};
 		console.log("SAVING GAME STATE TO DB");
 		console.log("LOG: ");
 		console.log(log);
@@ -75,9 +76,25 @@ mergeInto(LibraryManager.library, {
   // textContent should be a string already. So loadData should be a string too.
   loadFromDB: function () {
 		var loadDataHTML = document.getElementById('loadGameID');
-		var loadData = loadDataHTML.textContent
-		return loadData;
-	
+		var loadDataRaw = loadDataHTML.textContent;
+		//alert("Type of loadDataRaw = " + typeof loadDataRaw)
+		// I don't think JSON stringify is necessary here, but just in case
+		var loadData = JSON.stringify(loadDataHTML.textContent)
+		//alert("Type of loadData = " + typeof loadData)
+		
+		// this is showing actual quotes around the JSON brackets - maybe these need to go
+		//alert("loadData = " + loadData + "endOfLine")
+		
+		// this is necessary to return a string in a format C# understands
+		var bufferSize = lengthBytesUTF8(loadData) + 1;
+		var buffer = _malloc(bufferSize);
+		stringToUTF8(loadData, buffer, bufferSize);
+		//alert("Type of loadDataToUTF8 = " + typeof buffer)
+
+		//alert("loadDataToUTF8 = " + buffer + "endOfLine")
+
+		return buffer;
+		//return loadData;
   },   
    
 

@@ -90,9 +90,9 @@ public class InventoryController : MonoBehaviour
 		CloseInventory();
 	}
 
-	// Need this somewhere for the restart stuff.
-	// DEMO MODE ONLY
-    // TODO: Disable for full game version
+    // WARNING: OLD CODE. WILL NOT WORK WITH CURRENT VERSION.
+    // This code is just for reference if you want to implement code
+    // to delete save files and restart the player from the very beginning.
 	public static void RestartGame()
 	{
 		Debug.Log("Restarting!");
@@ -124,13 +124,6 @@ public class InventoryController : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Escape))
 			CloseInventory();
 
-		// Restarting game
-		// DEMO MODE ONLY.
-        // TODO: delete for full version
-		//if (Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.R))
-		//{
-		//	RestartGame();
-		//}
 	}
 
 	// Defaults to "Inventory" tab.

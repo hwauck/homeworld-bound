@@ -4,18 +4,12 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
-// This script is used to keep track of when the player has run out of battery power.
-// Once this happens, a warning saying that the system is shutting down due to low power should appear
-// at the same time, player controls become disabled
-// Then, all parts on the screen should have gravity applied to them and fall downwards until offscreen
-// delete all created parts except starting part
-// Then, screen sputters and flickers, goes black
-// message from "SYSTEM" says "Recharging..." for a couple seconds
-// Button appears: Restart Construction
-// then, level is reset: starting part rigidbody removed, correctly rotated
-// interface reappears, says stuff (Const_restart)
-// starting part zooms up into place again
-// Countdown begins again
+// This script is used to reset the level when the player has run out of battery power
+// and when the player has run out of time in timed Construction Mode levels.
+// It also keeps track of some other specific level-agnostic things within 
+// Construction Mode: transitioning from Construction Mode level to timed Exploration
+// Mode level, telemetry data collection (in tandem with FuseEvent), and game quitting in Construction Mode.
+// If you can't find Construction Mode level-agnostic operations here, try the FuseEvent script.
 public class LevelResetter : MonoBehaviour {
 
     public Tutorial1 tutorial;
@@ -759,7 +753,6 @@ public class LevelResetter : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        // TODO: Better yet, add confirmation here
         if (Input.GetKeyUp(KeyCode.P))
         {
             yesQuitButton.gameObject.SetActive(true);
@@ -771,7 +764,11 @@ public class LevelResetter : MonoBehaviour {
             }
 
         }
+
+        // Debugging purposes only. Uncomment if needed.
         //Debug.Log("startBeginningConvo is already here? " + ConversationTrigger.GetToken("startBeginningConvo"));
+
+
         // finished recharging after power failure, show Try Again? button to restart level
         if (ConversationTrigger.GetToken("outOfPower"))
         {

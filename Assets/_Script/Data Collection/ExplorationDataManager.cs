@@ -80,6 +80,7 @@ public class ExplorationDataManager : MonoBehaviour {
         numRanOutOfTime = 0;
         attempts = new List<Attempt>();
         attemptCount = 1;
+        print("Initialized data vars!");
     }
 
     private void OnEnable()

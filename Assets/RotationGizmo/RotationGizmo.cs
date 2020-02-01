@@ -59,16 +59,6 @@ public class RotationGizmo : MonoBehaviour
 
     void Update ()
 	{
-        // TODO: Get rid of RotateBehavior script and all its instances on part prefabs
-
-        // Restarting game while in construction mode.
-        // DEMO MODE ONLY.
-        // TODO: disable this for the full game version
-       // if (Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.R))
-		//{
-		//	InventoryController.RestartGame();
-		//}
-
 
 		// LookAts.
 		Vector3 lookToward = mainCamera.transform.position;

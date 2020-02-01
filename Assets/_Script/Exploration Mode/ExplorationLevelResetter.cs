@@ -914,7 +914,12 @@ public class ExplorationLevelResetter : MonoBehaviour {
             noDontQuitButton.gameObject.SetActive(true);
             confirmQuitPanel.alpha = 1;
             expDataManager.setPauseGameplay(true);
-        } else if (Input.GetKey(KeyCode.LeftShift)) // PROCTOR/DEBUG USE ONLY
+        }
+
+        // PROCTOR/DEBUG cheat codes if autosave fails, game is stuck for some reason, 
+        // or you want to skip ahead for testing purposes..
+        // Uncomment if you'd like this functionality.
+        /* else if (Input.GetKey(KeyCode.LeftShift)) 
         {
             if (Input.GetKeyUp(KeyCode.L))
             { // LEFT SHIFT + L to increment batteries
@@ -990,8 +995,10 @@ public class ExplorationLevelResetter : MonoBehaviour {
                 ItemManager.SelectGear(1);
                 LoadUtils.LoadNewExplorationLevel("RuinedCity", new Vector3(0, 5, 0));
             }
-        }
+        } */
 
+        // This code enables the player to see the game controls if they hold down C during gameplay..
+        // Uncomment this code if you'd like this functionality.
         //else if(Input.GetKeyDown(KeyCode.C))
         //{
         //    if (controlsMenu.activeSelf && !expDataManager.getPauseGameplay())
@@ -1004,7 +1011,9 @@ public class ExplorationLevelResetter : MonoBehaviour {
         //    }
         //}
 
+        // Testing purposes only. Uncomment if needed.
         //Debug.Log(ConversationTrigger.GetToken("firstPickup"));
+
         // finished recharging after power failure
         if (ConversationTrigger.GetToken("outOfPower") && ConversationTrigger.GetToken("hasPower"))
         {

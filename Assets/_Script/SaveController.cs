@@ -39,12 +39,13 @@ public class SaveController : MonoBehaviour
     // Saves a file containing all game options which are in the above. 
     public static void Save()
 	{
-		// Prepare for data IO. (.NET platforms only, local Windows machine saving)
-		//BinaryFormatter bf = new BinaryFormatter();
-		//FileStream file = File.Create(WhereIsData());
+        // Prepare for data IO. (.NET platforms only, local Windows machine saving)
+        //BinaryFormatter bf = new BinaryFormatter();
+        //FileStream file = File.Create(WhereIsData());
+        Debug.Log("Starting Save() method in SaveController");
 
-		// Create and write to a new container.
-		SaveContainer data = new SaveContainer();
+        // Create and write to a new container.
+        SaveContainer data = new SaveContainer();
 
 		//! Fields go here.
 		// Create and add inventory tokens.
@@ -59,6 +60,7 @@ public class SaveController : MonoBehaviour
 		data.tokens = new List<string>(tokensTemp);
 
         // Save game state to database (online with database only)
+        Debug.Log("converting jsonSaveState to JSON and saving to DB");
         string jsonSaveState = JsonUtility.ToJson(data, true);
         saveToDB(jsonSaveState);
 
@@ -77,14 +79,46 @@ public class SaveController : MonoBehaviour
     // and returns it as a string. Lastly, we convert the string to JSON and then SaveContainer.
 	public static void Load()
 	{
+        Debug.Log("Loading all conversations from files");
 		// Make sure all the strings for conversations are loaded.
 		ConversationsDB.LoadConversationsFromFiles();
 
         // online loading from database only
         string loadedData = loadFromDB();
-        SaveContainer data = (SaveContainer)JsonUtility.FromJson<SaveContainer>(loadedData);
 
-        ConversationTrigger.tokens = new HashSet<string>(data.tokens);
+        // Right now, the string itself has quotes around it. Need to get rid of those.
+        Debug.Log("Loaded Data with quotes: " + loadedData + "endofLine");
+
+        loadedData = loadedData.Substring(1, loadedData.Length - 2);
+        loadedData = loadedData.Replace("'", "\"");
+        Debug.Log("Loaded Data with outside quotes removed and single quotes changed to double quotes: " + loadedData + "endofLine");
+
+        SaveContainer data;
+        // if the player has no saved game data
+        if (loadedData.Equals(""))
+        {
+            //create new save file
+            Debug.Log("No existing save file (empty string). Creating new save file.");
+            Save();
+        }
+        else if (loadedData == null)
+        {
+            // this is what loadedData is returning right now, regardless of whether there's stuff in the database
+            //create new save file
+            Debug.Log("No existing save file (null). Creating new save file.");
+            Save();
+        }
+        else
+        {
+            Debug.Log("Save file exists in database: loading it now...");
+            data = (SaveContainer)JsonUtility.FromJson<SaveContainer>(loadedData);
+            Debug.Log("Loaded save file data into data variable");
+
+            ConversationTrigger.tokens = new HashSet<string>(data.tokens);
+            Debug.Log("Set ConversationTrigger tokens to data.tokens");
+
+        }
+
 
         // Read inventory-related tokens.
         InventoryController.ConvertTokensToInventory();

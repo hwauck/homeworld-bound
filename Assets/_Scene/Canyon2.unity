@@ -5546,8 +5546,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275, y: -129.99406}
-  m_SizeDelta: {x: 520, y: 44.28741}
+  m_AnchoredPosition: {x: 275, y: -130.02403}
+  m_SizeDelta: {x: 520, y: 44.278847}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &287766702
 MonoBehaviour:
@@ -7467,8 +7467,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275, y: -85.70665}
-  m_SizeDelta: {x: 520, y: 44.28741}
+  m_AnchoredPosition: {x: 275, y: -85.74519}
+  m_SizeDelta: {x: 520, y: 44.278847}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &390036897
 MonoBehaviour:
@@ -12093,8 +12093,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275, y: -262.8563}
-  m_SizeDelta: {x: 520, y: 44.28741}
+  m_AnchoredPosition: {x: 275, y: -262.86057}
+  m_SizeDelta: {x: 520, y: 44.278847}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &581287570
 MonoBehaviour:
@@ -14068,8 +14068,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275, y: -174.28148}
-  m_SizeDelta: {x: 520, y: 44.28741}
+  m_AnchoredPosition: {x: 275, y: -174.30287}
+  m_SizeDelta: {x: 520, y: 44.278847}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &652530603
 MonoBehaviour:
@@ -20802,6 +20802,11 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  batteryCountChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &921083531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21348,14 +21353,14 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 2362278, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 11451584, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 3}
       propertyPath: Pickup
       value: 
       objectReference: {fileID: 998396306}
+    - target: {fileID: 2362278, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 186f7e7d2cc9f5645b6c7eb5e4f44000, type: 3}
 --- !u!1001 &941286267
@@ -40243,8 +40248,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275, y: -39.28147}
-  m_SizeDelta: {x: 520, y: 48.562943}
+  m_AnchoredPosition: {x: 275, y: -39.302887}
+  m_SizeDelta: {x: 520, y: 48.60577}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1803468620
 MonoBehaviour:
@@ -46957,8 +46962,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 274.99997, y: -218.5689}
-  m_SizeDelta: {x: 520, y: 44.28741}
+  m_AnchoredPosition: {x: 274.99997, y: -218.58171}
+  m_SizeDelta: {x: 520, y: 44.278847}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2032438338
 MonoBehaviour:
@@ -49349,6 +49354,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8203772, guid: 61dfd5f4edda20642978fd59b5d29e73, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8203772, guid: 61dfd5f4edda20642978fd59b5d29e73, type: 3}
+      propertyPath: BypassReverbZones
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8203772, guid: 61dfd5f4edda20642978fd59b5d29e73, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 17555bd2b65e7a94680bee65a09ff4f8, type: 3}
     - target: {fileID: 486412, guid: 61dfd5f4edda20642978fd59b5d29e73, type: 3}
       propertyPath: m_LocalPosition.x
       value: -175.0851
@@ -49381,18 +49398,6 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 8203772, guid: 61dfd5f4edda20642978fd59b5d29e73, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8203772, guid: 61dfd5f4edda20642978fd59b5d29e73, type: 3}
-      propertyPath: BypassReverbZones
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8203772, guid: 61dfd5f4edda20642978fd59b5d29e73, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 17555bd2b65e7a94680bee65a09ff4f8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61dfd5f4edda20642978fd59b5d29e73, type: 3}
 --- !u!1001 &2130394365

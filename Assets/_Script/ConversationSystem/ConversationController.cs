@@ -69,10 +69,11 @@ public class ConversationController : MonoBehaviour
             expDataManager = dataCollectionObj.GetComponent<ExplorationDataManager>();
 
         }
+        Debug.Log("Finished Start() in ConversationController!");
 
     }
 
-	void OnEnable()
+    void OnEnable()
 	{
         // Fresh state every time this object is activated.
         Debug.Log("Calling Start() from OnEnable()!");

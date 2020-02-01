@@ -150,7 +150,7 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
-        // TODO add a confirmation - "Are you sure you want to quit? All saved progress will be lost.
+        // If player presses P key at any time, brings up a dialogue asking if the player wants to quit.
         if (Input.GetKeyUp(KeyCode.P))
         {
             yesQuitButton.gameObject.SetActive(true);
@@ -162,7 +162,11 @@ public class TutorialManager : MonoBehaviour
                 dataManager.setPauseGameplay(true);
 
             }
-        } else if (Input.GetKey(KeyCode.LeftShift)) // FOR PROCTOR/DEBUG USE ONLY
+        }
+        // CHEAT CODE for skipping through the tutorial. Useful if there is a glitch,
+        // game gets stuck, or you want to skip through for debugging/testing purposes.
+        // Uncomment if needed.
+        /*else if (Input.GetKey(KeyCode.LeftShift)) 
         {
 
             if (Input.GetKeyUp(KeyCode.U))
@@ -174,7 +178,7 @@ public class TutorialManager : MonoBehaviour
                 LoadUtils.LoadScene("b1");
 
             }
-        }
+        } */
 
 
         // Ensure mouse works...

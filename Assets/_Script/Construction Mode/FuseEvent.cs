@@ -5,9 +5,19 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
+
+// This class has turned into a catch-all place for various Construction Mode level-agnostic operations
+// and as a result is kind of an ugly monster to read through. If you're looking for code that operates 
+// in every Construction Mode level and can't be found in a script attached to Construction Mode prefabs
+// or UI elements, or in the LevelResetter script, it's probably here. This class primarily handles fusing,
+// checking whether a fuse has been performed correctly or not, and transitioning to the next level after
+// a Construction Mode level is successfully completed, but also handles Construction Mode telemetry data
+// collection, music, rotation and fuse error messages, debug cheat codes, and level loading 
+// (the latter in tandem with LevelResetter).
 public class FuseEvent : MonoBehaviour {
 
     //tutorial variables
+    // TODO: some of these variables may be obsolete - check
     public static bool runningJustConstructionMode = false;
     private bool activatedTakeButton;
     private bool firstFuseComplete;
@@ -38,12 +48,12 @@ public class FuseEvent : MonoBehaviour {
     //Buttons
     public GameObject[] partButtons;
 	public Button connectButton;
-    public Button claimItem;    // NEW ADDITION. A button which appears upon completion of an item to claim it in exploration mode.
+    public Button claimItem;    // A button which appears upon completion of an item to claim it in exploration mode. (says "Take")
 
     // Non-Button UI elements
 	public Text shapesWrong;
 	public Text rotationWrong;
-	public RotationGizmo rotateGizmo;	// NEW ADDITION. when completing a fusion, disable the rotation gizmo.
+	public RotationGizmo rotateGizmo;	// When completing a fuse, disable the rotation gizmo.
 	public GameObject victoryPrefab;
 	public CanvasGroup bottomPanelGroup;
 	public CanvasGroup congratsPanelGroup;
@@ -58,7 +68,7 @@ public class FuseEvent : MonoBehaviour {
 
     //data collection
     private float levelTimer;
-	private string filename;
+	private string filename; // only for local machine save files.
 	//private StreamWriter sr;
 	private int numFuseAttempts;
 	private int numWrongRotationFails;
@@ -97,6 +107,7 @@ public class FuseEvent : MonoBehaviour {
 
         // is this a tutorial level? If so, there will be a conversation after victory that must be clicked through before
         // Take button appears. So we need to know what level it is so that the script can listen for the correct ConversationTrigger
+        // TODO: this code may be obsolete
         activatedTakeButton = false;
 
         firstFuseComplete = false;
@@ -1797,6 +1808,7 @@ public class FuseEvent : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        // continuously rotate the finished constructed item until player clicks the Take/claimItem button.
 		if(done())
         {
             
@@ -1804,14 +1816,17 @@ public class FuseEvent : MonoBehaviour {
  
         }
 
-        if(Input.GetKey(KeyCode.LeftShift)) // FOR PROCTOR/DEBUG USE ONLY
+
+        // FOR PROCTOR/DEBUG USE ONLY
+        // Use to skip this level. Uncomment if you want this feature.
+        /*if (Input.GetKey(KeyCode.LeftShift)) 
         {
             if(Input.GetKeyUp(KeyCode.U))
             {
                 fuseCount = NUM_FUSES;
                 initiateFuse(true); // initiate fuse in debug mode, prompting automatic victory
             }
-        }
+        }*/
 
         // Ensure mouse works...
         if (!Cursor.visible || Cursor.lockState != CursorLockMode.None)

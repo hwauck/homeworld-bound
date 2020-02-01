@@ -51,7 +51,7 @@ public class DataAggregator : MonoBehaviour {
 
     private void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        //Debug.Log("Finished Loading Scene " + scene.name);
+        Debug.Log("Finished Loading Scene " + scene.name);
 
         if (scene.name.Equals("RuinedCity"))
         {
