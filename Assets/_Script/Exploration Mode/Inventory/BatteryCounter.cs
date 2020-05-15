@@ -230,6 +230,7 @@ public class BatteryCounter : MonoBehaviour {
             // reset battery pickup conversation for next battery level
             ConversationTrigger.RemoveToken("picked_up_a_battery");
 
+            //TESTING - this may be a double battery built increment - can eliminate?
             batteriesBuilt++; // technically, they're not built yet. But they will be when the player returns to scene.
             Debug.Log("Incrementing batteriesBuilt from BatteryCounter.incParts(" + isFromSave + ") - now " + batteriesBuilt);
             newBatteryBuilt.Invoke();

@@ -44,31 +44,35 @@ public class SaveController : MonoBehaviour
         //FileStream file = File.Create(WhereIsData());
         Debug.Log("Starting Save() method in SaveController");
 
-        // Create and write to a new container.
-        SaveContainer data = new SaveContainer();
+        if(!Application.isEditor)
+        {
+            // Create and write to a new container.
+            SaveContainer data = new SaveContainer();
 
-		//! Fields go here.
-		// Create and add inventory tokens.
-		//InventoryController.ConvertInventoryToTokens();
+            //! Fields go here.
+            // Create and add inventory tokens.
+            //InventoryController.ConvertInventoryToTokens();
 
-		// Save all tokens!
-		List<string> tokensTemp = new List<string>();
-		foreach (string ii in ConversationTrigger.tokens)
-		{
-			tokensTemp.Add(ii);
-		}
-		data.tokens = new List<string>(tokensTemp);
+            // Save all tokens!
+            List<string> tokensTemp = new List<string>();
+            foreach (string ii in ConversationTrigger.tokens)
+            {
+                tokensTemp.Add(ii);
+            }
+            data.tokens = new List<string>(tokensTemp);
 
-        // Save game state to database (online with database only)
-        Debug.Log("converting jsonSaveState to JSON and saving to DB");
-        string jsonSaveState = JsonUtility.ToJson(data, true);
-        saveToDB(jsonSaveState);
+            // Save game state to database (online with database only)
+            Debug.Log("converting jsonSaveState to JSON and saving to DB");
+            string jsonSaveState = JsonUtility.ToJson(data, true);
+            saveToDB(jsonSaveState);
 
-        // Save and close safely. (.NET platforms only, local Windows machine saving)
-        //bf.Serialize(file, data);
-        //file.Close();
+            // Save and close safely. (.NET platforms only, local Windows machine saving)
+            //bf.Serialize(file, data);
+            //file.Close();
 
-        Debug.Log("Saved all options successfully.");
+            Debug.Log("Saved all options successfully.");
+        }
+ 
 	}
 
     // Applies all options from the saved file to the locally created variables.
@@ -83,15 +87,26 @@ public class SaveController : MonoBehaviour
 		// Make sure all the strings for conversations are loaded.
 		ConversationsDB.LoadConversationsFromFiles();
 
-        // online loading from database only
-        string loadedData = loadFromDB();
+        string loadedData;
+        if (Application.isEditor)
+        {
+            loadedData = "";
+        }
+        else
+        {
+            // online loading from database only
+            loadedData = loadFromDB();
 
-        // Right now, the string itself has quotes around it. Need to get rid of those.
-        Debug.Log("Loaded Data with quotes: " + loadedData + "endofLine");
 
-        loadedData = loadedData.Substring(1, loadedData.Length - 2);
-        loadedData = loadedData.Replace("'", "\"");
-        Debug.Log("Loaded Data with outside quotes removed and single quotes changed to double quotes: " + loadedData + "endofLine");
+
+            // Right now, the string itself has quotes around it. Need to get rid of those.
+            Debug.Log("Loaded Data with quotes: " + loadedData + "endofLine");
+
+            loadedData = loadedData.Substring(1, loadedData.Length - 2);
+            loadedData = loadedData.Replace("'", "\"");
+            Debug.Log("Loaded Data with outside quotes removed and single quotes changed to double quotes: " + loadedData + "endofLine");
+
+        }
 
         SaveContainer data;
         // if the player has no saved game data
@@ -103,7 +118,6 @@ public class SaveController : MonoBehaviour
         }
         else if (loadedData == null)
         {
-            // this is what loadedData is returning right now, regardless of whether there's stuff in the database
             //create new save file
             Debug.Log("No existing save file (null). Creating new save file.");
             Save();

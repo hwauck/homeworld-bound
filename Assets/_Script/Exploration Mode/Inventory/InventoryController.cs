@@ -387,7 +387,8 @@ public class InventoryController : MonoBehaviour
                 {
                     batteryPartCount++;
                     Debug.Log("Incremented battery part count! Is now " + batteryPartCount);
-                } else if (pickup.type == PickUp.PickupType.Item)
+                }
+                else if (pickup.type == PickUp.PickupType.Item)
                 {
                     itemPartCount++;
                     Debug.Log("Incremented item part count! Is now " + itemPartCount);
@@ -415,18 +416,19 @@ public class InventoryController : MonoBehaviour
             int[] partsNeeded = batteryCounter.PARTS_NEEDED;
             int batteriesBuilt = 0;
             int i = 0;
-            if (batteryPartCount == 0)
+            if (batteryPartCount == 0) // the player has not collected their first battery in the game yet
             {
+
                 batteryCounter.setBatteryParts(batteryPartCount);
                 batteryCounter.setBatteriesBuilt(0);
                 
                 Debug.Log("Setting batteries and battery parts to 0!");
 
             }
-            else
+            else // the player has collected at least one battery. Calculate number of batteries they've built and set current part count based on total battery part count.
             {
                 batteryPartCount -= partsNeeded[i];
-                while (batteryPartCount > 0)
+                while (batteryPartCount >= 0)
                 {
                     i++;
                     batteriesBuilt++;
@@ -435,20 +437,17 @@ public class InventoryController : MonoBehaviour
                     Debug.Log("Subtracting partsNeeded " + partsNeeded[i] + " from batteryPartCount. BatteryPartCount is now " + batteryPartCount);
                 }
 
-                if (batteryPartCount == 0)
-                {
-                    batteriesBuilt++;
-                    batteryCounter.newBatteryBuilt.Invoke();
-                    batteryCounter.setBatteryParts(0);
-                } else if (batteryPartCount < 0)
-                {
-                    batteryCounter.setBatteryParts(partsNeeded[i] - Mathf.Abs(batteryPartCount));
-                }
 
-                int batteriesNeeded = batteryCounter.getBatteriesNeeded();
+                batteryCounter.setBatteryParts(partsNeeded[i] - Mathf.Abs(batteryPartCount));
+                Debug.Log("We're partway through battery part collection. " + Mathf.Abs(batteryPartCount)
+                    + " battery parts were already collected, so " + (partsNeeded[i] - Mathf.Abs(batteryPartCount)) + " remain to collect.");
+
+                //TESTING - batteriesBuilt should already be set correctly from above code?
+                //int batteriesNeeded = batteryCounter.getBatteriesNeeded();
                 batteryCounter.setPartsNeeded(partsNeeded[i]);
 
-                batteriesBuilt = batteriesBuilt % batteriesNeeded;
+                //TESTING - batteriesBuilt should already be set correctly from above code?
+                //batteriesBuilt = batteriesBuilt % batteriesNeeded;
                 batteryCounter.setBatteriesBuilt(batteriesBuilt);
 
                 Debug.Log("Setting battery part count to " + (partsNeeded[i] - Mathf.Abs(batteryPartCount)) + "!");
@@ -483,7 +482,7 @@ public class InventoryController : MonoBehaviour
             PartCounter itemPartCounter = itemCounterObj.GetComponent<PartCounter>();
             int[] partsNeeded = itemPartCounter.PARTS_NEEDED;
             int i = 0;
-            if (itemPartCount == 0)
+            if (itemPartCount == 0) // no item parts have been collected yet
             {
                 itemPartCounter.setPartsFound(itemPartCount);
                 Debug.Log("Setting item parts to 0!");
@@ -492,14 +491,15 @@ public class InventoryController : MonoBehaviour
             else
             {
                 itemPartCount -= partsNeeded[i];
-                while (itemPartCount > 0)
+                Debug.Log("Subtracting partsNeeded " + partsNeeded[i] + " from itemPartCount. ItemPartCount is now " + itemPartCount);
+                while (itemPartCount >= 0) //TESTING >= 0 rather than > 0
                 {
                     i++;
                     itemPartCount -= partsNeeded[i];
                     Debug.Log("Subtracting partsNeeded " + partsNeeded[i] + " from itemPartCount. ItemPartCount is now " + itemPartCount);
 
                 }
-
+                // 8 parts - parts_needed = [6,2,4,3] - so I should have just finished 2nd item part collection and partsneeded should be parts_needed[2]
                 itemPartCounter.setPartsFound(partsNeeded[i] - Mathf.Abs(itemPartCount));
                 Debug.Log("Setting item part count to " + Mathf.Abs(itemPartCount) + "!");
 

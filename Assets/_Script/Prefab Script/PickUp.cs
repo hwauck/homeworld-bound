@@ -173,7 +173,6 @@ public class PickUp : MonoBehaviour
                     partCounterObj.GetComponent<BatteryCounter>().incParts(fromSave);
                     transform.position = new Vector3(-1000f, -1000f, -1000f);
 
-                    //RespawnBattery();
                     //this.GetComponent<Collider>().enabled = false;
                     //psMain.startColor = new Color(0f, 255f, 0f, 255f);
                     break;
@@ -214,19 +213,6 @@ public class PickUp : MonoBehaviour
     }
 
 
-	// Batteries will find a new position when picked up. Battery markers don't actually spawn anything,
-	// they just mark positions. You have to have batteries in your scene for battery markers to matter.
-	void RespawnBattery()
-	{
-		GameObject[] allMarkers = GameObject.FindGameObjectsWithTag("BatteryMarker");
-		int randomIdx = Random.Range(0, allMarkers.Length);
-		while (transform.position == allMarkers[randomIdx].transform.position)
-		{
-			randomIdx = Random.Range(0, allMarkers.Length);
-			Debug.Log("Not letting battery spawn on same spot!");
-		}	
-		transform.position = allMarkers[randomIdx].transform.position;
-	}
 
 
 }

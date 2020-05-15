@@ -1819,14 +1819,14 @@ public class FuseEvent : MonoBehaviour {
 
         // FOR PROCTOR/DEBUG USE ONLY
         // Use to skip this level. Uncomment if you want this feature.
-        /*if (Input.GetKey(KeyCode.LeftShift)) 
+        if (Input.GetKey(KeyCode.LeftShift)) 
         {
             if(Input.GetKeyUp(KeyCode.U))
             {
                 fuseCount = NUM_FUSES;
                 initiateFuse(true); // initiate fuse in debug mode, prompting automatic victory
             }
-        }*/
+        }
 
         // Ensure mouse works...
         if (!Cursor.visible || Cursor.lockState != CursorLockMode.None)

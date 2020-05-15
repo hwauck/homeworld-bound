@@ -641,9 +641,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
             lowPowerText.text = "Fuser battery parts detected. Activating fusing tutorial!";
             audioSource.PlayOneShot(powerUpSound);
             whatToBuild = "newTutorial";
-            numBatteriesBuilt++;
-            Debug.Log("Incrementing numBatteriesBuilt from waitForEndOfConvoThenLoadLevel() - now " + numBatteriesBuilt);
-
             batteriesBuilt.SetActive(true);
 
 
@@ -656,8 +653,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
             //yield return new WaitForSeconds(2f);
             lowPowerText.text = "Fuser battery parts detected. Activating battery construction mode!";
             audioSource.PlayOneShot(powerUpSound);
-            numBatteriesBuilt++;
-            Debug.Log("Incrementing numBatteriesBuilt from waitForEndOfConvoThenLoadLevel() - now " + numBatteriesBuilt);
             batteriesBuilt.SetActive(true);
 
         }
@@ -919,7 +914,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
         // PROCTOR/DEBUG cheat codes if autosave fails, game is stuck for some reason, 
         // or you want to skip ahead for testing purposes..
         // Uncomment if you'd like this functionality.
-        /* else if (Input.GetKey(KeyCode.LeftShift)) 
+         else if (Input.GetKey(KeyCode.LeftShift)) 
         {
             if (Input.GetKeyUp(KeyCode.L))
             { // LEFT SHIFT + L to increment batteries
@@ -995,7 +990,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
                 ItemManager.SelectGear(1);
                 LoadUtils.LoadNewExplorationLevel("RuinedCity", new Vector3(0, 5, 0));
             }
-        } */
+        } 
 
         // This code enables the player to see the game controls if they hold down C during gameplay..
         // Uncomment this code if you'd like this functionality.
