@@ -17,9 +17,9 @@ using UnityEngine.Events;
 public class FuseEvent : MonoBehaviour {
 
     //tutorial variables
-    // TODO: some of these variables may be obsolete - check
+    // Some of these tutorial variables may be unused in this version of the game, but play a role in some of the older,
+    // more structured versions of the Construction Mode tutorial for the b1 level
     public static bool runningJustConstructionMode = false;
-    private bool activatedTakeButton;
     private bool firstFuseComplete;
     private bool isFirstLevel = false; // so we don't have to wait for LoadUtils.LoadScene before setting up fuseMapping
     private int loadedLevels = 0;
@@ -105,64 +105,28 @@ public class FuseEvent : MonoBehaviour {
 		rotateGizmo = GameObject.FindGameObjectWithTag("RotationGizmo").GetComponent<RotationGizmo>();
 
 
-        // is this a tutorial level? If so, there will be a conversation after victory that must be clicked through before
-        // Take button appears. So we need to know what level it is so that the script can listen for the correct ConversationTrigger
-        // TODO: this code may be obsolete
-        activatedTakeButton = false;
 
         firstFuseComplete = false;
 
 
-        // Infinite energy if running construction mode separately.
         if (InventoryController.levelName == "")
         {
             // Special stuff happens because we are just running construction mode without exploration mode.
             runningJustConstructionMode = true;
-            SimpleData.CreateInitialFiles();
 
             //! Is this a really bad idea?
             SaveController.filename += "_CONSTRUCTION-ONLY";
 
             // This works because levelName will be "" when we aren't coming from any specific level.
 
-            // Add a ton of power and hide the battery indicator.
-            // Disabling is generally a bad idea.
-            //BatterySystem.AddPower(999999999);
-            //GameObject.Find("BatteryIndicator").transform.localScale = Vector3.zero;
-
-            // Change back button functionality.
-            //backButton.onClick.RemoveAllListeners();
-            //backButton.onClick.AddListener(() =>
-            //{
-            //    stopLevelTimer();
-            //    printLevelDataFail();
-            //    SimpleData.WriteDataPoint("Left_Scene", "Construction_Only", "", "", "", "");
-            //    //SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO,SimpleMenu");
-            //    SceneManager.LoadScene("SimpleMenu");
-            //});
-
-
-            // Change Claim Item functionality.
-            //if (claimItem != null)
-            //{
-            //	//claimItem.transform.localScale = Vector3.zero;
-            //	claimItem.onClick.RemoveAllListeners();
-            //	claimItem.onClick.AddListener(() =>
-            //	{
-            //		SimpleData.WriteDataPoint("Left_Scene", "Construction_Only", "", "", "", "");
-            //		//SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO,SimpleMenu");
-            //		//stopLevelTimer();
-            //		//printLevelDataFail();
-            //		SceneManager.LoadScene("SimpleMenu");
-            //	});
-            //}
+ 
         }
         else
         {
             runningJustConstructionMode = false;
         }
 
-        // TODO: make sure all this is reset in data collection as needed whenever level is reset
+        // Make sure all this is reset in data collection as needed whenever level is reset
         fuseCount = 0;
 		fuseStatus = "none";
 		filename = "ConstructionModeData.txt";
@@ -203,18 +167,11 @@ public class FuseEvent : MonoBehaviour {
         fuseCount = 0;
     }
 
-    public void setIsFirstLevel(bool isFirstLevel)
-    {
-        this.isFirstLevel = isFirstLevel;
-    }
 
     // called by Claim/Take button after level is finished for all levels except the last battery level
     // before timed Exploration Mode
     public void goToNextScene()
     {
-
-        //SimpleData.WriteDataPoint("Left_Scene", "Complete_Construction", "", "", "", "");
-        //SimpleData.WriteStringToFile("ModeSwitches.txt", Time.time + ",MODESWITCH_TO," + InventoryController.levelName);
 
         string currentLevel;  
         if(loadedLevels < 2)
@@ -307,14 +264,12 @@ public class FuseEvent : MonoBehaviour {
     //allows other scripts, such as Tutorial scripts, to start music manually
     public void startMusic()
     {
-        //Debug.Log("Playing " + musicsource.clip.name + "!");
         musicsource.Play();
     }
 
     //allows other scripts, such as Tutorial scripts, to start music manually
     public void stopMusic()
     {
-        //Debug.Log("Stopping " + musicsource.clip.name + "!");
         musicsource.Stop();
     }
 
@@ -873,6 +828,7 @@ public class FuseEvent : MonoBehaviour {
         }
         else if (currentScene.Equals("key1"))
         {
+            //TODO: This Construction Mode level hasn't been implemented yet for this version of the game
             /*	HashSet<string> ULDTSet = new HashSet<string>();
                 ULDTSet.Add ("dangly_T_upright_L_attach");
                 fuseMapping.Add ("upright_L_dangly_T_attach", ULDTSet);
@@ -893,53 +849,10 @@ public class FuseEvent : MonoBehaviour {
                 fuseMapping.Add ("upright_rect_walking_pants_attach", URWPSet);
             */
         }
-        else if (currentScene.Equals("hull"))
-        {
-            /*	HashSet<string> fuseToForBridgeCoverLeft = new HashSet<string>();
-                HashSet<string> fuseToForBridgeCoverRight = new HashSet<string>();
-                fuseToForBridgeCoverLeft.Add ("bridge_bridge_cover_left_attach");
-                fuseToForBridgeCoverRight.Add ("bridge_bridge_cover_right_attach");
-                fuseMapping.Add ("bridge_cover_bridge_left_attach", fuseToForBridgeCoverLeft);
-                fuseMapping.Add ("bridge_cover_bridge_right_attach", fuseToForBridgeCoverRight);
-
-                HashSet<string> fuseToForBackBridge = new HashSet<string>();
-                HashSet<string> fuseToForBackLeftCover = new HashSet<string>();
-                HashSet<string> fuseToForBackRightCover = new HashSet<string>();
-                fuseToForBackBridge.Add ("bridge_back_attach");
-                fuseToForBackLeftCover.Add ("left_cover_back_attach");
-                fuseToForBackRightCover.Add ("right_cover_back_attach");
-                fuseMapping.Add ("back_bridge_attach", fuseToForBackBridge);
-                fuseMapping.Add ("back_left_cover_attach", fuseToForBackBridge);
-                fuseMapping.Add ("back_right_cover_attach", fuseToForBackBridge);
-
-                HashSet<string> fuseToForBackSlopeBridgeCover = new HashSet<string>();
-                HashSet<string> fuseToForBackSlopeRightCover = new HashSet<string>();
-                HashSet<string> fuseToForBackSlopeLeftCover = new HashSet<string>();
-                fuseToForBackSlopeBridgeCover.Add ("bridge_cover_back_slope_attach");
-                fuseToForBackSlopeRightCover.Add ("left_cover_back_slope_attach");
-                fuseToForBackSlopeLeftCover.Add ("right_cover_back_slope_attach");
-                fuseMapping.Add ("back_slope_bridge_cover_attach", fuseToForBackSlopeBridgeCover);
-                fuseMapping.Add ("back_slope_right_cover_attach", fuseToForBackSlopeRightCover);
-                fuseMapping.Add ("back_slope_left_cover_attach", fuseToForBackSlopeLeftCover);
-
-                HashSet<string> fuseToForLeftCoverBack = new HashSet<string>();
-                HashSet<string> fuseToForLeftCoverSlope = new HashSet<string>();
-                fuseToForLeftCoverBack.Add ("back_left_cover_attach");
-                fuseToForLeftCoverSlope.Add ("back_slope_left_cover_attach");
-                fuseMapping.Add ("left_cover_back_attach", fuseToForLeftCoverBack);
-                fuseMapping.Add ("left_cover_back_slope_attach", fuseToForLeftCoverSlope);
-
-                HashSet<string> fuseToForRightCoverBack = new HashSet<string>();
-                HashSet<string> fuseToForRightCoverSlope = new HashSet<string>();
-                fuseToForRightCoverBack.Add ("back_right_cover_attach");
-                fuseToForRightCoverSlope.Add ("back_slope_right_cover_attach");
-                fuseMapping.Add ("right_cover_back_attach", fuseToForRightCoverBack);
-                fuseMapping.Add ("right_cover_back_slope_attach", fuseToForRightCoverSlope);
-            */
-        }
-        else if (currentScene.Equals("ffa"))
-        {
-
+ 
+        //else if (currentScene.Equals("ffa"))
+        //{
+            //TODO: This scene hasn't been implemented yet in this version of the game
             //ring large part
             /*	HashSet<string> fuseToForRingLargePartSide = new HashSet<string>();
                 HashSet<string> fuseToForRingLargePartBack = new HashSet<string>();
@@ -1062,39 +975,11 @@ public class FuseEvent : MonoBehaviour {
                 fuseMapping.Add ("scalene_left_tri_back_attach", fuseToForScalene1);
                 fuseMapping.Add ("scalene_left_tri_side_attach", fuseToForScalene2);
                 */
-        }
-        else if (currentScene.Equals("gloves"))
-        {
-            //palm, fingers, thumb, armDec, palmDec
-            /*	
-                //palm
-                HashSet<string> fuseToForPalm = new HashSet<string>();
-                fuseToForPalm.Add ("arm_palm_attach");
-                fuseMapping.Add ("palm_arm_attach", fuseToForPalm);
-
-                //fingers
-                HashSet<string> fuseToForFingers = new HashSet<string>();
-                fuseToForFingers.Add ("palm_fingers_attach");
-                fuseMapping.Add ("fingers_palm_attach", fuseToForFingers);
-
-                //thumb
-                HashSet<string> fuseToForThumb = new HashSet<string>();
-                fuseToForThumb.Add ("palm_thumb_attach");
-                fuseMapping.Add ("thumb_palm_attach", fuseToForThumb);
-
-                //armDec
-                HashSet<string> fuseToForArmDec = new HashSet<string>();
-                fuseToForArmDec.Add ("arm_arm_dec_attach");
-                fuseMapping.Add ("arm_dec_arm_attach", fuseToForArmDec);
-
-                //palmDec
-                HashSet<string> fuseToForPalmDec = new HashSet<string>();
-                fuseToForPalmDec.Add ("palm_palm_dec_attach");
-                fuseMapping.Add ("palm_dec_palm_attach", fuseToForPalmDec);
-            */
-        }
-        else if (currentScene.Equals("key2"))
-        {
+        //}
+ 
+        //else if (currentScene.Equals("key2"))
+        //{
+            //TODO: this level hasn't been implemented in this version of the game yet
             //c, hanging l, middle t, ul corner, zigzag
             /*	
                 //c
@@ -1140,93 +1025,11 @@ public class FuseEvent : MonoBehaviour {
                 fuseToForZigzag.Add ("post_zigzag_attach");
                 fuseMapping.Add ("zigzag_post_attach", fuseToForZigzag);
             */
-        }
-        else if (currentScene.Equals("catapult"))
-        {
-            //fuse to Platform
-            /*	HashSet<string> fuseToForBackAxleBottom = new HashSet<string>();
-                HashSet<string> fuseToForBackAxleLeft = new HashSet<string>();
-                HashSet<string> fuseToForBackAxleRight = new HashSet<string>();
-                HashSet<string> fuseToForFrontAxleRight = new HashSet<string>();
-                HashSet<string> fuseToForFrontAxleLeft = new HashSet<string>();
-                HashSet<string> fuseToForFrontAxleBottom = new HashSet<string>();
-                HashSet<string> fuseToForLeftSupportBottom = new HashSet<string>();
-                HashSet<string> fuseToForRightSupportBottom = new HashSet<string>();
-
-                fuseToForBackAxleBottom.Add ("platform_back_axle_bottom_attach");
-                fuseToForBackAxleLeft.Add ("platform_back_axle_left_attach");
-                fuseToForBackAxleRight.Add ("platform_back_axle_right_attach");
-                fuseToForFrontAxleRight.Add ("platform_front_axle_right_attach");
-                fuseToForFrontAxleLeft.Add ("platform_front_axle_left_attach");
-                fuseToForFrontAxleBottom.Add ("platform_front_axle_bottom_attach");
-                fuseToForLeftSupportBottom.Add ("platform_left_support_attach");
-                fuseToForRightSupportBottom.Add ("platform_right_support_attach");
-
-                fuseMapping.Add ("back_axle_platform_bottom_attach", fuseToForBackAxleBottom);
-                fuseMapping.Add ("back_axle_platform_left_attach", fuseToForBackAxleLeft);
-                fuseMapping.Add ("back_axle_platform_right_attach", fuseToForBackAxleRight);
-                fuseMapping.Add ("front_axle_platform_right_attach", fuseToForFrontAxleRight);
-                fuseMapping.Add ("front_axle_platform_left_attach", fuseToForFrontAxleLeft);
-                fuseMapping.Add ("front_axle_platform_bottom_attach", fuseToForFrontAxleBottom);
-                fuseMapping.Add ("left_support_platform_attach", fuseToForLeftSupportBottom);
-                fuseMapping.Add ("right_support_platform_attach", fuseToForRightSupportBottom);
-
-                //fuse to back axle
-                HashSet<string> fuseToForRightWheel = new HashSet<string>();
-                HashSet<string> fuseToForFrontAxleBackAxle = new HashSet<string>();
-
-                fuseToForRightWheel.Add ("back_axle_back_right_wheel_attach");
-                fuseToForFrontAxleBackAxle.Add ("back_axle_front_axle_attach");
-
-                fuseMapping.Add ("back_right_wheel_back_axle_attach", fuseToForRightWheel);
-                fuseMapping.Add ("front_axle_back_axle_attach", fuseToForFrontAxleBackAxle);
-
-                //fuse to front axle
-                //back axle, front left wheel
-                HashSet<string> fuseToForLeftWheel = new HashSet<string>();
-                HashSet<string> fuseToForBackAxleFrontAxle = new HashSet<string>();
-
-                fuseToForLeftWheel.Add ("front_axle_front_left_wheel_attach");
-                fuseToForBackAxleFrontAxle.Add ("front_axle_back_axle_attach");
-
-                fuseMapping.Add ("front_left_wheel_front_axle_attach", fuseToForLeftWheel);
-                fuseMapping.Add ("back_axle_front_axle_attach", fuseToForBackAxleFrontAxle);
-
-                //fuse to left support
-                //axle
-                HashSet<string> fuseToForAxleLeftSupport = new HashSet<string>();
-                fuseToForAxleLeftSupport.Add ("left_support_axle_attach");
-                fuseMapping.Add ("axle_left_support_attach", fuseToForAxleLeftSupport);
-
-                //fuse to right support
-                //axle
-                HashSet<string> fuseToForAxleRightSupport = new HashSet<string>();
-                fuseToForAxleRightSupport.Add ("right_support_axle_attach");
-                fuseMapping.Add ("axle_right_support_attach", fuseToForAxleRightSupport);
-
-                //fuse to axle
-                //throwing arm, right support, left support
-                HashSet<string> fuseToForThrowingArmBottom = new HashSet<string>();
-                HashSet<string> fuseToForThrowingArmLeft = new HashSet<string>();
-                HashSet<string> fuseToForThrowingArmRight = new HashSet<string>();
-                HashSet<string> fuseToForRightSupportSide = new HashSet<string>();
-                HashSet<string> fuseToForLeftSupportSide = new HashSet<string>();
-
-                fuseToForThrowingArmBottom.Add ("axle_throwing_arm_bottom_attach");
-                fuseToForThrowingArmLeft.Add ("axle_throwing_arm_left_attach");
-                fuseToForThrowingArmRight.Add ("axle_throwing_arm_right_attach");
-                fuseToForRightSupportSide.Add ("axle_right_support_attach");
-                fuseToForLeftSupportSide.Add ("axle_left_support_attach");
-
-                fuseMapping.Add ("throwing_arm_axle_bottom_attach", fuseToForThrowingArmBottom);
-                fuseMapping.Add ("throwing_arm_axle_left_attach", fuseToForThrowingArmLeft);
-                fuseMapping.Add ("throwing_arm_axle_right_attach", fuseToForThrowingArmRight);
-                fuseMapping.Add ("right_support_axle_attach", fuseToForRightSupportSide);
-                fuseMapping.Add ("left_support_axle_attach", fuseToForLeftSupportSide);
-            */
-        }
-        else if (currentScene.Equals("key3"))
-        {
+        //}
+  
+        //else if (currentScene.Equals("key3"))
+        //{
+            //TODO: This level hasn't been implemented in this version of the game yet
             /*
                         HashSet<string> fuseToForLongLBack = new HashSet<string>();
                         HashSet<string> fuseToForLongLSide = new HashSet<string>();
@@ -1275,104 +1078,7 @@ public class FuseEvent : MonoBehaviour {
                         fuseMapping.Add("diagonal_connector_side_attach",fuseToForDiagonalConnectorSide);
                         fuseMapping.Add("diagonal_connector_top_attach",fuseToForDiagonalConnectorTop);
                         */
-        }
-        else if (currentScene.Equals("vest"))
-        {
-            /*	
-                HashSet<string> fuseToForBackStrapRight = new HashSet<string>();
-                HashSet<string> fuseToForBackStrapSide = new HashSet<string>();
-                HashSet<string> fuseToForLeftStrapBottom = new HashSet<string>();
-                HashSet<string> fuseToForLeftStrapSide = new HashSet<string>();
-                HashSet<string> fuseToForLeftStrapTop = new HashSet<string>();			
-                HashSet<string> fuseToForRightStrapBottom = new HashSet<string>();
-                HashSet<string> fuseToForRightStrapTop = new HashSet<string>();
-                HashSet<string> fuseToForVestDiamond = new HashSet<string>();
-
-                fuseToForBackStrapRight.Add("right_strap_back_strap_attach");
-                fuseToForBackStrapSide.Add ("back_strap_long_back_strap_short_attach");
-                fuseToForLeftStrapBottom.Add("vest_base_left_strap_bottom_attach");
-                fuseToForLeftStrapTop.Add("vest_base_left_strap_top_attach");
-                fuseToForRightStrapBottom.Add("vest_base_right_strap_bottom_attach");
-                fuseToForRightStrapTop.Add("vest_base_right_strap_top_attach");
-                fuseToForVestDiamond.Add("vest_base_vest_diamond_attach");
-
-                fuseMapping.Add("back_strap_right_strap_attach",fuseToForBackStrapRight);
-                fuseMapping.Add("back_strap_short_back_strap_long_attach",fuseToForBackStrapSide);
-                fuseMapping.Add("left_strap_vest_base_bottom_attach",fuseToForLeftStrapBottom);
-                fuseMapping.Add("left_strap_vest_base_top_attach",fuseToForLeftStrapTop);
-                fuseMapping.Add("right_strap_vest_base_bottom_attach",fuseToForRightStrapBottom);
-                fuseMapping.Add("right_strap_vest_base_top_attach",fuseToForRightStrapTop);
-                fuseMapping.Add("vest_diamond_vest_base_attach",fuseToForVestDiamond);
-
-                HashSet<string> fuseToForRightStrap = new HashSet<string>();
-
-                fuseToForLeftStrapSide.Add("back_strap_short_back_strap_long_attach");
-                fuseToForRightStrap.Add("back_strap_right_strap_attach");
-
-                fuseMapping.Add("back_strap_long_back_strap_short_attach",fuseToForLeftStrapSide);
-                fuseMapping.Add("right_strap_back_strap_attach",fuseToForRightStrap);
-
-                HashSet<string> fuseToForVestBaseBottom = new HashSet<string>();
-                HashSet<string> fuseToForVestBaseTop = new HashSet<string>();
-
-                fuseToForVestBaseBottom.Add("left_strap_vest_base_bottom_attach");
-                fuseToForVestBaseTop.Add("left_strap_vest_base_top_attach");
-
-                fuseMapping.Add("vest_base_left_strap_bottom_attach",fuseToForVestBaseBottom);
-                fuseMapping.Add("vest_base_left_strap_top_attach",fuseToForVestBaseTop);
-
-                HashSet<string> fuseToForVestDiamond2 = new HashSet<string>();
-
-                fuseToForVestDiamond2.Add("left_vest_oval_vest_diamond_attach");
-
-                fuseMapping.Add("vest_diamond_left_vest_oval_attach",fuseToForVestDiamond2);
-
-                HashSet<string> fuseToForLeftVestOval = new HashSet<string>();
-                HashSet<string> fuseToForRightVestOval = new HashSet<string>();
-                HashSet<string> fuseToForVestBase = new HashSet<string>();
-                HashSet<string> fuseToForVestOval = new HashSet<string>();
-
-                fuseToForLeftVestOval.Add("vest_diamond_left_vest_oval_attach");
-                fuseToForRightVestOval.Add("vest_diamond_right_vest_oval_attach");
-                fuseToForVestBase.Add("vest_diamond_vest_base_attach");
-                fuseToForVestOval.Add("vest_diamond_vest_oval_attach");
-
-                fuseMapping.Add("left_vest_oval_vest_diamond_attach",fuseToForLeftVestOval);
-                fuseMapping.Add("right_vest_oval_vest_diamond_attach",fuseToForRightVestOval);
-                fuseMapping.Add("vest_base_vest_diamond_attach",fuseToForVestBase);
-                fuseMapping.Add("vest_oval_vest_diamond_attach",fuseToForVestOval);
-
-                HashSet<string> fuseToForVestDiamond3 = new HashSet<string>();
-
-                fuseToForVestDiamond3.Add("vest_oval_vest_diamond_attach");
-
-                fuseMapping.Add("vest_diamond_vest_oval_attach",fuseToForVestDiamond3);
-    */
-        }
-        else if (currentScene.Equals("engine"))
-        {
-            /*	HashSet<string> fuseToForEngineFront = new HashSet<string>();
-                fuseToForEngineFront.Add ("engine_base_engine_front_attach");
-
-                HashSet<string> fuseToForEngineTop = new HashSet<string>();
-                fuseToForEngineTop.Add ("engine_base_engine_top_attach");
-
-                HashSet<string> fuseToForEngineLeft = new HashSet<string>();
-                fuseToForEngineLeft.Add ("engine_base_engine_left_attach");
-
-                HashSet<string> fuseToForEngineTopRight = new HashSet<string>();
-                fuseToForEngineTopRight.Add ("engine_base_engine_top_right_attach");
-
-                HashSet<string> fuseToForEngineRight = new HashSet<string>();
-                fuseToForEngineRight.Add ("engine_base_engine_right_attach");
-
-                fuseMapping.Add("engine_front_engine_base_attach",fuseToForEngineFront);
-                fuseMapping.Add("engine_top_engine_base_attach",fuseToForEngineTop);
-                fuseMapping.Add("engine_left_engine_base_attach",fuseToForEngineLeft);
-                fuseMapping.Add("engine_top_right_engine_base_attach",fuseToForEngineTopRight);
-                fuseMapping.Add("engine_right_engine_base_attach",fuseToForEngineRight);
-    */
-        }
+        //}
      
 		
 	}
@@ -1385,56 +1091,13 @@ public class FuseEvent : MonoBehaviour {
 	public void stopLevelTimer() {
 		levelTimer = Time.time - levelTimer;
 	}
-	
-	public void printLevelData() {
-		//SimpleData.WriteStringToFile("ConstructionData.txt", Time.time + ",CONSTRUCTION,FINISHED," + mode + "," + levelTimer);
-		//int xRotations = rotateGizmo.xRots;
-		//int yRotations = rotateGizmo.yRots;
-		//int zRotations = rotateGizmo.zRots;
-		//int totalRotations = xRotations + yRotations + zRotations;
-		//SimpleData.WriteStringToFile("ConstructionData.txt", Time.time + ",CONSTRUCTION,X_ROTATIONS," + xRotations);
-		//SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,Y_ROTATIONS," + yRotations);
-		//SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,Z_ROTATIONS," + zRotations);
-		//SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,TOTAL_ROTATIONS," + totalRotations);	ABOVE LINES HANDLED BY RotationGizmo.cs NOW.
-		//SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,TOTAL_FUSE_ATTEMPTS," + numFuseAttempts);
-		//SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,TOTAL_FUSE_FAILS," + numFuseFails);
-		//SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,TOTAL_WRONG_FACE_FAILS," + numWrongFacesFails);
-		//SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,TOTAL_WRONG_ROTATION_FAILS," + numWrongRotationFails);
-		//if (numFuseAttempts != 0)
-		//	SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,AVG_ROTATIONS_PER_FUSE_ATTEMPT," + totalRotations / numFuseAttempts);
-		//else
-		//	SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,AVG_ROTATIONS_PER_FUSE_ATTEMPT,0");
-		
-		//sr.Close();
-	}
-
-	public void printLevelDataFail() {
-		/*SimpleData.WriteStringToFile("ConstructionData.txt", Time.time + ",CONSTRUCTION,ABORTED," + mode + "," + levelTimer);
-		int xRotations = rotateGizmo.xRots;
-		int yRotations = rotateGizmo.yRots;
-		int zRotations = rotateGizmo.zRots;
-		int totalRotations = xRotations + yRotations + zRotations;
-		SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,X_ROTATIONS," + xRotations);
-		SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,Y_ROTATIONS," + yRotations);
-		SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,Z_ROTATIONS," + zRotations);
-		SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,TOTAL_ROTATIONS," + totalRotations);*/ // ABOVE LINES HANDLED BY RotationGizmo.cs NOW.
-		//SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,TOTAL_FUSE_ATTEMPTS," + numFuseAttempts);
-		//SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,TOTAL_FUSE_FAILS," + numFuseFails);
-		//SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,TOTAL_WRONG_FACE_FAILS," + numWrongFacesFails);
-		//SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,TOTAL_WRONG_ROTATION_FAILS," + numWrongRotationFails);
-		//if (numFuseAttempts != 0)
-		//	SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,AVG_ROTATIONS_PER_FUSE_ATTEMPT," + totalRotations / numFuseAttempts);
-		//else
-		//	SimpleData.WriteStringToFile ("ConstructionData.txt", Time.time + ",CONSTRUCTION,AVG_ROTATIONS_PER_FUSE_ATTEMPT,0");
-
-		//sr.Close();
-	}
 
 	public void disableConnectButton() {
 		connectButton.interactable = false;
 	}
 
     // if in debug mode, do auto-victory. If not, proceed as usual, checking for fuse errors or successes
+    // Uncomment the print statements below to assist with debugging a new Construction Mode level
 	public void initiateFuse(bool debugMode) {
 		numFuseAttempts++;
 		//print ("Fusing: " + GetComponent<SelectPart>().getSelectedObject() + " to " + GetComponent<SelectPart>().getSelectedFuseTo());
@@ -1522,7 +1185,6 @@ public class FuseEvent : MonoBehaviour {
                 {
                     GameObject.Find("TimeRemainingPanel").GetComponent<Timer>().stopTimer();
                 }
-                printLevelData();
 				bottomPanelGroup.alpha = 0;
                 congratsPanel.SetActive(true);
 				finishedImage.enabled = false;
@@ -1646,15 +1308,17 @@ public class FuseEvent : MonoBehaviour {
 			print ("MYSTERIOUS FUSE ERROR");
 		}
 
-        //SimpleData.WriteDataPoint("Fuse_Attempt", selectedObject.transform.parent.name, data_failureType, "", "", data_fuseStatus);
 	}
 
     // combines the BoxColliders of GameObjects starting and added and replaces
     // starting's BoxCollider with the result
+    // This code was used in an older version of the game that auto-aligned parts with selected faces
+    // so that they would be moved in front of wherever the selected FuseTo face was to help players understand
+    // how the part needed to be rotated to align. It worked ok until some of the newer Construction Mode levels
+    // were implemented, broke on these, and I couldn't fix it, so I just disabled auto-align.
     private void extendBoxCollider(GameObject starting, GameObject added)
     {
-        //Debug.Log("Starting: " + starting);
-        //Debug.Log("added: " + added);
+
         BoxCollider startingBoxCollider = starting.GetComponent<BoxCollider>();
         BoxCollider addedBoxCollider = added.GetComponent<BoxCollider>();
         startingBoxCollider.enabled = true;
@@ -1662,8 +1326,6 @@ public class FuseEvent : MonoBehaviour {
         Bounds oldBounds = starting.GetComponent<BoxCollider>().bounds;
         Bounds addedBounds = added.GetComponent<BoxCollider>().bounds;
         addedBoxCollider.enabled = false;
-        //Debug.Log("oldBounds: " + oldBounds);
-        //Debug.Log("addedBounds: " + addedBounds);
 
         Vector3 oldBoundsMax = oldBounds.max;
         Vector3 oldBoundsMin = oldBounds.min;

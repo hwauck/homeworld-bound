@@ -90,15 +90,11 @@ public class LevelResetter : MonoBehaviour {
         originalColliderSize = startingPart.GetComponent<BoxCollider>().size;
         startingPartRotation = startingPart.transform.rotation;
 
-        // make sure player controls are always disabled at beginning before countdown begins
-        //disablePlayerControls();
 
         if(InventoryController.levelName == "")
         {
             runningJustConstructionMode = true;
-            //string currentLevel = SceneManager.GetActiveScene().name;
-            //if(currentLevel == "b1" || currentLevel == "b2" || currentLevel == "b3" ||)
-            //InventoryController.levelName = 
+
         }
 
         // For data collection.
@@ -387,18 +383,6 @@ public class LevelResetter : MonoBehaviour {
         yield return new WaitForSeconds(1f);
 
 
-        //flicker screen, then go to black
-        //       flickeringTime = 0.5f;
-        //       while (flickeringTime > 0)
-        //       {
-        //          flickerLength = Random.Range(0.05f, 0.15f);
-        //          fadeOutScreen.enabled = true;
-        //           yield return new WaitForSeconds(flickerLength);
-        //           fadeOutScreen.enabled = false;
-        //           flickeringTime -= flickerLength;
-        //           yield return new WaitForSeconds(flickerLength);
-        //       }
-        //      fadeOutScreen.enabled = true;
         fadeOutScreen.enabled = true;
         screenFader.fadeOut(0.5f);
         powerFailureText.enabled = false;
@@ -506,7 +490,6 @@ public class LevelResetter : MonoBehaviour {
         StartCoroutine(rechargingAnimation());
 
         // put starting part back to where it was
-        //Debug.Log("Setting " + startingPart + " position to " + startingPartOffscreenPos + "!");
         startingPart.transform.SetPositionAndRotation(startingPartOffscreenPos, startingPartRotation);
 
         // reset victoryPrefab, otherwise it does weird stuff once level is complete
@@ -525,24 +508,13 @@ public class LevelResetter : MonoBehaviour {
         yield return new WaitForSeconds(4f);
 
         screenFader.fadeIn(0.5f);
-        //flicker screen back in
- //       flickeringTime = 0.5f;
- //       while (flickeringTime > 0)
- //       {
- //           flickerLength = Random.Range(0.01f, 0.1f);
- //           fadeOutScreen.enabled = false;
- //           yield return new WaitForSeconds(flickerLength);
- //           fadeOutScreen.enabled = true;
- //           flickeringTime -= flickerLength;
-  //      }
-  //      fadeOutScreen.enabled = false;
+
 
         if (tutorial != null)
         {
             tutorial.enableTooltips();
         }
         yield return new WaitForSeconds(1f);
-        //Debug.Log("Starting zoom up animation!");
 
         StartCoroutine(startingPartZoomUp());
 

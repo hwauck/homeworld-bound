@@ -40,19 +40,16 @@ public class RotationGizmo : MonoBehaviour
 
     public void incXRots()
     {
-        //SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "X");
         xRots++;
     }
 
     public void incYRots()
     {
-        //SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "Y");
         yRots++;
     }
 
     public void incZRots()
     {
-       // SimpleData.WriteDataPoint("Rotate_Object", toRotate.name, "", "", "", "Z");
         zRots++;
     }
 

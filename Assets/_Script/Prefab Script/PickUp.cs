@@ -78,16 +78,7 @@ public class PickUp : MonoBehaviour
                 PartsSounds.Stop();
 
             }
-			//SimpleData.WriteDataPoint("Pickup_Item", "", "", "", "", pickupName);
-            //if(!levelResetter.hasTaggedFirstPart())
-            //{
-            //    levelResetter.setTaggedFirstPart(true);
 
-            //    levelResetter.startCountdown();
-            //}
-            //SimpleData.WriteStringToFile("pickups.txt", Time.time + ",PICKUP," + pickupName);
-            //ParticleSystem ps = GetComponent<ParticleSystem>();
-            //ParticleSystem.MainModule psMain = GetComponent<ParticleSystem>().main;
             GameObject expDataManagerObj = GameObject.Find("DataCollectionManager");
 
             switch (type)
@@ -103,9 +94,6 @@ public class PickUp : MonoBehaviour
                     }
 
                     PartCounter partCounter = partCounterObj.GetComponent<PartCounter>();
-
-                    // Poke the build button so it can check if it needs to update.
-                    //BuildButton.CheckRecipes();
 
                     if (gameObject.tag.Equals("rocketBoots"))
 					{
@@ -139,15 +127,6 @@ public class PickUp : MonoBehaviour
 						ConversationTrigger.AddToken("picked_up_a_ffa_piece");
 					}
 
-                    // Object still needs to exist for the icon to work.
-                    // Silly, but let's just shove it into a corner and forget about it.
-                    // Also parents to the scene manager object so it rejects deletion as much as possible.
-                    //transform.position = new Vector3(-1000f, -1000f, -1000f);
-
-                    //turn aura green and disable pickup trigger if already picked up
-                    //this.GetComponent<Collider>().enabled = false;
-                    //psMain.startColor = new Color(0f, 255f, 0f, 255f);
-
 					LoadUtils.IconParenter(this.gameObject);
 
                     // inc count of item parts and check if done collecting
@@ -173,8 +152,6 @@ public class PickUp : MonoBehaviour
                     partCounterObj.GetComponent<BatteryCounter>().incParts(fromSave);
                     transform.position = new Vector3(-1000f, -1000f, -1000f);
 
-                    //this.GetComponent<Collider>().enabled = false;
-                    //psMain.startColor = new Color(0f, 255f, 0f, 255f);
                     break;
 
 				case PickupType.Clue:

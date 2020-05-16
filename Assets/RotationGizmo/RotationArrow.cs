@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class RotationArrow : MonoBehaviour, IPointerClickHandler
@@ -49,15 +47,12 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
     // so it won't fire if UI element is clicked and object is behind it, yay
     public void OnPointerClick(PointerEventData data)
     {
-        //Debug.Log("Pointer Click on Rotation Arrow!");
         if (!rotationGizmo.controlsDisabled)
         {
             // Data collection
             if (dataManager)
                 dataManager.AddRotation();
 
-            //Debug.Log("Tutorial Level? " + tutorialLevel);
-            //Debug.Log("Rotations remaining: " + rotationCounter.getRotationsRemaining());
             // if first time rotating, display Rotation Counter and warning message
             if(tutorialLevel && rotationCounter.getRotationsRemaining() == rotationCounter.numRotations)
             {
@@ -87,8 +82,6 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
                     break;
 
                 case "XDown":
-                    //if (!CheckBattery())
-                    //    break;
                     rotationGizmo.incXRots();
                     if (rotationGizmo.limitRotations && !rotationGizmo.isRotating())
                     {
@@ -108,8 +101,6 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
                     break;
 
                 case "YLeft":
-                    //   if (!CheckBattery())
-                    //      break;
                     rotationGizmo.incYRots();
                     if (rotationGizmo.limitRotations && !rotationGizmo.isRotating())
                     {
@@ -121,8 +112,6 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
                     break;
 
                 case "YRight":
-                    //   if (!CheckBattery())
-                    //        break;
                     rotationGizmo.incYRots();
                     if (rotationGizmo.limitRotations && !rotationGizmo.isRotating())
                     {
@@ -134,8 +123,6 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
                     break;
 
                 case "ZUp":
-                    //   if (!CheckBattery())
-                    //       break;
                     rotationGizmo.incZRots();
                     if (rotationGizmo.limitRotations && !rotationGizmo.isRotating())
                     {
@@ -162,7 +149,6 @@ public class RotationArrow : MonoBehaviour, IPointerClickHandler
                     {
                         rotationCounter.decrementRotations();
                     }
-                    //SimpleData.WriteDataPoint("Rotate_Object", rotationGizmo.getObjectToRotate().name, "", "", "", "Z");
                       if (Mathf.Approximately(this.transform.parent.transform.localEulerAngles.y, 270f))
                       {
                          StartCoroutine(rotationGizmo.Rotate(0f, 0f, -90f));

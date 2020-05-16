@@ -28,8 +28,6 @@ public class SceneTimer : MonoBehaviour
     //               demoEnded = true;
     //			//Debug.Log("ENTERED HIGHLANDS");
     //               enteredHighland.Invoke();
-    //			SimpleData.WriteDataPoint("Left_Scene", "", "", "", "", "");
-    //			//SimpleData.WriteStringToFile ("TimeSpent.txt", Time.time + ",TIMESPENT_INLEVEL," + sceneName + "," + timer);
     //			timer = 0f;
     //			highland = true;
     //		}
@@ -41,8 +39,6 @@ public class SceneTimer : MonoBehaviour
 		// Must spend at least one second in a level, prevents a bit of log spam from the scene juggling.
 		if (timer > 1f)
 		{
-			//SimpleData.WriteDataPoint("Left_Scene", "", "", "", "", "");
-			//SimpleData.WriteStringToFile ("TimeSpent.txt", Time.time + ",TIMESPENT_INLEVEL," + sceneName + "," + timer);
 			// If the next line is commented, system is additive, and will print the
 			// total time spent in a level every time the object is disabled.
 			timer = 0f;

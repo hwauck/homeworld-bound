@@ -41,7 +41,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
     private AudioClip finalCountSound;
     private AudioClip rechargingSound;
     private AudioClip powerUpSound;
-    private AudioClip welcomeSound;
     private AudioClip canyonMusic;
     private Sprite highlandsMap;
 
@@ -106,7 +105,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
         finalCountSound = Resources.Load<AudioClip>("Audio/BothModes/Select04");
         rechargingSound = Resources.Load<AudioClip>("Audio/BothModes/DM-CGS-03");
         powerUpSound = Resources.Load<AudioClip>("Audio/BothModes/Slider3");
-        welcomeSound = Resources.Load<AudioClip>("Audio/BothModes/welcome");
         highlandsMap = Resources.Load<Sprite>("Clues/HighlandsMap");
         canyonMusic = Resources.Load<AudioClip>("Audio/ExpModeMusic/Danse-Morialta");
 
@@ -119,12 +117,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
         YRotSensitivity = controller.mouseLook.YSensitivity;
 
         sledgeBatteryParts = GameObject.FindGameObjectsWithTag("sledgehammer_battery");
-
-        // not doing this anymore because then the save system can't find them in the scene
-        //for (int i = 0; i < sledgeBatteryParts.Length; i++)
-        //{
-        //    sledgeBatteryParts[i].SetActive(false);
-        //}
 
         Debug.Log("Setting batteriesBuilt to 0");
         numBatteriesBuilt = 0;
@@ -139,7 +131,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
     {
         lowPowerText.enabled = false;
 
-        //TODO: add condition for new levels
         if (ConversationTrigger.GetToken("finished_b4") && !ConversationTrigger.GetToken("not_finished_const_map_intro") && !ConversationTrigger.GetToken("finished_rocketBoots"))
         {
             musicSource.Stop();
@@ -147,10 +138,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
             expDataManager.setPauseGameplay(true);
 
             //reveal all rocket boots parts so player can collect them
-            //Debug.Log("Activating Rocket Boots parts!");
             for (int i = 0; i < rocketBootParts.Length; i++)
             {
-                //Debug.Log("Activating part " + i + ": " + rocketBootParts[i]);
                 rocketBootParts[i].SetActive(true);
             }
 
@@ -164,10 +153,8 @@ public class ExplorationLevelResetter : MonoBehaviour {
             map.GetComponent<Image>().sprite = highlandsMap;
 
             //reveal all sledgehammer parts so player can collect them
-            //Debug.Log("Activating Sledgehammer parts!");
             for (int i = 0; i < sledgehammerParts.Length; i++)
             {
-                //Debug.Log("Activating part " + i + ": " + sledgehammerParts[i]);
                 sledgehammerParts[i].SetActive(true);
             }
 
@@ -180,20 +167,13 @@ public class ExplorationLevelResetter : MonoBehaviour {
             map.doIntroMap(); // when this is done, it triggers startCountdown() and beginning of timed level
         } else if (ConversationTrigger.GetToken("finished_rocketBoots") && !ConversationTrigger.GetToken("finished_b5")) //activate sledgehammer battery parts once the player reaches Highlands
         {
-            //Debug.Log("Stopping " + musicSource.clip.name + "!");
             musicSource.Stop();
             musicSource.clip = canyonMusic;
             musicSource.loop = true;
-            //Debug.Log("Playing " + musicSource.clip.name + "!");
 
             // triggers fuserPutAway event in Fuser, which triggers startMusic() method in Timer
             controller.GetComponent<Fuser>().Deselect();
 
-            // not disabling them anymore due to incompatibility of this with save system, so don't need this anymore
-            //for (int i = 0; i < sledgeBatteryParts.Length; i++)
-            //{
-            //    sledgeBatteryParts[i].SetActive(true);
-            //}
 
             screenFader.fadeIn(1f);
 
@@ -202,6 +182,7 @@ public class ExplorationLevelResetter : MonoBehaviour {
 
             //LoadUtils.LoadNewExplorationLevel("RuinedCity", new Vector3(0, 5, 0));
             // Tried to load RuinedCity here but crashes every time I do 
+            // So it's loaded elsewhere
         }
         else
         {
@@ -215,7 +196,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
             enablePlayerControl();
             expDataManager.setPauseGameplay(false);
         }
-        //Debug.Log("Reached the end of ExplorationLevelResetter's OnEnable() method!");
 
 
     }
@@ -452,16 +432,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
             whatToBuild = "none";
         }
 
-        //TESTING ONLY
-        //whatToBuild = "b4";
-        //if(ConversationTrigger.GetToken("finished_b4"))
-        //{
-        //    whatToBuild = "rocketBoots";
-        //} else if (ConversationTrigger.GetToken("finished_rocketBoots"))
-        //{
-        //    whatToBuild = "b5";
-        //}
-
         // in case this script's Awake() method hasn't been called yet
         GameObject expDataManagerObj = GameObject.Find("DataCollectionManager");
         if (expDataManagerObj != null)
@@ -491,9 +461,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
     }
 
     //invoke this method from PartCounter/BatteryCounter whenever all parts are collected (batteries) within time limit (items)
-    // TODO: add a token after all batteries for each level have been collected but before construction mode level starts
-    // Then, we can stop this method from executing on incParts() from loaded previously acquired parts since finished_bx will be there
-    // but not finishedCollectingbx+1 or finishedbx+1
     public void prepareNextLevel()
     {
         setFirstBatteryConvo();
@@ -635,9 +602,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
         if(whatToBuild.Equals("b1"))
         {   // first battery level only
             lowPowerText.enabled = true;
-            //lowPowerText.text = "Welcome to the Fuser X7000!";
-            //audioSource.PlayOneShot(welcomeSound);
-            //yield return new WaitForSeconds(4f);
             lowPowerText.text = "Fuser battery parts detected. Activating fusing tutorial!";
             audioSource.PlayOneShot(powerUpSound);
             whatToBuild = "newTutorial";
@@ -648,9 +612,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
         else if (whatToBuild.StartsWith("b") && whatToBuild.Length == 2)
         {   // all battery levels except first one
             lowPowerText.enabled = true;
-            //lowPowerText.text = "Welcome to the Fuser X7000!";
-            //audioSource.PlayOneShot(powerUpSound);
-            //yield return new WaitForSeconds(2f);
             lowPowerText.text = "Fuser battery parts detected. Activating battery construction mode!";
             audioSource.PlayOneShot(powerUpSound);
             batteriesBuilt.SetActive(true);
@@ -659,9 +620,6 @@ public class ExplorationLevelResetter : MonoBehaviour {
         else // I don't think this will ever execute because this function only runs after collecting each set of batteries, not items
         {   //all item levels
             lowPowerText.enabled = true;
-            //lowPowerText.text = "Welcome to the Fuser X7000!";
-            //audioSource.PlayOneShot(powerUpSound);
-            //yield return new WaitForSeconds(2f);
             lowPowerText.text = "New parts detected. Activating full power construction mode!";
             audioSource.PlayOneShot(powerUpSound);
 
