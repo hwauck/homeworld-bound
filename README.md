@@ -20,6 +20,7 @@ Credit for music and sound effects goes to the following artists:
 
 Sound Effects - freesound.org:
 Fusion2 by wildweasel (https://freesound.org/people/wildweasel)
+
 MemoryMoon_space-blaster-plays by suonho (https://freesound.org/people/suonho)
 Game Sound Selection by Bertrof (https://freesound.org/people/Bertrof)
 sf3-sfx-menu-select by broumbroum (https://freesound.org/people/broumbroum)
