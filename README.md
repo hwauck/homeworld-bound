@@ -32,7 +32,4 @@ Spaceship by tyops (https://freesound.org/people/tyops)
 
 hit_002 by leviclaassen (https://freesound.org/people/leviclaassen)
 
-welcome.wav: https://freesound.org/people/pizzaiolo/sounds/320664/
-
-
 
