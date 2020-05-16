@@ -18,6 +18,16 @@ http://games.spatial.cs.illinois.edu/auth?netID=yourNameHere
 *****************************************************************************************************************************
 Credit for music and sound effects goes to the following artists:
 
+Music:
+
+"Danse Morialta", "Dreamer", "Gymnopedie No. 1", "Pepper's Theme"
+Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 3.0
+http://creativecommons.org/licenses/by/3.0/
+
+Absolutely Free Music by Vertex Studio (https://assetstore.unity.com/publishers/2053)
+
+
 Sound Effects:
 
 Fusion2 by wildweasel (https://freesound.org/people/wildweasel)
@@ -36,5 +46,6 @@ Casual Game Sounds - Single Shot SFX Pack by Dustyroom (dustyroom.com)
 
 Fantasy SFX for Particle Distort Texture Effect Library by Moonflower Carnivore (https://assetstore.unity.com/publishers/12261)
 
-Absolutely Free Music by Vertex Studio (https://assetstore.unity.com/publishers/2053)
+SciFi UI Sound FX by Bright Shining Star (https://assetstore.unity.com/publishers/9592)
+
 
