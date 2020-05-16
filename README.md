@@ -18,7 +18,7 @@ http://games.spatial.cs.illinois.edu/auth?netID=yourNameHere
 *****************************************************************************************************************************
 Credit for music and sound effects goes to the following artists:
 
-Sound Effects - freesound.org:
+Sound Effects:
 
 Fusion2 by wildweasel (https://freesound.org/people/wildweasel)
 
@@ -32,4 +32,9 @@ Spaceship by tyops (https://freesound.org/people/tyops)
 
 hit_002 by leviclaassen (https://freesound.org/people/leviclaassen)
 
+Casual Game Sounds - Single Shot SFX Pack by Dustyroom (dustyroom.com)
+
+Fantasy SFX for Particle Distort Texture Effect Library by Moonflower Carnivore (https://assetstore.unity.com/publishers/12261)
+
+Absolutely Free Music by Vertex Studio (https://assetstore.unity.com/publishers/2053)
 
