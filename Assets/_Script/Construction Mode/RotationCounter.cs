@@ -12,7 +12,6 @@ public class RotationCounter : MonoBehaviour {
     private AudioClip decrementRotation;
     public AudioSource audioSource;
     public ScrollingText conversationText;
-    public Tutorial1 tutorial;
     public ConstructionDataManager dataManager;
 
     // Use this for initialization
@@ -82,19 +81,9 @@ public class RotationCounter : MonoBehaviour {
         // show Rotations Remaining Panel
         GetComponent<CanvasGroup>().alpha = 1;
 
-        if (tutorial != null)
-        {
-            // temporarily disable tooltips so player sees rotations remaining explanation
-            tutorial.disableTooltips();
-            conversationText.enableScroll = true;
-        }
-
         // show explanation of rotations remaining
         ConversationTrigger.AddToken("intro_rr");
-        if (tutorial != null)
-        {
-            StartCoroutine(waitThenReenableTooltips());
-        }
+
         Highlighter.Highlight(this.gameObject);
         yield return new WaitForSeconds(4f);
         Highlighter.Unhighlight(this.gameObject);

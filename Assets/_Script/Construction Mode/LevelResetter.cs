@@ -12,7 +12,6 @@ using UnityEngine.Events;
 // If you can't find Construction Mode level-agnostic operations here, try the FuseEvent script.
 public class LevelResetter : MonoBehaviour {
 
-    public Tutorial1 tutorial;
     public CanvasGroup errorPanel;
     public Text powerFailureText;
     public AudioSource audioSource;
@@ -321,10 +320,7 @@ public class LevelResetter : MonoBehaviour {
         errorPanel.alpha = 1;
         audioSource.PlayOneShot(powerFailureSound);
         disablePlayerControls();
-        if(tutorial != null)
-        {
-            tutorial.disableTooltips();
-        }
+
         if (timeRemainingPanel != null)
         {
             timeRemainingPanel.GetComponent<Timer>().stopTimer();
@@ -510,10 +506,6 @@ public class LevelResetter : MonoBehaviour {
         screenFader.fadeIn(0.5f);
 
 
-        if (tutorial != null)
-        {
-            tutorial.enableTooltips();
-        }
         yield return new WaitForSeconds(1f);
 
         StartCoroutine(startingPartZoomUp());
@@ -700,7 +692,6 @@ public class LevelResetter : MonoBehaviour {
         yield return new WaitForSeconds(seconds);
 
         gameQuit.Invoke(); // sends out broadcast that game is over; any other scripts can perform actions based on this
-                           // might need to tell new tutorial level coroutines to stop too
                            // DataAggregator is listening for gameQuit event, triggers sendDataToDB method
         yield return new WaitForSeconds(2f);
         gameFinishedText.enabled = true;
