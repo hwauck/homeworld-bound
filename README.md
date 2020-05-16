@@ -19,6 +19,7 @@ http://games.spatial.cs.illinois.edu/auth?netID=yourNameHere
 Credit for music and sound effects goes to the following artists:
 
 Sound Effects - freesound.org:
+
 Fusion2 by wildweasel (https://freesound.org/people/wildweasel)
 
 MemoryMoon_space-blaster-plays by suonho (https://freesound.org/people/suonho)
