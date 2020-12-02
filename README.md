@@ -12,7 +12,7 @@ The game is currently playable, though. In the near future, I hope to fix these 
 
 A recent online build of the game with the current version of the autosave feature can be played here: http://games.spatial.cs.illinois.edu/auth?netID=<replaceWithSomeUniqueID\>
 
-This URL format is necessary since the game creates a new autosave file using whatever you put for `someUniqueID` (so you can resume where you left off if you close the browser or refresh). If you would like to try out the game without creating a save file, you can use this url instead: http://games.spatial.cs.illinois.edu. Note, however, that there may be a couple error popups in the browser when you first start playing - check the option to prevent future popup error messages when you see it. The popups will not cause the game to break but will keep popping up if you don't check this option.
+This URL format is necessary since the game creates a new autosave file using whatever you put for <replaceWithSomeUniqueID\> (so you can resume where you left off if you close the browser or refresh). If you would like to try out the game without creating a save file, you can use this url instead: http://games.spatial.cs.illinois.edu. Note, however, that there may be a couple error popups in the browser when you first start playing - check the option to prevent future popup error messages when you see it. The popups will not cause the game to break but will keep popping up if you don't check this option.
 
 
 *****************************************************************************************************************************
