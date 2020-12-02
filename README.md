@@ -1,4 +1,4 @@
-# SpatialGame
+# Homeworld Bound
 This codebase reflects the most recent version of the game for training spatial skills, Homeworld Bound, that I have developed as part of my dissertation. Unity version 2018.3.5f1 was and is being used for the game's development. 
 
 While the target population has varied over the years (from children to high schoolers and adults), the current target population is high school and college-age students with low spatial skills who could benefit from spatial training that would potentially improve their performance and confidence in spatially demanding early STEM coursework.
