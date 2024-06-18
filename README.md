@@ -3,7 +3,7 @@ This codebase reflects the most recent version of the game for training spatial 
 
 While the target population has varied over the years (from children to high schoolers and adults), the current target population is high school and college-age students with low spatial skills who could benefit from spatial training that would potentially improve their performance and confidence in spatially demanding early STEM coursework.
 
-Currently, the game is set up to be run online in the browser, with a database optionally attached to record detailed in-game player behavior data. However, this build was run on a now-defunct university website. I hope to set it up on another server soon.
+Currently, the game is set up to be run online in the browser, with a database optionally attached to record detailed in-game player behavior data. However, this build was run on a now-defunct university website. I hope to set it up on another server soon (and update to the latest Unity version).
 
 
 
